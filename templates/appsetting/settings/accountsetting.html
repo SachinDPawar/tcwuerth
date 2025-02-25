@@ -1,0 +1,87 @@
+
+  <div class="tab-pane " id="nav-quote" role="tabpanel" aria-labelledby="nav-quote-tab" tabindex="0">
+   <div class="card">
+  <div class="card-body">
+    <form name="vaultform" novalidate>
+        	<div class="form-group row">
+			<div class="col-sm-6 ">
+			 <label class="control-label text-left" for="AccountName">Account Name</label>
+			  <input type="text" class="form-control" id="AccountName" ng-disabled="ds.vaulteditflag"  ng-model="vault.AccountName" placeholder="Account Name" >
+ 
+
+			</div>
+			
+			
+			
+			</div>
+		
+		<div class="form-group row">
+		
+		<div class="col-sm-4 ">
+			 <label class="control-label text-left" for="Nature">Account Nature</label>
+			  <input type="text" class="form-control" id="Nature" ng-disabled="ds.vaulteditflag"  ng-model="vault.Nature" placeholder="Account Nature" >
+ 
+
+			</div>
+			<div class="col-sm-4 ">
+			 <label class="control-label text-left" for="BankName">Bank Name</label>
+			  <input type="text" class="form-control" id="BankName" ng-disabled="ds.vaulteditflag"  name="BankName" ng-model="vault.BankName" placeholder="Bank Name" >
+ 
+
+			</div>
+		</div>
+		
+		<div class="form-group row">	
+			<div class="col-sm-4 ">
+			 <label class="control-label text-left" for="BranchName">Branch Name</label>
+			  <input type="text" class="form-control" id="BranchName" ng-disabled="ds.vaulteditflag"  ng-model="vault.BranchName" placeholder="Branch Name" >
+ 
+
+			</div>
+			
+			<div class="col-sm-4 ">
+			 <label class="control-label text-left" for="AccountNo">Account No</label>
+			  <input type="text" class="form-control" id="AccountNo" ng-disabled="ds.vaulteditflag"  ng-model="vault.AccountNo" placeholder="AccountNo" >
+			</div>
+			
+			</div>
+			
+			<div class="form-group row">
+			<div class="col-sm-4 ">
+			 <label class="control-label text-left" for="IFSC">IFSC Code</label>
+			  <input type="text" class="form-control" id="IFSC" ng-disabled="ds.vaulteditflag"  ng-model="vault.IFSC" placeholder="IFSC" >
+ 
+
+			</div>
+			
+			<div class="col-sm-4 ">
+			 <label class="control-label text-left" for="Swift">Swift Code</label>
+			  <input type="text" class="form-control" id="Swift" ng-disabled="ds.vaulteditflag" ng-model="vault.Swift" placeholder="Swift Code" >
+ 
+
+			</div>
+			
+			</div>
+		
+
+		
+		<hr>	
+		
+		<div class="form-group text-start" >
+		<button type="button" class="btn  btn-primary"  ng-click="ds.vaulteditflag =  !ds.vaulteditflag">
+		<span ng-if="ds.vaulteditflag">Edit</span><span  ng-if="!ds.vaulteditflag">Cancel</span>
+		 </button>
+		
+		
+			<button type="button" class="btn btn-md btn-success systmbtn" ng-show="!ds.vaulteditflag" ng-disabled="oneclick || vaultform.$invalid" ng-click="savevaultinfo(vault)"> <i class="fa fa-save "></i>Update</button>
+		</div>	
+
+
+		</form>
+   
+  </div>
+  </div>
+ </div>
+   
+
+ 

@@ -1,0 +1,183 @@
+
+	
+	<div class="col-md-12 " >
+	
+	
+	
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h2 class="panel-title "><i class="fa fa-file-text"></i>REGISTER FOR HEAT & BATCH CODE NUMBER</b></h2>
+			</div>
+			<div class="panel-body">
+			
+			<!-- <div class="col-md-2" >
+			<button class="btn btn-primary fa fa-plus" ng-click="editreceipt('new')"> Add Receipt </button>
+			</div> -->
+			
+			<div class="col-sm-4">
+				 <button class="btn btn-default fa fa-file-excel-o btnshadow" ng-disabled="allrirs.length<1"
+                    ng-csv="exportArray()" csv-header="getHeader()" lazy-load="true" filename="Register_BC&HT.csv" field-separator=",">
+					Export to CSV 
+				</button>	 
+			</div>
+			<div class="col-sm-6">
+				<form class="form-horizontal ">
+					<div class="form-group">
+					<!-- <label for="inputEmail3" class="col-md-2 control-label"></label> -->
+					<div class="input-group">
+					  <input type="text" class="form-control" id="inputEmail3" ng-model="searchstring" placeholder="Search text here ...">
+					    <span class="input-group-btn">
+        <button class="btn btn-default " ng-click="searchdata(searchstring)" type="button"><i class="fa fa-search"></i></button>
+		
+      </span>
+					</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-sm-2">
+			 <button class="btn btn-default fa fa-refresh btnshadow" ng-click="refreshdata()" data-toggle="tooltip" data-placement="bottom" title="refresh table" ></button>
+			 </div>
+			 
+			<div class="col-sm-12 table-responsive">
+				<div ng-show="flags.loadingdata" class=" modal-backdrop fade in demo-1" style=" opacity:0.8;   background-color: rgb(234, 241, 239);">
+ 
+<div class="bar" style="opacity:1;" >
+		<i class="sphere"></i>
+	</div>
+	
+</div>
+<dir-pagination-controls 
+                                     on-page-change="getdata(newPageNumber)" ></dir-pagination-controls>
+				<table class="table table-bordered" id="sample_1">
+						<thead>
+							<tr class="tablehead text-center">
+								<th style="width:8px;">Sr.No.</th>
+								<th style="min-width:100px;">Part Name</th>
+								<th style="min-width:50px;">LabNo.</th>
+								<th style="min-width:50px;">HeatNo.</th>
+								<th style="min-width:50px;">BatchCode</th>
+								 <th style="min-width:50px;">BatchNo.</th>
+								<th style="min-width:100px;">Supplier</th>
+								<th style="min-width:50px;">Material Condition</th>
+								<th style="min-width:50px;">Material Grade/Class</th>
+								<th style="min-width:100px;">PO</th>
+								<th style="min-width:80px;">GRIN No.</th>
+								<th style="min-width:50px;">Quantity</th>
+								<th style="min-width:50px;">TC No.</th>
+								<th style="min-width:100px;">Invoice No.</th>
+								<th style="min-width:100px;">Invoice Date</th>
+								<th style="min-width:100px;">Customer</th>
+								<th style="min-width:100px;">RouteCardNo</th>
+								<th style="min-width:100px;">Entered Date</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="odd gradeX" dir-paginate="item in allrirs  | itemsPerPage: pageSize" 
+							 total-items="totalitems" current-page="currentPage">
+								<td>{{($index+1)+((currentPage-1)*pageSize)}}</td>
+								<td>{{item.PartName}}</td>
+								<td>{{item.LabNo}}</td>
+								<td>{{item.HeatNo}}</td>
+								<td>{{item.BatchCode}}</td>
+								 <td>{{item.BatchNo}}</td> 
+								<td>{{item.Supplier}}</td>
+								<td>{{item.MaterialCondition}}</td>
+								<td>{{item.MaterialGrade}}</td>
+								<td>{{item.RefPurchaseOrder}}</td>
+								<td>{{item.GrinNo}}</td>
+								<td>{{item.Quantity}}</td>
+								<td>{{item.TCNo}}</td>
+								<td>{{item.InvoiceNo}}</td>
+								<td>{{item.InvoiceDate}}</td>
+								<td>{{item.Customer}}</td>
+								<td>{{item.RouteCardNo}}</td>
+								<td>{{item.CreationDate}}</td>
+							</tr>
+							
+							<tr class="animate-repeat text-center" ng-if="allrirs.length < 1">
+								<td colspan="17">No results found...</td>
+							</tr>					
+						</tbody>
+</table>	
+<dir-pagination-controls 
+                                     on-page-change="getdata(newPageNumber)" ></dir-pagination-controls>
+</div>
+
+						
+			</div>
+		</div>
+	</div>
+	
+	
+ <script type="text/ng-template" id="rirviewContent.html">
+        <div class="modal-header">
+         <i class="fa fa-file-text"></i> Receipt Inspection Report
+		   <button type="button" class="close" ng-click="cancel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          	<table class="table table-bordered">
+				<tr >
+				<!-- 	<td  class="col-md-2 text-right active"><b>RIR No.</b></td><td colspan="2" class="col-md-3">{{viewrir.RirNo}}</td> -->
+					<td class="col-md-2 text-right active" ><b>Lab No.</b></td><td  colspan="2" class="col-md-3">{{viewrir.LabNo}}</td>
+					<td  class="col-md-2 text-right active"><b>BatchCode/BatchNo</b></td><td  colspan="2" class="col-md-3">{{viewrir.BatchCode}}<span ng-if='tensile.BatchNo'>/{{tensile.BatchNo}}</span></td> 
+				
+				</tr>
+				<tr>
+					<td  class="col-md-2 text-right active"><b>Part Name</b></td><td  colspan="2" class="col-md-3">{{viewrir.PartName}}</td>
+					<td  class="col-md-2 text-right active"><b>Supplier</b></td><td  colspan="2" class="col-md-3">{{viewrir.Supplier}}</td> 
+				</tr>
+								<tr>
+					<td  class="col-md-2 text-right active"><b>Ref. Purchase Order</b></td><td  colspan="2" class="col-md-3">{{viewrir.RefPurchaseOrder}}</td>
+					<td  class="col-md-2 text-right active"><b>Grin No</b></td><td  colspan="2" class="col-md-3">{{viewrir.GrinNo}}</td>
+				</tr>
+				
+				
+				<tr>
+					<td  class="col-md-2 text-right active"><b>Quantity</b></td><td  colspan="2" class="col-md-3">{{viewrir.Quantity}}</td> 
+					<td  class="col-md-2 text-right active"><b>Heat No.</b></td><td  colspan="2" class="col-md-3">{{viewrir.HeatNo}}</td>
+				</tr>
+				
+				<tr>
+					<td  class="col-md-2 text-right active"><b>Material Grade</b></td><td  colspan="2" class="col-md-3">{{viewrir.MaterialGrade}}</td>
+					<td  class="col-md-2 text-right active"><b>Material Condition</b></td><td  colspan="2" class="col-md-3">{{viewrir.MaterialCondition}}</td>
+				</tr>
+				
+				
+				<!-- <tr>
+					 
+					<td  class="col-md-2 text-right active"><b>Required Date</b></td><td  colspan="2" class="col-md-3">{{viewrir.ReqDate}}</td>
+						
+				</tr> -->
+				
+					<tr>
+					<td class="col-md-2 text-right active"><b><span ng-if="viewrir.NoType==='mds'">MdsNo</span><span ng-if="viewrir.NoType==='tds'">TdsNo</span></b>
+					<td colspan="6"><span ng-if="viewrir.NoType==='mds'">{{viewrir.Mds}}</span><span ng-if="viewrir.NoType==='tds'">{{viewrir.Tds}}</span></td></td>
+				</tr>
+					<tr>
+						<td colspan="6"><b>Testing Required:</b></td>
+					</tr>
+				<tr class="active">
+						<td >Test</td>
+						<td >Standard</td>
+						<td >Test_Method</td>
+						<td >Status</td>
+						<td >Required Date</td> 
+					</tr>
+
+					<tr ng-repeat="test in viewrir.alltests |orderBy:'TestName'">
+						<td>{{test.TestName}}</td>
+						<td>{{test.Standard}}</td>
+						<td>{{test.TestMethod}}</td>
+						<td><span ng-class="{'label-warning':test.Status==='pending','label-success':test.Status==='complete','label-danger':test.Status==='failed'}" 
+						class="label">{{test.Status}}</span></td>
+						<td>{{test.ReqDate }}</td> 
+					</tr>
+					<tr ng-if="viewrir.alltests.length<1"><td colspan="5">No tests allocated yet</td></tr>
+					
+		</table>
+        </div>
+        <div class="modal-footer">
+          <!--   <button class="btn btn-primary" type="button" ng-click="ok()">OK</button> -->
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>

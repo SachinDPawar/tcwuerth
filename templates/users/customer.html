@@ -1,0 +1,99 @@
+<div class="row">
+	<div class="col-md-12" style="padding:10px;">
+		
+	</div>
+	<div class="col-xs-12" style="padding:10px;">
+		<div class="card card-default">
+			<div class="card-header">
+				<h3 class="card-title text-left"><b><i class="fa fa-user"/> Customer Table</b></h3>
+			</div>
+			
+			<div class="card-body ">
+				<div class="row">	
+				
+				<div class="col-sm-4 col-xs-4  ">
+			<button class="btn btn-sm btn-primary" ng-click="addcustomer('new')"><i class="fa fa-plus-circle"></i> Add Customer</button>
+		</div>
+				<div class=" col-sm-6 col-xs-12 pull-right">
+					<form class="form-horizontal ">
+						<div class="form-group">
+							<label for="inputEmail3" class=" control-label">Search</label>
+							
+							  <input type="text" class="form-control" id="inputEmail3" ng-model="searchstring" placeholder="Search">
+						
+						</div>
+					</form>
+				</div>
+				</div>
+				<div class="col-md-12">	
+				<table class="table table-bordered table-condensed">
+					<thead class="table-info">
+					<tr class="active text-left">
+						<td class="col-md-1"><b>#</b></td>
+						<td class="col-md-3"><b>Name</b></td>
+						<td class="col-md-3"><b>Email</b></td>					
+						<td class="col-md-2"><b>Contact Person </b></td>
+							<td class="col-md-3"><b>Contact No</b></td>
+								<td class="col-md-3"><b>Accountability</b></td>
+						
+						<td class="col-md-2"><b>Edit/Delete</b></td>
+					</tr>
+					</thead>
+					<tbody class="table-group-divider">
+					<tr  class="animate-repeat" pagination-id="customer" dir-paginate="i in allcustomer | filter:searchstring | itemsPerPage: pageSize" current-page="currentPage">
+						<td>{{$index+1+((currentPage-1)*pageSize)}}</td>
+						<td>{{i.Name}}</td>
+						<td>{{i.Email}}</td>
+							<td>{{i.ContactPerson}}</td>
+						<td>{{i.ContactNo}}</td>
+						<td>{{i.Accountability}}</td>
+						
+						<td>
+						<div class="btn-group" role="group" aria-label="Basic example">
+
+						<button class="btn btn-sm " title="Edit" ng-click="addcustomer(i)"><i class="fa fa-pencil"></i></button>						
+						<button class="btn btn-sm " title="Delete" ng-click="deletecust('confirm',i)" >
+						<i class="fa fa-trash"></i>
+						</button>
+						</div>
+						</td>
+					</tr>
+					<tr class="text-center" ng-if="allcustomer.length < 1">
+						<td colspan="5">
+							<strong>No results found...</strong>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+				<dir-pagination-controls  pagination-id="customer" ></dir-pagination-controls> 
+				</div>
+			</div><!-- /.box-body -->
+		</div><!-- /.box -->
+	</div>
+</div>
+					
+					
+
+
+
+<script type="text/ng-template" id="delcustModal"  data-keyboard=false>
+	<div class="modal-content">
+            
+                <div class="modal-header dialog-header-confirm">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="closeconfirmModal()" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-check"></span> Confirm Delete</h4>
+                </div>
+            
+                <div class="modal-body">
+                    <p>You are about to Delete Customer <strong>{{Name}}</strong>, this procedure is irreversible.</p>
+                    <p>Do you want to proceed?</p>
+                 </div>
+                
+                <div class="modal-footer">
+					<button class="btn btn-danger" data-ng-click="deletecust('delete',did)">Delete</button>
+					<button type="button" class="btn btn-default" ng-click="closeconfirmModal()">Cancel</button>
+                </div>
+    </div>
+</script>
+
+

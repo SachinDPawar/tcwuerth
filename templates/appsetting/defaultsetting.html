@@ -1,0 +1,20 @@
+<div class="row p-4 mb-2">
+
+</div>
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+  
+    <a class="nav-link " ui-sref-active="active" ui-sref="app.defaultsetting.firmset({id:userexists.uid})"  type="button" >Firm Info</a>
+   
+    <a class="nav-link" ui-sref-active="active"  ui-sref="app.defaultsetting.quoteset({id:userexists.uid})"   type="button">Quote & Invoice Settings </a>
+    <a class="nav-link" ui-sref-active="active"  ui-sref="app.defaultsetting.accountset({id:userexists.uid})" type="button" >Account Settings</a>
+	
+	 <a class="nav-link" ui-sref-active="active"  ui-sref="app.defaultsetting.labset({id:userexists.uid})" type="button" >Lab Settings</a>
+	 <a class="nav-link" ui-sref-active="active"  ui-sref="app.defaultsetting.certset({id:userexists.uid})" type="button" >Certificate Settings</a>
+	 <a class="nav-link" ui-sref-active="active"  ui-sref="app.defaultsetting.mailset({id:userexists.uid})" type="button" >Mail Settings</a>
+  </div>
+</nav>
+
+<div class="tab-content" id="nav-tabContent" >
+<div style="top:auto;" ui-view></div>
+</div>

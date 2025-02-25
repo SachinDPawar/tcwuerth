@@ -1,0 +1,156 @@
+<div class="row">
+	<div class="col-md-12" style="padding:15px;">
+		<div class="col-sm-4 col-xs-4  ">
+			<button class="btn btn-sm btn-primary" ng-click="addtestname('new')"><i class="fa fa-plus-circle"></i>Add External Test</button>
+		</div>
+	</div>
+	<div class="col-xs-12">
+		<div class="card card-default">
+			<div class="card-header">
+				<h3 class="card-title text-left"><b><i class="fa fa-folder-open"/> External Test Table</b></h3>
+			</div>
+			
+			<div class="card-body ">
+				<div class="col-md-12">	
+				<div class="col-sm-offset-6 col-xs-offset-6 col-sm-3 col-xs-3  pull-right">
+					<form class="form-horizontal ">
+						<div class="form-group">
+							<label for="inputEmail3" class="col-md-2 control-label">Search</label>
+							<div class="col-md-10">
+							  <input type="text" class="form-control" id="inputEmail3" ng-model="searchstring"  placeholder="Search">
+							</div>
+						</div>
+					</form>
+				</div>
+				</div>
+				<div class="col-md-12">	
+				<table class="table table-bordered table-condensed">
+					<thead>
+					<tr class="active text-center">
+						<th class="col-md-1">Sr.No</th>
+						<th class="col-md-3">TestName</th>
+						<th class="col-md-2">Keyword</th>
+						<th class="col-md-2">Actions</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr  class="animate-repeat"  dir-paginate="i in results=(externaltests | filter:searchstring )| itemsPerPage: pageSize" current-page="currentPage">
+						<td >{{($index+1)}}</td>
+						<td >{{i.TestName}}</td>
+						<td >{{i.Keyword}}</td>
+						<td >
+						<ul class="list-inline">
+						<li><button class="btn btn-sm fa fa-pencil" title="Edit" ng-click="addtestname(i)" style="background-color:pink;"/></li>
+					<!-- 	<li><button class="btn btn-sm fa fa-trash" title="Delete" ng-click="deletetest('confirm',i)" style="background-color:red;"/></li>
+ -->						</ul>
+						</td>
+					</tr>
+					<tr class="text-center" ng-if="results.length < 1">
+						<td colspan="3">
+							<strong>No results found...</strong>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+				<dir-pagination-controls ></dir-pagination-controls> 
+				</div>
+			</div><!-- /.box-body -->
+		</div><!-- /.box -->
+	</div>
+</div>
+					
+					
+		<!----Model Popup------------------------------------------->			
+					
+<script type="text/ng-template" id="ExternalModal"  data-keyboard=false>
+<div class="modal-body" style="padding:2px;" >
+
+<div class="card-header col-sm-12 bg-info" style="padding:2px 5px;">
+	<button type="button" class="close" data-dismiss="modal" ng-click="cancel()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <h4><i class="fa fa-plus-circle"></i>
+	<span ng-if="!editflag">Add External Test</span>
+	<span ng-if="editflag">Edit External Test</span>
+	</h4>
+
+</div>
+  
+<div class="card-body">
+<div class="col-sm-12 row" style="margin-top:15px;">
+	
+<form class="form-horizontal col-sm-offset-1" name="exttestform"  novalidate>	
+		<div class="form-group " >
+		<label class=" col-sm-6 text-left" for="exttestform_name">Test Name</label>
+		<div class=" col-sm-10">
+		<input  placeholder="Enter Test Name" ng-disabled="issaving" class="form-control" name="TestName" ng-model="exttest.TestName" 
+		type="text"   required/>
+		
+		<div class="error-container"  ng-show="exttestform.TestName.$dirty || exttestform.TestName.$invalid ">
+        <small class="showerror"  ng-show="exttestform.TestName.$error.required">
+            External TestName is required.
+        </small>
+        <!-- <small class="showerror"  ng-show="tempform.Temp.$error.minlength">
+			Temperature is required to be at least 3 characters
+        </small> -->
+       <!--  <small class="showerror" ng-show="exttestform.TestName.$error.maxlength">
+            External TestName cannot be longer than 50 characters
+        </small> -->
+		</div>
+	
+		</div>
+		</div>
+		
+		<div class="form-group " >
+		<label class=" col-sm-6 text-left" for="exttestform_name">Keyword</label>
+		<div class=" col-sm-10">
+		<input  placeholder="Enter Keyword" class="form-control" name="Keyword" ng-model="exttest.Keyword" 
+		type="text"/>
+		
+		<!-- <div class="error-container"  ng-show="exttestform.Keyword.$dirty || exttestform.Keyword.$invalid ">
+			<small class="showerror"  ng-show="exttestform.Keyword.$error.required">
+				External TestName is required.
+			</small>
+		</div> -->
+	
+		</div>
+		</div>
+	
+</form>
+</div>
+<toaster-container toaster-options="{'position-class': 'toast-bottom-full-width'}" style="margin-top:20%;"></toaster-container>
+
+</div><!--card body-->
+<div class="card-footer  " style="background-color:#D9EDF7;padding:2px 5px;">
+	<div class=" text-center " style="padding:10px 2px;">
+		<button  ng-disabled="issaving || exttestform.$invalid" ng-click="saveexttest(exttest)"   class="btn btn-success" style=" padding:5px 15px 5px 15px;">
+		<span ng-if="!editflag">Save</span>
+		<span ng-if="editflag">Update</span>  <i class="fa fa-chevron-circle-right fa-lg" style="color:#A8C539;"></i></button>
+		<button class="btn btn-danger" ng-click="cancel()">Cancel</button>
+
+	</div>
+</div>
+</div>
+</script>
+
+
+
+<script type="text/ng-template" id="delextModal"  data-keyboard=false>
+	<div class="modal-content">
+            
+		<div class="modal-header dialog-header-confirm">
+			<button type="button" class="close" data-dismiss="modal" ng-click="closeconfirmModal()" aria-hidden="true">&times;</button>
+			<h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-check"></span> Confirm Delete</h4>
+		</div>
+	
+		<div class="modal-body">
+			<p>You are about to delete External Test "<strong>{{TestName}}</strong>", this procedure is irreversible.</p>
+			<p>Do you want to proceed?</p>
+		 </div>
+		
+		<div class="modal-footer">
+			<button class="btn btn-danger" data-ng-click="deletetest('delete',did)">Delete</button>
+			<button type="button" class="btn btn-default" ng-click="closeconfirmModal()">Cancel</button>
+		</div>
+	</div>
+</script>
+
+

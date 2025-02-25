@@ -1,0 +1,474 @@
+<div class="row " >
+
+	<div class="col-md-10 col-md-offset-1" style="margin-top:10px;">
+		<div class="card card-default">
+			<div class="card-header">
+				<h4 class="card-title text-left"><b><i class="fa fa-users"></i>  Add Users</b></h4>
+			</div>
+						
+
+  
+<div class="card-body">
+<div class="col-sm-12 row" style="margin-top:15px;">
+	
+<form class="form-horizontal " name="userform"  novalidate>	
+		<div class="form-group row " >
+		
+		<div class=" col-sm-6">
+		<label class=" control-label " for="userform_name"> Full Name </label>
+		<input  placeholder=" Full Name" class="form-control" name="FName" ng-model="user.FName" 
+		type="text" ng-pattern="/^[a-zA-Z0-9\s]/"    ng-maxlength="40" required/>
+		
+		 <div class="error-container"  ng-show="userform.FName.$dirty || userform.FName.$invalid ">
+        <small class="error showerror"  ng-show="userform.FName.$error.required">
+          Full  Name is required.
+        </small>
+		<small class="error showerror"  ng-show="userform.FName.$error.pattern">
+       Full Name cannot have special character at start.
+        </small>
+       
+        <small class="error showerror" ng-show="userform.FName.$error.maxlength">
+              Full  Name cannot be longer than 40 characters.
+        </small>
+      </div>
+	
+			</div>
+		
+	<!-- </div>
+	
+	
+	<div class="form-group " >
+		<label class=" col-sm-4 control-label " for="userform_name">Middle Name </label> -->
+		<!-- <div class=" col-sm-3"> -->
+		<!-- <label class=" control-label " for="userform_name">Middle Name </label>  -->
+		<!-- <input  placeholder="Middle " class="form-control" name="MName" ng-model="user.MName"  -->
+		<!-- type="text"    ng-maxlength="30" /> -->
+		
+		 <!-- <div class="error-container"  ng-show="userform.MName.$dirty || userform.Name.$invalid "> -->
+      
+		<!-- <small class="error showerror"  ng-show="userform.MName.$error.pattern"> -->
+				<!-- Middle Name cannot have special character at start. -->
+        <!-- </small> -->
+       
+        <!-- <small class="error showerror" ng-show="userform.MName.$error.maxlength"> -->
+                <!-- Middle Name cannot be longer than 30 characters. -->
+        <!-- </small> -->
+      <!-- </div> -->
+	
+			<!-- </div> -->
+		
+	<!-- </div>
+	<div class="form-group " >
+		 -->
+		<!-- <div class=" col-sm-3"> -->
+		<!-- <label class=" control-label " for="userform_name">Last Name </label> -->
+		<!-- <input  placeholder="Last " class="form-control" name="LName" ng-model="user.LName"  -->
+		<!-- type="text" ng-pattern="/^[a-zA-Z0-9\s]/"     ng-maxlength="30" required/> -->
+		
+		 <!-- <div class="error-container"  ng-show="userform.LName.$dirty || userform.LName.$invalid "> -->
+        <!-- <small class="error showerror"  ng-show="userform.LName.$error.required"> -->
+           <!-- Last Name is required. -->
+        <!-- </small> -->
+		<!-- <small class="error showerror"  ng-show="userform.LName.$error.pattern"> -->
+       <!-- Last Name cannot have special character at start. -->
+        <!-- </small> -->
+     
+        <!-- <small class="error showerror" ng-show="userform.LName.$error.maxlength"> -->
+             <!-- Last   Name cannot be longer than 30 characters. -->
+        <!-- </small> -->
+      <!-- </div> -->
+	
+			<!-- </div> -->
+		
+	<!-- </div> -->
+
+		<!-- <div class="form-group row" > -->
+		
+		<div class=" col-sm-6">
+		<label class="control-label " for="userform_name">Email  </label>
+		<input  placeholder="Enter Email" class="form-control" name="Email" ng-model="user.Email"  email-unique
+		type="email"   ng-minlength="3 "   ng-maxlength="60" email-validate required/>
+		
+		<div class="error-container"  ng-show="userform.Email.$dirty || userform.Email.$invalid ">
+        <small class="error showerror"  ng-show="userform.Email.$error.required">
+            Email is required.
+        </small>
+		<small class="error showerror"  ng-show="userform.Email.$error.unique">
+            Email is already used.
+        </small>
+		<small class="error showerror"  ng-show="userform.Email.$error.emailValidate">
+           Invalidate Email
+        </small>
+        <small class="error showerror"  ng-show="userform.Email.$error.minlength">
+               Email is required to be at least 3 characters.
+        </small>
+        <small class="error showerror" ng-show="userform.Email.$error.maxlength">
+                Email cannot be longer than 30 characters.
+        </small>
+		</div>
+	
+		</div>
+		<!-- </div> -->
+	
+		<!-- <div class="form-group"> -->
+		
+			<!-- <div class="col-md-6 col-sm-6 col-xs-12"> -->
+			<!-- <label for="passwordagain" class="control-label  ">Department</label> -->
+			<!-- <input  type="text" class="form-control"  id="Department" name="Department" placeholder="Department" ng-model="user.Department" required> -->
+		
+			<!-- <div class="error-container"  ng-show="userform.Department.$dirty || userform.Department.$invalid "> -->
+			<!-- <small class="error showerror"  ng-show="userform.Department.$error.required"> -->
+				<!-- Department Required. -->
+			<!-- </small> -->
+			<!-- </div>	 -->
+			<!-- </div> -->
+		</div>
+	
+		<div class="form-group row" >
+		
+		<div class=" col-sm-6">
+		<label class="control-label " for="userform_name">Contact No.</label>
+		<input  placeholder="Enter Contact No" class="form-control" name="ContactNo" ng-model="user.ContactNo" 
+		type="text"   ng-minlength="10 "   ng-maxlength="12" numbers-only required/>
+		
+		 <div class="error-container"  ng-show="userform.ContactNo.$dirty || userform.ContactNo.$invalid ">
+        <small class="error showerror"  ng-show="userform.ContactNo.$error.required">
+            Contact No is required.
+        </small>
+		<small class="error showerror"  ng-show="userform.ContactNo.$error.required">
+            Only Numbers allowed
+        </small>
+	        <small class="error showerror"  ng-show="userform.ContactNo.$error.minlength">
+                Contact No is required to be at least 10 digit
+        </small>
+        <small class="error showerror" ng-show="userform.ContactNo.$error.maxlength">
+                Contact No cannot be longer than 12 digit.
+        </small>
+      </div>
+	  </div>
+	  
+	  <div class="col-md-6 col-sm-6 col-xs-12">
+			<label for="Designation" class="control-label  ">Designation</label>
+			<input  type="text" class="form-control"  id="Designation" name="Designation" placeholder="Designation" ng-model="user.Designation" required>
+		
+			<div class="error-container"  ng-show="userform.Designation.$dirty || userform.Designation.$invalid ">
+			<small class="error showerror"  ng-show="userform.Designation.$error.required">
+				Designation Required.
+			</small>
+			</div>	
+			</div>
+	
+		</div>
+	
+		<div class="form-group row" >	
+		
+		<div class=" col-sm-6" ng-if="false">
+		<label class=" control-label " for="userform_name">Username </label>
+		<input  placeholder="Enter Username" class="form-control" name="Username" ng-model="user.Username"  user-unique
+		type="text"   ng-minlength="3 "   ng-maxlength="60"  required/>
+		
+		<div class="error-container"  ng-show="userform.Username.$dirty || userform.Username.$invalid ">
+        <small class="error showerror"  ng-show="userform.Username.$error.required">
+            Username is required.
+        </small>
+		<small class="error showerror"  ng-show="userform.Username.$error.unique">
+            Username is already used.
+        </small>
+		<small class="error showerror"  ng-show="userform.Username.$error.emailValidate">
+           Invalidate Username
+        </small>
+        <small class="error showerror"  ng-show="userform.Username.$error.minlength">
+            Username is required to be at least 3 characters.
+        </small>
+        <small class="error showerror" ng-show="userform.Username.$error.maxlength">
+            Username cannot be longer than 30 characters.
+        </small>
+		</div>
+	
+		</div>
+		
+		
+		
+		
+	</div>
+	
+	<div class="form-group row" ng-if="!editflag">
+	
+	<div class=" col-sm-6"  ng-if="!editflag" >
+		<label class=" control-label " for="userform_name">Password </label>
+		<div class="input-group mb-3">
+
+		<input  placeholder="Enter Password" class="form-control" ng-if="!showpwd" name="Password" ng-model="user.Password" 
+		type="password"     password-validate required>
+		<input  placeholder="Enter Password" class="form-control" ng-if="showpwd" name="Password" ng-model="user.Password" 
+		type="text"    required>
+		 <button class="btn btn-outline-secondary" type="button" ng-click="showpwd = !showpwd" id="button-addon1"><i class="fa fa-eye"></i></button>
+		  <div class="input-help">
+         <h4>Password must meet the following requirements:</h4>
+          <ul>  <li ng-class="pwdHasLetter">At least <strong>one letter</strong></li>
+         	<li ng-class="pwdHasNumber">At least <strong>one number</strong></li>
+         	<li ng-class="pwdValidLength">At least <strong>8 characters long</strong></li>
+         </ul> 
+       </div>
+		</div>
+		
+		 <div class="error-container"  ng-show="userform.Password.$dirty || userform.Password.$invalid ">
+        <small class="error showerror"  ng-show="userform.Password.$error.required">
+            Password is required.
+        </small>
+		
+      </div>
+	
+			</div>
+    
+    	<div class="col-md-6 col-sm-8 col-xs-12">
+		
+		<label for="passwordagain" class="control-label">Confirm Password</label>
+   		 <input  type="password" class="form-control"  id="inputcnfrmPassword" name="myConfirmField" placeholder="Re type  password" ng-model="user.passwordConfirm" data-matchpwd="user.Password" required>
+    
+    		 <div class="error-container"  ng-show="userform.Password.$dirty || userform.Password.$invalid ">
+        <small class="error showerror"  ng-show="userform.myConfirmField.$error.required">
+            Password is required.
+        </small>
+		 <small class="error showerror"  ng-show="userform.myConfirmField.$error.matchpwd" >
+		Password do not match!
+		</small>
+      </div>
+    		
+		</div>
+	</div>
+	
+		<div class="form-group row" >
+			<div class="col-md-6 col-sm-6 col-xs-12">
+		
+		<label for="passwordagain" class="control-label">Select Working Branch </label>
+			<ui-select id="Branches" multiple class="form-control p-0" on-remove="removebranch($item)" style="height:33px;border:0;"  ng-disabled="flags.editflag" ng-model="user.Branches" name="Branches"  ng-required="true"  >
+							<ui-select-match placeholder="Select Branches">
+							<span ng-bind="$item.Name"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat=" item.BranchId as item in (allbranches | filter: $select.search)">
+							<span ng-bind="item.Name"></span>
+							</ui-select-choices>
+							</ui-select>
+		</div>
+		
+		
+		<div class="col-md-6 col-sm-6 col-xs-12">
+		
+		<label for="passwordagain" class="control-label">Select Role</label>
+			<ui-select id="RoleId" class="form-control p-0" style="height:33px;border:0;" ng-change="getrole(user.RoleId)" ng-disabled="flags.editflag" ng-model="user.RoleId" name="RoleId"  ng-required="true"  >
+							<ui-select-match placeholder="Select Role">
+							<span ng-bind="$select.selected.Role"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat="item.Id as item in (allroles | filter: $select.search)">
+							<span ng-bind="item.Role"></span>
+							</ui-select-choices>
+							</ui-select>
+		</div>
+		
+		
+	</div>
+	<div class="form-group row " >
+	 <label for="passwordagain" class="control-label col-md-12 ">ERP RoLes</label>
+	 <div class=" col-md-12">
+	<table class="table  table-bordered ">
+	<thead>
+	<tr  class="table-dark" >
+	<th colspan="2">Section</th>
+	<th colspan="1">Create</th>
+	<th colspan="1">Read</th>
+	<th colspan="1">Update</th>
+	<th colspan="1">Delete</th>
+	<th colspan="1">Approve </th>
+	<th colspan="1">Check</th>
+	<th colspan="1">Print</th>
+		<th colspan="1">Send Mail</th>
+	</tr>
+	</thead>
+	<tbody>
+		<tr  ng-if="false" ng-repeat="sect in user.Appsections " class="bg-opacity-10" ng-class="{'bg-info' : sect.Group==='BC','bg-info' : sect.Group==='Rir','bg-success' : sect.Group==='Test' ,'bg-danger' : sect.Group==='Setting' || sect.Group==='App' }">
+
+	<td  colspan="2" style="width:200px;">{{sect.Section}} 
+	<small><br>{{sect.Description}}</small>
+	</td>
+	<td  colspan="1" class="text-center">
+	<input type="checkbox" ng-show="sect.IsC" ng-model="sect.C" ng-true-value="1" ng-false-value="0"/>
+	</td>
+	<td  colspan="1" class="text-center">
+	<input type="checkbox"  ng-show="sect.IsR"  ng-model="sect.R" ng-true-value="1" ng-false-value="0"/>
+	</td>
+	<td  colspan="1" class="text-center">
+	<input type="checkbox"  ng-show="sect.IsU" ng-model="sect.U" ng-true-value="1" ng-false-value="0"/>
+	</td>
+	
+	
+	<td  colspan="1" class="text-center">
+	<input type="checkbox"   ng-show="sect.IsD"	ng-model="sect.D" ng-true-value="1" ng-false-value="0"/>
+	</td>
+	<td  colspan="1" class="text-center">
+	<input type="checkbox"   ng-show="sect.IsA" ng-model="sect.A" ng-true-value="1" ng-false-value="0"/>
+	</td>
+	<td  colspan="1" class="text-center">
+	<input type="checkbox" ng-show="sect.IsCh" ng-model="sect.Ch" ng-true-value="1" ng-false-value="0"/>
+	</td>
+	<td  colspan="1" class="text-center">
+	<input type="checkbox" ng-show="sect.IsPrint" ng-model="sect.Print" ng-true-value="1" ng-false-value="0"/>
+	</td>
+	<td  colspan="1" class="text-center">
+	<input type="checkbox" ng-show="sect.IsSM" ng-model="sect.SM" ng-true-value="1" ng-false-value="0"/>
+	</td>
+	</tr>
+	
+<tr   ng-repeat="sect in user.Appsections " class="bg-opacity-10 " ng-class="{'bg-info' : sect.Group==='BC','bg-info' : sect.Group==='Rir','bg-success' : sect.Group==='Test' || sect.Group==='Coating','bg-danger' : sect.Group==='Setting' || sect.Group==='App' }">
+	<td  colspan="2" style="max-width:250px;">{{sect.Section}}
+	<small><br>{{sect.Description}}</small>
+	</td>
+	<td  colspan="1" class="text-center">
+	
+	<i class="fa fa-check fa-lg text-success" ng-if="sect.C" ></i>
+	
+	</td>
+	<td  colspan="1" class="text-center">
+<i class="fa fa-check fa-lg text-success" ng-if="sect.R" ></i>
+	
+	</td>
+	<td  colspan="1" class="text-center">
+	<i class="fa fa-check fa-lg text-success" ng-if="sect.U" ></i>
+	
+	</td>
+	<td  colspan="1" class="text-center">
+	<i class="fa fa-check fa-lg text-success" ng-if="sect.D" ></i>
+	
+	</td>
+	<td  colspan="1" class="text-center">
+	<i class="fa fa-check fa-lg text-success" ng-if="sect.A" ></i>
+	
+	</td>
+	<td  colspan="1" class="text-center">
+	<i class="fa fa-check fa-lg text-success" ng-if="sect.Ch" ></i>
+	
+	</td>
+	<td  colspan="1" class="text-center">
+	<i class="fa fa-check fa-lg text-success" ng-if="sect.Print" ></i>
+	
+	</td>
+	<td  colspan="1" class="text-center">
+	<i class="fa fa-check fa-lg text-success" ng-if="sect.SM" ></i>
+	
+	</td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	
+	<!-- <div class="form-group " >
+		<label class=" col-sm-3 control-label " for="userform_name">Select Role</label>
+		<div class=" col-sm-6">
+		
+		
+			<ui-select ng-disabled="isDisabled" name="Role" remove-selected="false" ng-model="user.Role" 
+		 class="row col-sm-12" theme="bootstrap"   required >
+    <ui-select-match placeholder="select role">
+        <span ng-bind="$select.selected.Role"></span>
+    </ui-select-match>
+    <ui-select-choices repeat="item.Id as  item in (roles ) ">
+        <span ng-bind="item.Role"></span>
+    </ui-select-choices>
+</ui-select>
+		
+		
+		<div class="error-container"  ng-show="userform.Role.$dirty || userform.Role.$invalid ">
+        <small class="error showerror"  ng-show="userform.Role.$error.required">
+            Role is required.
+        </small>
+        </div>
+		</div>
+		
+	</div> -->
+	
+	</form>
+	<!---------------Sign Image Upload--------------->
+	<!----------Upload----------->
+	<form id="fileupload" class="form-horizontal" method="POST" enctype="multipart/form-data"   data-file-upload="options" data-ng-class="{'fileupload-processing': processing() || loadingFiles}">
+				
+			<div class="form-group" >
+			<label class="col-md-3 col-sm-3 control-label " >Sign Image</label>
+					<!-- Redirect browsers with JavaScript disabled to the origin page -->
+					<noscript><input type="hidden" name="redirect" value="http://blueimp.github.io/jQuery-File-Upload/"></noscript>
+					<!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+	
+					<!-- The table listing the files available for upload/download -->
+			<div class="col-md-6 col-sm-6 text-center" >
+
+				<div data-ng-repeat="file in queue " ng-init="showqueue()" class="gallery-box" >
+				
+					<div class=" thumbnail" data-ng-switch data-on="!!file.thumbnailUrl" >
+				  
+						<a data-ng-switch-when="true" data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}"  data-gallery>
+						<img data-ng-src="{{file.thumbnailUrl}}" alt="" ></a>
+				   
+					<span class="preview" data-ng-switch-default data-file-upload-preview="file"></span><br>
+				
+					<!-- <span class="title "  style="color:blue;">{{file.name}}</span><br> -->
+					<span class="btn-group">
+						<a class="btn btn-xs btn-danger" data-ng-click="deletefile($index,file)">
+						  Remove
+						</a>
+					</span> 
+					<strong data-ng-if="file.error" ng-init="imageerror(file)" class="error text-danger">{{file.error}}</strong> 
+					</div>
+				  
+				  <input type="hidden" name="userid" ng-model="file.userid"  placeholder="userid">
+				  
+				</div>
+					<!--  <span  ng-repeat="i in getNumber(1) track by $index" ng-if="queue.length<1">
+						<div class="gallery-box " style="margin-top:20px;" >
+						<div class="thumbnail" >  
+							<img src="images/noimage.jpg" alt="">
+						</div>
+						 <span class="btn-group"></span>
+						</div>
+					</span>		 -->
+				<div class="row fileupload-buttonbar" ng-hide="queue.length>0">
+
+					<div class="col-sm-12 text-left" style="padding-top:10px;">
+						<!-- The fileinput-button span is used to style the file input field as button -->
+						<span class="btn btn-success fileinput-button" >
+							 <i class="fa fa-plus"></i>
+							<span>Add File</span> 
+							<input type="file" name="files[]"   >
+						</span>
+										   
+					</div>
+							
+				</div>
+			</div>
+
+
+			   
+				</form>
+			</div>
+												
+	<!----------------------------------------------->
+	
+	<div class="form-group text-center " style="padding:10px 2px;">
+	
+	<button class="btn btn-danger" ng-click="cancelsave()">Cancel</button>
+
+		<button  ng-disabled="issaving || userform.$invalid " ng-click="saveuser(user)"   class="btn btn-primary" style="padding:5px 15px 5px 15px;">
+		<span ng-if="!editflag">Save</span>
+		<span ng-if="editflag">Update</span>  <i class="fa fa-chevron-circle-right fa-lg" style="color:#A8C539;"></i></button>
+		
+	</div>
+	
+
+</div>
+<toaster-container toaster-options="{'position-class': 'toast-bottom-right'}"></toaster-container>
+
+</div><!--Panel body-->
+
+	</div>
+	</div>
+
+</div>	

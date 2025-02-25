@@ -1,0 +1,212 @@
+<style>
+#toast-container {
+  position: inherit;
+  z-index: 999999;
+  /*overrides*/
+
+}
+
+.login-page {
+  width: 360px;
+  padding: 0% 0 0;
+  margin: auto;
+  
+}
+.form {
+  position: relative;
+  z-index: 1;
+  background: rgba(255,255,255,0.0);
+  max-width: 360px;
+  margin: 0 auto 10px;
+  padding: 4px;
+  text-align: center;
+  /* box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24); */
+}
+.form input {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.form button {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #4CAF50;
+  width: 80%;
+  border: 0;
+  padding: 10px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.form button:hover,.form button:active,.form button:focus {
+  background: #43A047;
+}
+.form .message {
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 12px;
+}
+.form .message a {
+  color: #4CAF50;
+  text-decoration: none;
+}
+
+.mydiv{
+	display: block;
+  position: relative;
+  top: 50%;
+    left: 50%;
+    transform: translate(-50%, 0%)
+}
+
+.thumb {
+ 
+
+  display: block;
+  position: relative;
+  text-decoration: none !important;
+     left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, 0%);
+  
+     
+}
+
+.my-input {
+    background: #fff;
+    border: 0px solid #fff;
+    border-bottom: 2px solid #ededed;
+    min-height: 44px;
+}
+</style>
+
+ <!-- <div id="container" class=" "  style="display: block; -->
+    <!-- margin-left: auto; -->
+    <!-- margin-right: auto;margin-top: 50px !important; -->
+<!-- " id="login"  > -->
+ 
+
+ 
+
+  
+  <!-- <div class="col-md-12 mydiv" style="display: block; -->
+    <!-- margin-left: auto; -->
+    <!-- margin-right: auto;margin-top: 50px !important; -->
+<!-- "  > -->
+  
+  <!-- <img src="img/infocodec_logo.png" alt="logo" class="center" style="height:50px;display:block;margin:auto;" />  -->
+ 
+
+<!-- <div class="login-page" style="margin-top:1%;width:320px;"> -->
+  <!-- <div class="form"> -->
+
+	
+    <!-- <form class="login-form" name="loginform" novalidate style="width:320px;"> -->
+	
+      <!-- <input id="username" class="form-control my-input" type="text" ng-model="user.Username" placeholder="Username"/> -->
+      <!-- <input id="password"   class="form-control my-input" type="password" ng-model="user.Password" placeholder="Password"/> -->
+      <!-- <button type="submit" id="login-btn" class=" btn  btn-success" ng-click="gologin(user)" style="width:100%;"> -->
+	  <!-- <span ng-show="!loginloadingView">Login </span> -->
+	  <!-- <span ng-show="loginloadingView" ><i  class="fa fa-spinner fa-spin" style="color:#ffffff !important;"></i> Loading..</span></button> -->
+     
+    <!-- </form> -->
+  <!-- </div> -->
+  <!-- <div style="min-height:80px;"> -->
+<!-- <toaster-container toaster-options="{'animation-class': 'toast-top-full-width','time-out': 70000,'limit':1}"></toaster-container> -->
+<!-- </div> -->
+<!-- </div> -->
+
+  <!-- </div> -->
+  
+  
+  
+ 
+
+  <!-- </div> -->
+
+
+<div class="center-block mt-xl wd-xl login-box" style="height:100vh;">
+  
+<div class="col col-md-12 px-0 col-md-auto">
+ <!-- START card-->
+ <div class="card card-default login-card position-absolute top-50 start-50 translate-middle" 
+ style="box-shadow:none;border-radius:0px;background:#fff;border:0px;">
+ 
+   <div class="card-body text-center" style="background: linear-gradient(45deg, #2196f3, #9c27b0);" >
+    <h4 style="color:#fff;font-family: sans-serif;text-shadow:1px 2px 3px #777;font-size:40px;" > <img src="img/logo.png" style="height:40px;"></h4>
+<h4 class="font-weight-bolder">Randack Sign In</h4>
+<p >
+<!-- Enter your email and password to sign in -->
+<!-- </p> -->
+
+      <form role="form"  class=" loginclass mb-lg text-center col-md-auto">
+     <toaster-container toaster-options="{'close-button': false}" style="margin-top:0%;position:inherit;"></toaster-container>   
+
+<div class="input-group mb-3"  style="margin-top:40px;">
+  <!-- <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span> -->
+  <input type="text" class="form-control" placeholder="Email" aria-label="Username" ng-model="user.Username" autocomplete="off" aria-describedby="basic-addon1">
+</div>
+
+<div class="input-group mb-3"  style="margin-top:4px;">
+  <!-- <span class="input-group-text" id="basic-addon2"><i class="fa fa-lock"></i></span> -->
+  <input type="password" class="form-control" placeholder="Password" aria-label="Password" ng-model="user.Password" autocomplete="off" aria-describedby="basic-addon2">
+</div>
+	 
+         
+         <button type="submit" ng-click="gologin(user)" class="btn  btn-default bg-gradient-primary  mt-lg login-btn" style="min-width:270px;">	
+      <span ng-show="!loginloadingView">Sign In </span>
+      <span ng-show="loginloadingView" ><i  class="fa fa-spinner fa-spin" style="color:#ffffff !important;"></i> Loading..</span></button>
+      
+      <!-- <button type="submit" ui-sref="app.register" class="btn btn-block btn-info mt-lg">Register</button> -->
+     
+      </form>
+
+   </div>
+  <div class="text-center mt">
+  <a ui-sref="forgotpwd" class="text-muted" style="font-weight:600;text-decoration:none;">Forgot your password?</a>
+</div>
+<!-- END card-->
+
+</div>
+
+
+   </div>
+  
+
+<script type="text/ng-template" id="alreadylogin"  data-keyboard=false>
+<div class="modal-content">
+            
+                <div class="modal-header bg-warning dialog-header-confirm">
+                    
+                    <h4 class="modal-title" id="myModalLabel"><span class="fa fa-warning"></span> Already Logged In
+					</h4>
+					
+					 
+					
+                </div>
+            
+                <div class="modal-body">
+                    <p class=" text-dark" style="font-size:1rem;">
+					Looks like you are already logged-in on another browser or machine.
+					</p>
+					
+					<p style="font-size:1rem;"> Click on <strong>Continue </strong> if you want to logout from existing sessions and login here.</p>
+                 </div>
+                
+                <div class="modal-footer">
+				   <button class="btn btn-success" ng-disabled="oneclick" ng-hide="oneclick"  data-ng-click="continuelogin(user)">Continue</button>
+               
+		
+		<button type="button" class="btn btn-outline-secondary" ng-click="closeloginmodal()">Cancel</button>
+                </div>
+            </div>
+</script>

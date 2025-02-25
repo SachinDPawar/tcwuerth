@@ -1,0 +1,193 @@
+<div class="col-md-12 " >
+	
+	
+	
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h2 class="panel-title text-left"><i class="fa fa-fire-extinguisher"></i><b> Salt Spray Test</b></h2>
+			</div>
+			<div class="panel-body">
+			
+			<div class="col-md-4">
+			<button class="btn btn-primary fa fa-plus" ui-sref="dashboard.admin.sstadd" >Add Continuosed SST</button>
+			</div>
+			
+			<div class="col-md-offset-2 col-md-5">
+				<form class="form-horizontal ">
+   <div class="form-group">
+    <label for="inputEmail3" class="col-md-2 control-label">Search</label>
+    <div class="col-md-10">
+      <input type="text" class="form-control" id="inputEmail3" placeholder="Search">
+    </div>
+  </div>
+  </form>
+				</div>
+			
+			<div class="col-md-12">
+				<table class="table table-striped table-bordered" id="sample_1">
+										<thead>
+											<tr>
+												<th style="width:8px">Sr.No.</th>
+												<th>ReportNo.</th>
+													<th class="hidden-phone">ReportDate</th>
+												<th class="hidden-phone">LabNo.</th>
+												<th class="hidden-phone">BatchNo</th>
+												<th class="hidden-phone">Receipt On</th>
+												<th class="hidden-phone" style="width:200px;">Actions</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr class="odd gradeX" dir-paginate="item in results =( allrirs | filter:searchstring ) |itemsPerPage: 15   " current-page="1">
+												<td>{{$index+1}}</td>
+												<td class="hidden-phone">{{item.basic.ReportNo}}</td>
+												<td class="hidden-phone">{{item.basic.ReportDate}}</td>
+												<td>{{item.basic.LabNo}}</td>
+												<td>{{item.basic.BatchNo}}</td>
+												
+												<td class="hidden-phone">{{item.basic.ReceiptOn}}</td>
+											
+												
+											
+												<td class="center">
+													<!-- <button class="btn btn-default fa fa-pencil btn-sm" ng-click="editresult('edit',item.Id)"></button>	
+												 -->	
+												 <button  class="btn btn-default fa fa-eye btn-sm" ng-click="showsst('lg',item)" ></button>
+
+<button  class="btn btn-default fa fa-pencil btn-sm" ng-click="editresult('edit',item.Id)"> Edit </button>													
+		
+												</td>
+											</tr>
+											<tr class="animate-repeat text-center" ng-if="results.length === 0">
+      <td colspan="9">No results found...</td>
+    </tr>
+											
+											<dir-pagination-controls></dir-pagination-controls>
+								</tbody>
+</table>	
+</div>
+
+							
+			</div>
+		</div>
+	</div>
+	
+	
+ <script type="text/ng-template" id="sstviewContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">sst Detail View</h3>
+         <button type="button" class="close" ng-click="cancel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+		
+		
+		  	<table class="table table-bordered printable"  style="font-size:13px;"  >
+				<thead>
+					<tr>
+						<td rowspan="4" colspan="4" style="text-align:center"><img src="img/logo.jpg" alt="Mountain View" style="width:100px;height:100px;"></td>
+						<td rowspan="4" colspan="6" style="text-align:center"><h4><b>RANDACK FASTENERS INDIA PVT.LTD.</b><br>(Material Testing Lab)</h4></td>
+						<td colspan="2" >Format No: RFI/LAB/F/17</td>
+					</tr>
+					<tr>
+						<td colspan="2">Rev. 01</td>
+					</tr>
+					<tr>
+						<td colspan="2">Rev Date 22/06/2016</td>
+					</tr>
+						<tr>
+						<td colspan="2">PageNo - 01 of 02</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="text-center" colspan="12"><h5>CONTINUOUS SALT SPARY TEST REPORT</h5></td>
+					</tr>
+					<tr>
+						<td colspan="8"><b>Test Report No. :</b> {{sst.basic.ReportNo}}</td>
+						<td colspan="4"><b>Report Date : </b> {{sst.basic.ReportDate}}</td>
+					</tr>
+					<tr>
+						<td colspan="8"><b>Batch No. :</b>{{sst.basic.BatchNo}}</td>
+						<td colspan="4"><b>Lab No. : </b> {{sst.basic.LabNo}}</td>
+					</tr>
+					<tr>
+						<td colspan="8"><b>Sample Receipt on :</b> {{sst.basic.ReceiptOn}}</td>
+						<td colspan="4"><b>Ref. Std. : </b> {{sst.basic.RefStd}}</td>
+					</tr>
+					<tr>
+						<td colspan="8"><b>Coating System :</b> {{sst.basic.CoatingSystem}}</td>
+						<td colspan="4"></td>
+					</tr>
+					<tr>
+						<td colspan="12"><b>Customer : </b> {{sst.basic.Customer}}</td>
+						
+					</tr>
+					<tr>
+						<td colspan="2"><b>Sample Description :</b> </td>
+						<td colspan="10">{{sst.basic.Sample}}</td>
+					</tr>
+					<tr>
+						<td colspan="4" rowspan="5"><b>Test Condition :</b> </td>
+						<td colspan="4"><b>Test Loading Date :</b> {{sst.basic.LoadingDate}}</td>
+						<td colspan="4"><b>Test completed Date :</b> {{sst.basic.CompleteDate}}</td>
+					</tr>
+					<tr>
+						<td colspan="4"><b>Salt Soln. Conc. :</b> {{sst.basic.SaltSolnConc}}</td>
+						<td colspan="4"><b>Fog Collection :</b> {{sst.basic.FogCollection}}</td>
+					</tr>
+					<tr>
+						<td colspan="4"><b>Chember Temperature :</b> {{sst.basic.ChemberTemp}}</td>
+						<td colspan="4"><b>Test Duration :</b> {{sst.basic.TestDuration}}</td>
+					</tr>
+					<tr>
+						<td colspan="4"><b>pH of test Soln. : </b> {{sst.basic.PhTestSoln}}</td>
+						<td colspan="4"><b>pH of Collected Sample:</b> {{sst.basic.PhCollectedSample}}</td>
+					</tr>
+					<tr>
+						<td colspan="4"><b>Angle :</b> {{sst.basic.Angle}}</td>
+						<td colspan="4"><b>Interval of Inspection:</b> {{sst.basic.Interval}}</td>
+					</tr>
+					<tr>
+						<td colspan="12" Class="text-center"><b>Observation Sheet</b> </td>
+						
+					</tr>
+					<tr>
+					<td class="col-md-1 text-right active"><b>Remark :</b></td><td colspan="11"><strong ng-if="chemical.Remark==='Passed'"> Satisfactory</strong></td>
+				</tr>
+				
+					<tr>
+					<td style="vertical-align:top;border-bottom:0px solid;"  colspan="12" >
+					<strong>NOTE:</strong><br>
+					 
+					<p  class="editable-click text-info" editable-textarea="chemical.Note" e-rows="7" e-cols="80">
+						<span style="white-space: pre-wrap;" >{{sst.basic.Note ||" " }}</span>
+					  </p>
+
+
+					</td>
+					</tr>
+					
+						<tr >
+			<td colspan="6" rowspan="2" >
+
+			<strong>
+			Tested By<br>
+			(Technician)</strong>
+			</td>
+			<td colspan="6" rowspan="2" >
+			<strong>Authorised Signature<br>
+			(Technical Manager)
+			</strong>
+
+			</td>
+
+			</tr>
+				</tbody>
+				</table>
+		
+          
+		</div>
+        <div class="modal-footer">
+          <!--   <button class="btn btn-primary" type="button" ng-click="ok()">OK</button> -->
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>

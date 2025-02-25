@@ -1,0 +1,74 @@
+<div class="modal-header text-right">
+
+<b>Import Sub Standards </b>
+<button type="button" class="close" data-dismiss="modal" ng-click="closeimpmodal()" aria-hidden="true">&times;</button>
+</div>
+<div class="modal-body" >	
+
+<div class="col-md-12">	
+<form class="form-horizontal" name="impform" novalidate>
+			<div class="row bg-faded-primary">
+			
+		
+			
+			<div class="form-group">
+			<div class="col-md-6 p-2">	
+				 <input type="file" ngf-select="SelectFile($file)" />
+      
+		</div>
+			<div class="col-md-6 p-2">	
+			
+        <input type="button" value="Upload" ng-click="Upload()" />
+		</div>
+			</div>
+			
+			</div>	
+						
+				
+				
+				
+				
+					<div class="row pt-2">
+				<div class="col-md-12">	
+				
+				<p>Your Excel sheet column should be in this Sequence (total 2 columns) <table  class="table table-bordered table-sm mb-0"  style="max-width:500px;overflow:scroll;" cellpadding="0" cellspacing="0">
+            <tr >
+                <th>Id</th>
+                  <th>Standard</th>
+				   <th>Description</th>				  
+					
+            </tr>
+			</table>
+					</p>
+					</div>
+					</div>
+					
+					<div class="row pt-2" ng-show="mydata.Products.length>0">
+				<p> Your sheet contains </p>
+					 <table id="tblCustomers" class="table table-bordered table-condensed"  style="max-width:500px;overflow:scroll;" cellpadding="0" cellspacing="0" ng-show="mydata.IsVisible">
+            <tr >
+                <th>Id</th>
+                  <th>Standard</th>
+				   <th>Description</th>				  
+				 <th>Industry</th>	
+            </tr>
+            <tbody  dir-paginate="m in results =( mydata.Products | filter:q )| itemsPerPage: dbpageSize" total-items="dbtotalitems" current-page="dbcurrentPage" >
+                <tr>
+                    <td >{{($index+1)+((currentPage-1)*pageSize) }}</td>
+                    <td>{{m.Standard}}</td>
+                    <td>{{m.Description}}</td>
+					  <td>{{m.IndId}}</td>
+                </tr>
+            </tbody>
+        </table>
+			<div class="col-md-12 text-center " style="font-size:12px;">
+					<button class="btn btn-primary" ng-disabled=" dbtotalitems<1 || impform.$invalid" ng-click="uploadtodb('confirm')" >Upload To DB</button>
+					</div>
+				</div>
+				
+				</div>
+					
+		</form>		
+
+
+</div>

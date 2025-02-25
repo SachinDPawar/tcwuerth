@@ -1,0 +1,41 @@
+    <div class="col-md-12" >
+	  <div class="panel panel-primary">
+                        <div class="panel-heading">
+                          <i class="fa fa-paint-brush "></i> COATING
+                          
+                        </div>
+                        <div class="panel-body bg-info">
+                           <div class="col-md-12">
+	
+		<ul class="list-inline" ng-show="groups['Coating'].Apply==='true'">
+						
+						<li ng-if="permissions[15].Apply==='true'">
+						 <a ui-sref="dashboard.admin.contsst" class="icon-btn col-sm-3" >
+                                 <i class="fa fa-fire-extinguisher fa-2x"></i>
+                                 <div>CONTINUOUS SST</div>
+                                
+                              </a>
+							  </li>
+							  <li ng-if="permissions[16].Apply==='true'">
+						 <a ui-sref="dashboard.admin.coatcert" class="icon-btn col-sm-3" >
+                                 <i class="fa fa-codepen fa-2x"></i>
+                                 <div>COATING CERTIFICATE</div>
+                                
+                              </a>
+							  </li>
+							  <li ng-if="permissions[17].Apply==='true'">
+						 <a ui-sref="dashboard.admin.sstcert" class="icon-btn col-sm-3" >
+                             <span class="fa-stack fa-lg">
+					<i class="fa fa-certificate fa-stack-4x"></i>
+					<i class="fa fa-check fa-stack-1x fa-inverse"></i>
+					</span>
+                                 <div>SST CERTIFICATE</div>
+                                
+                              </a>
+							  </li>
+							 
+		</ul>
+	</div> 
+	</div>
+	</div>
+	</div>

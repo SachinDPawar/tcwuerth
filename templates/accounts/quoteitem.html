@@ -1,0 +1,272 @@
+
+	<div class="col-md-12" style="margin-top:0px;">
+		<div class="card card-default">
+			
+			<div class="card-body">
+				
+				<form class="form-horizontal bg-light p-2" name="qitemform" novalidate>
+				
+				<div class="form-group mb-3 row">
+				<div class="col-sm-12 alert alert-info"> All <i class="fa fa-asterisk error"></i> feild are manadotry</div>
+				</div>
+				
+				<div class="form-group mb-3 row">				
+					
+					<div class="col-md-4 col-sm-4">
+					<label for="Supplier" class=" control-label ">Industry<i ng-show="qitemform.PIndId.$error.required" class="fa fa-asterisk error"></i></label>
+						
+							<ui-select id="PIndId" ng-disabled="editflag || quoteflags.editflag" ng-model="qitem.PIndId" name="PIndId" ng-change="getsubind(qitem.PIndId)" required    >
+							<ui-select-match placeholder="Select Industry">
+							<span ng-bind="$select.selected.Name"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat="item.Id as item in (allindustries | filter: $select.search)">
+							<div style="color:#000;font-weight:bold;" ng-bind="item.Name  ">			
+				</div>
+						
+							</ui-select-choices>
+							</ui-select>
+					</div>
+					
+					<div class="col-md-4 col-sm-4" ng-if="subindflag">
+					<label for="Supplier" class=" control-label ">{{'SubIndustry'|translate}} <i ng-show="qitemform.SubIndId.$error.required" class="fa fa-asterisk error"></i></label>
+						
+							<ui-select id="SubIndId" ng-disabled="editflag || quoteflags.editflag" ng-model="qitem.SubIndId" name="SubIndId" ng-change="getcatdata(qitem.SubIndId)" required    >
+							<ui-select-match placeholder="Select Sub -Industry">
+							<span ng-bind="$select.selected.Name"></span>
+							</ui-select-match>
+							<ui-select-choices repeat="item.Id as item in (subindustries | filter: $select.search)">
+							<div style="color:#000;font-weight:bold;" ng-bind="item.Name  ">			
+				</div>
+						
+							</ui-select-choices>
+							</ui-select>
+					</div>
+					
+					<div class="col-md-4 col-sm-4" ng-if="proindflag">
+					<label for="Supplier" class=" control-label ">{{'Industry'|translate}} <i ng-show="qitemform.IndId.$error.required"  class="fa fa-asterisk error"></i></label>
+						
+							<ui-select id="IndId"  ng-model="qitem.IndId" name="IndId"  ng-required="true"  ng-change="getinddata(qitem.IndId)"   >
+							<ui-select-match placeholder="Select Industry">
+							<span ng-bind="$select.selected.Name"></span>
+							</ui-select-match>
+							<ui-select-choices repeat="item.Id as item in (procategories | filter: $select.search)">
+							<div style="color:#000;font-weight:bold;" ng-bind="item.Name  ">			
+				</div>
+						
+							</ui-select-choices>
+							</ui-select>
+					</div>
+							
+				</div>
+					
+			
+				
+				<div class="form-group mb-3 row">
+				
+				<div class=" col-sm-12">
+		<label class=" text-left" for="infoform_name">Sample Name  <i ng-show="qitemform.SampleName.$error.required"  class="fa fa-asterisk error"></i></label>
+		<input  placeholder="SampleName" ng-disabled="issaving || quoteflags.editflag" class="form-control" name="SampleName" ng-model="qitem.SampleName" 
+		type="text" autocomplete="off"
+				  uib-typeahead="state for state in samplenames | filter:$viewValue | limitTo:8"  required>
+		
+		<div class="error-container"  ng-show="qitemform.SampleName.$dirty || qitemform.SampleName.$invalid ">
+     
+		</div>
+	
+		</div>
+				</div>
+				
+				<div class="form-group mb-3 row">
+				
+				<div class=" col-sm-12">
+		<label class=" text-left" for="infoform_name">Sample Description  <i ng-show="qitemform.Description.$error.required"  class="fa fa-asterisk error"></i></label>
+		<input  placeholder="Description" ng-disabled="issaving || quoteflags.editflag" class="form-control" name="Description" ng-model="qitem.Description" 
+		type="text"  >
+		
+		<div class="error-container"  ng-show="qitemform.Description.$dirty || qitemform.Description.$invalid ">
+     
+		</div>
+	
+		</div>
+				</div>
+				
+				<div class="form-group mb-3 row">
+				
+				<div class=" col-sm-6">
+		<label class=" text-left" for="infoform_name"> Required Sample Weight  <i ng-show="qitemform.SampleWeight.$error.required"  class="fa fa-asterisk error"></i></label>
+		<input  placeholder="SampleWeight" ng-disabled="issaving " class="form-control" name="SampleWeight" ng-model="qitem.SampleWeight" 
+		type="text"  >
+		
+		<div class="error-container"  ng-show="qitemform.SampleWeight.$dirty || qitemform.SampleWeight.$invalid ">
+     
+		</div>
+	
+		</div>
+		
+		
+		<!-- <div class=" col-sm-6"> -->
+		<!-- <label class=" text-left" for="infoform_name">Turn around Time  <i ng-show="qitemform.TAT.$error.required"  class="fa fa-asterisk error"></i></label> -->
+		<!-- <input  placeholder="TAT" ng-disabled="issaving " class="form-control" name="TAT" ng-model="qitem.TAT"  -->
+		<!-- type="text"  > -->
+		
+		<!-- <div class="error-container"  ng-show="qitemform.TAT.$dirty || qitemform.TAT.$invalid "> -->
+     
+		<!-- </div> -->
+	
+		<!-- </div> -->
+				</div>
+				
+				
+				
+				<div class="form-group row" ng-hide="quoteflags.editflag">
+				<div class="col-sm-6">
+			<label for="addtest" class=" control-label">Select tests for implementation.</label>
+			
+					<ui-select id="test" multiple  ng-model="qitem.addtest" name="addtest" on-remove="removeapptest($item, $model)" on-select="addtoapplicable($item, $model)"   >
+<ui-select-match placeholder="Select Test">
+<span ng-bind="$item.TestName"></span>
+</ui-select-match>
+<ui-select-choices repeat="item.TSeq as item in (alltests | filter: $select.search) ">
+<span ng-bind="item.TestName"></span>
+</ui-select-choices>
+</ui-select>
+					
+			</div>
+				</div>
+				
+				<div class="form-group mb-3 row">
+				
+				<table class="table table-condensed table-striped " style="">
+							<thead >
+							<tr  class="table-info">
+								<th style="width:10px;">#</th>
+								<th class="text-left col-sm-12 ">Test Details</th>
+								
+								</tr>
+							</thead>
+							<tbody>
+							<tr ng-if="qitem.applicabletest.length<1"><td colspan="4"> No tests implemented yet</td></tr>	
+							<tr ng-repeat="test in qitem.applicabletest track by $index " >
+								<td>{{$index+1}}</td>
+								<td class=" text-left">
+<div class="row">
+<div  class="col-sm-4" style="margin-top:10px;">
+					<input type="text" class="form-control input-sm" style="font-weight:700;box-shadow:none;border-width:0px;font-size:14px;background:transparent !important;" disabled ng-model="test.TestName" />
+					</div>
+					<div  class="col-sm-4" style="margin-top:10px;" >
+<ui-select id="LabId"  multiple ng-model="test.LabIds" name="LabIds"  on-remove="removelabtest($item, $model)"  >
+							<ui-select-match placeholder="Select {{'Accreditation'|translate}}">
+							<span ng-bind="$item.Name"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat=" item.Id as item in alllabs | filter: $select.search">
+							<div style="color:#000;font-weight:bold;" ng-bind="item.Name"></div>
+						
+							</ui-select-choices>
+							</ui-select>
+</div>
+
+<div class=" col-sm-4" style="margin-top:10px;" ng-if="false">
+						
+							<ui-select id="TestCondition"  ng-model="test.TestCondId" 
+							name="TestCondition"  ng-required="true"    >
+							<ui-select-match placeholder="Select Test Condition">
+							<span ng-bind="$select.selected.Name"></span>
+							</ui-select-match>
+							<ui-select-choices repeat=" item.Id as item in (testconditions | filter: $select.search)">
+							<div style="color:#000;font-weight:bold;" ng-bind="item.Name  ">			
+				</div>
+						
+							</ui-select-choices>
+							</ui-select>
+					</div>
+
+					</div>
+					
+					<div class="row">
+
+
+<div class="col-sm-12" style="margin-top:10px;" ng-if="test.IsStd" >
+<ui-select id="Std"  ng-model="test.SubStdId" name="SubStdId" style="height:50px;"  ng-required="test.IsStd"    >
+							<ui-select-match placeholder="Select Standard">
+							<span  ng-bind="$select.selected.Name"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat="item.Id as item in (getsubstandards(test.TestId) | filter: $select.search)">
+							<div style="color:#000;font-weight:bold;" ng-bind="item.Name  ">			
+				</div>
+						
+							</ui-select-choices>
+							</ui-select>
+</div>
+
+<div class="col-sm-6" style="margin-top:10px;" ng-if="test.IsPlan" >
+<div class="input-group m-0 p-0">
+
+<ui-select id="PlanId"   ng-model="test.PlanId" name="PlanId" class="form-control p-0"   ng-required="test.IsPlan"    >
+							<ui-select-match placeholder="Select parameters as per plan">
+							<span ng-bind="$select.selected.Name"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat="item.Id as item in (getsubplans(test.SubStdId) | filter: $select.search)">
+							<div class="display-block" style="color:#000;font-weight:bold;border:1px solid #ddd;padding:4px;white-space:initial;" >
+							{{item.Name}}	<br>
+							
+							<ul class="list-inline">
+  <li class="list-inline-item">
+<small class="badge text-bg-light " style="margin-left:2px;" ng-repeat="p in item.VParameters"> {{p.Parameter}} </small></li></ul>							
+				</div>
+							</ui-select-choices>
+							</ui-select>
+							<button ng-if="test.PlanId"  class="btn btn-outline-secondary inputbtn btn-sm" type="button" ng-click="editsubstdplan(test.PlanId)" id="button-addon2"><i class="fa fa-pencil"></i></button>
+						
+							<button class="btn btn-outline-secondary inputbtn btn-sm" type="button" ng-click="addsubstdplan(test.SubStdId)" id="button-addon2"><i class="fa fa-plus"></i></button>
+						
+</div>
+</div>
+
+
+
+<div class="col-sm-6" style="margin-top:10px;" ng-if="test.IsTestMethod">
+<ui-select id="TMID"  ng-model="test.TestMethodId" name="TestMethodId"   ng-required="test.IsTestMethod"   >
+							<ui-select-match placeholder="Select Test Method">
+							<span ng-bind="$select.selected.Method"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat=" item.Id as item in (gettestmethods(test.TestId) | filter: $select.search)">
+							<div style="color:#000;font-weight:bold;" ng-bind="item.Method  " ng-required="true" >			
+				</div>
+						
+							</ui-select-choices>
+							</ui-select>
+</div>
+<div class="col-sm-6" style="margin-top:10px;" >
+<input type="number" placeholder="Observation Quantity" min="1" max="5" class="form-control input-sm" ng-model="test.Qty"  required/>
+</div>
+
+<div class="col-sm-12"  style="margin-top:10px;">
+<input type="text" class="form-control input-sm" id="purchase" ng-model="test.ExtraInfo" placeholder="Extra Info"   >
+</div>
+</div>
+
+
+								</td>
+
+
+
+							</tr>
+							</tbody>
+							</table>
+						
+			</div>
+			
+					<div class="form-group text-center ">
+					<button type="button" class="btn btn-md btn-default " ng-click="closeqitemModal()" >CANCEL</button>
+					<button type="button" ng-disabled="qitemform.$invalid " 
+					class="btn btn-md btn-primary " ng-click="qitemsaveall(qitem) " > SAVE </button>
+						
+						</div>
+				</form>
+				
+			</div>
+		</div>
+	</div>
+
+	
+        

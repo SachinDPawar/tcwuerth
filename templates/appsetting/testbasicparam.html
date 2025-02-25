@@ -1,0 +1,101 @@
+ <div class="modal-header">
+          Basic Parameters  
+			 <button type="button" class="close" ng-click="closetestbasicparamModal()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+		
+				<form class="form-horizontal" name="testbasicparamform" novalidate >
+				
+				
+					
+					<div class="form-group row">
+						
+						<div class="col-md-12">
+						<label class="control-label">Parameter </label>
+								<input type="text" class="form-control"  id="Parameter" ng-maxlength="150" ng-model="testbasicparams.Parameter" name="Parameter" placeholder="Parameter" required >	
+						<div class="error-container" ng-show="testbasicparamform.Parameter.$dirty || testbasicparamform.Parameter.$invalid">
+										
+										<small class="error" ng-show="testbasicparamform.Parameter.$error.maxlength">
+											 Parameter cannot be longer than 150 characters
+										</small>
+										
+										</div>											
+						</div>
+				</div>
+				<div class="form-group row">
+				<div class="col-md-6 col-sm-6">
+						<label class="control-label">Symbol/UID </label>
+								<input type="text" class="form-control"  id="PSymbol" ng-model="testbasicparams.PSymbol" name="PSymbol" placeholder="Symbol/UID of the parameter"  required />		
+						</div>
+						</div>
+				<div class="form-group row">
+						
+						<div class="col-md-6 col-sm-6">
+						<label class="control-label">Unit (if any)</label>
+								<input type="text" class="form-control"  id="Param" ng-model="testbasicparams.PUnit" name="PUnit" placeholder="PUnit"  >		
+						</div>
+						
+						<div class="col-md-6 col-sm-6">
+						<label class="control-label">Seq No</label>
+								<input type="text" class="form-control"  id="SeqNo" ng-model="testbasicparams.SeqNo" name="SeqNo" placeholder="SeqNo"  >		
+						</div>
+						
+					</div>
+					<div class="form-group row">
+						<div class="col-md-6 col-sm-6">
+						<label class=" control-label">Data type (numeric/text)  	</label>
+								<ui-select id="PDType"  ng-model="testbasicparams.PDType" name="PDType"  required   >
+							<ui-select-match placeholder="Select Data Type" >
+							<span ng-bind="$select.selected.Text"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat="item.Id as item in (alldtypes| filter: $select.search)">
+							<span ng-bind="item.Text"></span>
+							</ui-select-choices>
+							</ui-select>
+						
+						</div>
+						
+					
+				<div class="col-md-6 col-sm-6" ng-show="testbasicparams.PDType ==='L'" >
+						<label class=" control-label">List Category </label>
+								<ui-select id="LCategory" ng-disabled="testbasicparams.PDType !='L'" ng-model="testbasicparams.LCategory" name="LCategory"     >
+							<ui-select-match placeholder="Select Category">
+							<span ng-bind="$select.selected.Category"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat="item.Category as item in (listcategories| filter: $select.search)">
+							<span ng-bind="item.Category"></span>
+							</ui-select-choices>
+							</ui-select>
+						</div>
+				</div>
+					
+						<div class="form-group row">
+						<div class="col-md-6 col-sm-6">
+						<label class=" control-label">Position  	</label>
+								<ui-select id="Position"  ng-model="testbasicparams.Position" name="Position"  required   >
+							<ui-select-match placeholder="Select Position" >
+							<span ng-bind="$select.selected.Text"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat="item.Id as item in (allpositions| filter: $select.search)">
+							<span ng-bind="item.Text"></span>
+							</ui-select-choices>
+							</ui-select>
+						
+						</div>
+						
+						</div>
+					
+				
+					
+					
+			<div class="form-group text-center">						
+					<button type="button" class="btn btn-md btn-success "  ng-disabled="testbasicparamform.$invalid" ng-click="testbasicparamsave(testbasicparams)" id="cp_submit" >Submit</button>
+				<button type="button" class="btn btn-md btn-default fa fa-" ng-click="closetestbasicparamModal()" >Cancel</button>
+			</div>	
+				
+				</form>
+			
+        </div>
+        <div class="modal-footer">
+        
+        </div>

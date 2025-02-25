@@ -1,0 +1,302 @@
+<div class="row " >
+
+	
+
+	<div class="col-md-12 col-lg-10" style="margin-top:0px;">
+		<div class="card card-default">
+			                       
+                               
+						<div class="card-body ">
+						<div class="row " >
+						<div class=" col-md-6">
+				<form class="form-horizontal ">
+   
+    <div class="form-group">
+		                       		 <div class="input-group">
+							<input type="text" class="form-control input-sm" id="search1" ng-model="searchstring" placeholder="Search text ..Here..">
+                               
+                            
+                             <button class="btn btn-default btn-sm inputbtn" ng-click="refreshdata()"> {{'Reset'| translate}} </button>
+                             
+                        </div>
+						
+						
+						</div>
+  
+  </form>
+				</div>
+				
+				<div class="col-md-6" >
+		<button class="btn btn-primary pull-right" ng-click="editrole('new')"> <i class="fa fa-plus"></i> Add Role </button>
+	</div>
+				</div>
+				<div class="row " >
+						<div class="col-md-12 table-responsive greensea">
+						
+							<table class="table table-hover table-condensed table-bordered example-animate-container">
+								<tr class="table-info">
+									<th>Id</th>
+									
+									<th>Role</th>
+									<th>Actions</th>
+								</tr>
+								<tbody	class="table-group-divider">
+								<tr  class="animate-repeat"  dir-paginate="i in  allroles | filter:searchstring | itemsPerPage: pageSize" current-page="currentPage">
+									<td>{{($index+1)+((currentPage-1)*pageSize) }}</td>
+									<td>{{i.Role}}</td>
+									
+									<td class="text-left">
+								<div class="btn-group" role="group" aria-label="Basic example">
+
+									<button  class="btn btn-default btn-sm" ng-click="showrole('lg',i)" ><i class="fa fa-eye"></i></button>
+									<button class="btn btn-default btn-sm " title="Edit" ng-click="editrole(i)" ><i class="fa fa-pencil"></i> </button>
+									<button class="btn btn-default btn-sm " ng-if="!i.P" title="Delete" ng-click="deleterole('confirm',i)" ><i class="fa fa-trash"></i> </button>
+									</div>
+									</td>
+								</tr>
+						
+								<tr ng-if="allroles.length == 0">
+									<td class="animate-repeat col-md-12 text-center highlight" colspan="7" >
+									<h5>No results found...</h5>
+									</td >	
+								</tr>
+</tbody>								
+							</table>
+						<dir-pagination-controls ></dir-pagination-controls> 
+						</div>
+</div>
+						</div>
+							</div>
+
+</div>
+</div>
+<script type="text/ng-template" id="deluserModal"  data-keyboard=false>
+<div class="modal-body" style="padding:2px;" >
+
+   <div class="modal-content">
+            
+                <div class="modal-header dialog-header-confirm bg-danger">
+                    
+                    <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-check"></span> Confirm Delete
+					</h4>
+					
+					
+					<button type="button" class="btn btn-sm btn-outline-light pull-right float-end" data-dismiss="modal" ng-click="closeconfirmModal()"><i class="fa fa-close"></i></button>
+					
+                </div>
+            
+                <div class="modal-body">
+                    <p>You are about to delete user <strong>{{name}}</strong>, this procedure is irreversible.</p>
+                    <p>Do you want to proceed?</p>
+                 </div>
+                
+                <div class="modal-footer">
+                  <button class="btn btn-danger" data-ng-click="deleterole('delete',did)">Delete</button>
+		<button type="button" class="btn btn-default" ng-click="closeconfirmModal()">Cancel</button>
+                </div>
+            </div>
+
+
+</div>
+</script>					
+	
+<script type="text/ng-template" id="roleviewContent.html">
+        <div class="modal-header">
+           Role Details
+			 <button type="button" class="close" ng-click="cancel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+			
+				<div class="form-group row " >
+	 <label for="passwordagain" class="control-label col-md-12 ">Role: {{role.Role}} </label>
+	 <div class=" col-md-12">
+	<table class="table  table-bordered ">
+	<thead>
+	<tr class="table-info" >
+	<th colspan="2">Section</th>
+	<th colspan="1">Create</th>
+	<th colspan="1">Read</th>
+	<th colspan="1">Update</th>
+	<th colspan="1">Delete</th>
+	<th colspan="1">Approve </th>
+	<th colspan="1">Check</th>
+	<th colspan="1">Print</th>
+	<th colspan="1">Send Mail</th>
+	
+	</tr>
+	</thead>
+	<tbody class="table-group-divider">
+	
+	<tr   ng-repeat="sect in role.Appsections |orderBy:'SectionId' " class="bg-opacity-10 " ng-class="{'bg-info' : sect.Group==='BC','bg-info' : sect.Group==='Rir','bg-success' : sect.Group==='Test' || sect.Group==='Coating','bg-danger' : sect.Group==='Setting' || sect.Group==='App' }">
+	<td  colspan="2">{{sect.Section}}	<small><br>{{sect.Description}}</small></td>
+	<td  colspan="1" class="text-center">
+	
+	<i class="fa fa-check fa-lg text-success"  ng-if="sect.IsC && sect.C" ></i>
+	
+	</td>
+	<td  colspan="1" class="text-center">
+<i class="fa fa-check fa-lg text-success"  ng-if="sect.IsR && sect.R" ></i>
+	
+	</td>
+	<td  colspan="1" class="text-center">
+	<i class="fa fa-check fa-lg text-success"  ng-if="sect.IsU && sect.U" ></i>
+	
+	</td>
+	<td  colspan="1" class="text-center">
+	<i class="fa fa-check fa-lg text-success" ng-if="sect.IsD && sect.D" ></i>
+	
+	</td>
+	<td  colspan="1" class="text-center">
+	<i class="fa fa-check fa-lg text-success" ng-if="sect.IsA && sect.A" ></i>
+	
+	</td>
+	<td  colspan="1" class="text-center">
+	<i class="fa fa-check fa-lg text-success"  ng-if="sect.IsCh && sect.Ch" ></i>
+	
+	</td>
+	<td  colspan="1" class="text-center">
+	<i class="fa fa-check fa-lg text-success" ng-if="sect.IsPrint && sect.Print" ></i>
+	
+	</td>
+	<td  colspan="1" class="text-center">
+	<i class="fa fa-check fa-lg text-success" ng-if="sect.IsSM && sect.SM" ></i>
+	
+	</td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	
+				</tbody>
+			</table>
+        </div>
+        <div class="modal-footer">
+          <!--   <button class="btn btn-primary" type="button" ng-click="ok()">OK</button> -->
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+	
+<script type="text/ng-template" id="addroleModal">
+ <div class="modal-content">
+        <div class="modal-header">
+          Role Details
+			 <button type="button" class="close" ng-click="closerolemodal()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+		  <div class="modal-body p-2">
+		
+<form class="form-horizontal " name="userform"  novalidate>	
+		<div class="col-sm-12 p-2" style="margin-top:15px;">
+	
+		
+	
+
+		<div class="form-group " >
+		
+		
+			<div class="col-md-6 col-sm-6 col-xs-12">
+			<label for="passwordagain" class="control-label  ">Role</label>
+			<input  type="text" class="form-control" ng-disabled="role.P"  id="Role" name="Role" placeholder="Role" ng-model="role.Role" required>
+		
+			<div class="error-container"  ng-show="userform.Role.$dirty || userform.Role.$invalid ">
+			<small class="error showerror"  ng-show="userform.Role.$error.required">
+				Role Required.
+			</small>
+			</div>	
+			</div>
+		</div>
+	
+		
+	
+		<div class="form-group " >
+		 <label for="passwordagain" class="control-label col-md-12 ">ERP RoLes</label>
+		 
+		 <div class="form-check"  >
+	
+	 <input class="form-check-input" type="checkbox"  id="flexCheckDefault" ng-model="che" ng-true-value="1" ng-change="selectall(che)"  ng-false-value="0"/> 
+	 <!-- <button class="btn btn-primary btn-sm " style="width:120px;" ng-click="selectall(che)"> </button> -->
+	  <label class="form-check-label" for="flexCheckDefault">
+   Select All
+  </label>
+
+	 </div>
+	 
+	 <div class=" col-md-12">
+	<table class="table table-sm table-bordered ">
+	<thead >
+	<tr class="table-dark"  >
+	<th colspan="2">Section</th>
+	<th colspan="1">Create</th>
+	<th colspan="1">Read</th>
+	<th colspan="1">Update</th>
+	<th colspan="1">Delete</th>
+	<th colspan="1">Approve </th>
+	<th colspan="1">Check</th>
+	<th colspan="1">Print</th>
+	<th colspan="1">Send Mail</th>
+	</tr>
+	</thead>
+	<tbody>
+	
+	<tr   ng-repeat="sect in role.Appsections " class="bg-opacity-10" ng-class="{'bg-info' : sect.Group==='BC','bg-info' : sect.Group==='Rir','bg-success' : sect.Group==='Test' ,'bg-danger' : sect.Group==='Setting' || sect.Group==='App' }">
+
+	<td  colspan="2">{{sect.Section}} 
+	<small><br>{{sect.Description}}</small>
+	</td>
+	<td  colspan="1" class="text-center">
+	<input type="checkbox" ng-show="sect.IsC" ng-model="sect.C" ng-true-value="1" ng-false-value="0"/>
+	</td>
+	<td  colspan="1" class="text-center">
+	<input type="checkbox"  ng-show="sect.IsR"  ng-model="sect.R" ng-true-value="1" ng-false-value="0"/>
+	</td>
+	<td  colspan="1" class="text-center">
+	<input type="checkbox"  ng-show="sect.IsU" ng-model="sect.U" ng-true-value="1" ng-false-value="0"/>
+	</td>
+	
+	
+	<td  colspan="1" class="text-center">
+	<input type="checkbox"   ng-show="sect.IsD"	ng-model="sect.D" ng-true-value="1" ng-false-value="0"/>
+	</td>
+	<td  colspan="1" class="text-center">
+	<input type="checkbox"   ng-show="sect.IsA" ng-model="sect.A" ng-true-value="1" ng-false-value="0"/>
+	</td>
+	<td  colspan="1" class="text-center">
+	<input type="checkbox" ng-show="sect.IsCh" ng-model="sect.Ch" ng-true-value="1" ng-false-value="0"/>
+	</td>
+	<td  colspan="1" class="text-center">
+	<input type="checkbox" ng-show="sect.IsPrint" ng-model="sect.Print" ng-true-value="1" ng-false-value="0"/>
+	</td>
+	<td  colspan="1" class="text-center">
+	<input type="checkbox" ng-show="sect.IsSM" ng-model="sect.SM" ng-true-value="1" ng-false-value="0"/>
+	</td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	
+	
+		
+		
+		
+	
+	
+	<!---------------Sign Image Upload--------------->
+
+	<div class="form-group text-center " style="padding:10px 2px;">
+	<button class="btn btn-danger" ng-click="closerolemodal()">Cancel</button>
+		<button  ng-disabled="issaving || userform.$invalid" ng-click="saverole(role)"   class="btn btn-primary" style="padding:5px 15px 5px 15px;">
+		<span ng-if="!editflag">Save</span>
+		<span ng-if="editflag">Update</span>  <i class="fa fa-chevron-circle-right fa-lg" style="color:#A8C539;"></i></button>
+		
+
+	</div>
+	
+
+</div>
+</form>
+      
+			
+        </div>
+    </div>    
+    </script>

@@ -1,0 +1,23 @@
+<div class="modal-header">
+		<h4 class="modal-title">Confirm Email </h4>
+	</div>
+	<div class="modal-body">
+	
+	<form class="form-horizontal" novalidate>
+	<div class="form-group">
+	<div class="col-md-12 col-sm-12">
+						<label class="control-label">Send Mail To </label>
+						<div class="input-group">
+						<textarea type="text" class="form-control" id="Mailto" ng-disabled="mailflag.sending" ng-model="mailinfo.MailTo" name="MailTo" placeholder="Mail To" required ></textarea>		
+						</div>
+						</div>
+	</div>
+	</form>
+	   
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="button" ng-hide="mailflag.sending" ng-click="sendmail(mailinfo,'send')">OK</button>
+		<button class="btn btn-primary" type="button" disabled ng-show="mailflag.sending" >
+		<i class="fa fa-spin fa-spinner"></i>Sending Please Wait</button>
+		<button class="btn btn-warning" type="button" ng-click="closesendmailmodal()">Cancel</button>
+	</div>

@@ -1,0 +1,273 @@
+<div class="row">
+<div class="col-sm-12">
+
+<form class="form-horizontal" name="minmaxform" novalidate >
+					
+					<div class="form-group">
+						<div class="col-md-6 col-sm-6">
+					
+						<label  class=" control-label">Industry Type</label>
+						<ui-select id="Type" ng-model="info.IndId" ng-disabled="true" name="IndId" theme="bootstrap"
+						ng-change="getstdsandtest(info.IndId)"	remove-selected="false"	 required>
+							<ui-select-match placeholder="Select Industry...">
+							   {{$select.selected.PTree}}
+							</ui-select-match>
+							<ui-select-choices group-by="'FParent'"  repeat="item.Id as item in (allindustries | filter: $select.search) ">
+								<div ng-bind="item.PTree "></div>
+								
+							</ui-select-choices>
+						</ui-select>
+						
+						</div>
+					</div>
+					
+					
+					<div class="form-group row">
+						
+						
+					
+					
+						
+						
+						<div class="col-md-6 col-sm-6">
+						<label class="control-label">Standard </label>
+									<ui-select ng-model="info.StdId" ng-disabled="editflag"   required >
+    <ui-select-match  placeholder="select standard">
+        <span ng-bind="$select.selected.Standard"></span>
+    </ui-select-match>
+    <ui-select-choices group-by="'Industry'" repeat="item.Id as item in (allstds | filter: $select.search) track by item.Id">
+       {{item.Standard}} 
+    </ui-select-choices>
+</ui-select>
+						</div>
+						
+						
+						<div class="col-md-6">
+						<label class="control-label"> Grade/Class</label>
+							<input type="text" class="form-control" id="Grade" ng-model="info.Grade" name="Grade" placeholder="Standard Grade" required />
+						</div>
+						
+						
+					</div>
+						
+					
+					<div class="form-group row">
+						
+						
+					<div class="col-sm-4">
+							<label class="control-label">Test</label>
+									<ui-select ng-model="info.TestIds" multiple ng-disabled="editflag" ng-change="loadparams(info.IndId,info.TestIds)" required >
+    <ui-select-match  placeholder="Select Test">
+        <span ng-bind="$item.TestName"></span>
+    </ui-select-match>
+    <ui-select-choices  repeat="item in (alltests | filter: $select.search) track by item.Id">
+       {{item.TestName}} 
+    </ui-select-choices>
+</ui-select>
+						</div>
+					
+						
+					
+					
+				<!-- <div class="form-group row"> -->
+				<!-- <div class="col-sm-12"> -->
+					<!-- <ui-select  ng-model="e.TMID"   ng-disabled="editflag" required > -->
+    <!-- <ui-select-match  placeholder="Select Test method"> -->
+        <!-- <span ng-bind="$select.selected.Method"></span> -->
+    <!-- </ui-select-match> -->
+    <!-- <ui-select-choices   repeat="item.Id as item in alltestmethods |limitTo:20 | filter: $select.search "> -->
+       <!-- {{item.Method}}   -->
+    <!-- </ui-select-choices> -->
+<!-- </ui-select> -->
+				<!-- </div> -->
+				<!-- </div> -->
+					
+					
+						<div class="form-group row" >	
+						<div class="col-sm-6">
+						<label class="control-label">Select Parameters to </label>
+							<ui-select multiple ng-model="info.Parameters" on-remove="removeparameters($item,$model)" close-on-select="false" ng-disabled="editflag"  >
+    <ui-select-match  placeholder="Select Parameters">
+        <span ng-bind="$item.Parameter"></span>
+    </ui-select-match>
+    <ui-select-choices   repeat="item in allparams |limitTo:50 | filter: $select.search ">
+       {{item.Parameter}}  
+    </ui-select-choices>
+</ui-select>
+						</div>
+					</div>
+					
+					
+					
+					
+					<div class="form-group row">
+						
+							<table  class="table table-bordered table-condensed" style="margin-bottom:5px;">
+				
+				
+						<tbody   >			
+				
+					<tr>
+					<td   colspan="3"  >
+					
+					
+						<div class="row"  >
+						<div class="col-md-12" ng-repeat="(key, value) in info.Parameters   | groupBy: 'TestId' "  >
+							{{key}}
+						<table class="table  table-sm table-hover" style="background:#fff;" >
+						<tr class="table-info" style="color:#fff;">
+						
+						<th>Parameter</th>
+						
+						<th>TestMethod </th>
+						<th> Range </th>
+						
+						<!-- <th>Others</th> -->
+						
+						
+						
+						</tr>
+						<tr  ng-repeat="e in value ">
+					
+						
+						<td style="min-width:150px;"> 
+
+				<div class="form-check">
+				 <input type="checkbox"  class="form-check-input"
+               ng-model="e.IsMajor" ng-true-value="'1'" ng-false-value="'0'" id="ismajor[{{$index}}]">
+				  <label class="form-check-label" for="ismajor[{{$index}}]">
+					<strong>{{e.Parameter}} </strong> 
+				  </label>
+				</div>
+
+
+						
+						 <br>
+						Unit: {{e.PUnit}}
+						
+					
+
+
+						
+							
+						</td>
+					
+						<td>
+						
+			<!-- <ui-select  ng-model="e.TMID"   ng-disabled="editflag" required > -->
+    <!-- <ui-select-match  placeholder="Select Test method"> -->
+        <!-- <span ng-bind="$select.selected.Method"></span> -->
+    <!-- </ui-select-match> -->
+    <!-- <ui-select-choices   repeat="item.Id as item in alltestmethods |limitTo:20 | filter: $select.search "> -->
+       <!-- {{item.Method}}   -->
+    <!-- </ui-select-choices> -->
+<!-- </ui-select> -->
+		
+		<div class="input-group mt-3">
+  <span class="input-group-text">{{appset.Currency}}</span>
+
+		<input  type="number" class="form-control input-sm" placeholder="Cost" ng-required="e.IsMajor ==='1'" ng-model="e.Cost" name="Cost[{{$index}}]" id="Cost[{{$index}}]"/>
+		</div>
+		</td>
+						<td>
+						
+						<div class="input-group input-group-sm mb-3">
+						 
+  
+  <input ng-if="e.PDType==='N'" type="number" placeholder="RangeMin" class="form-control input-sm"  ng-model="e.RangeMin" name="RangeMin[{{$index}}]" id="RangeMin[{{$index}}]" >	
+
+  
+  <input ng-if="e.PDType==='N'" type="number"  placeholder="RangeMax" class="form-control input-sm"  ng-model="e.RangeMax" name="RangeMax[{{$index}}]" id="RangeMax[{{$index}}]"/>
+</div>
+						
+						
+					<div class="input-group input-group-sm mb-3">
+					
+ 
+  <input ng-if="e.PDType==='N'" type="number" class="form-control input-sm" placeholder="PermMin"  ng-model="e.PermMin" name="PermMin[{{$index}}]" id="PermMin[{{$index}}]" >	
+
+ 
+  <input ng-if="e.PDType==='N'" type="number" class="form-control input-sm" placeholder="PermMax" ng-model="e.PermMax" name="PermMax[{{$index}}]" id="PermMax[{{$index}}]"/>
+</div>	
+						<!-- <div class="input-group input-group-sm mb-3"> -->
+						
+  
+  <!-- <input ng-if="e.PDType==='N'" type="number" class="form-control input-sm" placeholder="SpecMin"  ng-model="e.SpecMin" name="SpecMin[{{$index}}]" id="SpecMin[{{$index}}]" >	 -->
+
+  
+  <!-- <input ng-if="e.PDType==='N'" type="number" class="form-control input-sm" placeholder="SpecMax" ng-model="e.SpecMax" name="SpecMax[{{$index}}]" id="SpecMax[{{$index}}]"/> -->
+<!-- </div>	 -->
+						</td>
+						
+						<!-- <td> -->
+						<!-- <div class="input-group mb-3"> -->
+
+						 <!-- <input  type="text" class="form-control input-sm" placeholder="LOD"  ng-model="e.LOD" name="LOD[{{$index}}]" id="LOD[{{$index}}]" >	 -->
+						
+						 <!-- <input  type="text" class="form-control input-sm" placeholder="LOQ"  ng-model="e.LOQ" name="LOQ[{{$index}}]" id="LOQ[{{$index}}]" >	 -->
+						<!-- </div> -->
+						
+						<!-- <div class="input-group mb-3"> -->
+							<!-- <input  type="text" class="form-control input-sm" placeholder="ML"  ng-model="e.ML" name="ML[{{$index}}]" id="ML[{{$index}}]" >	 -->
+						
+						 <!-- <input  type="text" class="form-control input-sm" placeholder="Validation"  ng-model="e.Validation" name="Validation[{{$index}}]" id="Validation[{{$index}}]" >	 -->
+
+						<!-- </div> -->
+						
+						
+						<!-- <div class="input-group mb-3"> -->
+							<!-- <input  type="text" class="form-control input-sm" placeholder="Instrument"  ng-model="e.Instrument" name="Instrument[{{$index}}]" id="Instrument[{{$index}}]" >	 -->
+						
+						
+
+						<!-- </div> -->
+						
+						<!-- </td> -->
+						
+						<!-- <td></td> -->
+						<!-- </tr> -->
+						<!-- </table> -->
+						
+						<!-- </td> -->
+						
+						
+						
+						<!-- <td> -->
+						<!-- <input type="text" class="form-control input-sm" ng-disabled="e.IsMajor ==='0' || !e.IsMajor" ng-model="e.Permissible" name="Permissible" id="Permissible" /> -->
+						<!-- </td> -->
+						
+						</tr>
+						</table>
+						</div>
+						
+						
+						
+						</div>
+						
+					
+			
+       
+</td>
+
+					
+					</tr>
+				</tbody>
+		
+				
+			</table>
+						</div>
+			<div class="form-group text-center">						
+					
+				<button type="button" class="btn btn-md btn-secondary " ng-click="closechemstdModal()" >Cancel</button>
+				<button type="button" class="btn btn-md btn-primary "  ng-disabled="minmaxform.$invalid" ng-click="rangesave(info)" id="cp_submit" >Submit</button>
+			</div>	
+				
+				</form>
+			
+        </div>
+       
+</div>
+</div>	
+
+
+	

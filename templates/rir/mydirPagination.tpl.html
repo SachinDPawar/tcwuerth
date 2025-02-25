@@ -1,0 +1,39 @@
+<ul class="pagination" ng-if="1 < pages.length || !autoHide">
+    <li class="page-item" ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == 1 }">
+        <a href="" class="page-link" ng-click="setCurrent(1)">&laquo;</a>
+    </li>
+    <li class="page-item" ng-if="directionLinks" ng-class="{ disabled : pagination.current == 1 }">
+        <a href="" class="page-link" ng-click="setCurrent(pagination.current - 1)">&lsaquo;</a>
+    </li>
+    <li class="page-item" ng-repeat="pageNumber in pages track by tracker(pageNumber, $index)" ng-class="{ active : pagination.current == pageNumber, disabled : pageNumber == '...' }">
+        
+		
+		<a href="" class="page-link" ng-if="$index===0" ng-click="setCurrent(1)">Carb De Carb </a>
+		  <a href="" class="page-link" ng-if="$index===1" ng-click="setCurrent(2)">Case Depth</a>
+		    <a href="" class="page-link"  ng-if="$index===2" ng-click="setCurrent(3)">Chemical </a>
+			 <a href="" class="page-link"   ng-if="$index===3"  ng-click="setCurrent(4)">Grain Size </a>
+			  <a href=""  class="page-link"   ng-if="$index===4" ng-click="setCurrent(5)">Hardness </a>
+			   <a href="" class="page-link"   ng-if="$index===5"  ng-click="setCurrent(6)">Hydrogen Embrittlement </a>
+			    <a href="" class="page-link"   ng-if="$index===6"  ng-click="setCurrent(7)">Impact </a>
+				 <a href="" class="page-link"   ng-if="$index===7"  ng-click="setCurrent(8)">Inclusion Rating(K method)</a>
+				  <a href="" class="page-link"   ng-if="$index===8" ng-click="setCurrent(9)">Inclusion Rating(Worst Feild) </a>
+				   <a href="" class="page-link"   ng-if="$index===9" ng-click="setCurrent(10)">Micro Case Depth </a>
+				    <a href=""  class="page-link"   ng-if="$index===10" ng-click="setCurrent(11)">Micro Coating Thick </a>
+					 <a href=""  class="page-link"   ng-if="$index===11" ng-click="setCurrent(12)">Micro De Carb </a>
+					  <a href=""  class="page-link"   ng-if="$index===12" ng-click="setCurrent(13)">Micro Structure </a>
+					   <a href=""  class="page-link"   ng-if="$index===13" ng-click="setCurrent(14)">Proof Load </a>
+					    <a href=""  class="page-link"   ng-if="$index===14" ng-click="setCurrent(15)">Shear Strength </a>
+						 <a href=""  class="page-link"   ng-if="$index===15" ng-click="setCurrent(16)">Tensile </a>
+						  <a href=""  class="page-link"   ng-if="$index===16" ng-click="setCurrent(17)">Thread Lap </a>
+						   <a href=""  class="page-link"   ng-if="$index===17" ng-click="setCurrent(18)">Torque Tension </a>
+						    <a href=""  class="page-link"   ng-if="$index===18" ng-click="setCurrent(19)">Wedge </a>
+							 
+    </li>
+
+    <li class="page-item" ng-if="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }">
+        <a href="" class="page-link"   ng-click="setCurrent(pagination.current + 1)">&rsaquo;</a>
+    </li>
+    <li class="page-item" ng-if="boundaryLinks"  ng-class="{ disabled : pagination.current == pagination.last }">
+        <a href=""  class="page-link"  ng-click="setCurrent(pagination.last)">&raquo;</a>
+    </li>
+</ul>

@@ -1,0 +1,134 @@
+<div class="modal-header">
+           Load details from quote
+			 <button type="button" class="close" ng-click="closeqform()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+            <div class="row " >
+
+	<div class="col-md-12" style="margin-top:0px;">
+		<div class="card card-default">
+			<!-- <div class="card-header"> -->
+				<!-- <h4 class="card-title text-left"><b><i class="fa fa-barcode"></i>  Standard Reference Info</b></h4> -->
+			<!-- </div> -->
+			<div class="card-body">
+			
+			<form class="form-horizontal" name="qform" ng-submit="getqdetails(formquote.QNo)" novalidate>
+				
+					
+					<div class="form-group">
+						
+					
+						<label  class=" control-label">Enter Quotation No.</label>
+					<div class="input-group mb-3">
+							<input type="text" class="form-control" id="QNo" ng-model="formquote.QNo" name="QNo" placeholder="Quotation No/Customer Name" required
+uib-typeahead="state.QNO as state.QNO for state in quotenos | filter:{Name:$viewValue} | limitTo:8"
+autocomplete="off"
+							/>	<button class="btn btn-outline-secondary inputbtn" type="submit"  ng-disabled="qform.$invalid" id="button-addon2">Get Details</button>
+						</div>
+						
+						
+					</div>
+			</form>
+					
+				
+				<form class="form-horizontal" name="stdform" ng-show="flags.qdetails" novalidate>
+					
+					<div class="form-group">
+					      <main>
+                <div class="row contacts">
+                    <div class="col-lg-6 col-sm-6 quote-to" style="width:50%;">
+                        <div class="text-gray-light " ><strong>QUOTATION TO: </strong></div>
+                        <h2 class="to">{{quote.Customer.Name}}</h2>
+                        <div class="address">{{quote.Customer.Address}}</div>
+                        <div class="email"><a ng-href="{{quote.Customer.Email}}">{{quote.Customer.Email}}</a></div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6 quote-details" style="width:50%;">
+                        <h1 class="quote-id" style="font-size: 16px;" >QNO. {{quote.QNo}}</h1>
+                        <div class="date">Generated Date: {{quote.QDate | date :"dd.MM.y"}}</div>
+                        <div class="date">Valid Date:  {{quote.ValidDate | date :"dd.MM.y"}}</div>
+                    </div>
+                </div>
+               
+							<table class="table table-sm table-bordered mb-0" style="font-size:12px;">
+							
+							<tr> <td >#</td><td class="p-1  fw-bold">Test Details</td><td class="p-1  fw-bold">Standard / TestMethod</td>
+							
+							
+							<td class="p-1  fw-bold" style="width:150px;">Due Date / Assigned To</td>
+							
+							</tr>
+							<tr ng-repeat="item in quote.Details">  <td class="no">{{$index+1}}</td>
+							
+							<td class="p-1">{{item.TestName}} <br>
+							 Test Condition: {{item.testcondition}} <br>
+							Industry: {{item.Industry}} <br>
+							Sample: {{item.SampleName}} - {{item.SampleWeight}} , TAT: {{item.TAT}}
+							 <br> Lab:{{item.Labs}} 
+							 <br>Plan: {{item.Plan}}
+							 <br>Parameters:<ul class="list-inline">
+  <li class="list-inline-item">
+<small class="badge text-bg-light " style="margin-left:2px;" ng-repeat="p in item.Parameters">{{p.Parameter}}</small></li></ul>	
+							 </td>
+							<td class="p-1">{{item.SubStdName}} <br> Test Method: {{item.TestMethod}} </td>
+							
+							
+							<td style="min-width:200px;">
+							<div class="input-group ">
+	<input type="text" class="form-control input-sm" uib-datepicker-popup ng-model="item.ReqDate" is-open="popup2.opened[$index]" datepicker-options="dateOptions" 
+	close-text="Close"   ng-required="true" >
+	<span class="input-group-btn">
+	<button type="button" class="btn btn-default btn-sm" ng-click="open2($index)"><i class="fa fa-calendar"></i></button>
+	</span>
+	</div>
+							
+							
+						<hr>
+						<ui-select id="AssignedId[{{$index}}]" ng-model="item.AssignedTo" name="AssignedId[{{$index}}]" 
+    >
+<ui-select-match placeholder=" User">
+<span ng-bind="$select.selected.Name"></span>
+</ui-select-match>
+<ui-select-choices  repeat="item.Id as item in labusers  track by item.Id">
+<span ng-bind="item.Name"></span>
+</ui-select-choices>
+</ui-select>
+</td>
+						
+							</tr>
+							</table>
+							<!-- <strong> Industry -> {{item.Industry}} <br> -->
+							<!-- <span>Test Condition -> {{item.testcondition}} </span><br> -->
+							<!-- <span class="text-primary ">Test -> {{item.TestName}} </span><br> -->
+							
+							<!-- <span> -->
+							<!-- Standard ->{{item.SubStdName}} <br> -->
+							<!-- TestMethod -> {{item.TestMethod}}   </span></strong> -->
+							
+                
+            </main>
+       
+					</div>
+				<div class="form-group">
+				<button class="btn btn-danger" ng-click="closeqform()"> CANCEL</button>
+				<button class="btn btn-primary" ng-disabled="stdform.$invalid" ng-click="savesamples('confirm',quote)"> SAVE SAMPLES</button>
+				
+				</div>
+			
+				</form>
+
+	
+	</div>
+
+	
+					
+				
+			</div>
+		</div>
+	</div>
+
+</div>	
+        </div>
+        <div class="modal-footer">
+          <!--   <button class="btn btn-primary" type="button" ng-click="ok()">OK</button> -->
+            <!-- <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button> -->
+        </div>

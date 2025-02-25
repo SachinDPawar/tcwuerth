@@ -1,0 +1,327 @@
+
+  
+  
+  <div class="row">
+	
+	<div class="col-md-12">
+		<div class="card card-light ">
+	  
+		<div class="card-body" style="background:#fff;padding:8px;padding-top:15px;">
+		<div class="row p-2">
+		<div class="col-md-6">
+			<button class="btn btn-primary " ng-click="addcat('new')" ng-if="permissions[1].C && app.isindustry" 
+			><i class=" fa fa-plus"></i> {{'AddIndustry'|translate}}</button>
+		</div>
+		<div class=" col-md-5" style="padding:5px;">
+
+			
+		</div>
+		</div>	
+				
+		<div class="row " style="background:#fff;margin:4px;padding:4px;" >	
+				<div ui-tree="treeOptions"  id="tree-root" data-nodrop-enabled="true"  data-dropzone-enabled="false" data-nodrag>
+				<ol ui-tree-nodes ng-model="allvcats" class="row "  >
+					<li ng-repeat="node in allvcats | orderBy:'SeqNo'" class="alert alert-light col-sm-6 bg-light mb-2" data-collapsed="true" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+					
+					
+				</ol>
+			</div>		
+			
+			
+			
+			
+				
+			
+		</ul> 
+			
+			
+		</div>
+		
+		
+		
+		</div>
+		</div>
+	</div>
+	
+	<toaster-container toaster-options="{'close-button': false,'position-class': 'toast-top-center'}" 
+	style="margin-top:20%;z-index:1052;"></toaster-container> 
+	<toaster-container toaster-options="{'toaster-id':31,'close-button': false,'position-class': 'toast-top-center'}" style="margin-top:20%;z-index:1052;"></toaster-container> 
+</div>
+
+ 
+
+<script type="text/ng-template" id="nodes_renderer.html">
+		<div ui-tree-handle class="tree-node tree-node-content">
+		
+		<span  ng-if="node.Children.length < 1" ng-class="{'text-success':node.Status==1,'text-danger':node.Status==0,'text-muted':node.Status==3}" style="padding-left:15px;">	{{node.Name}}  </span>
+		
+		<a class="icon-link icon-link-hover" ng-if="node.Children && node.Children.length > 0" data-nodrag ng-click="toggle(this)"><span ng-class="{'text-success':node.Status==1,'text-danger':node.Status==0,'text-muted':node.Status==3}" style="padding-left:15px;">	{{node.Name}}  </span><i class="fa"	ng-class="{	'fa-chevron-right': collapsed,'fa-chevron-down': !collapsed	}"></i></a>
+		
+		<a class="pull-right btn btn-outline-secondary btn-sm" ng-if="permissions[1].D && app.isindustry" data-nodrag ng-click="deletecat('confirm',node)"><span
+		class="fa fa-close"></span></a>
+		<a class="pull-right btn btn-outline-primary btn-sm" ng-if="node.IsP && permissions[1].U" data-nodrag   ng-click="addcat(node)" style="margin-right: 8px;"><span
+		class="fa fa-pencil"></span></a>
+		<a class="pull-right btn btn-outline-primary btn-sm" ng-if="!node.IsP && permissions[1].U" data-nodrag ng-click="editsubcat(node)"  style="margin-right: 8px;"><span
+		class="fa fa-pencil"></span></a>
+		<a ng-if="node.HasSubInd===1 && permissions[1].C" class="pull-right btn btn-outline-primary btn-sm "  data-nodrag ng-click="addsubcat(node)" style="margin-right: 8px;">
+		<i class="fa fa-plus"></i> {{'SubIndustry'|translate}}</a>
+		
+		</div>
+		<ol ui-tree-nodes="" ng-model="node.Children" ng-class="{hidden: collapsed}">
+		<li class="" ng-repeat="node in node.Children" ui-tree-node ng-include="'nodes_renderer.html'">
+        
+		</li>
+        
+		</ol>
+</script>
+
+
+<script type="text/ng-template" id="categoryModal" data-keyboard="false">
+
+		
+	<div class="modal-header col-sm-12 ">
+		
+		<label><i class="fa fa-plus-circle"></i>
+			<span ><span ng-if="!editflag"> Add</span>
+				<span ng-if="editflag"> Edit</span> {{'Industry'|translate}}</span>			
+		</label>
+		<button type="button" class="btn btn-sm btn-outline-light pull-right float-end" data-dismiss="modal" ng-click="closeModal()"><i class="fa fa-close"></i></button>
+		
+	</div>
+
+	
+	
+		<div class="modal-body">
+		<form class="form-horizontal " name="industryform" novalidate>	
+		
+			<blockquote class="mybg-info"><p>{{'MandatoryMsg'| translate}}</p></blockquote>
+			
+					
+		<div class="form-group row">
+			<div class="col-sm-12">
+				<label class="control-label text-left" for="IndName">
+				Industry Name <i ng-show="industryform.IndName.$error.required" class="fa  error">*</i> </label>
+			<input type="text"   id="Name" name="IndName" placeholder="Enter Name" class="form-control"  ng-model="info.Name"
+			ng-maxlength="100"  ng-pattern="/^[a-zA-Z0-9\s]/"		required>
+					<div class="error-container" ng-show="industryform.IndName.$dirty || industryform.IndName.$invalid">
+				
+				<small class="error" ng-show="industryform.IndName.$error.maxlength">
+					 Name cannot be longer than 100 characters
+				</small>
+				<small class="error" ng-show="industryform.IndName.$error.pattern">
+					Name should not start with special characters.
+				</small>
+				</div>
+				
+			</div>
+			
+		</div>
+					
+			<div class="form-group row">		
+				<div class="col-sm-6 col-xs-12 ">					
+				<label  class="control-label text-left">Has Sub-Industries <small class="error" ng-show="industryform.HasSubInd.$error.required">
+					*
+				</small></label>
+				<ui-select id="category" class="form-control" ng-model="info.HasSubInd" name="HasSubInd" style="padding:0px;border:0px;" required>
+					<ui-select-match placeholder="Has Sub Industry">
+						<span ng-bind="$select.selected.Text"></span>
+					</ui-select-match>
+					<ui-select-choices repeat="item.Id as item in (hassubcats | filter: $select.search) ">
+						<span ng-bind="item.Text" style="color:#000;font-weight:bold;"></span>
+					</ui-select-choices>
+				</ui-select>
+				<span class="text-info"></span>
+                
+				
+			</div>
+			
+			<div class="col-sm-4 col-xs-12 ">					
+					<label  class="control-label text-left">Status <small class="error" ng-show="industryform.Status.$error.required">
+					*
+				</small></label>
+					<ui-select id="status" class="form-control" ng-model="info.Status" name="Status" style="padding:0px;border:0px;" required>
+						<ui-select-match placeholder="Select Status">
+							<span ng-bind="$select.selected.Text"></span>
+						</ui-select-match>
+						<ui-select-choices repeat="item.Id as item in (statuses ) ">
+							<span ng-bind="item.Text" style="color:#000;font-weight:bold;"></span>
+						</ui-select-choices>
+					</ui-select>
+                    <small class="error" ng-show="industryform.Status.$error.required">
+                        Status is required.
+                    </small>
+				</div>
+</div>
+<div class="form-group row">					
+           <div class="col-sm-4 col-xs-12">
+				<label class="control-label text-left" for="catform_name">Sequence No. </label>
+				<input placeholder="Enter Sequence No" class="form-control" name="Name" ng-model="info.SeqNo" type="text"  >
+				
+				<div class="error-container" ng-show="industryform.SeqNo.$dirty || industryform.SeqNo.$invalid">
+				<small class="error" ng-show="industryform.SeqNo.$error.required">
+					Sequence is required.
+				</small>
+				
+				</div>
+			</div>
+       
+			</div>
+			
+		
+		
+<div class="form-group text-center" style="margin-top:10px;border-top:1px solid #d8d2d2;padding:10px 2px;">
+				
+			<button type="submit" ng-click="savecat(info)" ng-disabled="industryform.$invalid || issaving" class="btn btn-success">
+						<span ng-if="!editflag"> Save</span>
+						<span ng-if="editflag"> Update</span>  <i class="fa fa-chevron-circle-right fa-lg" style="color:#A8C539;"></i>
+					</button>
+					<button class="btn btn-danger" ng-click="closeModal()">Cancel</button>
+				
+			</div>
+				
+			</form>	
+				</div>
+		
+
+
+</script>
+
+	
+<script type="text/ng-template" id="subcategoryModal" data-keyboard="false">
+
+	<div class="modal-header col-sm-12 ">
+		<button type="button" class="close fa fa-close pull-right" data-dismiss="modal" ng-click="closeModal()"> </button>
+		<label><i class="fa fa-plus-circle"></i>
+			<span ><span ng-if="!editflag"> Add</span>
+				<span ng-if="editflag"> Edit</span> Industry</span>			
+		</label>
+	</div>
+
+	
+	<form class="form-horizontal" name="catform" id="fileupload" method="POST" enctype="multipart/form-data" data-file-upload="options" 
+		data-ng-class="{'fileupload-processing': processing() || loadingFiles}" novalidate>	
+		<div class="col-sm-12" style="margin-top:5px;">
+	
+		<div class="modal-body">
+			<blockquote class="mybg-info"><p>All * mark feilds are mandatory</p></blockquote>
+			
+						<div class="form-group">
+				<div class="col-sm-12 col-xs-12 ">					
+					<label  class="control-label text-left"> This Industry/Sub-Industry Belongs to</label>
+				<ui-select id="category" class="form-control" ng-model="info.ParentId" ng-disabled="true" name="ParentId" style="padding:0px;border:0px;">
+					<ui-select-match placeholder="Select  Industry ">
+						<span ng-bind="$select.selected.Name"></span>
+					</ui-select-match>
+					<ui-select-choices repeat="item.Id as item in (parentcats | filter: $select.search)" null-option="anyCountry" loose-null>
+						<span style="color:#000;font-weight:bold;" ng-bind="item.Name"></span><br>
+						<!-- <span style="color:#777;">{{item.PTree}}</span> -->
+					</ui-select-choices>
+				</ui-select>
+				<!-- <span class="text-info">(Keep this blank if doesnot belong to any category/sub-category/sub-section)</span> -->
+				</div>
+			</div>
+			
+		<div class="form-group">
+			<div class="col-sm-12">
+				<label class="control-label text-left" for="catform_name">Industry/Sub-Industry Name 
+				<span class="error" ng-show="catform.Name.$error.required">*</span> </label>
+				<input placeholder="Enter Name" class="form-control" name="Name" ng-model="info.Name" type="text" ng-maxlength="100"
+				ng-pattern="/^[a-zA-Z0-9\s]/" required>
+				
+				<div class="error-container" ng-show="catform.Name.$dirty || catform.Name.$invalid">
+				
+				<small class="error" ng-show="catform.Name.$error.maxlength">
+					Industry Name cannot be longer than 100 characters
+				</small>
+				<small class="error" ng-show="catform.Name.$error.pattern">
+					Name should not start with special characters.
+				</small>
+				</div>
+			</div>
+			
+		</div>
+					
+			<div class="form-group">	
+				<div class="col-sm-6 col-xs-12 ">					
+				<label  class="control-label text-left">Has Sub-Industries <span class="error" ng-show="catform.HasSubInd.$error.required">*</span></label>
+				<ui-select id="category" class="form-control" ng-model="info.HasSubInd" name="HasSubInd" style="padding:0px;border:0px;" required>
+					<ui-select-match placeholder="Select Has Sub Industry">
+						<span ng-bind="$select.selected.Text"></span>
+					</ui-select-match>
+					<ui-select-choices repeat="item.Id as item in (hassubcats | filter: $select.search) ">
+						<span ng-bind="item.Text" style="color:#000;font-weight:bold;"></span>
+					</ui-select-choices>
+				</ui-select>
+				<!-- <span class="text-info">(Keep this as true if you want to create sub-category/sub-section)</span> -->
+                <small class="error" ng-show="catform.IsLast.$error.required">
+					Is Last is required.
+				</small>
+				
+			</div>
+			
+					
+		</div>
+		<div class="form-group">
+		
+<div class="col-sm-6 col-xs-12 ">					
+					<label  class="control-label text-left">Status <span class="error" ng-show="catform.Status.$error.required">*</span></label>
+					<ui-select id="status" class="form-control" ng-model="info.Status" name="Status" style="padding:0px;border:0px;" required>
+						<ui-select-match placeholder="Select Status">
+							<span ng-bind="$select.selected.Text"></span>
+						</ui-select-match>
+						<ui-select-choices repeat="item.Id as item in (statuses | filter: $select.search) ">
+							<span ng-bind="item.Text" style="color:#000;font-weight:bold;"></span>
+						</ui-select-choices>
+					</ui-select>
+                    
+				</div>	
+		</div>
+		
+			
+		</div>		
+				
+	
+		</div>
+		</div>
+		
+	
+		<div class="modal-footer" style="padding:0px;">
+				<div class="col-sm-12 bg-secon text-center" style="margin-top:10px;padding:10px 2px;">
+				
+					<button type="submit" ng-click="savecat(info)" ng-disabled="catform.$invalid || issaving" class="btn btn-success">
+						<span ng-if="!editflag"> Save</span>
+						<span ng-if="editflag"> Update</span>  <i class="fa fa-chevron-circle-right fa-lg" style="color:#A8C539;"></i>
+					</button>
+					<button class="btn btn-danger" ng-click="closeModal()">Cancel</button>
+				
+			</div>
+		</div>
+	</form>
+
+	
+	
+
+</script>
+
+
+<script type="text/ng-template" id="delcatModal"  >
+		<div class="modal-content">
+		
+			<div class="modal-header  bg-danger dialog-header-confirm">
+				<button type="button" class="close" data-dismiss="modal" ng-click="closeconfirmModal()" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel"><i class="fa fa-check-square-o"></i> Confirm Delete</h4>
+			</div>
+		
+			<div class="modal-body">
+				<p>You are about to delete Industry  <strong>{{log.Name}}</strong>,All Products under this category will be deleted.
+				this procedure is irreversible.</p>
+				<p>Do you want to proceed?</p>
+			 </div>
+			
+			<div class="modal-footer">
+				<button class="btn btn-sm btn-danger" ng-disabled="issaving" data-ng-click="deletecat('delete',log)">Delete</button>
+				<button type="button" class="btn btn-sm btn-primary" ng-click="closeconfirmModal()">Cancel</button>
+			</div>
+			
+		</div>
+</script>

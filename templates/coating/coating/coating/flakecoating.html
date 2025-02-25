@@ -1,0 +1,159 @@
+<div class="row" >
+	<div class="col-md-12" style="padding:10px;">
+		<button class="btn btn-primary fa fa-plus" ng-click="editresult('new')"> Add Result</button>	
+	</div>
+	
+	<div class="col-md-12" style="padding:10px;">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h2 class="panel-title text-left"><i class="fa fa-fire-extinguisher"></i> <b>Zn-Al Flake Coating - Salt Spray Test</b></h2>
+		</div>
+		<div class="panel-body">
+			<div class="col-md-offset-7 col-md-5">
+				<form class="form-horizontal ">
+				<div class="form-group">
+				<label for="inputEmail3" class="col-md-2 control-label">Search</label>
+				<div class="col-md-10">
+				  <input type="text" class="form-control" id="inputEmail3" placeholder="Search">
+				</div>
+				</div>
+				</form>
+			</div>
+			
+			<div class="col-md-12">
+				<table class="table table-striped table-bordered" >
+					<thead>
+						<tr>
+							<th style="width:8px">Sr.No.</th>
+							<th>RIRNo.</th>
+							
+							<th class="hidden-phone">LabNo.</th>
+							<th class="hidden-phone">Batch Code</th>
+							<th class="hidden-phone">PartName</th>
+							
+							<th class="hidden-phone">Supplier</th>
+							<th class="hidden-phone">Required Date</th>
+							<th class="hidden-phone" style="width:100px;">Status</th>
+							<th class="hidden-phone" style="width:200px;">Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="odd gradeX" dir-paginate="item in results =( allrirs | filter:searchstring ) |itemsPerPage: 15   " current-page="1">
+							<td>{{$index+1}}</td>
+							<td class="hidden-phone">{{item.RirNo}}</td>
+							<td>{{item.LabNo}}</td>
+							<td>{{item.BatchCode}}</td>
+							<td class="hidden-phone">{{item.PartName}}</td>
+							<td class="hidden-phone">{{item.Supplier}}</td>
+							<td class="hidden-phone">{{item.ReqDate}}</td>
+							<td class="hidden-phone"><span ng-class="{'label-warning':item.Status==='pending','label-success':item.Status==='complete'}" 
+							class="label">{{item.Status}}</span>
+							</td>
+							<td class="center">
+								<!-- <button class="btn btn-default fa fa-pencil btn-sm" ng-click="editresult('edit',item.Id)"></button>	
+							<button ng-if="item.Status ==='pending'" class="btn btn-default fa fa-plus btn-sm" ng-click="editresult('new',item.ReceiptirId)"> Add Result</button>	
+							 -->	
+							<button ng-if="item.Status != 'pending'" class="btn btn-default fa fa-eye btn-sm" ng-click="showrir('lg',item)" ></button>
+							
+							<button ng-if="item.Status ==='complete'" class="btn btn-default fa fa-save btn-sm" ng-click="editresult('edit',item.ReceiptirId)"> Update Result</button>													
+							</td>
+						</tr>
+						<tr class="animate-repeat text-center" ng-if="results.length === 0">
+							<td colspan="9">No results found...</td>
+						</tr>
+						
+						<dir-pagination-controls></dir-pagination-controls>
+					</tbody>
+				</table>	
+			</div>
+							
+		</div>
+	</div>
+	</div>
+</div>
+	
+	
+<script type="text/ng-template" id="sstviewContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">sst Detail View</h3>
+         <button type="button" class="close" ng-click="cancel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+		<!-- <pre>{{viewrir}}</pre> -->
+          	<table class="table table-bordered">
+				<tr >
+					<td  class="col-md-2 text-right active"><b>RIR No.</b></td><td class="col-md-3">{{sst.RirNo}}</td>
+					<td class="col-md-2 text-right active" ><b>Lab No.</b></td><td class="col-md-3">{{sst.LabNo}}</td>
+				</tr>
+				<tr>
+					<td  class="col-md-2 text-right active"><b>Part Name</b></td><td class="col-md-3">{{sst.PartName}}</td>
+					<td  class="col-md-2 text-right active"><b>Supplier</b></td><td class="col-md-3">{{sst.Supplier}}</td> 
+				</tr>
+								<tr>
+					<td  class="col-md-2 text-right active"><b>Ref. Purchase Order</b></td><td class="col-md-3">{{sst.RefPurchaseOrder}}</td>
+					<td  class="col-md-2 text-right active"><b>Grin No</b></td><td class="col-md-3">{{sst.GrinNo}}</td>
+				</tr>
+				
+				
+				<tr>
+					<td  class="col-md-2 text-right active"><b>Quantity</b></td><td class="col-md-3">{{sst.Quantity}}</td> 
+					<td  class="col-md-2 text-right active"><b>Heat No.</b></td><td class="col-md-3">{{sst.HeatNo}}</td>
+				</tr>
+				
+				<tr>
+					<td  class="col-md-2 text-right active"><b>Batch No</b></td><td class="col-md-3">{{sst.BatchNo}}</td> 
+					<td  class="col-md-2 text-right active"><b>Material Condition</b></td><td class="col-md-3">{{sst.spectro.HeatNo}}</td>
+				</tr>
+				
+				
+				<tr>
+					<td  class="col-md-2 text-right active"><b>Material Grade</b></td><td class="col-md-3">{{sst.MaterialGrade}}</td> 
+					<td  class="col-md-2 text-right active"><b>Required Date</b></td><td class="col-md-3">{{sst.ReqDate}}</td>
+				</tr>
+				
+					<tr>
+					<td class="col-md-2 text-right active"><b><span ng-if="sst.NoType==='mds'">MdsNo</span><span ng-if="sst.NoType==='tds'">TdsNo</span></b>
+					<td colspan="4"><span ng-if="sst.NoType==='mds'">{{sst.Mds}}</span><span ng-if="sst.NoType==='tds'">{{sst.Tds}}</span></td></td>
+				</tr>
+				<tr>
+					<td class="col-md-2 text-right active"><b>Reference Std</b><td colspan="4">{{sst.Standard}}</td></td>
+				</tr>
+				
+				
+				<tr>
+					<td  class="col-md-2 text-right active"><b>Batch Code</b></td><td class="col-md-3">{{sst.BatchCode}}</td> 
+					<td  class="col-md-2 text-right active"><b>TestMethod</b></td><td class="col-md-3">{{sst.TestMethod}}</td>
+				</tr>
+				<tr>
+					<td colspan="4" class="bg-info text-center"><b>Test Parameters</b></td>
+				</tr>
+				
+		<tr class="active">
+		<td>sst Type</td><td>Load</td><td>Min</td><td>Max</td>
+		</tr>
+		<tr><td>{{sst.cond.sst}}</td><td>{{sst.cond.Load}}</td><td>{{sst.cond.Min}}</td><td>{{sst.cond.Max}}</td></tr>
+		
+		
+		</tr>
+				<tr>
+					<td colspan="4" class="bg-info text-center"><b>Observations</b></td>
+				</tr>
+				<tr class="text-center">
+					<td colspan="1">S/n</td>
+					<td colspan="1">HV</td>
+					<td colspan="2">Status</td>
+				</tr>
+
+				<tr ng-repeat="i in sst.observations">
+					<td colspan="1">{{$index}}</td>
+					<td colspan="1">{{i.Value}}</td>
+					<td colspan="2">{{i.Status}}</td>
+				</tr>
+					
+		</table>
+		</div>
+        <div class="modal-footer">
+          <!--   <button class="btn btn-primary" type="button" ng-click="ok()">OK</button> -->
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>

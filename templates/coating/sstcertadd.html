@@ -1,0 +1,111 @@
+<style>
+.form-control {
+padding:5px 3px;
+}
+
+.tablehead{
+background-color:#607d8b;
+color:#fff;
+}
+
+.mgleft{
+margin-left:20px;
+}
+</style>
+<div class="row " >
+
+	<div class="col-md-12 col-md-offset-0" style="margin-top:0px;">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h2 class="panel-title"><i class="fa fa-file"></i><b> SST Certificate</b></h2>
+			</div>
+			<div class="panel-body">
+			<form class="form-horizontal text-left" name="sstcertform"  novalidate id="fileupload"  method="POST" enctype="multipart/form-data"   data-file-upload="options" data-ng-class="{'fileupload-processing': processing() || loadingFiles}">
+		
+		
+		
+			<div class="form-group">
+				<label class="col-md-2 col-sm-2 control-label">To</label>
+				<div class="col-md-4 col-sm-4">
+						<input type="text" class="form-control" id="To" ng-model="sstcert.To" name="To" placeholder="To" required />
+					</div>
+				
+				<label class="col-md-2 col-sm-2 control-label">Date    </label>
+				<div class="col-md-4 col-sm-4">
+					<div class="input-group ">
+						<input type="text" class="form-control input-sm"  uib-datepicker-popup ng-model="sstcert.CertDate" is-open="popup.certdate" datepicker-options="dateOptions" 
+						close-text="Close" required />
+						<span class="input-group-btn">
+						<button type="button" class="btn btn-default btn-sm" ng-click="opencertdate()"><i class="fa fa-calendar"></i></button>
+						</span>
+					</div>	
+				</div>
+			</div>	
+			
+			
+			<div class="form-group">
+				<label class="col-md-2 col-sm-2 control-label">Components</label>
+				<div class="col-md-4 col-sm-4">
+					<textarea rows="3" type="text" class="form-control" id="Component" ng-model="sstcert.Component" name="Component" placeholder="Component" required ></textarea>
+				</div>
+				
+				<label class="col-md-2 col-sm-2 control-label">BatchNo</label>
+				<div class="col-md-4 col-sm-4">
+					<input type="text" class="form-control" id="BatchNo" ng-model="sstcert.BatchNo" name="BatchNo" placeholder="Batch No" required/>
+				</div>
+			</div>	
+			
+			<div class="form-group">
+				<label class="col-md-2 col-sm-2 control-label">Loaded On    </label>
+				<div class="col-md-4 col-sm-4">
+					<div class="input-group ">
+						<input type="text" class="form-control input-sm"  uib-datepicker-popup ng-model="sstcert.LoadedOn" is-open="popup.loadon" datepicker-options="dateOptions" 
+						close-text="Close" required />
+						<span class="input-group-btn">
+						<button type="button" class="btn btn-default btn-sm" ng-click="openloadon()"><i class="fa fa-calendar"></i></button>
+						</span>
+					</div>	
+				</div>
+				
+				<label class="col-md-2 col-sm-2 control-label">No. of samples</label>
+				<div class="col-md-4 col-sm-4">
+					<input type="text" class="form-control"  id="SampleNos" ng-model="sstcert.SampleNos" name="SampleNos" placeholder="Sample Nos" required />
+				</div>
+			</div>	
+			
+			<div class="form-group">
+				<label class="col-md-2 col-sm-2 control-label">Hours</label>
+				<div class="col-md-4 col-sm-4">
+					<input type="text" class="form-control" id="Hrs" ng-model="sstcert.Hrs" name="Hrs" placeholder="Hrs"  required/>
+				</div>
+					<label class="col-md-2 col-sm-2 control-label">Ref.</label>
+				<div class="col-md-4 col-sm-4">
+					<input type="text" class="form-control" id="Ref" ng-model="sstcert.Ref" name="Ref" placeholder="Ref" required />
+				</div>
+				
+			</div>	
+			<div class="form-group">
+				<label class="col-md-2 col-sm-2 control-label">SerialNo</label>
+				<div class="col-md-4 col-sm-4">
+					<input type="text" class="form-control" id="SerialNo" ng-model="sstcert.SerialNo" name="SerialNo" placeholder="SerialNo" required />
+				</div>
+				
+				<label class="col-md-2 col-sm-2 control-label">Remarks</label>
+				<div class="col-md-4 col-sm-4">
+					<input type="text" class="form-control" id="Remarks" ng-model="sstcert.Remarks" name="Remarks" placeholder="Remarks" required/>
+				</div>
+			</div>	
+			
+	
+		
+			<div class="form-group text-center" >
+				<button type="button"  ng-disabled="sstcertform.$invalid || oneclick " class="btn btn-md btn-success "
+							 ng-click="savesstcert(sstcert)"> Save</button>
+				<button type="button" class="btn btn-md btn-danger " ng-click="cancelsave()" >Cancel</button>
+			</div>
+		
+			</div>
+		</div>
+	</div>
+
+</div>

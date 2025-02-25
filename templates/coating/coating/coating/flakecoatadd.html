@@ -1,0 +1,489 @@
+<style>
+.form-control {
+padding:5px 3px;
+}
+
+.tablehead{
+background-color:#607d8b;
+color:#fff;
+}
+
+.mgleft{
+margin-left:20px;
+}
+
+.midd{
+vertical-align: middle;
+}
+
+.ui-select-bootstrap .ui-select-choices-row>a {
+  
+    padding: 3px 10px;
+  
+}
+</style>
+<div class="row " >
+
+	<div class="col-md-12 col-md-offset-0" style="margin-top:0px;">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h2 class="panel-title"><i class="fa fa-fire-extinguisher "></i><b>Zn-Al Flake Coating - Salt-Spray Test</b></h2>
+			</div>
+			<div class="panel-body">
+			<form class="form-horizontal text-left" name="flakecoatform"  novalidate>
+		
+			<h4 class="text-center tablehead" style="height:24px;">Basic</h4>
+			<div class="form-group">
+				<label class="col-md-2 col-sm-2 control-label">TC No.</label>
+				<div class="col-md-4 col-sm-4">
+						<input type="text" class="form-control" id="TC No" ng-model="flakecoat.basic.obbasic.TCNo" name="TCNo" placeholder="TC No." />
+					</div>
+				
+				<label class="col-md-2 col-sm-2 control-label">Date of Top Coat</label>
+				<div class="col-md-4 col-sm-4">
+					<div class="input-group ">
+						<input type="text" class="form-control input-sm"  uib-datepicker-popup ng-model="flakecoat.basic.obbasic.CoatDate" is-open="popup2.opened[$index]" datepicker-options="dateOptions" 
+						close-text="Close" />
+						<span class="input-group-btn">
+						<button type="button" class="btn btn-default btn-sm" ng-click="open2($index)"><i class="fa fa-calendar"></i></button>
+						</span>
+					</div>	
+				</div>
+			</div>	
+			
+			
+			<div class="form-group">
+				<label class="col-md-2 col-sm-2 control-label">Customer Name</label>
+				<div class="col-md-4 col-sm-4">
+					<input type="text" class="form-control" id="CustomerName" ng-model="flakecoat.basic.obbasic.CustomerName" name="CustomerName" placeholder="Customer Name" />
+				</div>
+				
+				<label class="col-md-2 col-sm-2 control-label">Part Coated</label>
+				<div class="col-md-4 col-sm-4">
+					<input type="text" class="form-control" id="PartCoated" ng-model="flakecoat.basic.obbasic.PartCoated" name="Part Coated" placeholder="Part Coated" />
+				</div>
+			</div>	
+			
+			<div class="form-group">
+				<label class="col-md-2 col-sm-2 control-label">Quantity(Nos.)</label>
+				<div class="col-md-4 col-sm-4">
+					<input type="text" class="form-control" id="Quantity" ng-model="flakecoat.basic.obbasic.Quantity" name="Quantity" placeholder="Quantity" />
+				</div>
+				
+				<label class="col-md-2 col-sm-2 control-label">Batch No.</label>
+				<div class="col-md-4 col-sm-4">
+					<input type="text" class="form-control" disabled id="BatchNo" ng-model="flakecoat.basic.obbasic.BatchNo" name="BatchNo" placeholder="Batch No." />
+				</div>
+			</div>	
+			
+			<div class="form-group">
+				<label class="col-md-2 col-sm-2 control-label">Process performed</label>
+				<div class="col-md-4 col-sm-4">
+					<input type="text" class="form-control" id="PhTestSoln" ng-model="flakecoat.basic.obbasic.Process" name="PhTestSoln" placeholder="pH of test Solution" />
+				</div>
+				
+				<!-- <label class="col-md-2 col-sm-2 control-label">pH of Collected Sample</label>
+				<div class="col-md-4 col-sm-4">
+					<input type="text" class="form-control" id="PhCollectedSample" ng-model="flakecoat.basic.obbasic.PhCollectedSample" name="PhCollectedSample" placeholder="pH of Collected Sample" />
+				</div> -->
+			</div>	
+			
+			<div class="form-group">
+				<label class="col-md-2 col-sm-2 control-label">TC Issue Date</label>
+				<div class="col-md-4 col-sm-4">
+					<div class="input-group ">
+						<input type="text" class="form-control input-sm"  uib-datepicker-popup ng-model="flakecoat.basic.obbasic.IssueDate" is-open="popup1.opened[$index]" datepicker-options="dateOptions" 
+						close-text="Close" />
+						<span class="input-group-btn">
+						<button type="button" class="btn btn-default btn-sm" ng-click="open1($index)"><i class="fa fa-calendar"></i></button>
+						</span>
+					</div>	
+				</div>
+			</div>
+			
+			<h4 class="text-center tablehead" style="height:24px;">Coating System</h4>
+			<div class="form-group">
+				<label class="col-md-2 col-sm-2 control-label">Colour</label>
+				<div class="col-md-4 col-sm-4">
+					<input type="text" class="form-control" id="Angle" ng-model="flakecoat.basic.obbasic.Angle" name="Angle" placeholder="Angle" />
+				</div>
+				
+				<label class="col-md-2 col-sm-2 control-label">Coating Apply Method</label>
+				<div class="col-md-4 col-sm-4">
+					<input type="text" class="form-control" id="CoatingMethod" ng-model="flakecoat.basic.obbasic.CoatingMethod" name="CoatingMethod" placeholder="Coating Application Method" />
+				</div>
+			</div>	
+			
+			<div class="form-group">
+				<label class="col-md-2 col-sm-2 control-label">Base Coat</label>
+				<div class="col-md-4 col-sm-4">
+					<input type="text" class="form-control" id="BaseCoat" ng-model="flakecoat.basic.obbasic.BaseCoat" name="BaseCoat" placeholder="Base Coat" />
+				</div>
+				
+				<label class="col-md-2 col-sm-2 control-label">Top Coat</label>
+				<div class="col-md-4 col-sm-4">
+					<input type="text" class="form-control" id="TopCoat" ng-model="flakecoat.basic.obbasic.TopCoat" name="TopCoat" placeholder="Top Coat" />
+				</div>
+			</div>	
+					
+			
+			<div class="form-group" style="margin-top:20px;">
+				<div class="col-md-12">
+				
+				<h4 class="text-center tablehead" style="height:24px;">Test Performed</h4>
+				
+				<table class="table table-bordered table-condensed ">
+					
+					<!-- <tr >
+						<th class="text-center" rowspan="2">Sr.No.</th>
+						<th class="text-center" rowspan="2">Test</th>
+						<th class="text-center" rowspan="2">Test Equipment</th>
+						<th class="text-center" rowspan="2">Related Standard</th>
+						<th class="text-center" rowspan="2">Requirement</th>
+						<th class="text-center" colspan="4">Observations</th>
+						<th class="text-center" rowspan="2">Actions</th>
+					</tr>
+					
+					<tbody>
+						<tr>
+						<td></td>
+						<td class="col-md-2">
+						
+							<ui-select ng-disabled="isDisabled" name="Test" ng-model="flakecoat.basic.Test" 
+							  >
+							<ui-select-match placeholder="Select Test">
+								<span ng-bind="$select.selected.text"></span>
+							</ui-select-match>
+							<ui-select-choices repeat="item.id as item in (testresults | filter: $select.search) ">
+								<span ng-bind="item.text"></span>
+							</ui-select-choices>
+							</ui-select>
+					
+						</td>
+						
+						<td class="col-md-2">
+						
+							<ui-select ng-disabled="isDisabled" name="Test" ng-model="flakecoat.basic.Test" 
+								   >
+							<ui-select-match placeholder="Select Test">
+								<span ng-bind="$select.selected.text"></span>
+							</ui-select-match>
+							<ui-select-choices repeat="item.id as item in (testresults | filter: $select.search) ">
+								<span ng-bind="item.text"></span>
+							</ui-select-choices>
+							</ui-select>
+					
+						</td>
+						
+						<td class="col-md-2">
+						
+							<ui-select ng-disabled="isDisabled" name="Test" ng-model="flakecoat.basic.Test" 
+								   >
+							<ui-select-match placeholder="Select Test">
+								<span ng-bind="$select.selected.text"></span>
+							</ui-select-match>
+							<ui-select-choices repeat="item.id as item in (testresults | filter: $select.search) ">
+								<span ng-bind="item.text"></span>
+							</ui-select-choices>
+							</ui-select>
+					
+						</td>
+						
+						<td class="col-md-2">
+							<textarea type="text" rows="3" class="form-control" id="TopCoat" ng-model="flakecoat.basic.obbasic.TopCoat" name="TopCoat" placeholder="Top Coat"></textarea>
+						</td>
+						
+						<td class="col-md-3">
+							<input></input>
+						</td>
+						
+						</tr> 
+					</tbody>-->
+					<thead  class="bg-warning">
+						<tr><th colspan="12">
+							Reference STD: {{Standard}}
+							</th>
+						</tr>
+					</thead>		
+
+					<tbody>
+						<tr style="text-align:center;">
+							<td style="vertical-align: middle;width:20px;" rowspan="2">Sr.No.</td>
+							<td rowspan="2" style="vertical-align: middle;width:180px;">Test</td>
+							<td rowspan="2" style="vertical-align: middle;">Test Equipment</td>
+							<td rowspan="2" style="vertical-align: middle;">Related Standard</td>
+							<td rowspan="2" style="vertical-align: middle;">Requirement</td>
+							<td colspan="5">Observations</td>
+							<td rowspan="2" style="vertical-align: middle;width:100px;">Remarks</td>
+						</tr>
+						
+						<tr style="text-align:center">
+							<td style="width:60px;">A</td>
+							<td style="width:60px;">B</td>
+							<td style="width:60px;">C</td>
+							<td style="width:60px;">D</td>
+							<td style="width:60px;">E</td>
+						</tr>
+						
+						<tr style="text-align:center" ng-repeat="item in flakecoat.basic.observations">
+							<td style="vertical-align:middle;" >1</td>
+							<td style="vertical-align:middle;" ng-if="!item.mergeparam">
+								<ui-select ng-disabled="isDisabled" name="Test" ng-model="item.Test" >
+								<ui-select-match placeholder="Select Test">
+									<span ng-bind="$select.selected.text"></span>
+								</ui-select-match>
+								<ui-select-choices repeat="item.id as item in (alltest | filter: $select.search) " >
+									<span ng-bind="item.text"></span>
+								</ui-select-choices>
+								</ui-select>
+							</td>
+							
+							<td style="vertical-align:middle;" ng-if="!item.mergeparam">
+								<textarea type="text" rows="3" class="form-control" id="Equipment" ng-model="item.Equipment" name="Equipment" placeholder="Equipment"></textarea>
+							</td>
+							
+							<td style="vertical-align:middle;" ng-if="!item.mergeparam">
+								<textarea type="text" rows="3" class="form-control" id="Standard" ng-model="item.Standard" name="Standard" placeholder="Standard"></textarea>
+							</td>
+							
+							<td style="vertical-align:middle;" ng-if="!item.mergeparam">
+								<textarea type="text" rows="3" class="form-control" id="Requirement" ng-model="item.Requirement" name="Requirement" placeholder="Requirement"></textarea>
+							</td>
+							
+							<td style="vertical-align:middle;" ng-if="item.mergesamp && !item.mergeparam">
+								<input type="text" class="form-control" id="A" ng-model="item.A" name="A" ></input>
+							</td>
+							<td style="vertical-align:middle;" ng-if="item.mergesamp && !item.mergeparam">
+								<input type="text" class="form-control" id="B" ng-model="item.B" name="B"></input>
+							</td>
+							<td style="vertical-align:middle;" ng-if="item.mergesamp && !item.mergeparam">
+								<input type="text" class="form-control" id="C" ng-model="item.C" name="C"></input>
+							</td>
+							<td style="vertical-align:middle;" ng-if="item.mergesamp && !item.mergeparam">
+								<input type="text" class="form-control" id="D" ng-model="item.D" name="D"></input>
+							</td>
+							<td style="vertical-align:middle;" ng-if="item.mergesamp && !item.mergeparam">
+								<input type="text" class="form-control" id="E" ng-model="item.E" name="E"></input>
+							</td>
+							
+							<!----------------Separate only row--------->	
+						
+							<!-- <td style="vertical-align:middle;" ng-if="item.mergesamp && item.mergeparam">
+								<input type="text" class="form-control" id="A" ng-model="item.A" name="A" ></input>
+							</td>
+							<td style="vertical-align:middle;" ng-if="item.mergesamp && item.mergeparam">
+								<input type="text" class="form-control" id="B" ng-model="item.B" name="B"></input>
+							</td>
+							<td style="vertical-align:middle;" ng-if="item.mergesamp && item.mergeparam">
+								<input type="text" class="form-control" id="C" ng-model="item.C" name="C"></input>
+							</td>
+							<td style="vertical-align:middle;" ng-if="item.mergesamp && item.mergeparam">
+								<input type="text" class="form-control" id="D" ng-model="item.D" name="D"></input>
+							</td>
+							<td style="vertical-align:middle;" ng-if="item.mergesamp && item.mergeparam">
+								<input type="text" class="form-control" id="E" ng-model="item.E" name="E"></input>
+							</td>
+							 -->
+							<!------------------------------------------>
+							<td style="vertical-align:middle;" ng-if="!item.mergesamp && !item.mergeparam" colspan="5">
+								<input type="text" class="form-control" id="E" ng-model="item.E" name="Remark" ></input>
+							</td>
+							
+							<td style="vertical-align:middle;" ng-if="!item.mergeparam && !item.mergesamp">
+								<input type="text" class="form-control" id="Remark" ng-model="item.Remark" name="Remark" ></input>
+							</td>
+							
+							<td style="vertical-align:middle;" ng-if="item.mergesamp && !item.mergeparam">
+								<input type="text" class="form-control" id="Remark" ng-model="item.Remark" name="Remark" ></input>
+							</td>
+						</tr>
+						
+						
+						<!-- <tr style="text-align:center">
+							<td>2</td>
+							<td>
+								<ui-select ng-disabled="isDisabled" name="Test" ng-model="flakecoat.basic.Test" >
+								<ui-select-match placeholder="Select Test">
+									<span ng-bind="$select.selected.text"></span>
+								</ui-select-match>
+								<ui-select-choices repeat="item.id as item in (testresults | filter: $select.search) ">
+									<span ng-bind="item.text"></span>
+								</ui-select-choices>
+								</ui-select>
+							</td>
+							
+							<td>
+								<ui-select ng-disabled="isDisabled" name="Test" ng-model="flakecoat.basic.Test" >
+								<ui-select-match placeholder="Select Equipment">
+									<span ng-bind="$select.selected.text"></span>
+								</ui-select-match>
+								<ui-select-choices repeat="item.id as item in (testresults | filter: $select.search) ">
+									<span ng-bind="item.text"></span>
+								</ui-select-choices>
+								</ui-select>
+							</td>
+							
+							<td>
+								<ui-select ng-disabled="isDisabled" name="Test" ng-model="flakecoat.basic.Test" >
+								<ui-select-match placeholder="Select Method">
+									<span ng-bind="$select.selected.text"></span>
+								</ui-select-match>
+								<ui-select-choices repeat="item.id as item in (testresults | filter: $select.search) ">
+									<span ng-bind="item.text"></span>
+								</ui-select-choices>
+								</ui-select>
+							</td>
+							
+							<td>
+								<textarea type="text" rows="3" class="form-control" id="TopCoat" ng-model="flakecoat.basic.obbasic.TopCoat" name="TopCoat" placeholder="Top Coat"></textarea>
+							</td>
+							<td style="vertical-align:middle;">
+								<input type="text" class="form-control" id="TopCoat" ng-model="flakecoat.basic.obbasic.TopCoat" name="TopCoat" ></input>
+							</td>
+							<td style="vertical-align:middle;">
+								<input type="text" class="form-control" id="TopCoat" ng-model="flakecoat.basic.obbasic.TopCoat" name="TopCoat"></input>
+							</td>
+							<td style="vertical-align:middle;">
+								<input type="text" class="form-control" id="TopCoat" ng-model="flakecoat.basic.obbasic.TopCoat" name="TopCoat"></input>
+							</td>
+							<td style="vertical-align:middle;">
+								<input type="text" class="form-control" id="TopCoat" ng-model="flakecoat.basic.obbasic.TopCoat" name="TopCoat"></input>
+							</td>
+							<td style="vertical-align:middle;">
+								<input type="text" class="form-control" id="TopCoat" ng-model="flakecoat.basic.obbasic.TopCoat" name="TopCoat"></input>
+							</td>
+							<td style="vertical-align:middle;">
+								<input type="text" class="form-control" id="TopCoat" ng-model="flakecoat.basic.obbasic.TopCoat" name="TopCoat"></input>
+							</td>
+						</tr>
+						
+						<tr style="text-align:center">
+							<td>3</td>
+							<td>
+								<ui-select ng-disabled="isDisabled" name="Test" ng-model="flakecoat.basic.Test" >
+								<ui-select-match placeholder="Select Test">
+									<span ng-bind="$select.selected.text"></span>
+								</ui-select-match>
+								<ui-select-choices repeat="item.id as item in (testresults | filter: $select.search) ">
+									<span ng-bind="item.text"></span>
+								</ui-select-choices>
+								</ui-select>
+							</td>
+							
+							<td>
+								<ui-select ng-disabled="isDisabled" name="Test" ng-model="flakecoat.basic.Test" >
+								<ui-select-match placeholder="Select Equipment">
+									<span ng-bind="$select.selected.text"></span>
+								</ui-select-match>
+								<ui-select-choices repeat="item.id as item in (testresults | filter: $select.search) ">
+									<span ng-bind="item.text"></span>
+								</ui-select-choices>
+								</ui-select>
+							</td>
+							
+							<td>
+								<ui-select ng-disabled="isDisabled" name="Test" ng-model="flakecoat.basic.Test" >
+								<ui-select-match placeholder="Select Method">
+									<span ng-bind="$select.selected.text"></span>
+								</ui-select-match>
+								<ui-select-choices repeat="item.id as item in (testresults | filter: $select.search) ">
+									<span ng-bind="item.text"></span>
+								</ui-select-choices>
+								</ui-select>
+							</td>
+							
+							<td>
+								<textarea type="text" rows="3" class="form-control" id="TopCoat" ng-model="flakecoat.basic.obbasic.TopCoat" name="TopCoat" placeholder="Top Coat"></textarea>
+							</td>
+							<td style="vertical-align:middle;">
+								<input type="text" class="form-control" id="TopCoat" ng-model="flakecoat.basic.obbasic.TopCoat" name="TopCoat" ></input>
+							</td>
+							<td style="vertical-align:middle;">
+								<input type="text" class="form-control" id="TopCoat" ng-model="flakecoat.basic.obbasic.TopCoat" name="TopCoat"></input>
+							</td>
+							<td style="vertical-align:middle;">
+								<input type="text" class="form-control" id="TopCoat" ng-model="flakecoat.basic.obbasic.TopCoat" name="TopCoat"></input>
+							</td>
+							<td style="vertical-align:middle;">
+								<input type="text" class="form-control" id="TopCoat" ng-model="flakecoat.basic.obbasic.TopCoat" name="TopCoat"></input>
+							</td>
+							<td style="vertical-align:middle;">
+								<input type="text" class="form-control" id="TopCoat" ng-model="flakecoat.basic.obbasic.TopCoat" name="TopCoat"></input>
+							</td>
+							<td style="vertical-align:middle;">
+								<input type="text" class="form-control" id="TopCoat" ng-model="flakecoat.basic.obbasic.TopCoat" name="TopCoat"></input>
+							</td>
+						</tr>
+						
+						<tr style="text-align:center">
+							<td>6</td>
+							<td>
+								<ui-select ng-disabled="isDisabled" name="Test" ng-model="flakecoat.basic.Test" >
+								<ui-select-match placeholder="Select Test">
+									<span ng-bind="$select.selected.text"></span>
+								</ui-select-match>
+								<ui-select-choices repeat="item.id as item in (testresults | filter: $select.search) ">
+									<span ng-bind="item.text"></span>
+								</ui-select-choices>
+								</ui-select>
+							</td>
+							
+							<td>
+								<ui-select ng-disabled="isDisabled" name="Test" ng-model="flakecoat.basic.Test" >
+								<ui-select-match placeholder="Select Equipment">
+									<span ng-bind="$select.selected.text"></span>
+								</ui-select-match>
+								<ui-select-choices repeat="item.id as item in (testresults | filter: $select.search) ">
+									<span ng-bind="item.text"></span>
+								</ui-select-choices>
+								</ui-select>
+							</td>
+							
+							<td>
+								<ui-select ng-disabled="isDisabled" name="Test" ng-model="flakecoat.basic.Test" >
+								<ui-select-match placeholder="Select Method">
+									<span ng-bind="$select.selected.text"></span>
+								</ui-select-match>
+								<ui-select-choices repeat="item.id as item in (testresults | filter: $select.search) ">
+									<span ng-bind="item.text"></span>
+								</ui-select-choices>
+								</ui-select>
+							</td>
+							
+							<td>
+								<textarea type="text" rows="3" class="form-control" id="TopCoat" ng-model="flakecoat.basic.obbasic.TopCoat" name="TopCoat" placeholder="Top Coat"></textarea>
+							</td>
+							<td style="vertical-align:middle;" colspan="5">
+								<input type="text" class="form-control" id="TopCoat" ng-model="flakecoat.basic.obbasic.TopCoat" name="TopCoat" ></input>
+							</td>
+							<td style="vertical-align:middle;">
+								<input type="text" class="form-control" id="TopCoat" ng-model="flakecoat.basic.obbasic.TopCoat" name="TopCoat"></input>
+							</td>
+						</tr> -->
+						
+					</tbody>
+				</table>
+				
+				<div class="form-group" role="group" aria-label="..." style="margin-left:0px;">
+					<button class="btn btn-default fa fa-plus " ng-click="addrow()">Add Row</button>
+					<!-- <button class="btn btn-default fa fa-plus " ng-click="addparamrow()">Add Merge Param Row</button> -->
+					<button class="btn btn-default fa fa-plus " ng-click="addsamprow()">Add Merge Sample Row</button>
+				</div>
+				
+				</div>
+			</div>
+			
+			
+		
+			<div class="form-group text-center" >
+			<button type="button"  ng-disabled="flakecoat.$invalid" class="btn btn-md btn-success "
+					ng-click="saveflakecoat(flakecoat)">Save</button>
+			<button type="button" class="btn btn-md btn-danger " ng-click="cancelsave()">Cancel</button>
+			</div>
+		
+		</form>
+			</div>
+		</div>
+	</div>
+
+</div>

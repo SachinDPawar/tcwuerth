@@ -1,0 +1,66 @@
+ <div class="modal-header">
+         Test Parameters Formula 
+			 <button type="button" class="close" ng-click="closetestformulaModal()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+		
+				<form class="form-horizontal" name="testparamcatform" novalidate >
+				
+				<div class="col-md-6 col-sm-6"  >
+						<label class=" control-label">Select parameter for formula result </label>
+								<ui-select id="PId"  ng-model="formula.Parameter" name="Parameter"     >
+							<ui-select-match placeholder="Select Parameter">
+							<span ng-bind="$select.selected.Parameter"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat="item.Parameter as item in (formparams| filter: $select.search)">
+							<span ng-bind="item.Parameter"></span>
+							</ui-select-choices>
+							</ui-select>
+						</div>
+					
+					<div class="form-group row">
+						
+						<div class="col-md-12">
+						<label class="control-label">Formula </label>
+								<input type="text" class="form-control"  id="Formula" ng-model="formula.Formula" name="Formula" placeholder="Formula" required />		
+						</div>
+				</div>
+					<div class="form-group row">
+						
+						<div class="col-md-12">
+						<table class="table table-bordered table-sm">
+						<tr>
+						<td>#</td><td>Variable</td><td>Parameter</td>
+						</tr>
+						<tr ng-repeat="j in formula.details">
+						<td>{{$index+1}}</td>
+						<td>
+						<input type="text" class="form-control"  id="Variable_{{$index}}" ng-model="j.Variable" name="Variable_{{$index}}" placeholder="Variable" required />	
+						</td>
+						<td><ui-select id="PId_{{$index}}"  ng-model="j.Parameter" name="Parameter_{{$index}}"     >
+							<ui-select-match placeholder="Select Parameter">
+							<span ng-bind="$select.selected.Parameter"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat="item.Parameter as item in (info.testparams| filter: $select.search)">
+							<span ng-bind="item.Parameter"></span>
+							</ui-select-choices>
+							</ui-select></td>
+						</tr>
+						</table>
+						</div>
+				</div>
+					
+				<button class="btn btn-default " ng-click="mapvariable()" >Map Variable</button>
+					
+					
+			<div class="form-group text-center">						
+					<button type="button" class="btn btn-md btn-success fa fa-"  ng-disabled="testparamcatform.$invalid" ng-click="testparamformulasave(formula)" id="cp_submit" >Submit</button>
+				<button type="button" class="btn btn-md btn-default fa fa-" ng-click="closetestparamcatModal()" >Cancel</button>
+			</div>	
+				
+				</form>
+			
+        </div>
+        <div class="modal-footer">
+        
+        </div>

@@ -1,0 +1,153 @@
+
+	<div class="col-md-12" style="margin-top:0px;">
+		<div class="card card-default">
+			
+			<div class="card-body">
+				
+				<form class="form-horizontal bg-light p-2" name="qitemform" novalidate>
+				
+				<div class="form-group mb-3 row">
+				<div class="col-sm-12 alert alert-info"> All <i class="fa fa-asterisk error"></i> feild are manadotry</div>
+				</div>
+				
+			
+				<div class="form-group row" >
+					<div class="col-sm-12">
+							<label class="control-label">Test</label>
+									<ui-select ng-model="qselect.TestId"  ng-disabled="qtest.Id"
+									on-select="gettestdet($item, $model)" required >
+    <ui-select-match  placeholder="Select Test">
+        <span ng-bind="$select.selected.TestName"></span>
+    </ui-select-match>
+    <ui-select-choices  repeat="item.TUID as item in (alltests | filter: $select.search) ">
+       {{item.TestName}} 
+    </ui-select-choices>
+</ui-select>
+						</div>
+						</div>		
+			
+							
+	<div class="form-group  " >
+	<table class=" table table-bordered  table-sm">
+		
+		<tr class="active " style="font-weight:600;text-transform:uppercase;">
+		
+		
+		<th >Test Specifications & Test Methods </th>
+		
+		<th>Test Details</th>		
+		
+		
+		</tr>
+				
+		<tr >
+		
+		<td>
+		{{qtest.TestName}}
+	<!-- <ui-select id="Std"  ng-model="qtest.SSDID" name="SSDID" class="form-control p-0"  ng-required="qtest.IsStd" ng-if="qtest.IsStd"    > -->
+							<!-- <ui-select-match placeholder="Select Standard & Sub Standard"> -->
+							<!-- <span ng-bind="$select.selected.Name"></span> -->
+							<!-- </ui-select-match> -->
+							<!-- <ui-select-choices  repeat="item.Id as item in teststds | filter: $select.search"> -->
+							<!-- <div style="color:#000;font-weight:bold;" ng-bind="item.Name  "></div> -->
+						
+							<!-- </ui-select-choices> -->
+							<!-- </ui-select> -->
+							
+							<ui-select id="Std" ng-model="qtest.SSDID" name="SSDID" class=" p-0" 
+           ng-required="qtest.IsStd" ng-if="qtest.IsStd" ng-change="getstdparams(qtest.SSDID)">
+    <ui-select-match placeholder="Select Standard & Sub Standard">
+        <span ng-bind="$select.selected.Name"></span>
+    </ui-select-match>
+    <ui-select-choices repeat="item.Id as item in teststds | filter: $select.search">
+        <div style="color:#000; font-weight:bold;" ng-bind="item.Name"></div>
+    </ui-select-choices>
+</ui-select>
+							<br>
+							
+							<ui-select id="TMID"  ng-model="qtest.TMID" name="TMID"   ng-required="qtest.IsTestMethod" ng-if="qtest.IsTestMethod"    >
+							<ui-select-match placeholder="Select Test Method">
+							<span ng-bind="$select.selected.Method"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat=" item.Id as item in alltestmethods | filter: $select.search">
+							<div style="color:#000;font-weight:bold;" ng-bind="item.Method  ">		</div>
+						
+							</ui-select-choices>
+							</ui-select>
+							
+							<input type="text" class="form-control" id="Frequency" ng-model="qtest.Frequency" name="Frequency" placeholder="Frequency"
+		 />
+		
+		</td>
+		<td>
+		<table class="table table-sm table-bordered mb-1">
+	
+		
+		<tr ng-repeat="p in qtest.tbaseparams" style="font-size:0.9em;">
+		<td class="p-0">{{p.Parameter}}</td>
+		<td class="p-0">
+		
+		<input type="text" class="form-control"  ng-if="p.PDType!='L'"   ng-model="p.Value"  placeholder="Value" required
+		name="Value[{{$parent.$index}}][{{$index}}]" id="Value[{{$parent.$index}}][{{$index}}]" >
+		<!-- <label for="Value[{{$parent.$index}}][{{$index}}]">Value</label> -->
+		<ui-select id="{{param.Parameter}}" ng-if="p.PDType==='L'"  class="form-control" ng-model="p.Value" name="{{param.Parameter}}" style="padding:0px;border:0px;" required >
+						<ui-select-match placeholder="Select {{param.Parameter}}">
+							<span ng-bind="$select.selected.Value"></span>
+						</ui-select-match>
+						<ui-select-choices repeat="item.Value as item in (p.LCats | filter: $select.search) ">
+							<span ng-bind="item.Value" style="color:#000;font-weight:bold;"></span>
+						</ui-select-choices>
+					</ui-select>
+							</td>
+		
+		</tr>
+		</table>
+		
+		<table class="table table-sm table-bordered mb-0" style="font-size:0.9em;">
+		
+		<tr class="table-primary">
+		<td class="">Parameter</td>
+		<td class="">Min </td>
+		<td class="">Max</td>
+		</tr>
+		<tr ng-repeat="p in qtest.tobsparams">
+		<td class="p-1">{{p.Parameter}}</td>
+		<td class="p-1">
+		
+
+		<input type="text" class="form-control "    ng-model="p.SpecMin" 
+		name="SpecMin[{{$parent.$index}}][{{$index}}]" id="SpecMin[{{$parent.$index}}][{{$index}}]" >
+	
+							</td>
+		<td class="p-1">
+<input type="text" class="form-control "    ng-model="p.SpecMax"  name="SpecMax[{{$parent.$index}}][{{$index}}]" 
+id="SpecMax[{{$parent.$index}}][{{$index}}]" >
+
+							</td>
+		</tr>
+		</table>
+		
+		</td>
+		<td>
+		
+		</td>
+</tr>
+</table>
+</div>		
+					
+	
+			
+					<div class="form-group text-center ">
+					<button type="button" class="btn btn-md btn-default " ng-click="closeqitemModal()" >CANCEL</button>
+					<button type="button" ng-disabled="qitemform.$invalid " 
+					class="btn btn-md btn-primary " ng-click="qitemsave(qtest,qtest.index) " > SAVE </button>
+						
+						</div>
+				</form>
+				
+			</div>
+		</div>
+	</div>
+
+	
+        

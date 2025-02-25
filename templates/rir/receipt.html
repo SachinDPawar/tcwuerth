@@ -1,0 +1,508 @@
+
+	
+
+	<div class="row " style="padding-top:20px;">
+	<div class="col-sm-12 "  >
+	
+	
+	
+		<div class="card bod-rad-0" style="width:auto;">
+			<!-- <div class="card-header myheader align-middle "  > -->
+				<!-- <h6 class=""><i class="fa fa-file-text"></i>  RECEIPT INSPECTION REPORT</b> -->
+				 <!-- <button class="btn btn-default pull-right " ng-hide="issearchflag" ng-click="refreshdata()" data-toggle="tooltip" data-placement="bottom"  -->
+			 <!-- title="refresh table" type="button" style="padding:0px;"><i class="fa fa-refresh"></i></button></h6> -->
+			<!-- </div> -->
+			<div class="card-body pb-5">
+			 <div class="row p-0" ng-hide="issearchflag">
+			<div class=" col-sm-6" >
+						<button  class="btn btn-primary me-1 mb-1"  ng-click="editreceipt('new')"><i class=" fa fa-plus"></i> {{'ADDSAMPLE' |translate}} </button> 
+			
+						
+			
+				</div>
+				</div>
+			 <div class="row" ng-hide="issearchflag">
+			<div class=" col-sm-6" >
+						
+						<!-- <button  class="btn btn-primary me-1 mb-1 " ng-click="loadfromquote()">  {{'LOADQUOTE' | translate}}</button> -->
+			
+				</div>
+				<div class=" col-sm-6">
+				<form name="searchform"  ng-submit="searchdata(searchstring)">
+								 <div class="form-group">
+		                       		 <div class="input-group">
+							<input type="text" class="form-control input-sm" id="search1" ng-model="searchstring" placeholder="Search text ..Here.." />
+                               
+                                <button class="btn btn-sm btn-primary" type="submit" ng-click="searchdata(searchstring)"><i class="fa fa-search"></i></button>
+                             <button class="btn btn-outline-primary btn-sm " ng-click="refreshdata()"> {{'Reset'| translate}} </button>
+                             
+                        </div>
+						</div>
+						</form>	
+						
+						</div>
+						
+						
+						
+						</div>
+						
+						<div class="row">
+						<div class="col-sm-6">
+						<dir-pagination-controls pagination-id="rirpage"  on-page-change="getdata(newPageNumber)"></dir-pagination-controls> 
+						</div>
+						<div class="col-sm-6">
+						
+						<span class="float-end"><small>Found total {{totalcount}} records</small></span>
+			<!-- <button class="btn btn-default fa fa-file-excel-o btnshadow pull-right" ng-disabled="allrirs.length<1" -->
+                    <!-- ng-csv="exportArray()" csv-header="head" lazy-load="true" filename="Testreport.csv" field-separator=","> -->
+					<!-- Pending Report -->
+				<!-- </button>	 -->
+				</div>
+						</div>
+			
+			<div class="col-md-12 table-responsive">
+			<div ng-show="flags.loadingdata" class=" modal-backdrop fade in demo-1" style=" opacity:0.8;   background-color: rgb(234, 241, 239);">
+ 
+<div class="bar" style="opacity:1;" >
+		<i class="sphere"></i>
+	</div>
+	
+</div>
+			
+				<table class="table table-striped table-sm table-hover table-bordered" id="sample_1">
+										<thead>
+											<tr class="table-info fw-bold align-middle">
+												<th style="width:8px">#</th>
+											<!-- 	<th>RIRNo.</th> -->
+											<th class="hidden-phone" style="max-width:100px !important;">{{'LabNo'|translate}} <br>BatchCode-BatchNo</th>
+											
+												
+												<th class="hidden-phone" style="max-width:300px !important;">{{'SampleDetails'| translate}}</th>
+											
+												<th class="hidden-phone" style="max-width:300px !important;">{{'Tests'|translate}}</th>
+
+												<th style="width:120px;"  >{{'Actions'|translate}}</th>
+											</tr>
+										</thead>
+										<tbody class="table-group-divider">
+											<tr class="odd gradeX" pagination-id="rirpage" dir-paginate="item in results =( allrirs  ) |itemsPerPage: pageSize   "  total-items="totalcount" current-page="currentPage">
+												<td>{{($index+1)+((currentPage-1)*pageSize) }}</td>
+												<!-- <td class="hidden-phone">{{item.RirNo}}</td> -->
+												<td class="hidden-phone" style="max-width:100px !important;">{{item.LabNo}}<br>{{item.BatchCode}} <span ng-if="item.BatchNo">- {{item.BatchNo}}</span></td>
+												
+												<td style="max-width:300px !important;">
+												<span style="font-size:0.8rem;">Sample: {{item.SampleName}}  {{item.SampleWeight}} </span><br> 
+												<small> Reg Date: {{item.GeneratedDate | date :"dd.MM.y"}} <br>
+												
+												{{item.IsMdsTds || 'MdsTds- Not assigned' | uppercase }} : {{item.MdsTdsNo}} <br>Heat No: {{item.HeatNo}}
+												</small>
+												</td>
+												
+												
+												<td class="hidden-phone">
+												
+												
+												
+												
+												
+												
+												<span ng-repeat="i in item.alltests">
+						
+						<label  style="min-width:80px;font-size:0.7rem;" class=" mb-1 px-2 py-1 text-success-emphasis bg-default-subtle border border-success-subtle rounded-2 text-start position-relative" 
+						ng-class="{'hover-pending':i.Status==='pending',
+												'hover-inprocess':i.Status==='inprocess',
+												'hover-completed':i.Status==='complete',
+												'hover-failed':i.Status==='failed',
+												}"
+						 >{{i.TestName}}
+							
+							 <span class="position-absolute translate-middle badge text-dark bg-info-subtle " style="margin-top:27px;">{{i.labnames.toString()}}</span>
+							</label>
+										</span>	
+												</td>
+												
+												<td class="center" >
+												<div class="btn-group btn-group-sm">
+												<button ng-if=" permissions[4].R" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="view" ng-click="showrir('lg',item)" ><i class="fa fa-eye "></i></button>	
+													<button   class="btn btn-primary  btn-sm" data-toggle="tooltip" data-placement="top" title="edit"  ng-click="editreceipt('edit',item.Id)">
+													<i class="fa fa-pencil "></i>
+													</button>
+
+
+
+													
+													<!-- <button  ng-if=" permissions[2].U==='true' && !issearchflag" class="btn btn-primary fa fa-pencil btn-sm" data-toggle="tooltip" data-placement="top" title="edit" ng-click="gotonext(item)">Part 2</button>	 -->
+													</div>
+													
+<button   class="btn btn-primary  btn-sm" data-toggle="tooltip" data-placement="top" title="edit" ng-click="getfullsample(item)">
+													Full View
+													</button>
+												</td>
+											</tr>
+											<tr class="animate-repeat text-center" ng-if="results.length === 0">
+      <td colspan="7">No results found...</td>
+    </tr>	
+											
+											
+								</tbody>
+</table>	
+<dir-pagination-controls pagination-id="rirpage"  on-page-change="getdata(newPageNumber)"></dir-pagination-controls>
+</div>
+
+						
+			</div>
+		</div>
+	</div>
+	</div>
+	
+ <script type="text/ng-template" id="rirviewContent.html">
+ 
+ 
+        <div class="modal-header">
+         <i class="fa fa-file-text"></i>{{'SampleInfo'| translate}}
+		   <button type="button" class="close" ng-click="cancelrir()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+		<div class="row" id="rirsummary">
+		 <div class="invoice overflow-auto" >
+          	<table class="table table-sm table-bordered">
+				<thead>
+					<tr>
+						<td rowspan="4" class="align-middle" style="text-align:center">
+						 <img ng-src="{{appset.Applogo}}" style="height:60px;">
+						</td>
+						
+						<td rowspan="4" colspan="3" style="text-align:left">
+						
+						<div ng-bind-html="appset.CompanyName"></div>
+                        <div ng-bind-html="appset.CompanyAddress"></div>
+						</td>
+						
+					</tr>
+					
+					
+				</thead>
+				<tr >
+				
+					<td class="col-md-2 text-right active" ><b>LabNo.</b></td><td  colspan="1" class="col-md-3">{{viewrir.LabNo}}</td>
+					<td  class="col-md-2 text-right active"><b>BatchCode-BatchNo</b></td><td  colspan="1" class="col-md-3">{{viewrir.BatchCode}} <span ng-if="viewrir.BatchNo">-{{viewrir.BatchNo}}</span></td>
+				
+				</tr>
+				<tr >
+				
+					<td class="col-md-2 text-right active" ><b>Part Name</b></td><td  colspan="1" class="col-md-3">{{viewrir.SampleName}}</td>
+					<td  class="col-md-2 text-right active"><b>Supplier</b></td><td  colspan="1" class="col-md-3">{{viewrir.Supplier}}</td>
+				
+				</tr>
+				<tr>
+					<td  class="col-md-2 text-right active"><b>Ref.Purchase Order</b></td><td  colspan="1" class="col-md-3">{{viewrir.RefPurchaseOrder}}</td>
+					<td  class="col-md-2 text-right active"><b>Grin No</b></td><td  colspan="1" class="col-md-3">{{viewrir.rirextra.GrinNoDate}}</td> 
+					
+					
+				</tr>
+					<tr>
+					<td  class="col-md-2 text-right active"><b>Quantity</b></td><td  colspan="1" class="col-md-3">{{viewrir.rirextra.Quantity}}</td>
+					<td  class="col-md-2 text-right active"><b>HeatNo</b></td><td  colspan="1" class="col-md-3">{{viewrir.HeatNo}}</td> 
+					
+					
+				</tr>
+								<tr>
+					<td  class=" text-right active"><b>Material Grade</b></td><td  colspan="1" class="col-md-3">{{viewrir.rirextra.Grade}}</td>
+					<td  class=" text-right active"><b>Material Condition</b></td><td  colspan="1" class="col-md-3">{{viewrir.rirextra.Condition}}</td>
+				</tr>
+				
+				
+				<tr>
+				<td  class="col-md-2 text-right active"><b>Invoice No.</b></td><td  colspan="1" class="col-md-3">{{viewrir.rirextra.InvoiceNo}}</td>
+					<td  class="col-md-2 text-right active"><b>Invoice Date</b></td><td  colspan="1" class="col-md-3">{{viewrir.rirextra.InvoiceDate}}</td> 
+					
+				</tr>
+				<tr>
+				<td  class="col-md-2 text-right active"><b>TC No.</b></td><td  colspan="1" class="col-md-3">{{viewrir.rirextra.TCNo}}</td>
+					<td  class="col-md-2 text-right active"><b>Customer</b></td><td  colspan="1" class="col-md-3">{{viewrir.Customer}}</td> 
+					
+				</tr>
+				<tr>
+				<td  class="col-md-2 text-right active"><b>Route Card No.</b></td><td  colspan="1" class="col-md-3">{{viewrir.rirextra.RouteCardNo}}</td>
+					<td  class="col-md-2 text-right active"><b>RIR Generation Date</b></td><td  colspan="1" class="col-md-3">{{viewrir.GeneratedDate}}</td> 
+					
+				</tr>
+				
+					
+				<tr>
+					
+					 <td  class="col-md-2 text-right active"><b>Sample Register Date </b></td><td  colspan="1" class="col-md-3">{{viewrir.GeneratedDate}}</td> 
+					<td  class="col-md-2 text-right active"><b>HT Batch No</b></td><td  colspan="1" class="col-md-3">{{viewrir.HTBatchNo}}</td> 
+					
+					
+				</tr>
+				
+					<tr>
+						<td colspan="4"><b>Tests Required:</b></td>
+					</tr>
+					<tr>
+					<td colspan="4">
+					<table class="table table-sm-table-bordered">
+					<tr class="active">
+						<td>Test</td>
+						<td>Standard </td>						
+						<td>Test Methods </td>						
+						<td>Status</td> 
+						<td>Required Date</td> 
+					</tr>
+					<tr ng-repeat="test in viewrir.alltests |orderBy:'TestName'">
+						<td>{{test.TestName}} </td>
+						<td>{{test.Standard}}</td>
+					<td>{{test.TestMethod}}	</td>
+						<td><span ng-class="{'text-bg-warning':test.Status==='pending','text-bg-success':test.Status==='complete','text-bg-danger':test.Status==='failed'}" 
+						class="badge">{{test.Status}}</span> </td>
+						<td>
+						{{test.ReqDate | date :  "dd.MM.y"}}
+						</td>
+						
+					</tr>
+						<tr ng-if="viewrir.ExtTest.length>0">
+					<td colspan="5">
+					External Tests: <b>{{viewrir.ExtTest.join(",")}}</b>
+					</td>
+					</tr>
+					<tr ng-if="viewrir.alltests.length<1"><td colspan="4">No tests allocated yet</td></tr>
+					</table>
+					
+					</td>
+					
+					</tr>
+				
+
+					
+				
+					
+					
+		</table>
+        </div>
+		 </div>
+		</div>
+        <div class="modal-footer">
+          <!--   <button class="btn btn-primary" type="button" ng-click="ok()">OK</button> -->
+		    <button id="sendmail" class="btn btn-info" ng-click="sendmail(viewrir,'confirm')"><i class="fa fa-envelope"></i> Send Mail</button>
+		  
+		   <button id="printInvoice" class="btn btn-info" ng-click="printDiv('rirsummary')"><i class="fa fa-print"></i> Print</button>
+		  
+            <button class="btn btn-warning" type="button" ng-click="cancelrir()">Cancel</button>
+        </div>
+		  
+    </script>
+	
+	
+	
+<script type="text/ng-template" id="sampleregconfirmModal"  >
+		<div class="modal-content">
+		
+			<div class="modal-header  bg-danger dialog-header-confirm">
+				
+				<h4 class="modal-title" id="myModalLabel"><i class="fa fa-check-square-o"></i> Confirm Sample registeration</h4>
+				<button type="button" class="pull-right" data-dismiss="modal" ng-click="closeregconfirmModal()" aria-hidden="true">&times;</button>
+			</div>
+		
+			<div class="modal-body">
+				<p>You are about to save <strong>{{log.Details.length}}</strong> Samples ,
+				this procedure is irreversible.</p>
+				<p>Do you want to proceed?</p>
+			 </div>
+			
+			<div class="modal-footer">
+				<button class="btn btn-sm btn-danger" ng-disabled="issaving" data-ng-click="savesamples('approved',log)">Proceed</button>
+				<button type="button" class="btn btn-sm btn-primary" ng-click="closeregconfirmModal()">Cancel</button>
+			</div>
+			<toaster-container toaster-options="{'toaster-id':31,'close-button': false,'position-class': 'toast-top-center'}" style="margin-top:20%;z-index:1052;"></toaster-container> 
+		</div>
+</script>
+
+
+<script type="text/ng-template" id="rirfullviewContent.html">
+ 
+ <div class="modal-content">
+	<div class="modal-header">
+	 <i class="fa fa-file-text"></i>{{'SampleInfo'| translate}}
+	   <button type="button" class="close" ng-click="closefullrir()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	</div>
+	<div class="modal-body">
+
+		<div class="toolbar hidden-print container ">
+			<div class="text-right">
+				<button id="printInvoice" class="btn btn-info" ng-click="printDiv('rirfullview')"><i class="fa fa-print"></i> Print</button>
+				
+					<button type="button" class="btn btn-sm btn-link btn-primary  pull-right" data-dismiss="modal" ng-click="closefullrir()"><i class="fa fa-close "></i></button>
+			  
+			</div>
+			<hr>
+		</div>
+
+
+		<div  id="rirfullview">
+			  
+			<div class="invoice overflow-auto" >
+				<div style="width:100%;">
+				   
+					<main>
+<table class="col-lg-12 col-sm-12 table " ng-repeat="info in fullrirs"  border="1"  cellspacing="0" cellpadding="0" style="background:#fff;" >
+                    <thead class="" >
+                        <tr style="background:#fff;">
+						<td rowspan="4" style="background:#fff;" colspan="1">
+						  <a target="_blank" href="#">
+                            <img ng-src="{{appset.Applogo}}" style="height:60px;">
+                            </a>
+							    
+						</td>
+						<td rowspan="4" style="background:#fff;font-size:14px;"  colspan="2" class="company-details" >
+						<div ng-bind-html="appset.CompanyName"></div>
+                        <div ng-bind-html="appset.CompanyAddress"></div>
+						</td>
+						<td style="padding:2px;font-size:10px;text-align:left;">Format No: {{info.FormatNo||'RFI/LAB/F/49'}}</td> 
+						</tr>
+						
+						<tr>
+						<td style="padding:2px;font-size:10px;text-align:left;">Rev No. & Rev Date: {{info.RevNo||'01'}} & {{info.RevDate||'10.09.2017'}} </td>
+					</tr>
+					<tr>
+						<td style="padding:2px;font-size:10px;text-align:left;">ULR No. {{info.ULRNo}}</td>
+					</tr>
+						<tr>
+						<td style="padding:2px;font-size:10px;text-align:left;">PageNo:- 01 of 01</td>
+					</tr>
+						
+					
+                    </thead>
+                    <tbody>
+					
+					<tr >
+					<td colspan="4" style="text-align:left;"><h5 style="margin-top: 5px;margin-bottom: 5px;">
+					<b>{{info.TestName | uppercase }} TEST REPORT</b></h5></td>
+					
+				</tr>
+				<tr >
+					<td class="text-left " colspan="3" ><b>Issued To :</b><span editable-text="info.Customer" e-label="Customer :"  > <b></b><span class="text-info"> {{info.Customer || 'Planning Departement' }}</span></span></td>
+					<td><span style="font-size:12px;">Issue Date:{{info.ApprovedDate| date :"dd.MM.y"}}</span></td>				
+				</tr>
+				<tr>
+					<td  class="text-left" colspan="2"><b>Sample Reg No : </b>{{info.BatchCode}}/{{info.LabNo}}-{{info.TestNo}} <span ng-if='info.BatchNo'>-{{info.BatchNo}}</span></td> 
+					<td class="text-left "  colspan="2"><b>Sample Received On : </b>{{info.ReceiptOn| date :"dd.MM.y"}}</td>
+				</tr>
+				
+				<tr >
+					<td class="text-left " colspan="2" ><b>Sample Name :</b>{{info.SampleName}}  {{info.SampleDescription}}</td>
+					<td class="text-left "  colspan="2"><b>Sampled By : </b>Customer</td>
+					
+				</tr>
+				
+				<tr >
+					
+					<td class="text-left " colspan="2" ><b>Sample Condition :</b>{{info.SampleCondition}}</td>
+					<td class="text-left " colspan="2" ><b>Qty of Sample Received :</b>{{info.NoOfSamples}}</td>
+				</tr>
+				<tr >
+					<td class="text-left " colspan="4" ><b>Standard :</b>{{info.Standard}}</td>
+					
+				</tr>
+				<tr >
+					
+					<td class="text-left "  colspan="2"><b>Test Commenced On : </b>{{info.ReceiptOn| date :"dd.MM.y"}}</td>
+					<td class="text-left "  colspan="2"><b>Test Completed On : </b>{{info.TestDate| date :"dd.MM.y"}}</td>
+					
+				</tr>
+				<tr ng-if="info.obbasic.length>0">
+					<td colspan="4">
+					
+					<table class="table table-bordered table-condensed table-sm mb-0">
+					
+					<tr ng-repeat="chem in info.obbasic" >
+					<td ><strong>{{chem.Parameter}} {{chem.PUnit}} :</strong> {{chem.BValue}}</td>
+				
+					
+					
+					</tr>
+					</table>
+					
+					</td>
+				</tr>
+			
+				<tr>
+					<td colspan="4"><b>Observations :</b></td>
+				</tr>
+				
+				<tr>
+				<td colspan="4" style="padding:0px;height:40px;">
+					<div class="" data-ng-include="tempurl"></div>	
+				</td>				
+			</tr>
+					
+                   
+                   
+						<tr>
+					<td class=" text-right active"><b>Remark :</b></td><td colspan="3">
+					<strong ng-if="info.Remark==='Passed'"> Satisfactory</strong>
+					<strong ng-if="info.Remark==='Failed'"> Unsatisfactory</strong> 
+					</td>
+				</tr>
+				
+					<tr>
+					<td style="vertical-align:top;border-bottom:0px solid;"  colspan="4" >
+					<strong>NOTE:</strong><br>
+					 
+					<p  class="editable-click text-info" style="font-size:11px;" editable-textarea="info.Note" e-rows="7" e-cols="80">
+						<span style="white-space: pre-wrap;" ng-bind-html="info.Note"></span>
+					  </p>
+
+
+					</td>
+					</tr>
+					
+						
+			
+			
+			
+			<tr >
+			<td colspan="2" rowspan="2"  style="vertical-align:middle;min-height:70px;">
+			<span class="pull-left">
+			<b>Tested By<br>
+			(Chemist)</b></span>
+			<figure class="figure" style="display:inherit;">
+			<img ng-if="info.TestSign" ng-src="{{info.TestSign}}"  class="figure-img img-fluid rounded" style="height:45px;padding-left:20px;" alt="{{info.TestedBy}}"/>
+			<figcaption class="figure-caption text-center" >{{info.TestedBy}}</figcaption></figure>
+			</td>
+			
+			<td colspan="2" rowspan="2" style="vertical-align:middle;" >
+			<span class="pull-left">
+			<b>Authorised Signature<br>
+			(Sr. Chemist)</b> </span>
+			<figure class="figure" style="display:inherit;">
+			<img ng-if="info.ApprovedSign" ng-src="{{info.ApprovedSign}}"  class="figure-img img-fluid rounded" style="height:45px;padding-left:20px;" alt="{{info.ApprovedBy}}"/>
+			<figcaption class="figure-caption text-center">{{info.ApprovedBy}}</figcaption></figure>
+			</td>
+
+			</tr>
+
+                        </tbody>
+                </table>
+               
+		  	
+					</main>
+            <footer class="mb-0">
+			
+                
+            </footer>
+        </div>
+		</div>
+	</div>
+	</div>
+	<div class="modal-footer">
+	  <!--   <button class="btn btn-primary" type="button" ng-click="ok()">OK</button> -->
+	  
+	     <!-- <button id="sendmail" class="btn btn-info" ng-click="sendfullmail(info)"><i class="fa fa-envelope"></i> Send Mail</button> -->
+		  
+	   <button id="printInvoice" class="btn btn-info" ng-click="printDiv('rirfullview')"><i class="fa fa-print"></i> Print</button>
+	  
+		<button class="btn btn-warning" type="button" ng-click="closefullrir()">Cancel</button>
+	</div>
+		</div>  
+</script>

@@ -1,0 +1,164 @@
+<style>
+.form-control {
+padding:5px 8px;
+}
+
+</style>
+<div class="row " >
+
+	
+
+	<div class="col-md-10 col-md-offset-0" style="margin-top:20px;">
+		<div class="card card-light">
+			<div class="card-header">
+				<h3 class="card-title text-left"><b><i class="fa fa-barcode"></i> Last Activity Log</b></h3>
+			</div>
+			<div class="card-body">
+			<div class="row">
+			<div class="col-md-6" style="padding:15px;">
+		<!-- <button class="btn btn-outline-primary "  ng-click="editstd('new')"> Add Test Condition </button> -->
+	</div>
+	<div class=" col-md-5">
+				<!-- <form class="form-horizontal "> -->
+   <!-- <div class="form-group"> -->
+    <!-- <label for="inputEmail3" class="col-md-2 control-label">Search</label> -->
+    <!-- <div class="col-md-10"> -->
+      <!-- <input type="text" class="form-control" id="inputEmail3"  ng-model="searchstring" placeholder="Search"> -->
+    <!-- </div> -->
+  <!-- </div> -->
+  <!-- </form> -->
+				</div>
+			</div>
+				
+				
+				<div class="col-md-12">
+				<table class="table col-md-12 table-bordered  table-sm table-striped">
+				<thead class="table-info">
+					<th class="text-left" style="width:10px">#</th>
+					<th class="text-left">Action</th>
+					<th class="text-left">Description</th>
+					<th class="text-left">User</th>
+					
+					</thead>
+					<tbody class="table-group-divider">
+							
+					<tr class="text-left" ng-repeat="item in alllogs track by $index">
+					<td >
+						{{$index+1 }}
+					</td>
+					<td>{{item.action}}</td>
+					<td>{{item.description}}</td>
+					<td>{{item.user}}</td>					
+					
+					
+					
+					</tr>	
+					<tr  class="text-center" ng-if="alllogs.length <1">
+				<td colspan="4"><strong>No results found...</strong></td>
+			</tr>
+									
+					</tbody>
+				</table>
+				</table>
+			
+			
+			</div>
+		</div>
+	</div>
+
+</div>
+</div>
+
+
+<script type="text/ng-template" id="stdviewContent.html">
+        <div class="modal-header">
+           Standard Detail View
+			 <button type="button" class="close" ng-click="cancel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+            <table class="table table-bordered">
+			<tbody>
+			<tr>
+				<td class="text-right col-md-2 bg-info"><strong>Standard</strong></td>
+				<td class="text-left">{{viewstd.Standard}}</th>
+				</tr>
+					<tr class="text-center">
+					<td class="text-right col-md-2 bg-info"><strong>Description</strong></td>
+					<td class="text-left">{{viewstd.Description}}</td>
+					</tr>
+				</tbody>
+			</table>
+        </div>
+        <div class="modal-footer">
+          <!--   <button class="btn btn-primary" type="button" ng-click="ok()">OK</button> -->
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+<script type="text/ng-template" id="infoaddModal.html">
+        <div class="modal-header">
+           Standard Add/Edit
+			 <button type="button" class="close" ng-click="closeinfoModal()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+            <div class="row " >
+
+	<div class="col-md-12" style="margin-top:0px;">
+		
+				
+				<form class="form-horizontal" name="stdform" novalidate>
+				
+					
+					
+					<div class="form-group">
+						<label class=" control-label">Test Condition </label>
+						<div class="">
+							<input type="text" class="form-control" id="Name" ng-model="info.Name" name="Name" placeholder="Test Condition" required />
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class=" control-label">Rate</label>
+						<div class="">
+							<input type="text" class="form-control" id="Cost" ng-model="info.Cost" name="Cost" placeholder="Test Condition Cost" required />
+						</div>
+					</div>
+					
+					
+						
+
+	</div>
+
+	
+					<div class="form-group text-center">
+					<button type="button" ng-disabled="stdform.$invalid" class="btn btn-md btn-primary fa fa-" ng-click="testcondsave(info) && stdform.$valid" >Save</button>
+						<button type="button" class="btn btn-md btn-default fa fa-" ng-click="closeinfoModal()" >Cancel</button>
+						</div>
+				</form>
+				
+			
+	</div>
+
+</div>	
+        </div>
+        <div class="modal-footer">
+          <!--   <button class="btn btn-primary" type="button" ng-click="ok()">OK</button> -->
+            <!-- <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button> -->
+        </div>
+    </script>
+	
+	
+<script type="text/ng-template" id="confirmModal.html">
+	<div class="modal-header">
+		<h3 class="modal-title">Confirm Delete</h3>
+	</div>
+	<div class="modal-body">
+<h5 class="text-info"> Are you sure you want to delete standard {{info.Standard}} <br> This procedure is irreversible.</h5>
+	   
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="button" ng-click="deletestd('delete',info)">OK</button>
+		<button class="btn btn-warning" type="button" ng-click="delcancel()">Cancel</button>
+	</div>
+</script>
+

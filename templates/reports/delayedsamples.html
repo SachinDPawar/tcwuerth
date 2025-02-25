@@ -1,0 +1,67 @@
+<div class="row m-0 mt-2">
+	<div class="col-sm-12">
+	 <div class="card m-1 p-2">
+	 <div class="row p-4">
+	 <div class="col-sm-6">
+	<h3>DELAYED SAMPLES</h3>
+	</div>
+	 <div class="col-sm-6">
+	<a class="btn btn-sm btn-falcon-default" ng-click="exportSheetJS(info.alldelrirs,'Delayed Samples')" >Export</a>
+	</div>
+	</div>
+	<div class="row">
+	<div class="col-sm-12">
+	<table class="table table-striped table-bordered table-sm" id="sample_1">
+										<thead>
+											<tr class=" align-middle">
+												<th style="width:8px">#</th>
+												<th>SampleId</th>
+												<th>SampleName</th>												
+												<th>Industry</th>												
+												<th>GeneratedDate </th>
+											<th>Expected Date </th>
+										<th>Status</th>									
+												
+												
+											</tr>
+										</thead>
+										<tbody>
+											<tr class="odd gradeX" pagination-id="rirpage" dir-paginate="item in results =( info.alldelrirs  ) |itemsPerPage: samplepageSize   "   current-page=" samplecurrentPage">
+												<td>{{($index+1)+((samplecurrentPage-1)*samplepageSize) }}</td>
+												<td class="hidden-phone"><strong>{{item.LabNo}}</strong> 
+												
+												</td>
+												<td>{{item.SampleName}} </td>
+												
+												<td>{{item.Industry}} </td>
+												
+												<td> {{item.GeneratedDate | date :"dd.MM.y"}} </td> 
+													<td> {{item.GeneratedDate | date :"dd.MM.y"}} </td>  
+												<td><span  ng-if="item.Status !='Approved'" ng-class="{'badge-pending':item.Status==='Pending',
+												'badge-inprocess':item.Status==='Inprocess',
+												'badge-completed':item.Status==='Completed',
+												'badge-verified':item.Status==='Verified',
+												'badge-drafted':item.Status==='Drafted',}">											
+												{{item.Status}}</span></td>
+												
+												<!-- <td>{{item.RefPurchaseOrder}}</td> -->
+												
+												<!-- <td>{{item.Tests}}</td> -->
+												<!-- <td>{{item.ReportDate | date :"dd.MM.y"}}</td> -->
+												<!-- <td>{{item.ReportNo}}</td> -->
+												
+												
+												
+											</tr>
+											<tr class="animate-repeat text-center" ng-if="info.alldelrirs.length === 0">
+      <td colspan="7">No results found...</td>
+    </tr>	
+					<tr><td colspan="7"><dir-pagination-controls pagination-id="rirpage"  ></dir-pagination-controls></td></tr>						
+											
+								</tbody>
+</table>	
+</div>
+	</div>
+	</div>
+	</div>
+	</div>

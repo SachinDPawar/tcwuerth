@@ -1,0 +1,282 @@
+<style>
+.form-control {
+padding:5px 8px;
+}
+
+.tablehead{
+background-color:#607d8b;
+color:#fff;
+}
+
+.mgleft{
+margin-left:20px;
+}
+</style>
+<div class="row " >
+
+	<div class="col-md-12 col-md-offset-0" style="margin-top:0px;">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h2 class="panel-title"><i class="fa fa-fire-extinguisher "></i><b>CONTINUOUS SALT SPARY TEST REPORT</b></h2>
+			</div>
+			<div class="panel-body">
+	<form class="form-horizontal text-left" name="sstform"  novalidate>
+	<div class="form-group">
+			
+				<label class="col-md-2 col-sm-2 control-label">Test Report No</label>
+				<div class="col-md-4 col-sm-4 ">
+				<input type="text" class="form-control"  id="Interval" ng-model="sst.basic.ReportNo" name="Interval" placeholder="Report no" required />
+				</div>
+
+				<label  class="col-md-2 col-sm-2 control-label">Report Date</label>
+						<div class="col-md-4 col-sm-4">
+						<div class="input-group ">
+						<input type="text" class="form-control input-sm" id="CerDate" name="CerDate" uib-datepicker-popup ng-model="sst.basic.ReportDate" is-open="popup.repdate" datepicker-options="dateOptions" 
+						close-text="Close" required/>
+						<span class="input-group-btn">
+						<button type="button" class="btn btn-default btn-sm" ng-click="openrep()"><i class="fa fa-calendar"></i></button>
+						</span>
+						</div>	
+						</div>
+			</div>
+			
+			
+			<div class="form-group">
+			
+				<label class="col-md-2 col-sm-2 control-label">BatchNo</label>
+				<div class="col-md-4 col-sm-4 ">
+				<input type="text" class="form-control"  id="BatchNo" ng-model="sst.basic.BatchNo" name="BatchNo" placeholder="BatchNo" required/>
+				</div>
+
+<label class="col-md-2 col-sm-2 control-label">LabNo</label>
+				<div class="col-md-4 col-sm-4 ">
+									
+
+<input type="text" class="form-control"  id="LabNo" ng-model="sst.basic.LabNo" name="LabNo" placeholder="LabNo" required/>
+
+				
+				</div>
+			</div>
+			
+			<div class="form-group">
+			
+				<label class="col-md-2 col-sm-2 control-label">Sample Receipt On</label>
+				<div class="col-md-4 col-sm-4">
+						<div class="input-group ">
+						<input type="text" class="form-control input-sm" id="CerDate" name="CerDate" uib-datepicker-popup ng-model="sst.basic.ReceiptOn" is-open="popup.recondate" datepicker-options="dateOptions" 
+						close-text="Close" required/>
+						<span class="input-group-btn">
+						<button type="button" class="btn btn-default btn-sm" ng-click="openrecon()"><i class="fa fa-calendar"></i></button>
+						</span>
+						</div>	
+						</div>
+
+<label class="col-md-2 col-sm-2 control-label">Ref Std.</label>
+				<div class="col-md-4 col-sm-4 ">
+<input type="text" class="form-control"  id="RefStd" ng-model="sst.basic.RefStd" name="RefStd" placeholder="Ref Std" required />
+
+				
+				</div>
+			</div>
+			<div class="form-group">
+			
+				<label class="col-md-2 col-sm-2 control-label">Coating System</label>
+				<div class="col-md-4 col-sm-4 ">
+				<input type="text" class="form-control"  id="CoatingSystem" ng-model="sst.basic.CoatingSystem" name="CoatingSystem" placeholder="Coating System" required/>
+				</div>
+
+<label class="col-md-2 col-sm-2 control-label">Customer Name</label>
+				<div class="col-md-4 col-sm-4 ">
+<input type="text" class="form-control"  id="CustomerName" ng-model="sst.basic.CustomerName" name="CustomerName" placeholder="Customer Name" required/>
+
+				
+				</div>
+			</div>
+			
+			
+			<h4 class="text-center tablehead" style="height:24px;">Test Condition</h4>
+			<div class="form-group">
+			<label class="col-md-2 col-sm-2 control-label">Sample</label>
+				<div class="col-md-4 col-sm-4">
+					<input type="text" class="form-control" id="Sample" ng-model="sst.basic.Sample" name="Sample" placeholder="Sample." required/>
+				</div>
+			</div>
+			<div class="form-group">
+			
+			
+			
+			<label class="col-md-2 col-sm-2 control-label">Test Duration</label>
+			<div class="col-sm-4" style="margin-top:10px;">
+<ui-select id="TestDuration" ng-model="sst.basic.TestDuration" name="TestDuration" ng-change="loadobservations(sst.basic.TestDuration)" required>
+<ui-select-match placeholder="Select Max SST Hours">
+<span ng-bind="$select.selected.Hours"></span> Hrs
+</ui-select-match>
+<ui-select-choices  repeat="item in (ssthrs ) track by item.Id">
+<span ng-bind="item.Hours"></span> Hrs
+</ui-select-choices>
+</ui-select>
+</div>
+
+<label class="col-md-2 col-sm-2 control-label">Interval of Inspection</label>
+				<div class="col-md-4 col-sm-4 ">
+									<div class="input-group">
+
+<input type="text" class="form-control" disabled id="Interval" ng-model="sst.basic.Interval" name="Interval" placeholder="Interval of Inspection" />
+
+  <span class="input-group-addon">Hrs</span>
+</div>
+				
+				</div>
+			</div>
+			<div class="form-group">
+			
+			
+				<label class="col-md-2 col-sm-2 control-label">Test Loading Date</label>
+				<div class="col-md-4 col-sm-4">
+					<div class="input-group ">
+						<input type="text" class="form-control input-sm"  uib-datepicker-popup ng-model="sst.basic.LoadingDate" is-open="popup1.opened[$index]" datepicker-options="dateOptions" 
+						close-text="Close" required/>
+						<span class="input-group-btn">
+						<button type="button" class="btn btn-default btn-sm" ng-click="open1($index)"><i class="fa fa-calendar"></i></button>
+						</span>
+					</div>	
+				</div>
+				
+				<label class="col-md-2 col-sm-2 control-label">Test Completed Date</label>
+				<div class="col-md-4 col-sm-4">
+					<div class="input-group ">
+						<input type="text" class="form-control input-sm"  uib-datepicker-popup ng-model="sst.basic.CompleteDate" is-open="popup2.opened[$index]" datepicker-options="dateOptions" 
+						close-text="Close" />
+						<span class="input-group-btn">
+						<button type="button" class="btn btn-default btn-sm" ng-click="open2($index)"><i class="fa fa-calendar"></i></button>
+						</span>
+					</div>	
+				</div>
+			</div>	
+			
+			
+			<div class="form-group">
+				<label class="col-md-2 col-sm-2 control-label">Salt Solution Conc.</label>
+				<div class="col-md-4 col-sm-4">
+					<input type="text" class="form-control" id="SaltSolnConc" ng-model="sst.basic.SaltSolnConc" name="SaltSolnConc" placeholder="Salt Solution Conc." required/>
+				</div>
+				
+				<label class="col-md-2 col-sm-2 control-label">Fog Collection</label>
+				<div class="col-md-4 col-sm-4">
+					<input type="text" class="form-control" id="FogCollection" ng-model="sst.basic.FogCollection" name="FogCollection" placeholder="Fog Collection" required/>
+				</div>
+			</div>	
+			
+						
+			<div class="form-group">
+				<label class="col-md-2 col-sm-2 control-label">pH of test Solution</label>
+				<div class="col-md-4 col-sm-4">
+					<input type="text" class="form-control" id="PhTestSoln" ng-model="sst.basic.PhTestSoln" name="PhTestSoln" placeholder="pH of test Solution" required/>
+				</div>
+				
+				<label class="col-md-2 col-sm-2 control-label">pH of Collected Sample</label>
+				<div class="col-md-4 col-sm-4">
+					<input type="text" class="form-control" id="PhCollectedSample" ng-model="sst.basic.PhCollectedSample" name="PhCollectedSample" placeholder="pH of Collected Sample" required/>
+				</div>
+			</div>	
+			
+			<div class="form-group">
+			
+				<label class="col-md-2 col-sm-2 control-label">Chember Temperature</label>
+				<div class="col-md-4 col-sm-4">
+					<input type="text" class="form-control" id="ChemberTemp" ng-model="sst.basic.ChemberTemp" name="ChemberTemp" placeholder="Chember Temperature" required />
+				</div>
+			
+				<label class="col-md-2 col-sm-2 control-label">Angle</label>
+				<div class="col-md-4 col-sm-4">
+					<input type="text" class="form-control" id="Angle" ng-model="sst.basic.Angle" name="Angle" placeholder="Angle" required/>
+				</div>
+				
+				
+			</div>	
+					
+			
+			<div class="form-group" style="margin-top:20px;">
+				<div class="col-md-12">
+				
+				<table class="table table-bordered table-condensed ">
+				<thead>
+					<tr class="text-center tablehead" ><td colspan="4" ><h4 class="pull-left">Observation Sheet</h4>
+					<!-- <button class="btn btn-success pull-right fa fa-plus" type="button" ng-click="addrow()">Add Another Row</button> -->
+					</td>
+					</tr>
+					<tr class="" style="background-color: #000000;color:white;">
+					<td class="col-md-1">SrNo</td>
+					<td class="col-md-1"><strong>Duration of SST(Hrs)</strong></td>
+					<td class="col-md-2"><strong>Date</strong></td>
+					<td class="col-md-3 text-left"><strong>Observation</strong></td>
+					<!-- <td class="col-md-2 text-center"><strong>Sign</strong></td> -->
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr ng-repeat="item in sst.basic.observations">
+					<td>{{$index+1}}</td>
+					<td><strong> {{item.Duration}} Hours</strong></td>
+					<td>
+						<div class="input-group ">
+							<input type="text" class="form-control input-sm"  uib-datepicker-popup ng-model="item.OnDate" is-open="popup2.opened[$index]" datepicker-options="dateOptions" 
+							close-text="Close" />
+							<span class="input-group-btn">
+							<button type="button" class="btn btn-default btn-sm" ng-click="open2($index)"><i class="fa fa-calendar"></i></button>
+							</span>
+						</div>						
+					</td>
+					<td class="text-justify">
+						<div class="checkbox mgleft">
+							<label><input type="checkbox" name="White" ng-model="item.White" ng-true-value="'true'" ng-false-value="'false'">White rust observed</label>
+						</div>
+						<div class="checkbox mgleft">
+							<label><input type="checkbox" name="NoWhite" ng-model="item.NoWhite" ng-true-value="'true'" ng-false-value="'false'">No White rust observed</label>
+						</div>
+						<div class="checkbox mgleft">
+							<label><input type="checkbox" name="Red" ng-model="item.Red" ng-true-value="'true'" ng-false-value="'false'">Red rust observed</label>
+						</div>
+						<div class="checkbox mgleft">
+							<label><input type="checkbox" name="NoRed" ng-model="item.NoRed" ng-true-value="'true'" ng-false-value="'false'">No Red rust observed</label>
+						</div>
+					</td>
+					<!-- <td><span>{{item.Sign}}</span></td> -->
+					</tr>
+				</tbody>
+				
+				</table>
+				</div>
+			</div>
+			
+			<div class="form-group" >
+						<label  class="col-md-2 col-sm-2 control-label">Remark</label>
+						<div class="col-md-3 col-sm-3">
+							<ui-select id="Remark" ng-model="sst.basic.Remark" name="Remark"   required >
+<ui-select-match placeholder="Select Remark">
+<span ng-bind="$select.selected"></span>
+</ui-select-match>
+<ui-select-choices  repeat=" item in (remarks | filter: $select.search)">
+<span ng-bind="item"></span>
+</ui-select-choices>
+</ui-select>
+						</div>
+					</div>	
+		<div class="form-group" >
+						<label  class="col-md-2 col-sm-2 control-label">Note:</label>
+						<div class="col-md-8 col-sm-8">
+							<textarea rows="4" id="Note" class="form-control" name="Note" ng-model="chemical.basic.Note"></textarea>
+						</div>
+					</div>	
+			<div class="form-group text-center" >
+			<button type="button"  ng-disabled="sstform.$invalid" class="btn btn-md btn-success "
+						 ng-click="savesst(sst)"> Save</button>
+			<button type="button" class="btn btn-md btn-danger " ng-click="cancelsave()" >Cancel</button>
+			</div>
+		
+	</form>
+			</div>
+		</div>
+	</div>
+
+</div>

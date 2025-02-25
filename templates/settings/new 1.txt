@@ -1,0 +1,1371 @@
+<div class="form-group  table-responsive " ng-hide="true">
+	<table class=" table table-bordered table-striped table-condensed">
+		<thead>
+		<tr class="active " style="font-weight:600;text-transform:uppercase;">
+		<td class="col-sm-1">Test Types</td>
+		<td class="col-sm-3">Test Specifications & Test Methods </td>
+		
+		<td class="col-sm-4">Test Details</td>		
+		<td class="col-sm-1">Frequency</td>
+		
+		</tr>
+		</thead>
+		
+		
+	<!------------Carburization-------------->
+<tr>
+		<td rowspan=""><strong>1. Carburization -Decarburization</strong>
+	
+		</td>
+		<td rowspan="">
+		
+			<ui-select id="Standard[{{$index}}]" ng-model="mds.carbdecarb.StandardId" name="StandardId[{{$index}}]"  >
+			<ui-select-match placeholder="Select Standard">
+			<span ng-bind="$select.selected.Standard"></span>
+			</ui-select-match>
+			<ui-select-choices  repeat="item.Id as item in (standards | filter: $select.search) track by item.Id" loose-null>
+			<span ng-bind="item.Standard"></span>
+			</ui-select-choices>
+			</ui-select>
+		
+			<ui-select id="SubStandardId[{{$index}}]" ng-model="mds.carbdecarb.SubStandardId" name="SubStandardId[{{$index}}]"  >
+<ui-select-match placeholder="Select Sub Standard">
+<span ng-bind="$select.selected.SubStandard"></span>
+</ui-select-match>
+<ui-select-choices group-by="'Standard'" repeat="item.Id as item in (msubstandards | filter: {'StandardId':test.Standard}) track by item.Id">
+<span ng-bind="item.SubStandard"></span>
+</ui-select-choices>
+</ui-select>
+		
+
+		
+			<ui-select id="TestMethod" ng-model="mds.carbdecarb.TestMethod" name="TestMethod">
+			<ui-select-match placeholder="Test Method">
+			<span ng-bind="$select.selected.Method"></span>
+			</ui-select-match>
+			<ui-select-choices group-by="'Test'" repeat=" item in (testmethods | filter:{'Keyword':'CDC' }) track by item.Id">
+			<span ng-bind="item.Method"></span>
+			</ui-select-choices>
+			</ui-select>
+		</td>
+		
+		<td>
+			
+		</td>
+		
+		<td rowspan="">
+		<input type="text" class="form-control" id="Chemical" ng-model="mds.carbdecarb.Frequency" name="CarbFreq"
+		placeholder="Frequency"  />
+			<br><button class="btn btn-info btn-sm fa fa-refresh" ng-click="resettest('CDC')"> Reset</button>
+		</td>
+</tr>
+		
+		<!------------Case Depth-------------->
+<tr>
+		<td rowspan=""><strong>2. Case depth</strong></td>
+		<td rowspan="">
+		
+			<ui-select id="Standard[{{$index}}]" ng-model="mds.casedepth.StandardId" name="StandardId[{{$index}}]"  >
+			<ui-select-match placeholder="Select Standard">
+			<span ng-bind="$select.selected.Standard"></span>
+			</ui-select-match>
+			<ui-select-choices  repeat="item.Id as item in (standards | filter: $select.search) track by item.Id">
+			<span ng-bind="item.Standard"></span>
+			</ui-select-choices>
+			</ui-select>
+			
+			<ui-select id="SubStandardId[{{$index}}]" ng-model="mds.casedepth.SubStandardId" name="SubStandardId[{{$index}}]"  >
+<ui-select-match placeholder="Select Sub Standard">
+<span ng-bind="$select.selected.SubStandard"></span>
+</ui-select-match>
+<ui-select-choices group-by="'Standard'" repeat="item.Id as item in (msubstandards | filter: {'StandardId':test.Standard}) track by item.Id">
+<span ng-bind="item.SubStandard"></span>
+</ui-select-choices>
+</ui-select>
+
+			
+
+		
+			<ui-select id="TestMethod" ng-model="mds.casedepth.TestMethod" name="TestMethod">
+			<ui-select-match placeholder="Test Method">
+			<span ng-bind="$select.selected.Method"></span>
+			</ui-select-match>
+			<ui-select-choices group-by="'Test'" repeat=" item in (testmethods | filter:{'Keyword':'CD' }) track by item.Id">
+			<span ng-bind="item.Method"></span>
+			</ui-select-choices>
+			</ui-select>
+		</td>
+		
+		<td>
+			
+		</td>
+		
+		<td rowspan="">
+		<input type="text" class="form-control" id="Chemical" ng-model="mds.casedepth.Frequency" name="Chemical" 
+		placeholder="Frequency"  />
+		<br><button class="btn btn-info btn-sm fa fa-refresh" ng-click="resettest('CD')"> Reset</button>
+		</td>
+</tr>
+		
+<!--------Chemical----------->	
+		
+		<tr>
+		<td rowspan=""><strong>3. Chemical</strong></td>
+		<td rowspan="">
+		
+			<ui-select id="ChemStandardId" ng-model="mds.chemical.StandardId" name="ChemStandardId"  >
+			<ui-select-match placeholder="Select Standard">
+			<span ng-bind="$select.selected.Standard"></span>
+			</ui-select-match>
+			<ui-select-choices  repeat="item.Id as item in (standards | filter: $select.search) track by item.Id">
+			<span ng-bind="item.Standard"></span>
+			</ui-select-choices>
+			</ui-select>
+		
+			
+		
+<ui-select id="ChemSubStandardId" ng-model="mds.chemical.SubStandardId" name="ChemSubStandardId" >
+<ui-select-match placeholder="Select Sub Standard">
+<span ng-bind="$select.selected.SubStandard"></span>
+</ui-select-match>
+<ui-select-choices group-by="'Standard'" repeat="item.Id as item in (csubstandards | filter: {'StandardId':test.StandardId}) track by item.Id">
+<span ng-bind="item.SubStandard"></span>
+</ui-select-choices>
+</ui-select>
+			
+			
+
+		
+				<ui-select id="TestMethod" ng-model="mds.chemical.TestMethod" name="TestMethod"   >
+				<ui-select-match placeholder="Test Method">
+				<span ng-bind="$select.selected.Method"></span>
+				</ui-select-match>
+				<ui-select-choices group-by="'Test'" repeat=" item in (testmethods | filter:{'Keyword':'C' }) track by item.Id">
+				<span ng-bind="item.Method"></span>
+				</ui-select-choices>
+				</ui-select>
+		</td>
+		
+		<td>
+			<div class="form-group ">						
+						
+						
+						<div class="row">
+						<label class="col-md-4 col-xs-4 text-center">Elements</label>
+						<label class="col-md-4 col-xs-4 text-center">Min</label>
+						<label class="col-md-4 col-xs-4 text-center">Max</label>
+						</div>
+						
+						
+							<div class="text-center row" ng-repeat="item in mds.chemical.allelements " style="margin-bottom:5px;">
+								
+								<div class="col-md-4 col-xs-4 text-center">
+									<input type="text" class="form-control input-sm" ng-model="item.Element" disabled id="Element" name="Element[{{$index}}]" />
+								</div>	
+								<div class="col-md-4 col-xs-4">
+								
+									<input type="text" class="form-control input-sm"    ng-model="item.Min"  name="Min[{{$index}}]" id="Min[{{$index}}]" />
+							
+								</div>	
+								<div class="col-md-4 col-xs-4">
+									
+									<input type="text" class="form-control input-sm"   ng-model="item.Max" name="Max[{{$index}}]"
+									 id="Max[{{$index}}]"/>							
+									
+								</div>				
+								
+							</div>
+						
+						
+							
+		</div>
+		</td>
+		
+		<td rowspan="">
+		<input type="text" class="form-control" id="Chemical" ng-model="mds.chemical.Frequency" name="Chemical" placeholder="Frequency"
+		 /><br><button class="btn btn-info btn-sm fa fa-refresh" ng-click="resettest('C')"> Reset</button>
+		
+		</td>
+		</tr>
+
+
+		<!------------Grain Size-------------->
+<tr>
+		<td rowspan=""><strong>4. Grain Size</strong></td>
+		<td rowspan="">
+		
+			
+
+		
+			<ui-select id="TestMethod" ng-model="mds.grainsize.TestMethod" name="TestMethod">
+			<ui-select-match placeholder="Test Method">
+			<span ng-bind="$select.selected.Method"></span>
+			</ui-select-match>
+			<ui-select-choices group-by="'Test'" repeat=" item in (testmethods | filter:{'Keyword':'GS' }) track by item.Id">
+			<span ng-bind="item.Method"></span>
+			</ui-select-choices>
+			</ui-select>
+		</td>
+		
+		<td>
+			
+		</td>
+		
+		<td rowspan=""><input type="text" class="form-control" id="Chemical" ng-model="mds.grainsize.Frequency" name="Chemical"
+		placeholder="Frequency"  />
+		<br><button class="btn btn-info btn-sm fa fa-refresh" ng-click="resettest('GS')"> Reset</button>
+		</td>
+</tr>
+			
+	
+<!------------Hardness Vicker Test--------------->
+<tr>
+		<td rowspan=""><strong>5.1. Hardness Vickers</strong></td>
+		<td rowspan="">
+		
+			<ui-select id="Standard[{{$index}}]" ng-model="mds.hardHV.StandardId" name="HardStandardId"  >
+			<ui-select-match placeholder="Select Standard">
+			<span ng-bind="$select.selected.Standard"></span>
+			</ui-select-match>
+			<ui-select-choices  repeat="item.Id as item in (standards | filter: $select.search) track by item.Id">
+			<span ng-bind="item.Standard"></span>
+			</ui-select-choices>
+			</ui-select>
+			
+			<ui-select id="SubStandardId[{{$index}}]" ng-model="mds.hardHV.SubStandardId" name="SubStandardId[{{$index}}]"   >
+<ui-select-match placeholder="Select Sub Standard">
+<span ng-bind="$select.selected.SubStandard"></span>
+</ui-select-match>
+<ui-select-choices group-by="'Standard'" repeat="item.Id as item in (msubstandards | filter: {'StandardId':test.Standard}) track by item.Id">
+<span ng-bind="item.SubStandard"></span>
+</ui-select-choices>
+</ui-select>
+	
+
+		
+			<ui-select id="TestMethod" ng-model="mds.hardHV.TestMethod" name="TestMethod">
+			<ui-select-match placeholder="Test Method">
+			<span ng-bind="$select.selected.Method"></span>
+			</ui-select-match>
+			<ui-select-choices group-by="'Test'" repeat=" item in (testmethods | filter:{'Keyword':'H' }) track by item.Id">
+			<span ng-bind="item.Method"></span>
+			</ui-select-choices>
+			</ui-select>
+		</td>
+		
+		<td>
+			<div class="form-group">								
+			<div class="row">
+				<label class="col-md-4 col-xs-4 text-center">Load</label>
+				<label class="col-md-4 col-xs-4 text-center">Min</label>
+				<label class="col-md-4 col-xs-4 text-center">Max</label>
+			</div>
+			<div class="row">
+			
+				<div class="text-center row"  style="margin-bottom:5px;">
+					
+					<div class="col-md-4 col-xs-4 text-center">
+						
+<ui-select id="LoadId" ng-model="mds.hardHV.HV.LoadId" name="LoadId" 	 >
+<ui-select-match placeholder="Load">
+<span ng-bind="$select.selected.Load"></span>
+</ui-select-match>
+<ui-select-choices  repeat="item.Id as item in (hardloads | filter:{'HtypeId':test.HtypeId}) track by item.Id">
+<span ng-bind="item.Load"></span>
+</ui-select-choices>
+</ui-select>
+
+
+					</div>	
+					<div class="col-md-4 col-xs-4">					
+						<input type="text" class="form-control input-sm"    ng-model="mds.hardHV.HV.Min"  name="Min[{{$index}}]"  />				
+					</div>	
+					<div class="col-md-4 col-xs-4">						
+						<input type="text" class="form-control input-sm"   ng-model="mds.hardHV.HV.Max" name="Max[{{$index}}]" />					
+						
+					</div>				
+					
+				</div>
+			
+			</div>
+		</div>
+		</td>
+		
+		<td rowspan="">
+		<input type="text" class="form-control" id="Chemical" ng-model="mds.hardHV.Frequency" name="HardnessFreq"
+		placeholder="Frequency"  />
+			<br><button class="btn btn-info btn-sm fa fa-refresh" ng-click="resettest('HHV')"> Reset</button>
+			</td>
+</tr>
+		
+<!------------Hardness Micro Vicker Test--------------->
+<tr>
+		<td rowspan=""><strong>5.2. Hardness Micro vickers</strong></td>
+		<td rowspan="">
+		
+			<ui-select id="Standard[{{$index}}]" ng-model="mds.hardMHV.StandardId" name="HardStandardId"  >
+			<ui-select-match placeholder="Select Standard">
+			<span ng-bind="$select.selected.Standard"></span>
+			</ui-select-match>
+			<ui-select-choices  repeat="item.Id as item in (standards | filter: $select.search) track by item.Id">
+			<span ng-bind="item.Standard"></span>
+			</ui-select-choices>
+			</ui-select>
+			
+				<ui-select id="SubStandardId[{{$index}}]" ng-model="mds.hardMHV.SubStandardId" name="SubStandardId[{{$index}}]"  >
+<ui-select-match placeholder="Select Sub Standard">
+<span ng-bind="$select.selected.SubStandard"></span>
+</ui-select-match>
+<ui-select-choices group-by="'Standard'" repeat="item.Id as item in (msubstandards | filter: {'StandardId':test.Standard}) track by item.Id">
+<span ng-bind="item.SubStandard"></span>
+</ui-select-choices>
+</ui-select>
+	
+
+		
+			<ui-select id="TestMethod" ng-model="mds.hardMHV.TestMethod" name="TestMethod">
+			<ui-select-match placeholder="Test Method">
+			<span ng-bind="$select.selected.Method"></span>
+			</ui-select-match>
+			<ui-select-choices group-by="'Test'" repeat=" item in (testmethods | filter:{'Keyword':'H' }) track by item.Id">
+			<span ng-bind="item.Method"></span>
+			</ui-select-choices>
+			</ui-select>
+		</td>
+		
+		<td>
+			<div class="form-group">								
+			<div class="row">
+				<label class="col-md-4 col-xs-4 text-center">Load</label>
+				<label class="col-md-4 col-xs-4 text-center">Min</label>
+				<label class="col-md-4 col-xs-4 text-center">Max</label>
+			</div>
+			
+			<div class="row">
+			
+				<div class="text-center row"  style="margin-bottom:5px;">
+					
+					<div class="col-md-4 col-xs-4 text-center">
+					<ui-select id="LoadId" ng-model="mds.hardMHV.MicroHV.LoadId" name="LoadId" 	 >
+<ui-select-match placeholder=" Load">
+<span ng-bind="$select.selected.Load"></span>
+</ui-select-match>
+<ui-select-choices  repeat="item.Id as item in (hardloads | filter:{'HtypeId':test.HtypeId}) track by item.Id">
+<span ng-bind="item.Load"></span>
+</ui-select-choices>
+</ui-select>
+
+					</div>	
+					<div class="col-md-4 col-xs-4">
+					
+						<input type="text" class="form-control input-sm"    ng-model="mds.hardMHV.MicroHV.Min"  name="Min[{{$index}}]" />
+				
+					</div>	
+					<div class="col-md-4 col-xs-4">
+						
+						<input type="text" class="form-control input-sm"   ng-model="mds.hardMHV.MicroHV.Max" name="Max[{{$index}}]" />							
+						
+					</div>				
+					
+				</div>
+			
+			</div>
+			
+			
+			
+			</div>
+		</td>
+		
+		<td rowspan="">
+		<input type="text" class="form-control" id="Chemical" ng-model="mds.hardMHV.Frequency" name="HardnessFreq"
+		placeholder="Frequency"  />
+			<br><button class="btn btn-info btn-sm fa fa-refresh" ng-click="resettest('HMHV')"> Reset</button>
+			</td>
+</tr>		
+
+<!------------Hardness Brinell Test--------------->
+<tr>
+		<td rowspan=""><strong>5.3. Hardness Brinell</strong></td>
+		<td rowspan="">
+		
+			<ui-select id="Standard[{{$index}}]" ng-model="mds.hardHBW.StandardId" name="HardStandardId"  >
+			<ui-select-match placeholder="Select Standard">
+			<span ng-bind="$select.selected.Standard"></span>
+			</ui-select-match>
+			<ui-select-choices  repeat="item.Id as item in (standards | filter: $select.search) track by item.Id">
+			<span ng-bind="item.Standard"></span>
+			</ui-select-choices>
+			</ui-select>
+			
+			<ui-select id="SubStandardId[{{$index}}]" ng-model="mds.hardHBW.SubStandardId" name="SubStandardId[{{$index}}]"  >
+<ui-select-match placeholder="Select Sub Standard">
+<span ng-bind="$select.selected.SubStandard"></span>
+</ui-select-match>
+<ui-select-choices group-by="'Standard'" repeat="item.Id as item in (msubstandards | filter: {'StandardId':test.Standard}) track by item.Id">
+<span ng-bind="item.SubStandard"></span>
+</ui-select-choices>
+</ui-select>
+
+		
+
+		
+			<ui-select id="TestMethod" ng-model="mds.hardHBW.TestMethod" name="TestMethod">
+			<ui-select-match placeholder="Test Method">
+			<span ng-bind="$select.selected.Method"></span>
+			</ui-select-match>
+			<ui-select-choices group-by="'Test'" repeat=" item in (testmethods | filter:{'Keyword':'H' }) track by item.Id">
+			<span ng-bind="item.Method"></span>
+			</ui-select-choices>
+			</ui-select>
+		</td>
+		
+		<td>
+			<div class="form-group">								
+			<div class="row">
+				<label class="col-md-4 col-xs-4 text-center">Load</label>
+				<label class="col-md-4 col-xs-4 text-center">Min</label>
+				<label class="col-md-4 col-xs-4 text-center">Max</label>
+			</div>
+		
+		
+			<div class="row">
+			
+				<div class="text-center row"  style="margin-bottom:5px;">
+					
+					<div class="col-md-4 col-xs-4 text-center">
+					<ui-select id="LoadId" ng-model="mds.hardHBW.HBW.LoadId" name="LoadId" 	 >
+<ui-select-match placeholder=" Load">
+<span ng-bind="$select.selected.Load"></span>
+</ui-select-match>
+<ui-select-choices  repeat="item.Id as item in (hardloads | filter:{'HtypeId':test.HtypeId}) track by item.Id">
+<span ng-bind="item.Load"></span>
+</ui-select-choices>
+</ui-select>
+
+					</div>	
+					<div class="col-md-4 col-xs-4">
+					
+						<input type="text" class="form-control input-sm"    ng-model="mds.hardHBW.HBW.Min"  name="HBWMin" />
+				
+					</div>	
+					<div class="col-md-4 col-xs-4">						
+						<input type="text" class="form-control input-sm"   ng-model="mds.hardHBW.HBW.Max" name="HBWMax" />				
+						
+					</div>				
+					
+				</div>
+			
+			</div>
+			
+			</div>
+		</td>
+		
+		<td rowspan="">
+		<input type="text" class="form-control" id="Chemical" ng-model="mds.hardHBW.Frequency" name="HardnessFreq"
+		placeholder="Frequency"  />
+			<br><button class="btn btn-info btn-sm fa fa-refresh" ng-click="resettest('HHBW')"> Reset</button>
+			</td>
+</tr>		
+<!------------Hardness Rockwell B Scale Test--------------->
+<tr>
+		<td rowspan=""><strong>5.4. Hardness Rockwell B Scale</strong></td>
+		<td rowspan="">
+		
+			<ui-select id="Standard[{{$index}}]" ng-model="mds.hardHRB.StandardId" name="HardStandardId"  >
+			<ui-select-match placeholder="Select Standard">
+			<span ng-bind="$select.selected.Standard"></span>
+			</ui-select-match>
+			<ui-select-choices  repeat="item.Id as item in (standards | filter: $select.search) track by item.Id">
+			<span ng-bind="item.Standard"></span>
+			</ui-select-choices>
+			</ui-select>
+			
+			<ui-select id="SubStandardId[{{$index}}]" ng-model="mds.hardHRB.SubStandardId" name="SubStandardId[{{$index}}]"  >
+<ui-select-match placeholder="Select Sub Standard">
+<span ng-bind="$select.selected.SubStandard"></span>
+</ui-select-match>
+<ui-select-choices group-by="'Standard'" repeat="item.Id as item in (msubstandards | filter: {'StandardId':test.Standard}) track by item.Id">
+<span ng-bind="item.SubStandard"></span>
+</ui-select-choices>
+</ui-select>
+
+			
+
+		
+			<ui-select id="TestMethod" ng-model="mds.hardHRB.TestMethod" name="TestMethod">
+			<ui-select-match placeholder="Test Method">
+			<span ng-bind="$select.selected.Method"></span>
+			</ui-select-match>
+			<ui-select-choices group-by="'Test'" repeat=" item in (testmethods | filter:{'Keyword':'H' }) track by item.Id">
+			<span ng-bind="item.Method"></span>
+			</ui-select-choices>
+			</ui-select>
+		</td>
+		
+		<td>
+			<div class="form-group">								
+			<div class="row">
+				<label class="col-md-4 col-xs-4 text-center">Load</label>
+				<label class="col-md-4 col-xs-4 text-center">Min</label>
+				<label class="col-md-4 col-xs-4 text-center">Max</label>
+			</div>
+			
+		
+			
+			<div class="row">
+			
+				<div class="text-center row"  style="margin-bottom:5px;">
+					
+					<div class="col-md-4 col-xs-4 text-center">
+					<ui-select id="LoadId" ng-model="mds.hardHRB.HRB.LoadId" name="LoadId" 	 >
+<ui-select-match placeholder="Load">
+<span ng-bind="$select.selected.Load"></span>
+</ui-select-match>
+<ui-select-choices  repeat="item.Id as item in (hardloads | filter:{'HtypeId':test.HtypeId}) track by item.Id">
+<span ng-bind="item.Load"></span>
+</ui-select-choices>
+</ui-select>
+
+					</div>	
+					<div class="col-md-4 col-xs-4">
+					
+						<input type="text" class="form-control input-sm"    ng-model="mds.hardHRB.HRB.Min"  name="HRB_Min"  />
+				
+					</div>	
+					<div class="col-md-4 col-xs-4">
+						
+						<input type="text" class="form-control input-sm"   ng-model="mds.hardHRB.HRB.Max" name="HRB_Max"
+						 id="Max[{{$index}}]"/>							
+						
+					</div>				
+					
+				</div>
+			
+			</div>
+			
+			</div>
+		</td>
+		
+		<td rowspan="">
+		<input type="text" class="form-control" id="Chemical" ng-model="mds.hardHRB.Frequency" name="HardnessFreq"
+		placeholder="Frequency"  />
+			<br><button class="btn btn-info btn-sm fa fa-refresh" ng-click="resettest('HHRB')"> Reset</button>
+			</td>
+</tr>		
+<!------------Hardness Rockwell C Scale Test--------------->
+<tr>
+		<td rowspan=""><strong>5.5. Hardness Rockwell C Scale</strong></td>
+		<td rowspan="">
+		
+			<ui-select id="Standard[{{$index}}]" ng-model="mds.hardHRC.StandardId" name="HardStandardId"  >
+			<ui-select-match placeholder="Select Standard">
+			<span ng-bind="$select.selected.Standard"></span>
+			</ui-select-match>
+			<ui-select-choices  repeat="item.Id as item in (standards | filter: $select.search) track by item.Id">
+			<span ng-bind="item.Standard"></span>
+			</ui-select-choices>
+			</ui-select>
+			
+			<ui-select id="SubStandardId[{{$index}}]" ng-model="mds.hardHRC.SubStandardId" name="SubStandardId[{{$index}}]"  >
+<ui-select-match placeholder="Select Sub Standard">
+<span ng-bind="$select.selected.SubStandard"></span>
+</ui-select-match>
+<ui-select-choices group-by="'Standard'" repeat="item.Id as item in (msubstandards | filter: {'StandardId':test.Standard}) track by item.Id">
+<span ng-bind="item.SubStandard"></span>
+</ui-select-choices>
+</ui-select>
+
+		
+
+		
+			<ui-select id="TestMethod" ng-model="mds.hardHRC.TestMethod" name="TestMethod">
+			<ui-select-match placeholder="Test Method">
+			<span ng-bind="$select.selected.Method"></span>
+			</ui-select-match>
+			<ui-select-choices group-by="'Test'" repeat=" item in (testmethods | filter:{'Keyword':'H' }) track by item.Id">
+			<span ng-bind="item.Method"></span>
+			</ui-select-choices>
+			</ui-select>
+		</td>
+		
+		<td>
+			<div class="form-group">								
+			<div class="row">
+				<label class="col-md-4 col-xs-4 text-center">Load</label>
+				<label class="col-md-4 col-xs-4 text-center">Min</label>
+				<label class="col-md-4 col-xs-4 text-center">Max</label>
+			</div>
+			
+			
+			
+			
+			<div class="row">
+			
+				<div class="text-center row"  style="margin-bottom:5px;">
+					
+					<div class="col-md-4 col-xs-4 text-center">
+					<ui-select id="LoadId" ng-model="mds.hardHRC.HRC.LoadId" name="LoadId" 	 >
+<ui-select-match placeholder="Load">
+<span ng-bind="$select.selected.Load"></span>
+</ui-select-match>
+<ui-select-choices  repeat="item.Id as item in (hardloads | filter:{'HtypeId':test.HtypeId}) track by item.Id">
+<span ng-bind="item.Load"></span>
+</ui-select-choices>
+</ui-select>
+
+					</div>	
+					<div class="col-md-4 col-xs-4">
+					
+						<input type="text" class="form-control input-sm"    ng-model="mds.hardHRC.HRC.Min"  name="HRCMin"  />
+				
+					</div>	
+					<div class="col-md-4 col-xs-4">
+						
+						<input type="text" class="form-control input-sm"   ng-model="mds.hardHRC.HRC.Max" name="HRCMax" />							
+						
+					</div>				
+					
+				</div>
+			
+			</div>
+			</div>
+		</td>
+		
+		<td rowspan="">
+		<input type="text" class="form-control" id="Chemical" ng-model="mds.hardHRC.Frequency" name="HardnessFreq"
+		placeholder="Frequency"  />
+			<br><button class="btn btn-info btn-sm fa fa-refresh" ng-click="resettest('HHRC')"> Reset</button>
+			</td>
+</tr>		
+
+<!------------Hydrogen Embritllement---------->
+<tr>
+		<td rowspan=""><strong>6. Hydrogen Embritllement</strong></td>
+		<td rowspan="">
+		
+			<ui-select id="Standard[{{$index}}]" ng-model="mds.hydrogen.StandardId" name="StandardId[{{$index}}]"  >
+			<ui-select-match placeholder="Select Standard">
+			<span ng-bind="$select.selected.Standard"></span>
+			</ui-select-match>
+			<ui-select-choices  repeat="item.Id as item in (standards | filter: $select.search) track by item.Id">
+			<span ng-bind="item.Standard"></span>
+			</ui-select-choices>
+			</ui-select>
+			
+			<ui-select id="SubStandardId[{{$index}}]" ng-model="mds.hydrogen.SubStandardId" name="SubStandardId[{{$index}}]"  >
+<ui-select-match placeholder="Select Sub Standard">
+<span ng-bind="$select.selected.SubStandard"></span>
+</ui-select-match>
+<ui-select-choices group-by="'Standard'" repeat="item.Id as item in (msubstandards | filter: {'StandardId':test.Standard}) track by item.Id">
+<span ng-bind="item.SubStandard"></span>
+</ui-select-choices>
+</ui-select>
+			
+
+		
+			<ui-select id="TestMethod" ng-model="mds.hydrogen.TestMethod" name="TestMethod">
+			<ui-select-match placeholder="Test Method">
+			<span ng-bind="$select.selected.Method"></span>
+			</ui-select-match>
+			<ui-select-choices group-by="'Test'" repeat=" item in (testmethods | filter:{'Keyword':'HET' }) track by item.Id">
+			<span ng-bind="item.Method"></span>
+			</ui-select-choices>
+			</ui-select>
+		</td>
+		
+		<td>
+			
+		</td>
+		
+		<td rowspan=""><input type="text" class="form-control" id="Chemical" ng-model="mds.hydrogen.Frequency" name="hydroFreq"
+		placeholder="Frequency"  />
+		<br><button class="btn btn-info btn-sm fa fa-refresh" ng-click="resettest('HET')"> Reset</button>
+		
+		</td>
+</tr>
+		
+
+
+<!------------Impact Test------------->
+<tr>
+		<td rowspan=""><strong>7. Impact Test</strong></td>
+		<td rowspan="">
+		
+			<ui-select id="Standard[{{$index}}]" ng-model="mds.impact.StandardId" name="StandardId[{{$index}}]"  >
+			<ui-select-match placeholder="Select Standard">
+			<span ng-bind="$select.selected.Standard"></span>
+			</ui-select-match>
+			<ui-select-choices  repeat="item.Id as item in (standards | filter: $select.search) track by item.Id">
+			<span ng-bind="item.Standard"></span>
+			</ui-select-choices>
+			</ui-select>
+			
+			
+			<ui-select id="SubStandardId[{{$index}}]" ng-model="mds.impact.SubStandardId" name="SubStandardId[{{$index}}]"  >
+<ui-select-match placeholder="Select Sub Standard">
+<span ng-bind="$select.selected.SubStandard"></span>
+</ui-select-match>
+<ui-select-choices group-by="'Standard'" repeat="item.Id as item in (msubstandards | filter: {'StandardId':test.Standard}) track by item.Id">
+<span ng-bind="item.SubStandard"></span>
+</ui-select-choices>
+</ui-select>
+
+	
+		
+			<ui-select id="TestMethod" ng-model="mds.impact.TestMethod" name="TestMethod">
+			<ui-select-match placeholder="Test Method">
+			<span ng-bind="$select.selected.Method"></span>
+			</ui-select-match>
+			<ui-select-choices group-by="'Test'" repeat=" item in (testmethods | filter:{'Keyword':'I' }) track by item.Id">
+			<span ng-bind="item.Method"></span>
+			</ui-select-choices>
+			</ui-select>
+		</td>
+		
+		<td>
+			<div class="form-group">								
+			<div class="row">
+				<label class="col-md-4 col-xs-4 text-center">Temp</label>
+				<label class="col-md-4 col-xs-4 text-center">Min</label>
+				<label class="col-md-4 col-xs-4 text-center">Max</label>
+			</div>
+			<div class="row">
+			
+				<div class="text-center row"  style="margin-bottom:5px;">
+					
+					<div class="col-md-4 col-xs-4 text-center">
+						<ui-select id="TempId" ng-model="mds.impact.I.TempId" name="TempId" >
+<ui-select-match placeholder="Temperature">
+<span ng-bind="$select.selected.Temp"></span>
+</ui-select-match>
+<ui-select-choices  repeat="item.Id as item in (impacttemps ) track by item.Id">
+<span ng-bind="item.Temp"></span>
+</ui-select-choices>
+</ui-select>
+						<!-- <input type="text" class="form-control input-sm"    ng-model="mds.impact.I.Temp"  name="ImpTemp"  /> -->
+					</div>	
+					<div class="col-md-4 col-xs-4">
+					
+						<input type="text" class="form-control input-sm"    ng-model="mds.impact.I.Min"  name="Min[{{$index}}]" id="Min[{{$index}}]" />
+				
+					</div>	
+					<div class="col-md-4 col-xs-4">
+						
+						<input type="text" class="form-control input-sm"   ng-model="mds.impact.I.Max" name="Max[{{$index}}]"
+						 id="Max[{{$index}}]"/>							
+						
+					</div>				
+					
+				</div>
+			
+			</div>
+			</div>
+		</td>
+		
+		<td rowspan="">
+		<input type="text" class="form-control" id="Chemical" ng-model="mds.impact.Frequency" name="Chemical" 
+		placeholder="Frequency"  />
+			<br><button class="btn btn-info btn-sm fa fa-refresh" ng-click="resettest('I')"> Reset</button>
+			</td>
+</tr>
+		
+
+
+<!------------Inclusion rating K--------->
+<tr>
+		<td rowspan=""><strong>8. Inclusion rating(K-Method)</strong></td>
+		<td rowspan="">
+		
+		
+		
+			<ui-select id="TestMethod" ng-model="mds.inclusionk.TestMethod" name="TestMethod">
+			<ui-select-match placeholder="Test Method">
+			<span ng-bind="$select.selected.Method"></span>
+			</ui-select-match>
+			<ui-select-choices group-by="'Test'" repeat=" item in (testmethods | filter:{'Keyword':'IR' }) track by item.Id">
+			<span ng-bind="item.Method"></span>
+			</ui-select-choices>
+			</ui-select>
+		</td>
+		
+		<td>
+			
+		</td>
+		
+		<td rowspan="">
+		<input type="text" class="form-control" id="Chemical" ng-model="mds.inclusionk.Frequency" name="Chemical" 
+		placeholder="Frequency"  />
+		<br><button class="btn btn-info btn-sm fa fa-refresh" ng-click="resettest('IRK')"> Reset</button>
+		</td>
+</tr>
+<!------------Inclusion rating Worst method--------->
+<tr>
+		<td rowspan=""><strong>9. Inclusion rating(Worst-Method)</strong></td>
+		<td rowspan="">
+		
+			
+		
+			<ui-select id="TestMethod" ng-model="mds.inclusionw.TestMethod" name="TestMethod">
+			<ui-select-match placeholder="Test Method">
+			<span ng-bind="$select.selected.Method"></span>
+			</ui-select-match>
+			<ui-select-choices group-by="'Test'" repeat=" item in (testmethods | filter:{'Keyword':'IR' }) track by item.Id">
+			<span ng-bind="item.Method"></span>
+			</ui-select-choices>
+			</ui-select>
+		</td>
+		
+		<td>
+		</td>
+		
+		<td rowspan=""><input type="text" class="form-control" id="Chemical" ng-model="mds.inclusionw.Frequency" name="Chemical"
+		placeholder="Frequency"  />
+		<br><button class="btn btn-info btn-sm fa fa-refresh" ng-click="resettest('IRW')"> Reset</button>
+		</td>
+</tr>		
+
+	<!------------Micro Case depth-------------->
+<tr>
+		<td rowspan=""><strong>10. Micro Case</strong></td>
+		<td rowspan="">
+		
+			
+
+		
+			<ui-select id="TestMethod" ng-model="mds.microcase.TestMethod" name="TestMethod">
+			<ui-select-match placeholder="Test Method">
+			<span ng-bind="$select.selected.Method"></span>
+			</ui-select-match>
+			<ui-select-choices group-by="'Test'" repeat=" item in (testmethods | filter:{'Keyword':'MCD' }) track by item.Id">
+			<span ng-bind="item.Method"></span>
+			</ui-select-choices>
+			</ui-select>
+		</td>
+		
+		<td>
+			
+		</td>
+		
+		<td rowspan=""><input type="text" class="form-control" id="Chemical" ng-model="mds.microcase.Frequency" name="Chemical" 
+		placeholder="Frequency"  />
+		<br><button class="btn btn-info btn-sm fa fa-refresh" ng-click="resettest('MCD')"> Reset</button>
+		</td>
+</tr>
+
+	<!------------Micro Coating-------------->
+<tr>
+		<td rowspan=""><strong>11. Micro Coating</strong></td>
+		<td rowspan="">
+		
+			
+
+		
+			<ui-select id="TestMethod" ng-model="mds.microcoat.TestMethod" name="TestMethod">
+			<ui-select-match placeholder="Test Method">
+			<span ng-bind="$select.selected.Method"></span>
+			</ui-select-match>
+			<ui-select-choices group-by="'Test'" repeat=" item in (testmethods | filter:{'Keyword':'MCT' }) track by item.Id">
+			<span ng-bind="item.Method"></span>
+			</ui-select-choices>
+			</ui-select>
+		</td>
+		
+		<td>
+			
+		</td>
+		
+		<td rowspan=""><input type="text" class="form-control" id="Chemical" ng-model="mds.microcoat.Frequency"
+		name="Chemical" placeholder="Frequency"  />
+		<br><button class="btn btn-info btn-sm fa fa-refresh" ng-click="resettest('MCT')"> Reset</button>
+		</td>
+</tr>
+
+	<!------------Micro Carb decarbe depth-------------->
+<tr>
+		<td rowspan=""><strong>12. Micro Decarb</strong></td>
+		<td rowspan="">
+		
+			
+
+		
+			<ui-select id="TestMethod" ng-model="mds.microdecarb.TestMethod" name="TestMethod">
+			<ui-select-match placeholder="Test Method">
+			<span ng-bind="$select.selected.Method"></span>
+			</ui-select-match>
+			<ui-select-choices group-by="'Test'" repeat=" item in (testmethods | filter:{'Keyword':'MDC' }) track by item.Id">
+			<span ng-bind="item.Method"></span>
+			</ui-select-choices>
+			</ui-select>
+		</td>
+		
+		<td>
+			
+		</td>
+		
+		<td rowspan=""><input type="text" class="form-control" id="Chemical" ng-model="mds.microdecarb.Frequency" 
+		name="Chemical" placeholder="Frequency"  />
+		<br><button class="btn btn-info btn-sm fa fa-refresh" ng-click="resettest('MDC')"> Reset</button>
+		</td>
+</tr>
+
+
+	
+<!------------Micro-Structure-------------->
+<tr>
+		<td rowspan=""><strong>13. Microstructure</strong></td>
+		<td rowspan="">
+		
+			
+		
+			<ui-select id="TestMethod" ng-model="mds.microstruct.TestMethod" name="TestMethod">
+			<ui-select-match placeholder="Test Method">
+			<span ng-bind="$select.selected.Method"></span>
+			</ui-select-match>
+			<ui-select-choices group-by="'Test'" repeat=" item in (testmethods | filter:{'Keyword':'MS'}) track by item.Id">
+			<span ng-bind="item.Method"></span>
+			</ui-select-choices>
+			</ui-select>
+		</td>
+		
+		<td>
+		</td>
+		
+		<td rowspan=""><input type="text" class="form-control" id="Chemical" ng-model="mds.microstruct.Frequency"
+		name="Chemical" placeholder="Frequency"  />
+		<br><button class="btn btn-info btn-sm fa fa-refresh" ng-click="resettest('MS')"> Reset</button>
+		</td>
+</tr>
+	
+
+<!------------Proof Load------------->
+<tr>
+		<td rowspan=""><strong>14. Proof Load</strong></td>
+		<td rowspan="">
+		
+			<ui-select id="Standard[{{$index}}]" ng-model="mds.proofload.StandardId" name="StandardId[{{$index}}]"  >
+			<ui-select-match placeholder="Select Standard">
+			<span ng-bind="$select.selected.Standard"></span>
+			</ui-select-match>
+			<ui-select-choices  repeat="item.Id as item in (standards | filter: $select.search) track by item.Id">
+			<span ng-bind="item.Standard"></span>
+			</ui-select-choices>
+			</ui-select>
+			
+			<ui-select id="SubStandardId[{{$index}}]" ng-model="mds.proofload.SubStandardId" name="SubStandardId[{{$index}}]"  >
+<ui-select-match placeholder="Select Sub Standard">
+<span ng-bind="$select.selected.SubStandard"></span>
+</ui-select-match>
+<ui-select-choices group-by="'Standard'" repeat="item.Id as item in (msubstandards | filter: {'StandardId':test.Standard}) track by item.Id">
+<span ng-bind="item.SubStandard"></span>
+</ui-select-choices>
+</ui-select>
+
+			<!-- <textarea type="text"  rows="2" class="form-control" id="Specifications" ng-model="mds.proofload.Specifications" name="Specifications" placeholder="Specifications" required ></textarea> -->
+
+		
+			<ui-select id="TestMethod" ng-model="mds.proofload.TestMethod" name="TestMethod">
+			<ui-select-match placeholder="Test Method">
+			<span ng-bind="$select.selected.Method"></span>
+			</ui-select-match>
+			<ui-select-choices group-by="'Test'" repeat=" item in (testmethods | filter:{'Keyword':'PL'}) track by item.Id">
+			<span ng-bind="item.Method"></span>
+			</ui-select-choices>
+			</ui-select>
+		</td>
+		
+		<td>
+			<div class="form-group">								
+			<div class="row">
+				<label class="col-md-4 col-xs-4 text-center"></label>
+				<label class="col-md-4 col-xs-4 text-center">Min</label>
+				<label class="col-md-4 col-xs-4 text-center">Max</label>
+			</div>
+			<div class="row">
+			
+				<div class="text-center row"  style="margin-bottom:5px;">
+					
+					<div class="col-md-4 col-xs-4 text-center">
+						Proof Load(KN)
+					</div>	
+					<div class="col-md-4 col-xs-4">
+					
+						<input type="text" class="form-control input-sm"    ng-model="mds.proofload.PL.Min"  name="Min[{{$index}}]" id="Min[{{$index}}]" />
+				
+					</div>	
+					<div class="col-md-4 col-xs-4">
+						
+						<input type="text" class="form-control input-sm"   ng-model="mds.proofload.PL.Max" name="Max[{{$index}}]"
+						 id="Max[{{$index}}]"/>							
+						
+					</div>				
+					
+				</div>
+			
+			</div>
+			</div>
+		</td>
+		
+		<td rowspan="">
+		<input type="text" class="form-control" id="Chemical" ng-model="mds.proofload.Frequency" name="Chemical"
+		placeholder="Frequency"  />
+		<br><button class="btn btn-info btn-sm fa fa-refresh" ng-click="resettest('PL')"> Reset</button>
+		</td>
+</tr>
+	
+<!------------Shear Strength--------->
+<tr>
+		<td rowspan=""><strong>15. Shear Strength</strong></td>
+		<td rowspan="">
+		
+			<ui-select id="Standard[{{$index}}]" ng-model="mds.shear.StandardId" name="StandardId[{{$index}}]"  >
+			<ui-select-match placeholder="Select Standard">
+			<span ng-bind="$select.selected.Standard"></span>
+			</ui-select-match>
+			<ui-select-choices  repeat="item.Id as item in (standards | filter: $select.search) track by item.Id">
+			<span ng-bind="item.Standard"></span>
+			</ui-select-choices>
+			</ui-select>
+			
+			<ui-select id="SubStandardId[{{$index}}]" ng-model="mds.shear.SubStandardId" name="SubStandardId[{{$index}}]"  >
+<ui-select-match placeholder="Select Sub Standard">
+<span ng-bind="$select.selected.SubStandard"></span>
+</ui-select-match>
+<ui-select-choices group-by="'Standard'" repeat="item.Id as item in (msubstandards | filter: {'StandardId':test.Standard}) track by item.Id">
+<span ng-bind="item.SubStandard"></span>
+</ui-select-choices>
+</ui-select>
+
+			
+
+		
+			<ui-select id="TestMethod" ng-model="mds.shear.TestMethod" name="TestMethod">
+			<ui-select-match placeholder="Test Method">
+			<span ng-bind="$select.selected.Method"></span>
+			</ui-select-match>
+			<ui-select-choices group-by="'Test'" repeat=" item in (testmethods | filter:{'Keyword':'SS' }) track by item.Id">
+			<span ng-bind="item.Method"></span>
+			</ui-select-choices>
+			</ui-select>
+		</td>
+		
+		<td>
+		</td>
+		
+		<td rowspan=""><input type="text" class="form-control" id="Chemical" ng-model="mds.shear.Frequency" name="Chemical" 
+		placeholder="Frequency"  />
+		<br><button class="btn btn-info btn-sm fa fa-refresh" ng-click="resettest('SS')"> Reset</button>
+		</td>
+</tr>
+		
+	
+	
+	<!--------Tensile--------------------------->		
+		
+			<tr>
+		<td rowspan=""><strong>16. Tensile</strong></td>
+		<td rowspan="">
+		
+			<ui-select id="TensileStandard" ng-model="mds.tensile.StandardId" name="TensileStandardId"  >
+			<ui-select-match placeholder="Select Standard">
+			<span ng-bind="$select.selected.Standard"></span>
+			</ui-select-match>
+			<ui-select-choices  repeat="item.Id as item in (standards | filter: $select.search) track by item.Id">
+			<span ng-bind="item.Standard"></span>
+			</ui-select-choices>
+			</ui-select>
+			
+			<ui-select id="SubStandardId[{{$index}}]" ng-model="mds.tensile.SubStandardId" name="SubStandardId[{{$index}}]"  >
+<ui-select-match placeholder="Select Sub Standard">
+<span ng-bind="$select.selected.SubStandard"></span>
+</ui-select-match>
+<ui-select-choices group-by="'Standard'" repeat="item.Id as item in (msubstandards | filter: {'StandardId':test.Standard}) track by item.Id">
+<span ng-bind="item.SubStandard"></span>
+</ui-select-choices>
+</ui-select>
+
+			<!-- <textarea type="text"  rows="2" class="form-control" id="Specifications" ng-model="mds.tensile.Specifications" name="Specifications" placeholder="Specifications" required ></textarea> -->
+
+		
+				<ui-select id="TestMethod" ng-model="mds.tensile.TestMethod" name="TestMethod"   >
+				<ui-select-match placeholder="Test Method">
+				<span ng-bind="$select.selected.Method"></span>
+				</ui-select-match>
+				<ui-select-choices group-by="'Test'" repeat=" item in (testmethods | filter:{'Keyword':'T' }) track by item.Id">
+				<span ng-bind="item.Method"></span>
+				</ui-select-choices>
+				</ui-select>
+		</td>
+		
+		<td>
+			<div class="form-group">						
+						
+						
+						<div class="row">
+						<label class="col-md-4 col-xs-4 text-center"></label>
+						<label class="col-md-4 col-xs-4 text-center">Min</label>
+						<label class="col-md-4 col-xs-4 text-center">Max</label>
+						</div>
+						
+							<div class="text-center row"  style="margin-bottom:5px;">
+								
+								<div class="col-md-4 col-xs-4 text-center">
+									Proof Stress
+								</div>	
+								<div class="col-md-4 col-xs-4">
+								
+									<input type="text" class="form-control input-sm"    ng-model="mds.tensile.PS.Min"  name="PS_Min"  />
+							
+								</div>	
+								<div class="col-md-4 col-xs-4">
+									
+									<input type="text" class="form-control input-sm"   ng-model="mds.tensile.PS.Max" name="PS_Max" />							
+									
+								</div>				
+								
+							</div>
+					
+						
+						
+							<div class="text-center row"  style="margin-bottom:5px;">
+								
+								<div class="col-md-4 col-xs-4 text-center">
+									UTS (N/mm2)
+								</div>	
+								<div class="col-md-4 col-xs-4">								
+									<input type="text" class="form-control input-sm"    ng-model="mds.tensile.UTS.Min"  name="UTSMin"  />							
+								</div>	
+								<div class="col-md-4 col-xs-4">
+									
+									<input type="text" class="form-control input-sm"   ng-model="mds.tensile.UTS.Max" name="UTSMax" />						
+									
+								</div>				
+								
+							</div>
+						
+						
+						
+							<div class="row"  style="margin-bottom:5px;">
+								
+								<div class="col-md-4 col-xs-4 text-center">
+									Elongation(%)
+								</div>	
+								<div class="col-md-4 col-xs-4">
+								
+									<input type="text" class="form-control input-sm"    ng-model="mds.tensile.E.Min"  name="Min[{{$index}}]" id="Min[{{$index}}]" />
+							
+								</div>	
+								<div class="col-md-4 col-xs-4">
+									
+									<input type="text" class="form-control input-sm"   ng-model="mds.tensile.E.Max" name="Max[{{$index}}]"
+									 id="Max[{{$index}}]"/>							
+									
+								</div>				
+								
+							</div>
+						
+					
+						
+											
+							<div class="text-center row"  style="margin-bottom:5px;">								
+								<div class="col-md-4 col-xs-4 text-center">
+								Reduction (%)
+								</div>	
+								<div class="col-md-4 col-xs-4">								
+									<input type="text" class="form-control input-sm"    ng-model="mds.tensile.R.Min"  name="RMin"  />							
+								</div>	
+								<div class="col-md-4 col-xs-4">									
+									<input type="text" class="form-control input-sm"   ng-model="mds.tensile.R.Max" name="RMax" />										
+								</div>				
+								
+							</div>
+									
+		</div>
+		</td>
+		
+		<td rowspan="">
+		<input type="text" class="form-control" id="Chemical" ng-model="mds.tensile.Frequency" name="TensileFrequency"
+		placeholder="Frequency"  />
+			<br><button class="btn btn-info btn-sm fa fa-refresh" ng-click="resettest('T')"> Reset</button>
+		</td>
+	
+		</tr>
+			
+		
+<!------------Thread Lap--------->
+<tr>
+		<td rowspan=""><strong>17. Thread Lap</strong></td>
+		<td rowspan="">
+		
+			<ui-select id="Standard[{{$index}}]" ng-model="mds.threadlap.StandardId" name="StandardId[{{$index}}]"  >
+			<ui-select-match placeholder="Select Standard">
+			<span ng-bind="$select.selected.Standard"></span>
+			</ui-select-match>
+			<ui-select-choices  repeat="item.Id as item in (standards | filter: $select.search) track by item.Id">
+			<span ng-bind="item.Standard"></span>
+			</ui-select-choices>
+			</ui-select>
+			
+			<ui-select id="SubStandardId[{{$index}}]" ng-model="mds.threadlap.SubStandardId" name="SubStandardId[{{$index}}]"  >
+<ui-select-match placeholder="Select Sub Standard">
+<span ng-bind="$select.selected.SubStandard"></span>
+</ui-select-match>
+<ui-select-choices group-by="'Standard'" repeat="item.Id as item in (msubstandards | filter: {'StandardId':test.Standard}) track by item.Id">
+<span ng-bind="item.SubStandard"></span>
+</ui-select-choices>
+</ui-select>
+
+			<!-- <textarea type="text"  rows="2" class="form-control" id="Specifications" ng-model="mds.threadlap.Specifications" name="Specifications" placeholder="Specifications" required ></textarea> -->
+
+		
+			<ui-select id="TestMethod" ng-model="mds.threadlap.TestMethod" name="TestMethod">
+			<ui-select-match placeholder="Test Method">
+			<span ng-bind="$select.selected.Method"></span>
+			</ui-select-match>
+			<ui-select-choices group-by="'Test'" repeat=" item in (testmethods | filter:{'Keyword':'THL' }) track by item.Id">
+			<span ng-bind="item.Method"></span>
+			</ui-select-choices>
+			</ui-select>
+		</td>
+		
+		<td>
+		
+		</td>
+		
+		<td rowspan=""><input type="text" class="form-control" id="threadfreq" ng-model="mds.threadlap.Frequency" 
+		name="Chemical" placeholder="Frequency"  />
+		<br><button class="btn btn-info btn-sm fa fa-refresh" ng-click="resettest('THL')"> Reset</button>
+		
+		</td>
+</tr>
+		
+
+
+<!------------Torque Tension--------->
+<tr>
+		<td rowspan=""><strong>18. Torque Tension</strong></td>
+		<td rowspan="">
+		
+			<ui-select id="Standard[{{$index}}]" ng-model="mds.tension.StandardId" name="StandardId[{{$index}}]"  >
+			<ui-select-match placeholder="Select Standard">
+			<span ng-bind="$select.selected.Standard"></span>
+			</ui-select-match>
+			<ui-select-choices  repeat="item.Id as item in (standards | filter: $select.search) track by item.Id">
+			<span ng-bind="item.Standard"></span>
+			</ui-select-choices>
+			</ui-select>
+			
+			<ui-select id="SubStandardId[{{$index}}]" ng-model="mds.tension.SubStandardId" name="SubStandardId[{{$index}}]"  >
+<ui-select-match placeholder="Select Sub Standard">
+<span ng-bind="$select.selected.SubStandard"></span>
+</ui-select-match>
+<ui-select-choices group-by="'Standard'" repeat="item.Id as item in (msubstandards | filter: {'StandardId':test.Standard}) track by item.Id">
+<span ng-bind="item.SubStandard"></span>
+</ui-select-choices>
+</ui-select>
+
+			<!-- <textarea type="text"  rows="2" class="form-control" id="Specifications" ng-model="mds.tension.Specifications" name="Specifications" placeholder="Specifications" required ></textarea> -->
+
+		
+			<ui-select id="TestMethod" ng-model="mds.tension.TestMethod" name="TestMethod">
+			<ui-select-match placeholder="Test Method">
+			<span ng-bind="$select.selected.Method"></span>
+			</ui-select-match>
+			<ui-select-choices group-by="'Test'" repeat=" item in (testmethods | filter:{'Keyword':'TT' }) track by item.Id">
+			<span ng-bind="item.Method"></span>
+			</ui-select-choices>
+			</ui-select>
+		</td>
+		
+		<td>
+			<div class="form-group">								
+			<div class="row">
+				<label class="col-md-4 col-xs-4 text-center"></label>
+			
+				<label class="col-md-4 col-xs-4 text-center">Min</label>
+				<label class="col-md-4 col-xs-4 text-center">Max</label>
+			</div>
+			<div class="row">
+			
+				<div class="text-center row"  style="margin-bottom:5px;">
+					
+					<div class="col-md-4 col-xs-4 text-center">
+						Torque Tension
+					</div>	
+					
+					<div class="col-md-4 col-xs-4">
+						
+						<input type="text" class="form-control input-sm"   ng-model="mds.tension.TT.Min" name="Min[{{$index}}]"
+						 id="Min[{{$index}}]"/>							
+						
+					</div>				
+					<div class="col-md-4 col-xs-4">
+											
+						<input type="text" class="form-control input-sm"   ng-model="mds.tension.TT.Max" name="Max[{{$index}}]"
+						 id="Max[{{$index}}]"/>		
+					</div>	
+				</div>
+			
+			</div>
+			</div>
+		</td>
+		
+		<td rowspan=""><input type="text" class="form-control" id="Chemical" ng-model="mds.tension.Frequency" 
+		name="Chemical" placeholder="Frequency"  />
+		<br><button class="btn btn-info btn-sm fa fa-refresh" ng-click="resettest('TT')"> Reset</button>
+		</td>
+</tr>
+		
+
+<!------------Wedge--------->
+<tr>
+		<td rowspan=""><strong>19. Wedge</strong></td>
+		<td rowspan="">
+		
+			<ui-select id="Standard[{{$index}}]" ng-model="mds.wedge.StandardId" name="StandardId[{{$index}}]"  >
+			<ui-select-match placeholder="Select Standard">
+			<span ng-bind="$select.selected.Standard"></span>
+			</ui-select-match>
+			<ui-select-choices  repeat="item.Id as item in (standards | filter: $select.search) track by item.Id">
+			<span ng-bind="item.Standard"></span>
+			</ui-select-choices>
+			</ui-select>
+			
+			<ui-select id="SubStandardId[{{$index}}]" ng-model="mds.wedge.SubStandardId" name="SubStandardId[{{$index}}]"  >
+<ui-select-match placeholder="Select Sub Standard">
+<span ng-bind="$select.selected.SubStandard"></span>
+</ui-select-match>
+<ui-select-choices group-by="'Standard'" repeat="item.Id as item in (msubstandards | filter: {'StandardId':test.Standard}) track by item.Id">
+<span ng-bind="item.SubStandard"></span>
+</ui-select-choices>
+</ui-select>
+	
+
+		
+			<ui-select id="TestMethod" ng-model="mds.wedge.TestMethod" name="TestMethod">
+			<ui-select-match placeholder="Test Method">
+			<span ng-bind="$select.selected.Method"></span>
+			</ui-select-match>
+			<ui-select-choices group-by="'Test'" repeat=" item in (testmethods | filter:{'Keyword':'W' }) track by item.Id">
+			<span ng-bind="item.Method"></span>
+			</ui-select-choices>
+			</ui-select>
+		</td>
+		
+		<td>
+			</td>
+		
+		<td rowspan=""><input type="text" class="form-control" id="Chemical" ng-model="mds.wedge.Frequency" 
+		name="Chemical" placeholder="Frequency"  />
+		<br><button class="btn btn-info btn-sm fa fa-refresh" ng-click="resettest('W')"> Reset</button>
+		</td>
+</tr>
+			
+					
+</table>					
+						
+					</div>
+					
+					
+						
+					
+	

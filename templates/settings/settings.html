@@ -1,0 +1,60 @@
+    <div class="col-md-12" >
+	
+ <!-- BEGIN CUSTOM BUTTONS WITH ICONS PORTLET-->
+                     <div class="card card-primary">
+                        <div class="card-header">
+                          <i class="fa fa-cogs "></i> SETTINGS
+                          
+                        </div>
+                        <div class="card-body bg-info">
+                           <div class="col-md-12">
+						  <ul class="  ">
+			
+						 <li class="dropdown-item" id="std" ui-sref-active="active"    >
+	<a class="dropdown-item" ui-sref="app.standard" > <i class="fa fa-barcode  fa-fw"></i>{{'Standard'|translate}}</a></li>
+	
+					<li class="dropdown-item" id="cp" ui-sref-active="active"  >
+					<a class="dropdown-item" ui-sref="app.substandard"> <i class="fa fa-flask  fa-fw"></i>{{'SubStandard'|translate}}</a></li>
+						
+						
+						<li class="dropdown-item" id="cp" ui-sref-active="active"  >
+					<a class="dropdown-item" ui-sref="app.mdstds"> <i class="fa fa-flask  fa-fw"></i>{{'MdsTds'|translate}}</a></li>
+					
+					
+						<li class="dropdown-item" ui-sref-active="active"   >
+						<a  class="dropdown-item" ui-sref="app.methods"><i class="fa fa-cubes "></i> {{'TestMethods'|translate}}</a></li>
+					<li class="dropdown-item" ui-sref-active="active"  ng-if="permissions[5].Apply"  >
+		<a class="dropdown-item" ui-sref="app.testconditions"><i class="fa fa-gear fa-lg"></i> {{'TestConditions'|translate}}</a>
+	</li>
+				
+					
+	
+		<!-- <li class="dropdown-item" ui-sref-active="active"   > -->
+		<!-- <a class="dropdown-item" ui-sref="app.testplan"><i class="fa fa-gear fa-lg"></i>{{'Testplan'|translate}} </a> -->
+	<!-- </li> -->
+  
+  
+					<li class="dropdown-item" ui-sref-active="active" ><a class="dropdown-item" ui-sref="app.customer" ><i class="fa fa-users  fa-fw"></i>{{'Customers'|translate}} </a></li>	
+					 <li class="dropdown-item" ui-sref-active="active"  ><a class="dropdown-item" ui-sref="app.suppliers"> <i class="fa fa-users  fa-fw"></i>{{'Suppliers'|translate}}</a></li>		 
+                   
+					<li class="dropdown-item" ui-sref-active="active"   >
+		<a class="dropdown-item" ui-sref="app.activitylog" ><i class="fa fa-gear fa-lg"></i>{{'ActivityLog'|translate}} </a>
+	</li>
+				
+	
+<li class="dropdown-item" ui-sref-active="active"   >
+		<a class="dropdown-item" ui-sref="app.importsettings({id:userexists.uid})" ><i class="fa fa-gear fa-lg"></i>{{'ImportSetting'|translate}} </a>
+	</li>
+	
+		
+	
+  	
+				
+				</ul>
+						   </div>
+                          
+                           
+                         
+                        </div>
+                     </div>
+	</div> 

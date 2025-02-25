@@ -1,0 +1,127 @@
+<div class="card card-inverse mt-2" >
+	<div class="card-header">
+		<h3 class="card-title text-left"><b><i class="fa fa-envelope"></i> E-MAIL SETTINGS</b></h3>
+	</div>   
+	<div class="card-body">
+		<form name="setform" class="form-horizontal" novalidate>
+		
+		<!-- <p class="well"> -->
+		<!-- <ul> -->
+		<!-- <li> Gmail SMTP username: Your full Gmail address (e.g. yourusername@gmail.com)</li> -->
+		<!-- <li>   Gmail SMTP password: Your Gmail password</li> -->
+		<!-- <li> Gmail SMTP server address: smtp.gmail.com</li> -->
+		<!-- <li>Gmail SMTP port (SSL/TLS): 465/587</li> -->
+		<!-- <li> Gmail SMTP TLS/SSL required: yes</li> -->
+		<!-- </ul> -->
+		   
+   
+		
+		<!-- </p> -->
+		
+		
+		  <div class="form-group row">
+				<div class="col-sm-6 col-xs-12"  style="padding-bottom:10px;">
+					<label for="exampleInputEmail1">Your Full Email Address  (e.g. yourusername@gmail.com)</label>
+					<div class="input-group">
+						<span class="input-group-text"><i class="fa fa-key"></i></span>
+							<input type="text" placeholder="Enter Email" class="form-control" ng-disabled="!flags.editflag " name="Email" 
+							ng-model="info.Email" required>
+							
+					</div>
+					<div  class="error-container" >
+					<small class="error" ng-show="flags.editflag && setform.Email.$error.required">
+							Email is required.
+						</small>
+					</div>
+						
+				</div>
+		
+		  </div>
+		  
+		  <div class="form-group row" >
+		  	<div class="col-sm-6 col-xs-12 " style="margin-bottom:10px;">
+			<label for="exampleInputPassword1">Your Email Password</label>
+			<div class="input-group">
+				<span class="input-group-text"><i class="fa fa-user-secret"></i></span>
+					<input placeholder="Enter Password"  class="form-control"  ng-disabled="!flags.editflag" name="Password" ng-model="info.Password" 
+					type="text"  ng-required="true">					
+				</div>
+				<div  class="error-container" >
+				<small class="error" ng-show="flags.editflag && setform.Password.$error.required">
+				Password is required.
+			</small>
+				
+				</div>
+					
+			
+			</div>
+
+		 	<div class="col-sm-6 col-xs-12" style="margin-bottom:10px;">
+			<label for="exampleInputPassword1">Email Server Address  (e.g. smtp.gmail.com)</label>
+			<div class="input-group">
+				<span class="input-group-text"><i class="fa fa-user-secret"></i></span>
+					<input placeholder="Enter Server"  class="form-control"  ng-disabled="!flags.editflag" name="Server" ng-model="info.Server" 
+					type="text"  ng-required="true">					
+				</div>
+				<div  class="error-container" >
+				<small class="error" ng-show="flags.editflag && setform.Server.$error.required">
+				Server is required.
+			</small>
+				</div>
+					
+		  </div>
+		  </div>
+		  
+	<div class="form-group row" >
+		<div class="col-sm-6 col-xs-12" style="padding-bottom:10px;">
+			<label for="exampleInputPassword1">Email SMTP Port  (e.g. 465/587/25)</label>
+			<div class="input-group">
+				<span class="input-group-text"><i class="fa fa-user-secret"></i></span>
+					<input placeholder="Enter Port"  class="form-control"  ng-disabled="!flags.editflag " name="Port" ng-model="info.Port" 
+					type="text"  ng-required="true">					
+				</div>
+				<div  class="error-container" >
+					<small class="error" ng-show="flags.editflag && setform.Port.$error.required">
+				Port is required.
+			</small>
+				</div>
+				
+		  </div>
+		  
+		  
+		  	<div class="col-sm-6 col-xs-12" style="padding-bottom:10px;">
+			<label for="exampleInputPassword1">Email SMTP Encrypt ( e.g. SSL/TLS)</label>
+			<div class="input-group">
+				<span class="input-group-text"><i class="fa fa-user-secret"></i></span>
+					<input placeholder="Enter Encrypt"  class="form-control"  ng-disabled="!flags.editflag " name="Encrypt" ng-model="info.Encrypt" 
+					type="text"  ng-required="true">					
+				</div>
+				
+				<div  class="error-container" >
+				<small class="error" ng-show="flags.editflag && setform.Encrypt.$error.required">
+				Encrypt is required.
+			</small>
+				
+				</div>
+					
+		  </div>
+		  
+		  </div>
+  
+  <div class="form-group row" >
+  	<div class="col-sm-6 col-xs-12" style="margin-bottom:20px;">
+		 <button  ng-if="!flags.editflag" ng-click="editset()" class="btn btn-primary">Edit</button>
+		  <button type="button" ng-click="saveset(info)" ng-if="flags.editflag" ng-disabled="setform.$invalid || oneclick" class="btn btn-success">Update</button>
+			<button  ng-if="flags.editflag" ng-click="flags.editflag = !flags.editflag" class="btn btn-danger">Cancel</button>
+			 <button   ng-disabled="setform.$invalid || !info.Id || flags.editflag" ng-click="sendtestmail(info)" class="btn btn-outline-primary">Send Test Email</button>
+			</div>
+			
+			
+			</div>
+			
+				
+			
+			
+		</form>
+	</div>
+</div>

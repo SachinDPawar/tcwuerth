@@ -1,0 +1,235 @@
+	<div class="col-md-12" style="padding:5px;">
+		
+			
+	</div>
+	
+	<div class="col-md-12 " >
+	
+	
+	
+		<div class="card card-default" style="margin-top:20px;">
+			<div class="card-header bg-light p-2">
+				<h5 class="card-title text-left"><b>{{getperm.Section}}</b></h5>
+			</div>
+			<div class="card-body pb-5">
+			<form class="form-horizontal ">
+			<div class="row form-group">
+			
+				<div class=" col-sm-3" >
+		
+			<ui-select id="status"  class="form-control" ng-model="tfilter.Status"     name="Status"
+			style="padding:0px;min-width:100px;height:36px;" ng-required="true">
+			<ui-select-match placeholder="Status" class="text-wrap">
+			<span ng-bind="$select.selected.Name"></span> 
+			</ui-select-match>
+			<ui-select-choices   repeat=" item.Id as item in (allstatus | filter: $select.search  )">
+			<div style="color:#000;font-weight:bold;font-size:10px;" >	
+			 {{item.Name}}			
+			</div>
+
+			</ui-select-choices>
+			</ui-select>
+		</div>
+			
+			<div class=" col-sm-4 ">
+				
+					  <input type="text" class="form-control" id="inputEmail3" ng-model="searchstring" placeholder="Search by LabNo,batchcode text here ...">					    
+      
+					
+				
+				
+			</div>
+			
+			<div class="col-sm-4 ">
+				
+				
+        <button class="btn btn-primary " ng-click="searchdata(searchstring)" type="button"><i class="fa fa-search"></i></button>
+		 <button class="btn btn-default " ng-click="refreshdata()" data-toggle="tooltip" data-placement="bottom" title="refresh table" type="button"><i class="fa fa-refresh"></i></button>
+		
+      
+					
+			</div>
+				 </div>
+			 </form>
+		
+			 <div class="row">
+			<div class="col-sm-6">
+			<dir-pagination-controls  pagination-id="tests" on-page-change="getdata(newPageNumber)"></dir-pagination-controls>	
+			</div>
+			</div>
+			<!-- <div class="col-md-offset-7 col-md-5"> -->
+				<!-- <form class="form-horizontal "> -->
+   <!-- <div class="form-group"> -->
+    <!-- <label for="inputEmail3" class="col-md-2 control-label">Search</label> -->
+    <!-- <div class="col-md-10"> -->
+      <!-- <input type="text" class="form-control" ng-model="searchstring" id="inputEmail3" placeholder="Search"> -->
+    <!-- </div> -->
+  <!-- </div> -->
+  <!-- </form> -->
+				<!-- </div> -->
+			
+			<div class="col-sm-12 table-responsive">
+			<div ng-show="flags.loadingdata" class=" modal-backdrop fade in demo-1" style=" opacity:0.8;   background-color: rgb(234, 241, 239);"> 
+<div class="bar" style="opacity:1;" >
+<i class="sphere"></i>
+</div>
+</div>
+
+		
+							<table class="table table-bordered table-sm table-hover" id="sample_1">
+									<thead>
+											<tr class="table-info fw-bold align-middle">
+												<th style="width:8px">#</th>
+												
+												<th class="hidden-phone">LabNo.</th>
+												
+												<th class="hidden-phone" style="width:120px;">TestName <br> TestNo</th>
+													<th class="hidden-phone">BatchCode/BatchNo</th>
+											
+												<th class="hidden-phone">Sample Name</th>
+												<th class="hidden-phone">HeatNo</th>
+												<th class="hidden-phone">Supplier</th>												
+												<th class="hidden-phone">Req. Date</th>
+												<th class="hidden-phone" style="width:100px;">Status</th>
+												<th class="hidden-phone" style="width:200px;">Actions</th>
+											</tr>
+										</thead>
+										<tbody class="table-group-divider">
+											<tr class="odd gradeX" pagination-id="tests" dir-paginate="item in results =( allrirs  ) |itemsPerPage:pageSize " 
+											 total-items="totalitems" current-page="currentPage">
+												<td>{{($index+1)+((currentPage-1)*pageSize)}}</td>
+												<td>{{item.LabNo}}</td>
+												
+												<td>{{item.TestName}} <small class="fw-bold"> <span ng-repeat="b in item.tobbasic">
+                    <!-- Only show the Test Piece Temperature -->
+                    <span ng-if="b.TBPID === 83">  @ {{b.BValue}} {{b.PUnit}}</span>
+                    
+                </span> </small><br> <small>{{item.TestNo}}</small> <br>											
+												
+				
+												</td>
+											<td>
+												{{item.BatchCode}} <span ng-if="item.BatchNo">-{{item.BatchNo}} </span>
+												
+												</td>
+												<!--  -->
+												<td class="hidden-phone"><span style="width:300px;">{{item.SampleName}} </span>
+												</td>
+											<td class="hidden-phone">{{item.HeatNo}}</td>
+											<td class="hidden-phone">{{item.Supplier}}</td>
+												<td class="hidden-phone">{{item.ReqDate| date : "dd.MM.y"}}</td>
+												<td class="hidden-phone">
+												<label  
+												class="badge text-bg-light">
+												<span ng-if="item.Status==='failed'">US</span>
+													<span ng-if="item.Status==='complete'">S</span>
+													<span ng-if="item.Status==='pending'">P</span>
+												
+												
+												</label>
+												<span ng-if=" item.ApprovedBy !=''" ng-class="{'text-bg-success':item.ApprovedBy !=''}" class="badge ">Approved</span>
+												</td>
+												<td class="center">
+												
+												<button ng-if="item.ApprovedBy !=''" 
+													class="btn btn-outline-primary btn-sm  btn-sm" data-toggle="tooltip"  data-placement="top" title="edit" ng-click="viewpdf(item.pdfurl)">
+													<i class="fa fa-file-pdf-o text-danger"></i> 
+													</button>
+													<button 
+													class="btn btn-outline-primary btn-sm  btn-sm" data-toggle="tooltip"  data-placement="top" title="edit" ng-click="createpdf(item)">
+													PDF
+													</button>
+													<button class="btn btn-default btn-sm" ng-click="editresult('edit',item.Id)"><i class="fa fa-pencil"></i></button>	
+													
+													 <button ng-if="item.Status != 'pending' " class="btn btn-outline-info btn-sm" ng-click="showrir('lg',item)" ><i class="fa fa-eye"></i></button>
+	<button  ng-if="item.Status ==='pending'" class="btn btn-outline-primary  btn-sm" ng-click="editresult('new',item.Id)"> <i class="fa fa-plus"></i>Add Obs</button>	
+<button   ng-if="item.Status !='pending'  && item.ApprovedBy ===''"  class="btn btn-outline-primary  btn-sm" ng-click="editresult('edit',item.Id)"><i class="fa fa-pencil"></i> </button>													
+		
+		<button   class="btn btn-outline-secondary btn-sm pull-right" ng-if="item.Status !='pending'  && item.ApprovedBy ===''"  ng-click="approvetest('confirm',item)"> A</button>
+<button   class="btn btn-outline-success btn-sm pull-right" ng-if="item.ApprovedBy !=''"  ng-click="approvetest('confirm',item)"> FA</button>			
+	<!-- <button class="btn btn-sm btn-info " ng-if="item.ApprovedBy !=''" ng-click="sendmail(item,'confirm')" ng-hide="mflags.oneclick[$index]" title="View"><i class="fa fa-enevelope"></i> Send Mail </button>  -->
+	<!-- <button class="btn btn-default" ng-click="showqrcode(item)">QR</button> -->
+	</td>
+	
+											</tr>
+											<tr class="animate-repeat text-center" ng-if="results.length === 0">
+      <td colspan="9">No results found...</td>
+    </tr>
+										
+								</tbody>
+</table>
+<dir-pagination-controls  pagination-id="tests"  on-page-change="getdata(newPageNumber)"></dir-pagination-controls>
+</div>
+
+							
+			</div>
+		</div>
+	</div>
+	
+	
+	
+<script type="text/ng-template" id="deltestModal"  data-keyboard=false>
+<div class="modal-content">
+            
+                <div class="modal-header dialog-header-confirm">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="closeconfirmModal()" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-check"></span> Confirm Delete</h4>
+                </div>
+            
+                <div class="modal-body">
+                    <p>You are about to delete Casedepth test<strong>{{Temp}}</strong>, this procedure is irreversible.</p>
+                    <p>Do you want to proceed?</p>
+                 </div>
+                
+                <div class="modal-footer">
+                  <button class="btn btn-danger" ng-disabled="oneclick" data-ng-click="deletetest('delete',did)">Delete</button>
+		<button type="button" class="btn btn-default" ng-click="closeconfirmModal()">Cancel</button>
+                </div>
+            </div>
+</script>
+
+
+<script type="text/ng-template" id="approveModal"  data-keyboard=false>
+<div class="modal-content">
+            
+                <div class="modal-header dialog-header-confirm">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="closeconfirmModal()" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-check"></span> Approve Test</h4>
+                </div>
+            
+                <div class="modal-body">
+                    <p>You are about to approve <strong>{{log.PartName}}</strong>,{{log.TestName}} test. </p>
+                    <p>Do you want to proceed?</p>
+                 </div>
+                
+                <div class="modal-footer">
+                  <button class="btn btn-danger" ng-disabled="oneclick" data-ng-click="approvetest('approve',did)">Approve</button>
+		<button type="button" class="btn btn-default" ng-click="closeconfirmModal3()">Cancel</button>
+                </div>
+            </div>
+</script>
+
+	
+<script type="text/ng-template" id="emailsendModal.html">
+	<div class="modal-header">
+		<h3 class="modal-title">Confirm Email </h3>
+	</div>
+	<div class="modal-body">
+	
+	<form class="form-horizontal" novalidate>
+	<div class="form-group">
+	<div class="col-md-12 col-sm-12">
+						<label class="control-label">Send Mail To </label>
+						<div class="input-group">
+						<textarea type="text" class="form-control" id="Mailto" ng-model="test.MailTo" name="MailTo" placeholder="Mail To" required ></textarea>		
+						</div>
+						</div>
+	</div>
+	</form>
+	   
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="button" ng-click="sendmail(test,'send')">OK</button>
+		<button class="btn btn-warning" type="button" ng-click="closesendmailmodal()">Cancel</button>
+	</div>
+</script>

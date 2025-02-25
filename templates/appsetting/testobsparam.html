@@ -1,0 +1,149 @@
+ <div class="modal-header">
+         Observatory Parameters  
+			 <button type="button" class="close" ng-click="closetestbasicparamModal()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+		
+						<form class="form-horizontal" name="testparamform" novalidate >
+				
+				
+					
+					<div class="form-group row">
+						
+						<div class="col-md-12 col-sm-12">
+						<label class="control-label">Parameter Name </label>
+								<input type="text" class="form-control"  id="Parameter" ng-model="testparam.Parameter" name="Parameter" placeholder="Parameter" required />		
+						</div>
+						</div>
+				<div class="form-group row">
+						<div class="col-md-6 col-sm-6">
+						<label class="control-label">Symbol (if any)</label>
+								<input type="text" class="form-control"  id="PSymbol" ng-model="testparam.PSymbol" name="PSymbol" placeholder="Symbol of the parameter"  />		
+						</div>
+						
+						<div class="col-md-6 col-sm-6">
+						<label class="control-label">Measuring Unit (if any)</label>
+								<input type="text" class="form-control"  id="Param" ng-model="testparam.PUnit" name="PUnit" placeholder="PUnit"  />		
+						</div>
+						
+						</div>
+				
+					<div class="form-group row">
+
+
+<div class="col-md-6 col-sm-6">
+						<label class=" control-label">Value data type </label>
+								<ui-select id="PDType"  ng-model="testparam.PDType" name="PDType"   required  >
+							<ui-select-match placeholder="numeric/text/list/Date">
+							<span ng-bind="$select.selected.Text"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat="item.Id as item in (alldtypes| filter: $select.search)">
+							<span ng-bind="item.Text"></span>
+							</ui-select-choices>
+							</ui-select>
+						</div>					
+						
+						
+						<div class="col-md-6 col-sm-6" ng-show="testparam.PDType ==='L'" >
+						<label class=" control-label">List Category </label>
+								<ui-select id="LCategory" ng-disabled="testparam.PDType !='L'" ng-model="testparam.LCategory" name="LCategory"     >
+							<ui-select-match placeholder="Select Category">
+							<span ng-bind="$select.selected.Category"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat="item.Category as item in (listcategories| filter: $select.search)">
+							<span ng-bind="item.Category"></span>
+							</ui-select-choices>
+							</ui-select>
+						</div>
+					
+					</div>
+					
+					
+						<div class="form-group row">
+						
+						
+				
+						
+						
+						<div class="col-md-6 col-sm-6">
+							<label for="Group" class=" control-label ">Parameter Group  </label>
+						
+							<ui-select id="PGroupId"  ng-model="testparam.PCat" name="PCat"    >
+							<ui-select-match placeholder="Select Category">
+							<span ng-bind="$select.selected.CatName"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat="item in (info.testparamcats | filter: $select.search)">
+							<span ng-bind="item.CatName"></span>
+							</ui-select-choices>
+							</ui-select>
+						</div>
+						
+						<div class="col-md-4 col-sm-4">
+						<label class="control-label">Cost (if any)</label>
+								<input type="text" class="form-control"  id="Cost" ng-model="testparam.Cost" name="Cost" placeholder="Cost"  required/>		
+						</div>
+						
+						
+					</div>
+					
+					<div class="form-group row">
+					<div class="col-md-4 col-sm-4">
+					<label for="ISNABL" class=" control-label ">IS NABL </label>
+						
+							<ui-select id="PGroupId"  ng-model="testparam.ISNABL" name="ISNABL" ng-required="true"   >
+							<ui-select-match placeholder="Select IS NABL">
+							<span ng-bind="$select.selected.Text"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat="item.Id as item in (nablopts | filter: $select.search)">
+							<span ng-bind="item.Text"></span>
+							</ui-select-choices>
+							</ui-select>
+							</div>
+							
+							<div class="col-md-3 col-sm-3">
+						<label class="control-label">Seq No</label>
+								<input type="text" class="form-control"  id="SeqNo" ng-model="testparam.SeqNo" name="SeqNo" placeholder="SeqNo"  >		
+						</div>
+						
+						<div class="col-md-3 col-sm-3">
+						<label class="control-label">Formula</label>
+									<ui-select id="FormVal"  ng-model="testparam.FormVal" name="FormVal" ng-required="true"   >
+							<ui-select-match placeholder="Select FormVal">
+							<span ng-bind="$select.selected.Text"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat="item.Id as item in (nablopts | filter: $select.search)">
+							<span ng-bind="item.Text"></span>
+							</ui-select-choices>
+							</ui-select>	
+						</div>
+						
+				</div>
+				
+<div class="form-group row">
+
+<div class="col-md-4 col-sm-4">
+					<label for="ISNABL" class=" control-label ">IS SPEC </label>
+						
+							<ui-select id="PGroupId"  ng-model="testparam.IsSpec" name="IsSpec" ng-required="true"   >
+							<ui-select-match placeholder="Specifications available">
+							<span ng-bind="$select.selected.Text"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat="item.Id as item in (nablopts | filter: $select.search)">
+							<span ng-bind="item.Text"></span>
+							</ui-select-choices>
+							</ui-select>
+							</div>
+							
+</div>				
+					
+			<div class="form-group text-center">						
+					<button type="button" class="btn btn-md btn-success fa fa-"  ng-disabled="testparamform.$invalid" ng-click="testparamsave(testparam)" id="cp_submit" >Submit</button>
+				<button type="button" class="btn btn-md btn-default fa fa-" ng-click="closetestparamModal()" >Cancel</button>
+			</div>	
+				
+				</form>
+		
+        </div>
+        <div class="modal-footer">
+        
+        </div>

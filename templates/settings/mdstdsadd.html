@@ -1,0 +1,238 @@
+<style>
+.form-control {
+padding:5px 8px;
+}
+textarea{
+resize:none;
+}
+.ui-select-container{
+    margin-bottom: 10px;
+	}
+</style>
+<div class="row " >
+
+	<div class="col-md-12" style="margin-top:0px;">
+		<div class="card card-default">
+			<div class="card-header bg-info m-0 p-2">
+				<h3 class="card-title text-center my-0"><b>MDS/TDS Form</b></h3>
+			</div>
+			<div class="card-body">
+			<toaster-container toaster-options="{'position-class': 'toast-top-full-width'}" style="margin-top:10%;"></toaster-container>	
+				<form class="form-horizontal col-md-12" name="mdsform" id="fileupload"  method="POST" enctype="multipart/form-data"   data-file-upload="options"
+				data-ng-class="{'fileupload-processing': processing() || loadingFiles}" novalidate>
+					<div class="form-group row">
+						
+						<div class="col-md-3 col-sm-3">
+						<label class=" control-label  mb-0">Select Type</label>
+							<ui-select id="type"  ng-model="info.Type" name="TYpe" class="form-control p-0"  required     >
+							<ui-select-match placeholder="Select Mds/Tds Type">
+							<span ng-bind="$select.selected.Name"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat="item.Id as item in alltypes | filter: $select.search">
+							<div style="color:#000;font-weight:bold;" ng-bind="item.Name  ">	</div>
+						
+							</ui-select-choices>
+							</ui-select>
+						</div>
+								
+						<div class="col-md-5 col-sm-5">
+						<label class=" control-label mb-0">MDS/TDS No.</label>
+							<input type="text" class="form-control" id="MdsNo" ng-model="info.No" name="MdsNo"
+							autocomplete="off"
+				  uib-typeahead="state for state in mdstdsnames | filter:$viewValue | limitTo:8" placeholder="MDS/TDs No" required />
+						</div>
+					<!-- </div> -->
+					
+				
+					</div>
+					
+					<div class="form-group row">
+						
+						<div class="col-md-8 col-sm-8">
+						<label class="control-label  mb-0">Description</label>
+							<textarea type="text" rows="2" class="form-control" id="Description" ng-model="info.Description"
+							name="Standard" placeholder="Description"></textarea>
+						</div>
+					
+					</div>
+					
+			
+					
+				<div class="form-group row"  ng-if="false"  >
+					<div class="col-sm-12">
+							<label class="control-label">Test</label>
+									<ui-select ng-model="info.TestIds" multiple ng-disabled="editflag"
+									on-remove="removeapptest($item, $model)" on-select="gettest($item, $model)" required >
+    <ui-select-match  placeholder="Select Test">
+        <span ng-bind="$item.TestName"></span>
+    </ui-select-match>
+    <ui-select-choices  repeat="item.TID as item in (alltests | filter: $select.search) ">
+       {{item.TestName}} 
+    </ui-select-choices>
+</ui-select>
+						</div>
+						</div>	
+
+
+<div class="form-group  table-responsive " >
+	<table class=" table table-bordered table-striped table-sm">
+		
+		<tr class="active " style="font-weight:600;text-transform:uppercase;">
+		<th>#</th>
+		<th >Test</th>
+		<th >Test Specifications & Test Methods </th>
+		
+		<th>Test Details</th>		
+		
+			<th >Action</th>
+		</tr>	
+		<tr ng-if="info.allmdstdstests.length<1 ">	
+				<td colspan="6">No test added yet</td>
+				</tr>
+		
+			<tr ng-repeat="item in info.allmdstdstests ">	
+				<td>{{$index+1}}</td>
+		<td>{{item.TestName}}</td>		
+		<td>Standard:{{item.StdName}} <br>
+	Test Method: {{item.TestMethod}}	<br>
+	Frequency: {{item.Frequency}}
+	</td>	
+<td>
+<ul class="list-inline" style="max-width:300px;overflow:hidden;">
+  <li class="list-inline-item" ng-repeat="k in item.tbaseparams" style="word-break: break-all;" >
+<small class="badge text-bg-light "  >{{k.Parameter}} - {{k.Value}}</small></li></ul>
+
+<ul class="list-inline" style="max-width:300px;overflow:hidden;">
+  <li class="list-inline-item" ng-repeat="k in item.tobsparams" style="word-break: break-all;" >
+<small class="badge text-bg-light "  >{{k.Parameter}} ({{k.SpecMin || ''}} min ,{{k.SpecMax || ''}} max),</small></li></ul>
+</td>	
+
+<td> 
+<div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
+
+<button class="btn btn-outline-primary"  ng-click="addtest(item,$index)"><i class="fa fa-pencil"></i> </button>
+<button class="btn btn-outline-primary "  ng-click="deltest(item,$index)"><i class="fa fa-remove"></i> </button>
+</div>
+</td>	
+</tr>
+
+
+	<tr >	
+				<td colspan="6"><button class="btn btn-info  mt-2 "  ng-click="addtest('new','')">
+				<i class="fa fa-plus"></i>Add Test</button>	</td>
+				</tr>
+
+</table>
+</div>
+					
+		<div class="form-group row" >
+					<div class="col-sm-12">
+												
+					</div>
+					</div>			
+					
+		<!----------Upload----------->
+				<div class="form-group row">
+					<div class="col-md-12 col-sm-12 text-left" >
+					
+					 <table class="table table-sm table-bordered table-striped ">
+					 <tr>
+					 <td>#</td>
+					 <td>File</td>
+					 <td>Action</td>
+					 </tr>
+					  <tr ng-repeat="fl in info.files">
+					 <td>{{$index+1}}</td>
+					 <td>
+					 
+					
+					 
+					 <a ng-href="{{fl.url}}" title="{{fl.name}}" download="{{fl.name}}" >{{fl.name}}</a>
+					 
+					 </td>
+					 <td>
+					    <button type="button" class="btn btn-warning cancel" ng-click="deletefile($index,fl)" >                    
+                        <span>Delete</span>
+                    </button>
+					 </td>
+					 </tr>
+					 <tr ng-if="info.files.length < 1">
+					 <td colspan="3"> No files added yet</td>
+					 </tr>
+					 <tr >
+					 <td colspan="3">
+<div data-ng-repeat="file in queue " ng-init="showqueue()" class="gallery-box" >
+						
+							<div class=" thumbnail" data-ng-switch data-on="!!file.thumbnailUrl" >
+						  
+								<a data-ng-switch-when="true" data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}"  data-gallery>
+								<img data-ng-src="{{file.thumbnailUrl}}" alt="" ></a>
+						   
+							<span class="preview" data-ng-switch-default data-file-upload-preview="file"></span><br>
+						
+							<span class="title "  style="color:blue;">{{file.name}}</span><br>
+							<span class="btn-group">
+								<a class="btn btn-xs btn-danger" data-ng-click="deletefile($index,file)">
+								  Remove
+								</a>
+							</span> 
+							<strong data-ng-if="file.error" ng-init="imageerror(file)" class="error text-danger">{{file.error}}</strong> 
+							</div>
+						  
+						  <input type="hidden" name="mdsid" ng-model="file.mdsid"  placeholder="mdsid">
+						  
+						</div>
+	
+							<div class="row fileupload-buttonbar">
+
+							
+								<div class="col-sm-12 text-left" style="padding-top:10px;">
+									<!-- The fileinput-button span is used to style the file input field as button -->
+									<span class="btn btn-success fileinput-button" >
+										 <i class="glyphicon glyphicon-plus"></i>
+										<span>Add File/Attachment</span> 
+										<input type="file" name="files[]"   >
+									</span>
+													   
+								</div>
+										
+							</div>
+
+					 </td>
+					 </tr>
+					 </table>
+					
+			
+  
+					</div>
+					</div>
+					
+					
+				
+					
+								
+					
+					
+					<div class="form-group text-center" style="display:block;margin:auto;margin-top:10px;" >
+					<button type="button" class="btn btn-md btn-success" ng-disabled="flags.oneclick || mdsform.$invalid" ng-click="mdssave(info)">Submit</button>
+					<button type="button" class="btn btn-md btn-danger" ng-click="cancelsave()">Cancel</button>
+					</div>
+					
+					   
+						</form>
+</div>
+
+		
+										
+					<!--------------------------->
+					
+					
+				
+			</div>
+	
+
+
+	</div>
+	</div>
+
+</div>

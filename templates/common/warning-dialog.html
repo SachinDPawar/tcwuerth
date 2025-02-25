@@ -1,0 +1,22 @@
+
+            <div class="modal-header">
+                <h3>
+                    The Idle mode is activated,
+                    because you are idle for far too long.
+                    As a result, you are going to be
+                    logout after in a few moments.
+                </h3>
+            </div>
+            <div idle-countdown="countdown"
+                 ng-init="countdown=5"
+                 class="modal-body">
+                <progressbar max="5"
+                             value="5"
+                             animate="false"
+                             class="progress-striped active">
+                    DO SOMETHING FAST! You are getting
+                    logged out in {{countdown}} second(s). 
+                </progressbar>
+            </div>
+ 
+        

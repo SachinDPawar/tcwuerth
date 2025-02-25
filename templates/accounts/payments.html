@@ -1,0 +1,195 @@
+<div class="row">
+	<div class="col-xs-12">
+		<div class="card card-inverse">
+			<div class="card-header">
+				<h3 class="card-title text-left"><b><i class="fa fa-info-circle"></i>Received Payments</b></h3>
+			</div>  
+			<div class="card-body"> 
+			<!-- <div class="col-md-12">	 -->
+				<div class="col-sm-4 col-xs-4">
+					<button class="btn btn-sm btn-primary" ng-click="addinfo('new')"><i class="fa fa-plus"></i> Add</button>
+				</div>
+				<div class="col-sm-8 col-xs-8">
+					<!-- <div class="input-group"> -->
+                   	<input type="text" name="table_search" ng-model="q" class="form-control input-sm pull-right" style="width: 200px;" placeholder="Search"/>
+						<!-- <div class="input-group-btn"> -->
+							<!-- <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button> -->
+						<!-- </div> -->
+					<!-- </div> -->
+				</div>	
+			<!-- </div>  -->
+			
+			<div class="col-md-12 table-responsive" style="margin-top:20PX;">	
+			    <div class="col-sm-12 table-responsive"  id="printTable">
+				<table class="table table-hover table-condensed table-bordered example-animate-container">
+                <thead>
+					<tr class="table-info">
+						<th class="text-center">#</th>
+					
+					    <th class="text-center"> Date</th>
+						  <th class="text-center">InvoiceNo</th>
+						   <th class="text-center">Invoice Amount</th>
+						   <th class="text-center">Customer</th>
+							    <th class="text-center">Paid Amount </th>
+								<th class="text-center">Details</th>
+						
+							
+								<!-- <th class="text-center">Edit/Delete</th> -->
+					</tr>
+	</thead>
+				<tbody  class="table-group-divider">
+					<tr  class="animate-repeat" dir-paginate="i in results =( allinfo | filter:q )| itemsPerPage: pageSize" current-page="currentPage">
+						<td >{{($index+1)+((currentPage-1)*pageSize) }}</td>
+						
+						<td>{{i.TransDate}}</td>	
+						<td>{{i.Invoice.InvoiceNo}}</td>	
+						<td>{{i.Invoice.Total}}</td>	
+						<td>{{i.Customer.Name}}</td>	
+						
+						<td><span class="fa">{{appset.Currency}}</span> {{i.Payment}}</td>	
+						<td>{{i.PayDetails}}</td>	
+						
+						
+						
+						<td class="text-left">
+						<ul class="list-inline">
+						<!-- <li><button class="btn btn-sm fa fa-pencil" title="Edit" ng-click="addinfo(i)" style="background-color:pink;"/></li> -->
+						<!-- s -->
+						</ul>
+						</td>
+					</tr>
+					<tr ng-if="allinfo.length == 0" class="text-center">
+						<td colspan="12">No Data Added Yet...</td>
+					</tr>
+					</tbody>
+				</table>
+                   </div>
+				<dir-pagination-controls ></dir-pagination-controls> 
+			</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!----Model Popup------------------------------------------->			
+					
+<script type="text/ng-template" id="infoModal"  data-keyboard=false>
+ <div class="modal-header">
+         <h4><i class="fa fa-plus-circle"></i>
+<span ng-if="!editflag">Add Payments</span>
+<span ng-if="editflag">Edit Payments </span>
+<button type="button" class="pull-right" data-dismiss="modal" ng-click="closeinfoModal()"><i class="fa fa-close"></i></button>
+   
+</h4>
+			 <button type="button" class="close" ng-click="closeinvoiceModal()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+		
+<div class="modal-body" style="padding:2px;" >
+
+ 
+<div class="col-sm-12 " style="margin-top:15px;">
+	
+<form class="form-horizontal p-2" name="myform" novalidate>	
+	
+	
+	<div class="form-group row">
+		<div class="col-sm-6">
+		<label class="control-label " for="myform_name"> Date</label>
+			<p class="input-group">
+                    <input type="text" class="form-control" uib-datepicker-popup datepicker-options="dateOptions"
+					datetime-picker="MM/dd/yyyy" date-only ng-model="info.TransDate" is-open="popup1.opened" />
+             
+                  <button type="button" class="btn btn-default" ng-click="open1()"><i class="fa fa-calendar"></i></button>
+              
+                </p>
+		</div>
+		</div>
+		<div class="form-group row">
+		<div class="col-sm-6">
+		<label class="control-label " for="myform_name">Payment Against Invoice</label>
+			<ui-select class="form-control" name="PayType" ng-model="info.InvId " style="padding:0px;border:0px;"  ng-change="getinvinfo(info.InvId)" required>
+						<ui-select-match placeholder="Select Invoice">
+							<span ng-bind="$select.selected.InvoiceNo" style="color:black;"></span>
+						</ui-select-match>
+						<ui-select-choices repeat=" item.Id as item in (allinvoices | filter: $select.search)">
+							<span ng-bind="item.InvoiceNo"></span>
+						</ui-select-choices>
+					</ui-select>
+		</div>
+		
+	</div>
+	<div class="form-group row">
+	<div class="col-sm-6">
+	<pre>{{invoice.Total}}</pre>
+	</div>
+	</div>
+
+		<div class="form-group">
+		<div class="col-sm-6">
+		<label class="control-label " for="myform_name">Payment</label>
+			<input  placeholder="Enter Paid Amount" class="form-control" name="Payment" money ng-model="info.Payment" 
+			type="text"  required />
+			
+			 <div class="error-container"  ng-show="myform.Payment.$dirty || myform.Payment.$invalid ">
+			<small class="error"  ng-show="myform.Payment.$error.required">
+				Payment is required
+			</small>
+			
+			</div>
+		</div>
+		
+		<div class="col-sm-6">
+		<label class="control-label " for="myform_name">Payment Details</label>
+			<input  placeholder="Enter Details" class="form-control" name="PayDetails" ng-model="info.PayDetails" 
+			type="text" required />
+			
+			 <div class="error-container"  ng-show="myform.PayDetails.$dirty || myform.PayDetails.$invalid ">
+			<small class="error"  ng-show="myform.PayDetails.$error.required">
+				Details is required
+			</small>
+			
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	
+	
+	
+</form>
+</div>
+<toaster-container toaster-options="{'position-class': 'toast-top-full-width'}"></toaster-container>
+
+</div>
+
+<div class="card-footer  " style="background-color:#D9EDF7;padding:2px 5px;">
+	<div class=" text-center " style="padding:10px 2px;">
+		<button  ng-disabled="issaving || myform.$invalid" ng-click="saveinfo(info)"   class="btn btn-success">
+		<span ng-if="!editflag">Save</span>
+		<span ng-if="editflag">Update</span></button>
+		<button class="btn btn-danger" ng-click="closeinfoModal()">Cancel</button>
+	</div>
+</div>
+</div>
+</script>
+
+<script type="text/ng-template" id="delModal" data-keyboard=false>
+	<div class="modal-content">
+	
+		<div class="modal-header dialog-header-confirm">
+			<button type="button" class="close" data-dismiss="modal" ng-click="closeconfirmModal()" aria-hidden="true">&times;</button>
+			<h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-check"></span> Confirm Delete</h4>
+		</div>
+	
+		<div class="modal-body">
+			<p>You are about to delete this data.</p>
+			<p>Do you want to proceed?</p>
+		</div>
+		
+		<div class="modal-footer">
+			<button class="btn btn-danger" ng-click="deleteinfo('delete',did)">Delete</button>
+			<button type="button" class="btn btn-primary" ng-click="closeconfirmModal()">Cancel</button>
+		</div>
+	</div>
+</script>

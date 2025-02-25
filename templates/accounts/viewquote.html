@@ -1,0 +1,182 @@
+<div class="modal-content">
+<div class="card">
+	<div class="card-header  proptype2">
+		
+			
+			</div>
+<div class="card-body">
+  <div class="toolbar hidden-print container ">
+        <div class="text-right">
+            <button id="printInvoice" class="btn btn-info" ng-click="printDiv('inventory-quote')"><i class="fa fa-print"></i> Print</button>
+			
+				<button type="button" class="btn btn-sm btn-link btn-primary  pull-right" data-dismiss="modal" ng-click="closemModal()"><i class="fa fa-close "></i></button>
+          
+        </div>
+        <hr>
+    </div>
+	<div id="inventory-quote">
+
+  
+    <div class="invoice overflow-auto" >
+        <div style="width:100%;">
+           
+            <main>
+              
+                <table class="col-lg-12 col-sm-12 table table-bordered " border="0" cellspacing="0" cellpadding="0" style="background:#fff;" >
+                    <thead class="" >
+                        <tr style="background:#fff;border-bottom:2px solid #3f51b5;">
+					
+						<td style="background:#fff;border-width:0px;vertical-align:middle;" colspan="5">
+						 <img ng-src="{{appset.Applogo}}" style="height:60px;float:left;">
+								<div style="max-width:500px;" ng-bind-html="appset.CompanyName"></div>
+                        <div style="max-width:500px;" ng-bind-html="appset.CompanyAddress"></div>
+                          
+						</td>
+						
+						</tr>
+						<tr class=" contacts" style="background:#fff;">
+						<td style="background:#fff;border-width:0px;"colspan="3"  class="quote-to">
+						 <div class="text-gray-light " ><strong>QUOTATION TO: </strong></div>
+                        <h2 class="to">{{quote.Customer.Name}}</h2>
+                        <div class="address">{{quote.Customer.Address}}</div>
+                        <div class="email"><a ng-href="{{quote.Customer.Email}}">{{quote.Customer.Email}}</a></div>
+						</td>
+						<td style="background:#fff;border-width:0px;" colspan="2" class="quote-details">
+						<h1 class="quote-id" style="font-size: 16px;color:#3f51b5;" >QNO. {{quote.QNo}}</h1>
+                        <div class="date">Issue Date: {{quote.QDate }}</div>
+                        <div class="date">Valid Till: {{quote.ValidDate }}</div>
+						</td>
+						</tr>
+                    </thead>
+                    <tbody>
+					<!-- <tr> -->
+					<!-- <td colspan="5">SAMPLE INFORMATION:    -->
+						<!-- <table class="table table-sm table-borderless mb-0"> -->
+						<!-- <tr> -->
+					<!-- <td colspan="1">Sample Group/ Category: {{quote.SampleGroup}}  </td><td colspan="1">Sample Conditions:  {{quote.SampleConditions}}   </td> -->
+					<!-- </tr> -->
+					<!-- <tr> -->
+					<!-- <td colspan="1">End Use: {{quote.EndUse}}   </td><td colspan="1">Specification if any:   {{quote.Specifications}} </td> -->
+					<!-- </tr> -->
+					<!-- <tr> -->
+					<!-- <td colspan="1">Sample drawn by: {{quote.DrawnBy}}   </td> -->
+					<!-- <td colspan="1">Mode of Receipt of Samples: {{quote.ModeOfReceipt}}   </td> -->
+					<!-- </tr> -->
+						<!-- </table> -->
+
+					<!-- </td> -->
+					<!-- </tr> -->
+					
+					
+					<tr class="" style="font-weight:700;background-color:#eceff1 !important;">
+                            <th style="background-color:#eceff1;max-width:25px;text-align:center;">#</th>
+                            <th style="background-color:#eceff1;" class="text-left">DESCRIPTION</th>
+                            <th style="background-color:#eceff1;min-width:100px;text-align:right;"  class="text-right">PRICE</th>
+                            <th style="background-color:#eceff1;min-width:60px;text-align:right;"  class="text-right">QTY</th>
+                            <th style="background-color:#eceff1;min-width:120px;text-align:right;" class="text-right">TOTAL</th>
+                        </tr>
+                        <tr ng-repeat="item in quote.Details" class="align-middle">
+                            <td class="no text-left" style="max-width:35px !important;">{{$index+1}}</td>
+                            <td class="text-left" style="background-color:#eceff1;max-width:250px;">
+							<table class="table table-sm table-borderless mb-0" border="0" style="font-size:12px;border-width:0px;background-color:#eceff1;">
+							<tr><td style="background-color:#eceff1;" class="p-1 fw-bold">Category/group : {{item.Industry}}</td></tr>
+							<!-- <tr><td style="background-color:#eceff1;" class="p-1  fw-bold">Test Condition : {{item.testcondition}}</td></tr> -->
+							<tr><td style="background-color:#eceff1;" class="p-1  fw-bold">Sample  : {{item.SampleName}} - {{item.SampleWeight}} ,TAT:{{item.TAT}}</td></tr>
+							<tr><td style="background-color:#eceff1;" class="p-1  fw-bold">Test : {{item.TestName}}</td></tr>
+							<tr><td style="background-color:#eceff1;" class="p-1  fw-bold">
+							Standard : <div  style="inline-size: 300px;
+    overflow-wrap: break-word;;">{{item.SubStdName}}</div ></td></tr>
+							<!-- <tr><td style="background-color:#eceff1;" class="p-1  fw-bold">TestMethod : {{item.TestMethod}}</td></tr> -->
+							
+								<tr ><td  style="background-color:#eceff1;" class="p-0">
+									Parameters Below
+									
+									<ul class="list-inline" style="max-width:300px;overflow:hidden;">
+  <li class="list-inline-item" ng-repeat="k in item.Parameters" style="word-break: break-all;" >
+<small class="badge text-bg-light "  style="text-overflow:ellipsis;max-width: 200px;
+    overflow: hidden;" >{{k.Parameter}} , TM: {{k.TestMethod}}</small></li></ul>
+									
+										</td></tr>
+							</table>
+							
+							</td>
+                            <td class="unit text-right"><span class="fa">{{appset.Currency}}</span> {{item.Price}}</td>
+                            <td class="tax text-right" style="background-color:#eceff1;text-align:right;">{{item.Qty}}</td>
+                            <td class="total text-right">
+							
+							<span class="fa">{{appset.Currency}}</span> {{item.Total | number:2}}
+							<span ng-if="quote.Tax>0"><br> <small>Tax: <span class="fa">{{appset.Currency}}</span> {{quote.Tax * (item.Price*item.Qty /100  )}} </small></span>
+							</td>
+                        </tr>
+                        
+                
+                    <!-- <tfoot> -->
+                        <tr style="background:#fff;">
+                            <td  style="background:#fff;" colspan="2" > 
+								
+							</td>
+                            <td  style="background:#fff;"  colspan="2">SUBTOTAL</td>
+                            <td style="background:#fff;text-align:right;"><span class="fa">{{appset.Currency}}</span> {{quote.SubTotal | number:2}}</td>
+                        </tr>
+                        <tr style="background:#fff;" ng-if="quote.Discount">
+                              <td style="background:#fff;text-align:right;" colspan="2" > 
+								
+							</td>
+                            <td style="background:#fff;" colspan="2">DISCOUNT</td>
+                            <td style="background:#fff;text-align:right;"><span class="fa">{{appset.Currency}}</span> {{quote.Discount | number:2}}</td>
+                        </tr>
+						  <tr style="background:#fff;" >
+                              <td  colspan="2" style="background:#fff;"> 
+								
+							</td>
+                            <td style="background:#fff;" colspan="2">TOTAL TAX</td>
+                            <td style="background:#fff;text-align:right;"><span class="fa">{{appset.Currency}}</span> {{quote.TotTax | number:2}}</td>
+                        </tr>
+                        <tr style="background:#fff;">
+                            <td colspan="2" style="background:#fff;"> </td>
+                            <td colspan="2" style="background:#E1F5FE;font-weight:700;font-size:16px;color:#3f51b5;">GRAND TOTAL<br><small>(rounded)</small></td>
+                            <td  style="background:#E1F5FE;font-weight:700;font-size:16px;color:#3f51b5;text-align:right;"><span class="fa">{{appset.Currency}}</span> {{quote.Total | number:0}}</td>
+                        </tr>
+						
+						
+                        </tbody>
+                </table>
+				
+				<div class="p-0">
+				<div class="p-2" ng-bind-html="quote.QuoteNote"></div>
+				</div>
+               
+                <div class="notices" ng-if="quote.Note" >
+                    <figure>
+  <blockquote class="blockquote">
+    <p>Note:</p>
+  </blockquote>
+  <figcaption class="blockquote-footer">
+    <span ng-bind-html="quote.Note"></span>
+  </figcaption>
+</figure>
+                </div>
+            </main>
+            <footer class="mb-0">
+			
+                Quotation was generated on a computer and is valid without the signature and seal.
+            </footer>
+        </div>
+        <div></div>
+    </div>
+</div>
+	
+	  <div class="toolbar hidden-print container ">
+        <div class="text-right">
+            <button id="printInvoice" class="btn btn-info" ng-click="printDiv('inventory-quote')"><i class="fa fa-print"></i> Print</button>
+			
+				<button type="button" class="btn btn-sm btn-link btn-primary  pull-right" data-dismiss="modal" ng-click="closemModal()"><i class="fa fa-close "></i></button>
+          
+        </div>
+        <hr>
+    </div>
+
+	</div>
+	
+	</div>
+	</div>

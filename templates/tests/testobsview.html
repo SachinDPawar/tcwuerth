@@ -1,0 +1,43 @@
+
+		   
+			
+			
+					
+					<table class="table table-bordered table-condensed table-sm mb-0" ng-repeat="tags in info.observations| groupBy:'CatName' | toArray:true | orderBy:'PCatId' ">
+					<tr>
+					<td colspan="5"><strong>{{ tags.$key }}</strong></td>
+					</tr>
+					<tr>
+					<td>#</td>
+					<td>Parameters</td><td>TestMethod</td>
+					<td>Min - Max </td>					
+					
+					<td class="text-center" >Results</td>
+					</tr>
+					
+					<tr ng-repeat="chem in tags">
+					<td>{{$index+1}}</td>
+					<td>{{chem.Param}} {{chem.PUnit}}</td>
+					<td>{{chem.TM}}</td>
+						<td>{{chem.Min}} - {{chem.Max}}
+						<small ng-if="chem.Permissible"><br>Permissible: {{chem.Permissible}}</small>
+						</td>
+				
+					
+						<td class="p-0">
+						
+						<table class="table table-sm mb-0 p-0 table-bordered" style="font-size:12px;font-weight:bold;">
+						
+						<tr >
+						
+						<td ng-repeat="v in chem.Values">{{v.Value}}</td>
+						</tr>
+						</table>
+						</td>
+				
+					</tr>
+					</table>
+					
+				
+			
+	

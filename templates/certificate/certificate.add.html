@@ -1,0 +1,2196 @@
+<style>
+.form-control {
+padding:5px 8px;
+}
+.control-label
+{
+padding-left:5px;
+padding-right:5px;
+}
+</style>
+<div class="row mt-4" >
+
+
+<div class="card" >
+<div class="card-body ">
+<form class="form-horizontal" name="certform"  id="fileupload"  method="POST" enctype="multipart/form-data"   data-file-upload="options" 
+data-ng-class="{'fileupload-processing': processing() || loadingFiles}"   novalidate>	
+  
+  <div class="form-group row">
+  
+  <table class="table">
+  <tr>
+  <td>  
+						
+						<div class="input-group ">
+						<div class=" form-floating">
+						<input type="text" class="form-control input-sm"  ng-disabled="flags.editflag" id="CertDate" name="CertDate" uib-datepicker-popup ng-model="cert.basic.CertDate" is-open="popup.certdate" datepicker-options="dateOptions" 
+						close-text="Close" />
+						
+						
+						<label  for="CertDate" class=" control-label">Date</label>
+						</div>	
+						<button type="button" class="btn btn-primary " ng-click="opencert()"><i class="fa fa-calendar"></i></button>
+						</div>
+						</td>
+  <td>
+<div class="form-floating">
+    <!-- UI Select for TC Format -->
+    <ui-select id="TCFormat" ng-disabled="flags.editflag" ng-model="cert.basic.TCFormat" name="TCFormat" class="form-control" required>
+        <!-- The selected option is displayed here -->
+        <ui-select-match placeholder="Select TC FORMAT">
+            <span ng-bind="$select.selected.TCFormat"></span>
+        </ui-select-match>
+        
+        <!-- The available choices, filtered by search -->
+        <ui-select-choices repeat="item.Id as item in (allformats | filter: $select.search)">
+            <span ng-bind="item.TCFormat"></span>
+        </ui-select-choices>
+    </ui-select>
+    
+    <!-- Label for the select dropdown -->
+    <label class="control-label" for="TCFormat">TC Format</label>
+</div>
+  
+  </td>
+  <td>
+  <div class="form-floating">
+   <ui-select id="CertType" ng-disabled="flags.editflag" ng-model="cert.basic.CertType" name="CertType"  class="form-control" required >
+							<ui-select-match placeholder="Select Type">
+							<span ng-bind="$select.selected"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat=" item in (allcerttypes | filter: $select.search)">
+							<span ng-bind="item"></span>
+							</ui-select-choices>
+							</ui-select>
+							
+							<label for="CertType" class=" control-label">Certificate Type</label>
+  </div>
+  </td>
+  <td> <div class="form-floating">
+						
+						<input type="text" class="form-control" id="TCRevNo" ng-disabled="flags.editflag" name="TCRevNo" ng-model="cert.basic.TCRevNo" placeholder="TC Rev NO." required>
+		 <label  for="TCRevNo" class=" control-label">TC Rev No</label>
+						</div>
+						
+					
+					</td>
+  
+  </tr>
+  
+  <tr>
+  <td>
+  <div class="form-floating">
+						<label for="CustomerName" class=" control-label">Customer</label>
+							<ui-select id="CustomerName" class="form-control" ng-disabled="flags.editflag" ng-model="cert.basic.CustId"   name="CustomerName"   required >
+							<ui-select-match placeholder="Select Customer">
+							<span ng-bind="$select.selected.Name"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat="item.Id as item in (allcusts | filter: $select.search)">
+							<span ng-bind="item.Name"></span>
+							</ui-select-choices>
+							</ui-select>
+						</div>
+						</td>
+  <td>
+  <div class="form-floating">
+					
+						<input type="text" class="form-control" id="PartDescription" ng-disabled="flags.editflag" name="PartDescription" ng-model="cert.basic.PartDescription" placeholder="Part Description" required>
+							<label for="PartDescription" class="control-label">Part Description</label>
+						</div>
+  
+  </td>
+  <td>
+  
+						<div class="form-floating">
+						 
+						<input type="text" class="form-control" id="TCNo" ng-disabled="flags.editflag" name="TCNo" ng-model="cert.basic.TCNo" placeholder="TC NO." required>
+		<label for="TCNo" class=" control-label">TC No:</label>
+						</div>
+  </td>
+   <td>
+ 
+						
+							<div class="input-group">
+ <div class="form-floating">
+				 <ui-select id="formatno" class="form-control p-0" ng-disabled="flags.editflag" class="form-control" ng-model="cert.basic.FormatNo" name="FormatNo"    >
+							<ui-select-match placeholder="Select Format No">
+							<span ng-bind="$select.selected.FormatNo"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat="item.Id as item in (allcertformats  | filter: $select.search)">
+							<span ng-bind="item.FormatNo"></span>
+							</ui-select-choices>
+							</ui-select>
+							<label for="formatno" class=" control-label">Customer Format. No.</label>
+								
+				 <!-- <span class="input-group-text" id="basic-addon1"><a ng-click="showformatdet(cert.basic.FormatNo)" > <i class="fa fa-info-circle" ></i> </a>,/span> -->
+				</div>
+				<button class="btn btn-primary" type="button" id="button-addon2"><i class="fa fa-info-circle" ></i></button>
+							
+				 </div>	
+  </td>
+  </tr>
+  
+  <tr>
+ 
+  <td>
+  <div class=" form-floating">
+						
+							<input type="text" class="form-control" id="PoNo" ng-disabled="flags.editflag" name="PoNo" ng-model="cert.basicextra.PoNo" placeholder="PO NO.">
+							<label for="PoNo" class=" control-label">PO No.</label>
+						</div>
+  </td>
+  <td>
+  
+							
+					<div class="input-group ">
+					<div class=" form-floating">
+						<input type="text" class="form-control input-sm" id="PoDate" ng-disabled="flags.editflag"  name="PoDate" uib-datepicker-popup ng-model="cert.basicextra.PoDate" is-open="popup.podate" datepicker-options="dateOptions" 
+						close-text="Close" />
+						<label for="PoDate" class=" control-label">Po Date</label>
+						
+						
+					</div>	
+					<button type="button" class="btn btn-primary " ng-click="openpo()"><i class="fa fa-calendar"></i></button>
+				</div>
+  </td>
+  <td>
+  	<div class="form-floating">
+						
+							<input type="text" class="form-control" id="RFICoNo"  ng-disabled="flags.editflag" name="RFICoNo" ng-model="cert.basicextra.RFICoNo" placeholder="RFI CO No.">
+							<label  for="RFICoNo" class=" control-label">RFI CO No.</label>
+						</div>
+  </td>
+  <td>
+  	
+					
+					<div class="input-group ">
+					<div class="form-floating">
+						<input type="text" class="form-control input-sm" id="RFIDate" ng-disabled="flags.editflag" name="RFIDate" uib-datepicker-popup ng-model="cert.basicextra.RFIDate" is-open="popup.rfidate" datepicker-options="dateOptions" 
+						close-text="Close" />
+							<label for="RFIDate" class=" control-label">RFI Date</label>
+						
+					</div>	
+					<button type="button" class="btn btn-primary" ng-click="openrfi()"><i class="fa fa-calendar"></i></button>
+						
+				</div>
+  </td>
+  </tr>
+  
+  <tr>
+  
+  <td>
+  	<div class="form-floating">
+						
+							<input type="text" class="form-control" id="RefStd"  ng-disabled="flags.editflag" name="RefStd" ng-model="cert.basicextra.RefStd" placeholder="Ref Std./Drawing No">
+							<label for="RefStd" class="control-label">Ref Std.</label>
+						</div>
+  
+  </td>
+  
+  
+  <td><div class="form-floating">
+						
+							<input type="text" class="form-control" id="Item" ng-disabled="flags.editflag" name="ItemCode" ng-model="cert.basicextra.ItemCode" placeholder="Item Code"  />
+							<label  for="Item" class="control-label">Item Code</label>
+						</div></td>
+						
+  <td><div class=" form-floating">
+						
+							<input type="text" class="form-control" id="Quantity" name="Quantity" ng-disabled="flags.editflag"  ng-model="cert.basicextra.Qty" placeholder="Quantity"  />
+							<label for="Quantity" class="control-label">Quantity</label>
+						</div></td>
+						
+  <td><div class="form-floating">
+						
+						<input type="text" class="form-control" id="Material" name="Material" ng-disabled="flags.editflag" ng-model="cert.basicextra.Material" placeholder="Material">
+						<label for="Material"  class="control-label">Material</label>
+						</div></td>
+  </tr>
+  
+  	<tr>
+			<td>			
+						<div class=" form-floating">
+						
+							<input type="text" class="form-control" id="Poline" name="Poline" ng-disabled="flags.editflag" ng-model="cert.basicextra.PoLineItemNo" placeholder="PO Line item No."  />
+							<label for="Poline" class="control-label">PO Line</label>
+						</div>
+						
+					</td><td>			
+					
+						<div class="form-floating">
+							
+							<input rows="2" class="form-control" id="TestPlanNo" name="TestPlanNo" ng-disabled="flags.editflag" ng-model="cert.basicextra.TestPlanNo" placeholder="Test Plan No." / >
+							<label  for="TestPlanNo" class="control-label">Test PlanNo.</label>
+						</div>
+					</td><td>	
+						<div class="form-floating">
+						
+						<input type="text" class="form-control"  ng-model="cert.basicextra.Project" ng-disabled="flags.editflag" id="Project" placeholder="Project">
+						<label for="Project" class=" control-label">Project</label>
+						</div>
+						</td>
+					</tr>
+					
+				
+				<tr>					
+						<td>
+						<div class="form-floating">
+						
+						<input type="text" class="form-control" ng-model="cert.basicextra.ProjectNo" ng-disabled="flags.editflag" id="ProjectNo" placeholder="Project No.">
+						<label for="ProjectNo" class=" control-label">Project No.</label>
+						</div>
+							</td>
+							
+							<td>					
+						
+						<div class="form-floating">
+						
+						<input type="text" class="form-control" id="Pos" name="Pos" ng-disabled="flags.editflag" ng-model="cert.basicextra.PosNo" placeholder="Pos No."  />
+						<label for="Pos" class=" control-label">Pos. No.</label>
+						</div>
+						</td>
+						
+						<td>
+						<div class="form-floating">
+						
+							<input type="text" class="form-control" id="SlNo" ng-disabled="flags.editflag" name="SlNo" ng-model="cert.basicextra.SlNo" placeholder="Sl No."  />
+							<label for="SlNo" class="control-label">Sl. No.</label>
+						</div>
+						</td>
+					</tr>	
+</table>
+ 
+						
+					
+					
+					
+					
+				
+					
+					
+					
+					
+					
+     <div class="form-group row mb-2">
+					
+						<div class="col-md-6 col-sm-6">
+						<label class=" control-label">Select BatchCode/BatchNos</label>
+							<ui-select multiple id="Rirs" ng-model="cert.basic.Rirs" name="Rirs"    required >
+<ui-select-match placeholder="Select Receipt">
+<span>{{$item.LabNo}}/{{$item.BatchCode}}<span ng-if="$item.BatchNo">-{{$item.BatchNo}}</span> </span>
+</ui-select-match>
+<ui-select-choices repeat="item in (allrirs  | filter: $select.search  | limitTo: itemLimit )">
+<span>{{item.LabNo}}/{{item.BatchCode}}<span ng-if="item.BatchNo">-{{item.BatchNo}}</span> <small> {{item.SampleName}}</small></span>
+</ui-select-choices>
+</ui-select>
+
+<!-- <ui-select multiple id="Rirs" ng-model="cert.basic.Rirs" name="Rirs" required> -->
+    <!-- <ui-select-match placeholder="Select Receipt"> -->
+        <!-- <span ng-repeat="item in $select.selected"> -->
+         <!-- {{$item}}  {{$item.LabNo}}/{{$item.BatchCode}}<span ng-if="$item.BatchNo">-{{$item.BatchNo}}</span> -->
+            
+        <!-- </span> -->
+    <!-- </ui-select-match> -->
+    
+    <!-- <ui-select-choices repeat="item.LabNo as item in (limitedItems() | filter: $select.search) "> -->
+        <!-- <span> -->
+            <!-- {{item.LabNo}}/{{item.BatchCode}} -->
+            <!-- <span ng-if="item.BatchNo">-{{item.BatchNo}}</span> -->
+            <!-- <small>{{item.SampleName}}</small> -->
+        <!-- </span> -->
+    <!-- </ui-select-choices> -->
+
+<!-- </ui-select> -->
+
+				</div>
+			</div>
+			
+			
+			
+     <div class="form-group row mb-2">
+					<div class="col-sm-3 text-center">
+					<button class="btn btn-primary systmbtn" ng-click="loadallsections(cert.basic.Rirs)">
+					 <span ng-show="!flags.loadwait"><i  class="fa fa-upload" ></i> Load Values </span>
+					<span ng-show="flags.loadwait" ><i  class="fa fa-spinner fa-spin" ></i> Uploading wait..</span>
+					</button>
+					
+					
+				</div>
+	</div>
+
+
+
+
+
+ <div  class="card-default"  >
+      <div class="card-header">
+       <h5>Certificate Tests </h5>
+      </div>
+	  
+
+	
+
+<div class="card card-default mb-1" >
+	<div class="card-header text-bg-light p-2"><strong> {{ 'A'  }} Chemical Details</strong></div>
+	<div class="card-body">
+
+		
+	<div class="form-group row">
+	
+	
+	
+		<div class="col-md-12 table-responsive" >
+
+	<div class="alert alert-info" ng-if="cert.sections.chemicals.Ref.length<1 " role="alert">No Chemical data</div>
+	
+			<table class="table table-bordered table-sm" ng-if="cert.sections.chemicals.Ref.length>0  "  ng-repeat="chem in cert.sections.chemicals.Ref" style="margin-bottom:5px;">
+				
+				<tbody >
+					<tr class="text-left active">
+						<td >		
+						<div class="form-group mb-0 row">
+				<div class="col-sm-2">
+							<input type="text" class="form-control"  id="SName " name="SName " ng-model="chem.SName "  placeholder="CTQ/COA" >
+							</div>	
+							
+							<div class="col-sm-4">
+							<strong style="font-size: 0.8rem;">Reference Standard : {{chem.Std}}</strong>
+							</div>
+							<div class="col-sm-4">
+							<input type="text" class="form-control"  id="Reference" name="Reference{{$index}}" ng-model="chem.Reference"  placeholder="Reference" >
+							</div>
+							
+						</div>						
+						</td>
+					</tr>
+					
+					<tr class="text-left active">
+					<td>
+					<table class="table table-bordered table-sm" style="margin-bottom:5px;font-size:0.8rem;">
+					<tr>	
+					<td  colspan="5">Parameter</td>
+					
+					<td ng-repeat="i in chem.ChemSpec">
+						<div class="form-check">
+  <input class="form-check-input" type="checkbox" ng-model="i.ShowInCert"  ng-true-value="1" ng-false-value="0" id="{{i.PSymbol}}">
+  <label class="form-check-label" for="{{i.PSymbol}}">
+     {{i.PSymbol}}
+  </label>
+</div>
+					</td>
+					<td>Remark</td>
+					</tr>
+					
+					<tr>
+					<td></td>
+					<td>#</td>
+					<td>LabNo/BatchCode</td>
+					<td>HeatNo</td>
+					<td>TestName/Min-Max</td>
+					<td ng-repeat="i in chem.ChemSpec" style="width:55px;padding:2px;">
+					
+										
+  <input type="text" class="form-control input-sm" style="width:100px;height:26px;" aria-label="Sizing example input" id="SpecMin{{$index}}" name="SpecMin{{$index}}"  ng-model="i.SpecMin">
+ 
+ 
+
+   
+  <input type="text" class="form-control input-sm" style="width:100px;height:26px;" aria-label="Sizing example input" id="SpecMax{{$index}}" name="SpecMax{{$index}}"  ng-model="i.SpecMax">
+   
+
+
+					
+					</td>
+						<td></td>
+					</tr>
+					
+					
+					<tr class="align-middle" ng-repeat="i in chem.chemtests track by $index">
+					<td> <input type="checkbox"  ng-model="i.ShowInCert" ng-true-value="1" ng-false-value="0"> </td>
+					<td>{{$index +1}} </td>
+					<td>{{i.LabNo}}/ {{i.BatchCode}} <span ng-if="i.BatchNo">-{{i.BatchNo}}</span></td>
+					<td><input type="text" class="form-control" id="HeatNo{{$index}}" name="HeatNo{{$index}}" ng-model="i.HeatNo" placeholder="HeatNo"  /></td>
+					<td>{{i.TestName}}</td>
+					<td ng-repeat="j in i.Obs">{{j.Value}}</td>
+					<td><input type="text" class="form-control"  id="Remark" name="Remark" ng-model="i.Remark"  placeholder="Remark" ></td>
+					</tr>
+					
+					</table>
+					</td>
+					</tr>
+					
+					
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
+ 
+	</div>
+</div>	
+
+
+
+<div class="card card-default mb-1" >
+	<div class="card-header text-bg-light p-2"><strong> {{ 'B' }} Mechanical Details</strong></div>
+	<div class="card-body">
+
+ <span >
+		
+	<div class="form-group row">
+	
+	<div class="col-sm-12" ng-if="cert.sections.mechanicals.Ref.length<1 ">
+	<div class="alert alert-info"  role="alert">No Mechanical data</div>
+	</div>
+		<div class="col-md-12 table-responsive"  ng-repeat="(key,value) in cert.sections.mechanicals.Ref" >
+
+			<table class="table table-bordered table-sm" ng-repeat="chem in value" style="margin-bottom:5px;">
+				
+				<tbody >
+					<tr class="text-left active">
+						<td colspan="">
+		{{chem.TestName}} 
+								<div class="form-group mb-0 row">	
+
+	<div class="col-sm-2">
+							<input type="text" class="form-control"  id="SName[{{$index}}]" name="SName" ng-model="chem.SName"  placeholder="CTQ/COA" >
+							</div>									
+							<div class="col-sm-4">
+							<strong style="font-size: 0.8rem;">Reference Standard : {{chem.Std}}</strong>
+							</div>
+							<div class="col-sm-4">
+							<input type="text" class="form-control"  id="Reference" name="Reference{{$index}}" ng-model="chem.Reference"  placeholder="Reference" >
+							</div>
+							
+						</div>
+		
+						</td>
+					</tr>
+					
+					<tr class="text-left active">
+					<td>
+					<table class="table table-bordered table-sm" style="margin-bottom:5px;font-size:0.7rem;">
+					<tr>	
+					<td  colspan="5">Parameter</td>
+					<td ng-repeat="i in chem.MechSpec">
+					<div class="form-check">
+  <input class="form-check-input" type="checkbox" ng-model="i.ShowInCert"  ng-true-value="1" ng-false-value="0" id="{{i.PSymbol}}">
+  <label class="form-check-label mb-0" for="{{i.PSymbol}}">
+     {{i.PSymbol}}
+  </label>
+  <span ng-if="i.Temp">@ {{i.Temp}} {{i.TempUnit}}</span>
+</div>
+					
+					</td>
+					</tr>
+					<tr>
+					<td></td>
+					<td>#</td>
+					<td>LabNo/BatchCode</td>
+					<td>HeatNo</td>
+					<td> <input type="text" class="form-control input-sm" style="width:100px;height:26px;" readonly  aria-label="Sizing example input" id="SpecMin{{$index}}" name="SpecMin{{$index}}"  value="Min"> 
+					 <input type="text" class="form-control input-sm" style="width:100px;height:26px;" readonly  aria-label="Sizing example input" id="SpecMax{{$index}}" name="SpecMax{{$index}}"  value="Max"> 
+					</td>
+					<td ng-repeat="i in chem.MechSpec" style="font-size:11px;">
+				
+					
+  <input type="text" class="form-control input-sm" style="width:100px;height:26px;" aria-label="Sizing example input" id="SpecMin{{$index}}" name="SpecMin{{$index}}"  ng-model="i.SpecMin">
+ 
+ 
+
+   
+  <input type="text" class="form-control input-sm" style="width:100px;height:26px;" aria-label="Sizing example input" id="SpecMax{{$index}}" name="SpecMax{{$index}}"  ng-model="i.SpecMax">
+   
+
+
+					
+				
+				 
+				 </td>
+					</tr>
+					
+					
+					<tr class="align-middle" ng-repeat="i in chem.mechtests track by $index">
+					<td> <input type="checkbox"  ng-model="i.ShowInCert" ng-true-value="1" ng-false-value="0"> </td>
+					<td>{{$index +1}} </td>
+					<td>{{i.LabNo}} / {{i.BatchCode}} <span ng-if="i.BatchNo">-{{i.BatchNo}}</span></td>
+						<td><input type="text" class="form-control" id="HeatNo{{$index}}" name="HeatNo{{$index}}" ng-model="i.HeatNo" placeholder="HeatNo"  />
+						</td>
+					<td>{{i.TestName}} 
+					
+		
+						  <input type="text" ng-if="cert.basic.CertType==='Bushing'" class="form-control" id="TestInfo{{$index}}" name="TestInfo{{$index}}" ng-model="i.TestInfo" autocomplete="off"
+				  uib-typeahead="state for state in alltestinfo | filter:$viewValue | limitTo:8" placeholder="Top/Middle/Bottom"  />	
+					
+					
+					</td>
+					<td ng-repeat="j in i.Obs">
+					<span ng-if="i.TUID !='VHARD' && i.TUID !='MVHARD' && i.TUID !='BHARD' && i.TUID !='RCHARD' && i.TUID!='RBHARD'">	
+					{{j.Value}} <span ng-if="j.Temp">@
+					<input type="text" class="form-control" id="Temp{{$index}}" name="HeatNo{{$index}}" ng-model="j.Temp" placeholder="Temp"  /> {{j.TempUnit}}
+					</span>
+					</span>
+					
+					<span ng-if="i.TUID==='VHARD' || i.TUID==='MVHARD' || i.TUID==='BHARD' || i.TUID==='RCHARD' || i.TUID==='RBHARD'">	
+	<table class="table table-sm mb-0 p-0" >
+    <tr>
+        <td> <input class="form-check-input" type="checkbox" ng-model="j.Value[0].IsSValue"  ng-true-value="1" ng-false-value="0" id="surface"></td>
+        <td>Surface</td>
+		<td ng-repeat="n in j.Value">
+            {{n.SValue}} 
+        </td>
+		</tr>
+    <tr>
+        <td> <input class="form-check-input" type="checkbox" ng-model="j.Value[0].IsCValue"   ng-true-value="1" ng-false-value="0" id="core"></td>    
+        <td>Core</td>    
+        <td ng-repeat="n in j.Value">            
+               {{n.CValue}}            
+        </td>
+     
+    </tr>
+</table>
+
+
+					</span>
+					</td>
+					</tr>
+					
+					</table>
+					</td>
+					</tr>
+					
+					
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+ </span>
+ 
+	</div>
+</div>	
+
+
+<div class="card card-default">
+			<div class="card-header text-bg-light">
+				<strong >External Properties : </strong>
+				</div>
+				<div class="card-body">
+				<div class="form-group row">
+				<div class="col-md-6 col-sm-6" >
+				
+			
+
+	<ui-select id="testselect" multiple class="form-control p-0"  ng-model="cert.sections.externals.ExtTests" 
+	name="addexttest" on-remove="removeexttest($model)" on-select="addtocert($item, $model)"  >
+<ui-select-match placeholder="Select External Test">
+<span ng-bind="$item.Section"></span>
+</ui-select-match>
+<ui-select-choices repeat="item.KeyWord as item in (allextsections | filter: $select.search) track by $index">
+<span ng-bind="item.Section"></span>
+</ui-select-choices>
+</ui-select>
+
+
+		
+				</div>
+				
+			
+				</div>
+				
+				
+				
+					
+				
+				<div class="form-group row">
+				<div class="col-md-12 col-sm-12">
+				
+					<!------------ Non Metallic Inclusion Rating----------->
+	<div class="card card-default shadow-sm mb-2" style="border: 1px solid #000;"  ng-if="cert.sections.externals['NM'].Selected">
+		<div class="card-header text-bg-dark p-1"><strong> Non Metallic Inclusion Rating Test</strong> 
+		
+		<button class="btn btn-outline-light pull-right btn-sm " ng-click="removeexttest('NM')" ><i class="fa fa-trash-o"></i></button>
+		</div>
+		
+		<div class="card-body">
+			
+			<div class="form-group row">
+			<div class="col-sm-2">
+				<div class="form-floating">
+
+							<input type="text" class="form-control"  id="SName_NM" name="SName_NM" ng-model="cert.sections.externals['NM'].Test.SName"  placeholder="CTQ/COA" >
+							 <label for="SName_NM">CTQ/COA</label>
+							</div>
+							</div>	
+			
+				<div class="col-md-4 col-sm-4">
+						<div class="form-floating">						 
+					<input type="text" class="form-control" id="References_NM" name="Reference" ng-model="cert.sections.externals['NM'].Test.Reference" placeholder="References">
+					<label for="References_NM">References</label>
+					</div>
+				</div>
+			
+			</div>
+		
+			<div class="form-group row">			
+			
+				<div class="col-md-12 table-responsive">
+					<table class=" table table-light table-bordered table-sm ">
+						<thead class="">
+						<tr style="text-align:center;">
+							<td class="col-md-1">#</td>
+							<td class="col-md-2">BatchCode/Heat No.</td>
+							<td class="col-md-2">Parameter</td>
+							<td class="col-md-2">Required</td>
+							<td class="col-md-2">Observation</td>
+							<td class="col-md-2">Remark</td>
+							<td class="col-md-1">Actions</td>
+						</tr>
+						</thead>
+					<tbody class="table-group-divider">
+				
+						<tr style="text-align:center;" ng-repeat="item in cert.sections.externals['NM'].Test.Observations" >
+							<td>{{$index+1}}</td>
+							<td>
+								<input type="text" class="form-control" id="NMHeatNo" name="HeatNo" ng-model="item.HeatNo" placeholder="Heat No.">
+							</td>
+							<td>
+								<textarea rows="2" class="form-control" id="NMParameter" name="Parameter" ng-model="item.Parameter" placeholder="Parameter"></textarea>
+							</td>
+							<td>
+								<textarea rows="2" class="form-control" id="NMRequired" name="Required" ng-model="item.Required" placeholder="Required"></textarea>
+							</td>
+							<td>
+								<textarea rows="2" class="form-control" id="NMObservation" name="Observation" ng-model="item.Observation" placeholder="Observation"></textarea>
+							</td>
+							<td>
+								<input type="text" class="form-control" id="Remark" name="Remark" ng-model="item.Remark" placeholder="Remark">
+							</td>
+							<td>
+								<button class="btn btn-default " ng-click="deletenmrow(item,$index)"><i class="fa fa-remove"></i></button>
+							</td>
+						</tr>
+						<tr><td colspan="7"><button class="btn btn-sm btn-info" ng-click="addrownm()">Add Rows</button></td></tr>
+						<tr ng-if="cert.sections.externals['NM'].Test.Observations.length<1"><td colspan="7">No Observations</td></tr>
+					</tbody>
+					</table>
+				</div>
+			</div>
+			
+			
+		
+		 <div class="form-group row">			
+			<div class="col-md-6 col-sm-6">
+				<div class="form-floating">
+					<textarea type="text" class="form-control" rows=1 id="Ref_NM" name="Ref" ng-model="cert.sections.externals['NM'].Test.Ref" placeholder="Ref"></textarea>
+					 <label for="Ref_NM">Ref</label>
+				</div>				
+			</div>			
+			<div class="col-md-2 col-sm-2">
+				<div class="form-floating">
+					<input type="text" class="form-control" id="Remark_NM" name="Remark" ng-model="cert.sections.externals['NM'].Test.Remark" placeholder="Remark">
+					<label for="Remark_NM">Remark</label>
+				</div>
+			</div>			
+		</div>
+		
+		</div>
+	</div>
+
+	
+		
+<!--------------Micro Examination-------------->
+	<div class="card card-default text-bg-light shadow-sm mb-2" style="border: 1px solid #000;" ng-if="cert.sections.externals['ME'].Selected">
+		<div class="card-header text-bg-dark p-1"><span style="font-size;12px;font-weight:bold;"> Micro Examitation Test </span>
+		<button class="btn btn-outline-light pull-right btn-sm " ng-click="removeexttest('ME')" ><i class="fa fa-trash-o"></i></button>
+		</div>
+		
+		<div class="card-body p-1">
+		
+			<div class="form-group row">
+			<div class="col-sm-2">
+				<div class="form-floating">
+
+							<input type="text" class="form-control"  id="SName_ME" name="SName_ME" ng-model="cert.sections.externals['ME'].Test.SName"  placeholder="CTQ/COA" >
+							 <label for="SName_ME">CTQ/COA</label>
+							</div>
+							</div>	
+			
+				<div class="col-md-4 col-sm-4">
+						<div class="form-floating">						 
+					<input type="text" class="form-control" id="MEReferences" name="Reference" ng-model="cert.sections.externals['ME'].Test.Reference" placeholder="References">
+					<label for="MEReferences">References</label>
+					</div>
+				</div>
+				<!-- <div class="col-md-4 col-sm-4"> -->
+					<!-- <input type="text" class="form-control" id="MERefExtra" name="RefExtra" ng-model="cert.sections.externals['ME'].Test.Extra" placeholder="Extra Info"> -->
+				<!-- </div> -->
+			</div>
+		
+			<div class="form-group row">			
+				
+				<div class="col-md-12 table-responsive">
+					<table class=" table table-bordered table-sm mb-0">
+					<thead>
+					<tr class="table-primary" style="text-align:center;">
+							<td class="col-md-1">#</td>
+							<td class="col-md-2">BatchCode</td>
+							<td class="col-md-2">Parameter</td>
+							<td class="col-md-2">Required</td>
+							<td class="col-md-2">Observation</td>
+							<td class="col-md-2">Remark</td>
+							<td class="col-md-1">Actions</td>
+						</tr>
+						</thead>
+					<tbody  class="table-group-divider">
+						
+						<tr style="text-align:center;" ng-repeat="xitem in cert.sections.externals['ME'].Test.Observations" >
+							<td>{{$index+1}}</td>
+							<td>
+								<input type="text" class="form-control" id="MEBC" name="BatchCode" ng-model="xitem.BatchCode" placeholder="BatchCode">
+							</td>
+							<td>
+								<textarea rows="2" class="form-control" id="MEParameter" name="Parameter" ng-model="xitem.Parameter" placeholder="Parameter"></textarea>
+							</td>
+							<td>
+								<textarea rows="2" class="form-control" id="MERequired" name="Required" ng-model="xitem.Required" placeholder="Required"></textarea>
+							</td>
+							<td>
+								<textarea rows="2" class="form-control" id="MEObservation" name="Observation" ng-model="xitem.Observation" placeholder="Observation"></textarea>
+							</td>
+							<td>
+								<input type="text" class="form-control" id="MERemark" name="Remark" ng-model="xitem.Remark" placeholder="Remark">
+							</td>
+							<td>
+								<button class="btn btn-default " ng-click="deletemerow(xitem,$index)"><i class="fa fa-remove"></i></button>
+							</td>
+						</tr>
+						<tr ng-if="cert.sections.externals['ME'].Test.Observations.length<1"><td colspan="7">No Observations</td></tr>
+						<tr><td colspan="7"><button class="btn btn-info btn-sm" ng-click="addrowme()">Add Rows</button></td></tr>
+					</tbody>
+					</table>
+				</div>
+			</div>
+			 
+			
+		 <div class="form-group row">			
+			<div class="col-md-6 col-sm-6">
+				<div class="form-floating">
+					<textarea type="text" class="form-control" rows=1 id="Ref['ME']" name="Ref" ng-model="cert.sections.externals['ME'].Test.Ref" placeholder="Ref"></textarea>
+					 <label for="Ref['ME']">Ref</label>
+				</div>				
+			</div>			
+			<div class="col-md-2 col-sm-2">
+				<div class="form-floating">
+					<input type="text" class="form-control" id="Remark['ME']" name="Remark" ng-model="cert.sections.externals['ME'].Test.Remark" placeholder="Remark">
+					<label for="Remark['ME']">Remark</label>
+				</div>
+			</div>			
+		</div>
+	</div>
+	</div>
+
+		
+<!---MPI------------------------------>
+	
+	<div class="card card-default shadow-sm mb-2" style="border: 1px solid #000;"  ng-if="cert.sections.externals['MPI'].Selected">
+		<div class="card-header text-bg-dark p-1"> MPI Details 
+		<button class="btn btn-outline-light pull-right btn-sm " ng-click="removeexttest('MPI')" ><i class="fa fa-trash-o"></i></button>
+		</div>
+		
+		<div class="card-body p-1">
+			
+			<div class="form-group row">
+			<div class="col-sm-2">
+				<div class="form-floating">
+							<input type="text" class="form-control"  id="MPISName" name="SName" ng-model="cert.sections.externals['MPI'].Test.SName"  placeholder="CTQ/COA" >
+							 <label for="MPISName">CTQ/COA</label>
+							</div>
+				</div>				
+				<div class="col-md-4 col-sm-4">
+						<div class="form-floating">						 
+					<input type="text" class="form-control" id="MEReferences" name="Reference" ng-model="cert.sections.externals['MPI'].Test.Reference" placeholder="References">
+					<label for="MEReferences">References</label>
+					</div>
+				</div>
+				<!-- <div class="col-md-4 col-sm-4"> -->
+					<!-- <input type="text" class="form-control" id="MERefExtra" name="RefExtra" ng-model="cert.sections.externals['MPI'].Test.Extra" placeholder="Extra Info"> -->
+				<!-- </div> -->
+			</div>
+		
+			<div class="form-group row ">			
+				<div class="col-md-12" style="padding:20px;">
+					<button class="btn btn-info" ng-click="addrowmpi()">Add Rows</button>
+				</div>
+				<div class="col-md-12 table-responsive">
+					<table class=" table table-bordered table-sm">
+					
+					<tbody>
+						<tr style="text-align:center;">
+							<td class="col-md-1">#</td>
+							<td class="col-md-3">Parameter</td>
+							<td class="col-md-3">Required</td>
+							<td class="col-md-3">Observation</td>
+							<td class="col-md-1">Remark</td>
+							<td class="col-md-1">Actions</td>
+						</tr>
+						<tr style="text-align:center;" ng-repeat="item in cert.sections.externals['MPI'].Test.Observations" >
+							<td>{{$index+1}}</td>
+							
+							<td>
+								<textarea rows="2" class="form-control" id="MPIParameter" name="Parameter" ng-model="item.Parameter" placeholder="Parameter"></textarea>
+							</td>
+							<td>
+								<textarea rows="2" class="form-control" id="MPIRequired" name="Required" ng-model="item.Required" placeholder="Required"></textarea>
+							</td>
+							<td>
+								<textarea rows="2" class="form-control" id="MPIObservation" name="Observation" ng-model="item.Observation" placeholder="Observation"></textarea>
+							</td>
+							<td>
+								<input type="text" class="form-control" id="MPIRemark" name="Remark" ng-model="item.Remark" placeholder="Remark">
+							</td>
+							<td>
+								<button class="btn btn-default fa fa-remove" ng-click="deletempirow(item,$index)"><i class="fa fa-remove"></i></button>
+							</td>
+						</tr>
+						<tr ng-if="cert.sections.externals['MPI'].Test.Observations.length<1"><td colspan="7">No Observations</td></tr>
+					</tbody>
+					</table>
+				</div>
+			</div>
+			
+			 <div class="form-group row">			
+			<div class="col-md-6 col-sm-6">
+				<div class="form-floating">
+					<textarea type="text" class="form-control" rows=1 id="Ref['MPI']" name="Ref" ng-model="cert.sections.externals['MPI'].Test.Ref" placeholder="Ref"></textarea>
+					 <label for="Ref['MPI']">Ref</label>
+				</div>				
+			</div>			
+			<div class="col-md-2 col-sm-2">
+				<div class="form-floating">
+					<input type="text" class="form-control" id="Remark['MPI']" name="Remark" ng-model="cert.sections.externals['MPI'].Test.Remark" placeholder="Remark">
+					<label for="Remark['MPI']">Remark</label>
+				</div>
+			</div>			
+		</div>
+		
+		</div>
+	</div>
+	
+	
+	<!--------------Hardness External-------------->    
+
+    <div class="card card-default shadow-sm mb-2"  style="border: 1px solid #000;"  ng-if="cert.sections.externals['H'].Selected">
+        <div class="card-header text-bg-dark p-1"> Hardness Test
+           <button class="btn btn-outline-light pull-right btn-sm " ng-click="removeexttest('H')" ><i class="fa fa-trash-o"></i></button>
+        </div>
+        
+        <div class="card-body  p-1">
+            
+           <div class="form-group row">
+			<div class="col-sm-2">
+				<div class="form-floating">
+							<input type="text" class="form-control"  id="HSName" name="SName" ng-model="cert.sections.externals['H'].Test.SName"  placeholder="CTQ/COA" >
+							 <label for="HSName">CTQ/COA</label>
+							</div>
+				</div>				
+				<div class="col-md-4 col-sm-4">
+						<div class="form-floating">						 
+					<input type="text" class="form-control" id="MEReferences" name="Reference" ng-model="cert.sections.externals['H'].Test.Reference" placeholder="References">
+					<label for="MEReferences">References</label>
+					</div>
+				</div>
+				<!-- <div class="col-md-4 col-sm-4"> -->
+					<!-- <input type="text" class="form-control" id="MERefExtra" name="RefExtra" ng-model="cert.sections.externals['H'].Test.Extra" placeholder="Extra Info"> -->
+				<!-- </div> -->
+			</div>
+			
+            <div class="form-group row ">            
+                <div class="col-md-12" style="padding:20px;">
+                    <button class="btn btn-info" ng-click="addrowhard()">Add Rows</button>
+                    
+                </div>
+                <div class="col-md-12 table-responsive">
+                    <table class=" table table-bordered  table-sm">
+                    <tbody>
+                        <tr style="text-align:center;">
+                            <td class="col-md-1">#</td>
+                            <td class="col-md-2">Parameter</td>
+                            <td class="col-md-2">BatchCode</td>
+                            <td class="col-md-2">Requirement</td>
+                            <td class="col-md-3">Observation</td>
+                             <td class="col-md-1">Remark</td>
+                            <td class="col-md-1">Actions</td>
+                        </tr>
+                        <tr style="text-align:center;" ng-repeat="item in cert.sections.externals['H'].Test.Observations" >
+                            <td>{{$index+1}}</td>
+                            <td>
+                                <textarea rows="2" class="form-control" id="HParameter" name="Parameter" ng-model="item.Parameter" placeholder="Parameter"></textarea>
+                            </td>  <td>
+    <textarea rows="1"  class="form-control" id="BatchCode" name="BatchCode" ng-model="item.BatchCode" placeholder="BatchCode"></textarea>
+                            </td>
+                            <td>
+    <textarea rows="1"  class="form-control" id="HRequirement" name="Required" ng-model="item.Requirement" placeholder="Requirement"></textarea>
+                            </td>
+                            <td >
+                                <textarea type="text" class="form-control" id="HObservation" name="Observation" ng-model="item.Observation" placeholder="Observations"></textarea>
+                            </td>
+                          
+                            <td>
+                                <input type="text" class="form-control" id="Remark" name="Remark" ng-model="item.Remark" placeholder="Remark">
+                            </td>
+                            <td>
+                                <button class="btn btn-default " ng-click="deletehardrow(item,$index)"><i class="fa fa-remove"></i></button>
+                            </td>
+                        </tr>
+                        <tr ng-if="cert.sections.externals['H'].Test.Observations.length<1"><td colspan="7">No Observations</td></tr>
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+         
+
+		 <div class="form-group row">			
+			<div class="col-md-6 col-sm-6">
+				<div class="form-floating">
+					<textarea type="text" class="form-control" rows=1 id="Ref['H']" name="Ref" ng-model="cert.sections.externals['H'].Test.Ref" placeholder="Ref"></textarea>
+					 <label for="Ref['H']">Ref</label>
+				</div>				
+			</div>			
+			<div class="col-md-2 col-sm-2">
+				<div class="form-floating">
+					<input type="text" class="form-control" id="Remark['H']" name="Remark" ng-model="cert.sections.externals['H'].Test.Remark" placeholder="Remark">
+					<label for="Remark['H']">Remark</label>
+				</div>
+			</div>			
+		</div>
+		
+        </div>
+    </div>
+	
+	
+	<!---Non Destructive------->
+	
+	<div class="card card-default shadow-sm mb-2" style="border: 1px solid #000;"  ng-if="cert.sections.externals['ND'].Selected">
+		<div class="card-header text-bg-dark p-1"> Non Destructive Testing
+	<button class="btn btn-outline-light pull-right btn-sm " ng-click="removeexttest('ND')" ><i class="fa fa-trash-o"></i></button>
+		</div>
+		
+		<div class="card-body p-1">
+			
+		<div class="form-group row">
+			<div class="col-sm-2">
+				<div class="form-floating">
+							<input type="text" class="form-control"  id="NDSName" name="SName" ng-model="cert.sections.externals['ND'].Test.SName"  placeholder="CTQ/COA" >
+							 <label for="NDSName">CTQ/COA</label>
+							</div>
+				</div>				
+				<div class="col-md-4 col-sm-4">
+						<div class="form-floating">						 
+					<input type="text" class="form-control" id="MEReferences" name="Reference" ng-model="cert.sections.externals['ND'].Test.Reference" placeholder="References">
+					<label for="References">References</label>
+					</div>
+				</div>
+				<!-- <div class="col-md-4 col-sm-4"> -->
+					<!-- <input type="text" class="form-control" id="MERefExtra" name="RefExtra" ng-model="cert.sections.externals['ND'].Test.Extra" placeholder="Extra Info"> -->
+				<!-- </div> -->
+			</div>
+		
+			<div class="form-group row ">			
+				<div class="col-md-12" style="padding:20px;">
+					<button class="btn btn-info" ng-click="addrownd()">Add Rows</button>
+				</div>
+				<div class="col-md-12 table-responsive">
+					<table class=" table table-bordered table-sm">
+					<tbody>
+						<tr style="text-align:center;">
+							<td class="col-md-1">#</td>
+							<td class="col-md-2">Parameter</td>
+							<td class="col-md-2">Required</td>
+							<td class="col-md-2">Observation</td>
+							<td class="col-md-2">Remark</td>
+							<td class="col-md-2">Actions</td>
+						</tr>
+						<tr style="text-align:center;" ng-repeat="item in cert.sections.externals['ND'].Test.Observations" >
+							<td>{{$index+1}}</td>
+							<td>
+								<textarea rows="2" class="form-control" id="NDParameter" name="Parameter" ng-model="item.Parameter" placeholder="Parameter"></textarea>
+							</td>
+							<td>
+								<textarea rows="2"  class="form-control" id="NDRequired" name="Required" ng-model="item.Required" placeholder="Required"></textarea>
+							</td>
+							<td>
+								<textarea rows="2"  class="form-control" id="NDObservation" name="Observation" ng-model="item.Observation" placeholder="Observation"></textarea>
+							</td>
+							<td>
+								<input type="text" class="form-control" id="Remark" name="Remark" ng-model="item.Remark" placeholder="Remark">
+							</td>
+							<td>
+								<button class="btn btn-default " ng-click="deletendrow(item,$index)"><i class="fa fa-remove"></i></button>
+							</td>
+						</tr>
+						<tr ng-if="cert.sections.externals['ND'].Test.Observations.length<1"><td colspan="7">No Observations</td></tr>
+					</tbody>
+					</table>
+				</div>
+			</div>
+		
+		 <div class="form-group row">			
+			<div class="col-md-6 col-sm-6">
+				<div class="form-floating">
+					<textarea type="text" class="form-control" rows=1 id="Ref['ND']" name="Ref" ng-model="cert.sections.externals['ND'].Test.Ref" placeholder="Ref"></textarea>
+					 <label for="Ref['ND']">Ref</label>
+				</div>				
+			</div>			
+			<div class="col-md-2 col-sm-2">
+				<div class="form-floating">
+					<input type="text" class="form-control" id="Remark['ND']" name="Remark" ng-model="cert.sections.externals['ND'].Test.Remark" placeholder="Remark">
+					<label for="Remark['ND']">Remark</label>
+				</div>
+			</div>			
+		</div>
+		
+		
+		</div>
+	</div>
+
+
+<!--------------Surface Treatment-------------->
+	<div class="card card-default shadow-sm mb-2" style="border: 1px solid #000;"  ng-if="cert.sections.externals['ST'].Selected">
+		<div class="card-header text-bg-dark p-1"> Surface Treatment
+		
+		<button class="btn btn-outline-light pull-right btn-sm " ng-click="removeexttest('ST')" ><i class="fa fa-trash-o"></i></button>
+		</div>
+		
+		<div class="card-body p-1">
+			
+	<div class="form-group row">
+			<div class="col-sm-2">
+				<div class="form-floating">
+							<input type="text" class="form-control"  id="STSName" name="SName" ng-model="cert.sections.externals['ST'].Test.SName"  placeholder="CTQ/COA" >
+							 <label for="STSName">CTQ/COA</label>
+							</div>
+				</div>				
+				<div class="col-md-4 col-sm-4">
+						<div class="form-floating">						 
+					<input type="text" class="form-control" id="STReferences" name="Reference" ng-model="cert.sections.externals['ST'].Test.Reference" placeholder="References">
+					<label for="STReferences">References</label>
+					</div>
+				</div>
+				<!-- <div class="col-md-4 col-sm-4"> -->
+					<!-- <input type="text" class="form-control" id="MERefExtra" name="RefExtra" ng-model="cert.sections.externals['ST'].Test.Extra" placeholder="Extra Info"> -->
+				<!-- </div> -->
+			</div>
+		
+			<div class="form-group row ">			
+				<div class="col-md-12" style="padding:20px;">
+					<button class="btn btn-info" ng-click="addrowst()" ng-disabled="cert.sections.externals['ST'].Observations.length>0">Add Rows</button>
+				</div>
+				<div class="col-md-12 table-responsive">
+					<table class=" table table-bordered table-sm">
+					<tbody>
+						<tr style="text-align:center;">
+							<td class="col-md-1">#</td>
+						
+							<td class="col-md-3">Painting System specification</td>
+							<td class="col-md-3">Coat/Observation</td>
+							<td class="col-md-3">Remark</td>
+							
+						</tr>
+						<tr style="text-align:center;" ng-repeat="item in cert.sections.externals['ST'].Test.Observations" >
+							<td>{{$index+1}}</td>
+							
+							<td>
+								<textarea rows="2" class="form-control" id="Painting" name="Painting" ng-model="item.Painting" placeholder="Painting System specification"></textarea>
+							</td>
+							<td>
+								<textarea rows="2" class="form-control" id="Coat" name="Observation" ng-model="item.Coat" placeholder="Coat/Observation"></textarea>
+							</td>
+							<td>
+								<input type="text" class="form-control" id="Remark" name="Remark" ng-model="item.Remark" placeholder="Remark">
+							</td>
+							
+						</tr>
+						<tr ng-if="cert.sections.externals['ST'].Test.Observations.length<1"><td colspan="7">No Observations</td></tr>
+					</tbody>
+					</table>
+				</div>
+			</div>
+			
+		 <div class="form-group row">			
+			<div class="col-md-6 col-sm-6">
+				<div class="form-floating">
+					<textarea type="text" class="form-control" rows=1 id="Ref['ST']" name="Ref" ng-model="cert.sections.externals['ST'].Test.Ref" placeholder="Ref"></textarea>
+					 <label for="Ref['ST']">Ref</label>
+				</div>				
+			</div>			
+			<div class="col-md-2 col-sm-2">
+				<div class="form-floating">
+					<input type="text" class="form-control" id="Remark['ST']" name="Remark" ng-model="cert.sections.externals['ST'].Test.Remark" placeholder="Remark">
+					<label for="Remark['ST']">Remark</label>
+				</div>
+			</div>			
+		</div>
+		
+	</div>
+	</div>
+	
+	
+	<!---------------Surface treatment-Delta Coating--------------->
+	<div class="card card-default shadow-sm mb-2" style="border: 1px solid #000;"  ng-if="cert.sections.externals['STDELTA'].Selected">
+		<div class="card-header text-bg-dark p-1">Surface Treatment-Delta Coating
+		<button class="btn btn-outline-light pull-right btn-sm " ng-click="removeexttest('STDELTA')" ><i class="fa fa-trash-o"></i></button>
+		 </div>
+				
+		<div class="card-body p-1">
+			<div class="form-group row">
+			<div class="col-sm-2">
+				<div class="form-floating">
+							<input type="text" class="form-control"  id="SNameSTD" name="SName" ng-model="cert.sections.externals['STDELTA'].Test.SName"  placeholder="CTQ/COA" >
+							 <label for="SNameSTD">CTQ/COA</label>
+							</div>
+				</div>				
+				<div class="col-md-4 col-sm-4">
+						<div class="form-floating">						 
+					<input type="text" class="form-control" id="STDELTAReferences" name="Reference" ng-model="cert.sections.externals['STDELTA'].Test.Reference" placeholder="References">
+					<label for="STDELTAReferences">References</label>
+					</div>
+				</div>
+				<!-- <div class="col-md-4 col-sm-4"> -->
+					<!-- <input type="text" class="form-control" id="MERefExtra" name="RefExtra" ng-model="cert.sections.externals['STDELTA'].Test.Extra" placeholder="Extra Info"> -->
+				<!-- </div> -->
+			</div>
+			
+			<div class="form-group row ">
+				<div class="col-md-5 col-sm-5">
+					<input type="checkbox"  id="Type" name="Type" ng-model="cert.sections.externals['STDELTA'].Test.Observations.Type" ng-true-value="'attach'" ng-false-value="'nonattach'"> Attachment
+				</div>
+				<div class="col-md-12 table-responsive" ng-if="cert.sections.externals['STDELTA'].Test.Observations.Type==='attach'">
+				<table class="table table-bordered table-sm">
+						
+					<tbody>
+							<tr>
+								<td>
+									<textarea type="text" class="form-control" rows=2 id="referattach" name="Referattach" ng-model="cert.sections.externals['STDELTA'].Test.Observations.Observations" placeholder="Reference Details of attachment"></textarea>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				
+				<div class="col-md-12 table-responsive" ng-if="cert.sections.externals['STDELTA'].Test.Observations.Type==='nonattach'">
+					<table class="table table-bordered" >
+						<tbody>
+							<tr class="text-center">
+								<td rowspan="2" colspan="3">Parameter</td>
+								<td colspan="4">Requirement</td>
+								<td rowspan="2" colspan="3">Observation</td>
+								<td rowspan="2" colspan="2">Remark</td>
+							</tr>
+							
+							<tr class="text-center">
+								<td colspan="2">Min</td>
+								<td colspan="2">Max</td>
+							</tr>
+							
+							<tr>
+								<td colspan="3">
+								<b>Coating thickness µm</b>
+								</td>
+								
+								<td colspan="2">
+									<input type="text" class="form-control" name="Min1" ng-model="cert.sections.externals['STDELTA'].Test.Observations.CoatMin" placeholder="Min"></input>
+								</td>
+								
+								<td colspan="2">
+									<input type="text" class="form-control" name="Max1" ng-model="cert.sections.externals['STDELTA'].Test.Observations.CoatMax" placeholder="Max"></input>
+								</td>
+								
+								<td rowspan="4" colspan="3">
+									<textarea rows="10" class="form-control" ng-model="cert.sections.externals['STDELTA'].Test.Observations.Observations" name="Observation" placeholder="Observation"></textarea>
+								</td>
+								
+								<td colspan="2">
+									<input type="text" class="form-control" name="Remark" ng-model="cert.sections.externals['STDELTA'].Test.Observations.CoatRemark" placeholder="Remark"></input>
+								</td>
+							</tr>
+							
+							<tr>
+								<td colspan="3">
+								<b>Salt Spray Test (Hrs.)</b>
+								</td>
+								
+								<td colspan="2">
+									<input type="text" class="form-control" name="Min2" ng-model="cert.sections.externals['STDELTA'].Test.Observations.SaltMin" placeholder="Min"></input>
+								</td>
+								
+								<td colspan="2">
+									<input type="text" class="form-control" name="Max2" ng-model="cert.sections.externals['STDELTA'].Test.Observations.SaltMax" placeholder="Max"></input>
+								</td>
+							
+								<td colspan="2">
+									<input type="text" class="form-control" name="Remark" ng-model="cert.sections.externals['STDELTA'].Test.Observations.SaltRemark" placeholder="Remark"></input>
+								</td>
+							</tr>
+							
+							<tr>
+								<td colspan="3">
+								<b>Adhesion	</b>	
+
+								</td>
+								
+								<td colspan="4">
+									<input type="text" class="form-control" name="Adesivereq" ng-model="cert.sections.externals['STDELTA'].Test.Observations.AdhesionReq" placeholder="Requirement"></input>
+								</td>
+								
+								<td colspan="2">
+									<input type="text" class="form-control" name="Remark" ng-model="cert.sections.externals['STDELTA'].Test.Observations.AdhesionRemark" placeholder="Remark"></input>
+								</td>
+							</tr>
+							
+							<tr>
+								<td colspan="3">
+									<b>Visual Inspection</b>
+								</td>
+								
+								<td colspan="4">
+									<input type="text" class="form-control" name="VisualInspec" ng-model="cert.sections.externals['STDELTA'].Test.Observations.VisualReq" placeholder="Requirement"></input>
+								</td>
+							
+								<td colspan="2">
+									<input type="text" class="form-control" name="Remark" ng-model="cert.sections.externals['STDELTA'].Test.VisualRemark" placeholder="Remark"></input>
+								</td>
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+			</div>	
+
+	 <div class="form-group row">			
+			<div class="col-md-6 col-sm-6">
+				<div class="form-floating">
+					<textarea type="text" class="form-control" rows=1 id="Ref['STDELTA']" name="Ref" ng-model="cert.sections.externals['STDELTA'].Test.Ref" placeholder="Ref"></textarea>
+					 <label for="Ref['STDELTA']">Ref</label>
+				</div>				
+			</div>			
+			<div class="col-md-2 col-sm-2">
+				<div class="form-floating">
+					<input type="text" class="form-control" id="Remark['STDELTA']" name="Remark" ng-model="cert.sections.externals['STDELTA'].Test.Remark" placeholder="Remark">
+					<label for="Remark['STDELTA']">Remark</label>
+				</div>
+			</div>			
+		</div>
+
+			
+		</div>
+	</div>		
+
+	
+	<!---------------Surface treatment-DACROMET Coating--------------->
+	<div class="card card-default shadow-sm mb-2" style="border: 1px solid #000;"  ng-if="cert.sections.externals['STDA'].Selected">
+		<div class="card-header text-bg-dark p-1">Surface Treatment-DACROMET Coating 
+		 <button class="btn btn-outline-light pull-right btn-sm " ng-click="removeexttest('STDA')" ><i class="fa fa-trash-o"></i></button>
+		 </div>
+				
+		<div class="card-body p-1">
+			<div class="form-group row">
+			<div class="col-sm-2">
+				<div class="form-floating">
+							<input type="text" class="form-control"  id="STDASName" name="SName" ng-model="cert.sections.externals['STDA'].Test.SName"  placeholder="CTQ/COA" >
+							 <label for="STDASName">CTQ/COA</label>
+							</div>
+				</div>				
+				<div class="col-md-4 col-sm-4">
+						<div class="form-floating">						 
+					<input type="text" class="form-control" id="STDAReferences" name="Reference" ng-model="cert.sections.externals['STDA'].Test.Reference" placeholder="References">
+					<label for="STDAReferences">References</label>
+					</div>
+				</div>
+				<!-- <div class="col-md-4 col-sm-4"> -->
+					<!-- <input type="text" class="form-control" id="MERefExtra" name="RefExtra" ng-model="cert.sections.externals['STDA'].Test.Extra" placeholder="Extra Info"> -->
+				<!-- </div> -->
+			</div>
+			
+			<div class="form-group row ">
+				
+				
+				<div class="col-md-12 table-responsive" >
+					<table class="table table-bordered table-sm" >
+						<tbody>
+							<tr class="text-center">
+								<td rowspan="2" colspan="3">Parameter</td>
+								<td colspan="4">Requirement</td>
+								<td rowspan="2" colspan="3">Observation</td>
+								<td rowspan="2" colspan="2">Remark</td>
+							</tr>
+							
+							<tr class="text-center">
+								<td colspan="2">Min</td>
+								<td colspan="2">Max</td>
+							</tr>
+							
+							<tr>
+								<td colspan="3">
+								<b>Coating thickness µm</b>
+								</td>
+								
+								<td colspan="2">
+									<input type="text" class="form-control" name="Min1" ng-model="cert.sections.externals['STDA'].Test.Observations.CoatMin" placeholder="Min"></input>
+								</td>
+								
+								<td colspan="2">
+									<input type="text" class="form-control" name="Max1" ng-model="cert.sections.externals['STDA'].Test.Observations.CoatMax" placeholder="Max"></input>
+								</td>
+								
+								<td rowspan="4" colspan="3">
+									<textarea rows="10" class="form-control" ng-model="cert.sections.externals['STDA'].Test.Observations.Observations" name="Observation" placeholder="Observation"></textarea>
+								</td>
+								
+								<td colspan="2">
+									<input type="text" class="form-control" name="Remark" ng-model="cert.sections.externals['STDA'].Test.Observations.CoatRemark" placeholder="Remark"></input>
+								</td>
+							</tr>
+							
+							<tr>
+								<td colspan="3">
+								<b>Salt Spray Test (Hrs.)</b>
+								</td>
+								
+								<td colspan="2">
+									<input type="text" class="form-control" name="Min2" ng-model="cert.sections.externals['STDA'].Test.Observations.SaltMin" placeholder="Min"></input>
+								</td>
+								
+								<td colspan="2">
+									<input type="text" class="form-control" name="Max2" ng-model="cert.sections.externals['STDA'].Test.Observations.SaltMax" placeholder="Max"></input>
+								</td>
+							
+								<td colspan="2">
+									<input type="text" class="form-control" name="Remark" ng-model="cert.sections.externals['STDA'].Test.Observations.SaltRemark" placeholder="Remark"></input>
+								</td>
+							</tr>
+							
+							<tr>
+								<td colspan="3">
+								<b>Adhesion	</b>	
+
+								</td>
+								
+								<td colspan="4">
+									<input type="text" class="form-control" name="Adesivereq" ng-model="cert.sections.externals['STDA'].Test.Observations.AdhesionReq" placeholder="Requirement"></input>
+								</td>
+								
+								<td colspan="2">
+									<input type="text" class="form-control" name="Remark" ng-model="cert.sections.externals['STDA'].Test.Observations.AdhesionRemark" placeholder="Remark"></input>
+								</td>
+							</tr>
+							
+							<tr>
+								<td colspan="3">
+									<b>Visual Inspection</b>
+								</td>
+								
+								<td colspan="4">
+									<input type="text" class="form-control" name="VisualInspec" ng-model="cert.sections.externals['STDA'].Test.Observations.VisualReq" placeholder="Requirement"></input>
+								</td>
+							
+								<td colspan="2">
+									<input type="text" class="form-control" name="Remark" ng-model="cert.sections.externals['STDA'].Test.Observations.VisualRemark" placeholder="Remark"></input>
+								</td>
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+			</div>	
+
+		 <div class="form-group row">			
+			<div class="col-md-6 col-sm-6">
+				<div class="form-floating">
+					<textarea type="text" class="form-control" rows=1 id="Ref['STDA']" name="Ref" ng-model="cert.sections.externals['STDA'].Test.Ref" placeholder="Ref"></textarea>
+					 <label for="Ref['STDA']">Ref</label>
+				</div>				
+			</div>			
+			<div class="col-md-2 col-sm-2">
+				<div class="form-floating">
+					<input type="text" class="form-control" id="Remark['STDA']" name="Remark" ng-model="cert.sections.externals['STDA'].Test.Remark" placeholder="Remark">
+					<label for="Remark['STDA']">Remark</label>
+				</div>
+			</div>			
+		</div>
+
+			
+		</div>
+	</div>		
+
+	<!--------------Surface Treatment HOT DIP GALVANIZING-------------->    
+
+    <div class="card card-default shadow-sm mb-2" style="border: 1px solid #000;"  ng-if="cert.sections.externals['STHOT'].Selected">
+        <div class="card-header text-bg-dark p-1"> Surface Treatment-Hot Dip Galvanizing
+           <button class="btn btn-outline-light pull-right btn-sm " ng-click="removeexttest('STHOT')" ><i class="fa fa-trash-o"></i></button>
+        </div>
+        
+        <div class="card-body p-1">
+            
+           <div class="form-group row">
+			<div class="col-sm-2">
+				<div class="form-floating">
+							<input type="text" class="form-control"  id="SNameHOT" name="SName" ng-model="cert.sections.externals['STHOT'].Test.SName"  placeholder="CTQ/COA" >
+							 <label for="SNameHOT">CTQ/COA</label>
+							</div>
+				</div>				
+				<div class="col-md-4 col-sm-4">
+						<div class="form-floating">						 
+					<input type="text" class="form-control" id="HOTReferences" name="Reference" ng-model="cert.sections.externals['STHOT'].Test.Reference" placeholder="References">
+					<label for="MEReferences">References</label>
+					</div>
+				</div>
+				<!-- <div class="col-md-4 col-sm-4"> -->
+					<!-- <input type="text" class="form-control" id="MERefExtra" name="RefExtra" ng-model="cert.sections.externals['MPI'].Test.Extra" placeholder="Extra Info"> -->
+				<!-- </div> -->
+			</div>
+        
+            <div class="form-group row ">            
+                <div class="col-md-12" style="padding:20px;">
+                    <!-- <button class="btn btn-info" ng-click="addrowh()">Add Rows</button> -->
+                   <!--  <label class="checkbox-inline">
+                        <input type="checkbox" ng-model="cert.sections.externals['H.Observations.Type" name="attach" ng-true-value="'attach'" ng-false-value="'nonattach'"> <strong>Observations</strong>
+                    </label> -->
+                </div>
+                <div class="col-md-12 table-responsive">
+                    <table class=" table table-bordered table-sm">
+                    <tbody>
+                        <tr style="text-align:center;">
+                            <td class="col-md-1">#</td>
+                            <td class="col-md-2">Parameter</td>
+                            <td class="col-md-3">Requirement</td>
+                           <td class="col-md-5" >Observations</td>
+                            <!-- <td class="col-md-1" >2</td> -->
+                            <!-- <td class="col-md-1">3</td> -->
+                            <!-- <td class="col-md-1" >4</td> -->
+							  <!-- <td class="col-md-1" >5</td> -->
+                            <td class="col-md-1">Remark</td>
+                           <!--  <td class="col-md-1">Actions</td> -->
+                        </tr>
+                        <tr style="text-align:center;">
+                            <td> 1</td>
+                            <td>
+                               Local coating Thickness
+							   </td>
+                            <td>
+								<textarea rows="2"  class="form-control" id="HRequirement" name="Required" ng-model="cert.sections.externals['STHOT'].Test.Observations.ReqLocal" placeholder="Requirement"></textarea>
+                            </td>
+                           <td  >
+							<table class="table table-bordered">
+							<tr>
+								<td>
+									<input type="text" class="form-control" id="Obs1" name="Obs1" ng-model="cert.sections.externals['STHOT'].Test.Observations.Obs1" placeholder="Obs1">
+								</td>
+								  <td>
+									<input type="text" class="form-control" id="Obs2" name="Obs2" ng-model="cert.sections.externals['STHOT'].Test.Observations.Obs2" placeholder="Obs2">
+								 </td>
+								  <td>
+									<input type="text" class="form-control" id="Obs3" name="Obs3" ng-model="cert.sections.externals['STHOT'].Test.Observations.Obs3" placeholder="Obs3">
+								 </td>
+								  <td>
+									<input type="text" class="form-control" id="Obs4" name="Obs4" ng-model="cert.sections.externals['STHOT'].Test.Observations.Obs4" placeholder="Obs4">
+								 </td>
+								   <td>
+									<input type="text" class="form-control" id="Obs5" name="Obs5" ng-model="cert.sections.externals['STHOT'].Test.Observations.Obs5" placeholder="Obs5">
+								 </td>
+							</tr>
+							<tr>
+								<td>
+									<input type="text" class="form-control" id="Obs6" name="Obs6" ng-model="cert.sections.externals['STHOT'].Test.Observations.Obs6" placeholder="Obs6">
+								</td>
+								  <td>
+									<input type="text" class="form-control" id="Obs7" name="Obs7" ng-model="cert.sections.externals['STHOT'].Test.Observations.Obs7" placeholder="Obs7">
+								 </td>
+								  <td>
+									<input type="text" class="form-control" id="Obs8" name="Obs8" ng-model="cert.sections.externals['STHOT'].Test.Observations.Obs8" placeholder="Obs8">
+								 </td>
+								  <td>
+									<input type="text" class="form-control" id="Obs9" name="Obs9" ng-model="cert.sections.externals['STHOT'].Test.Observations.Obs9" placeholder="Obs9">
+								 </td>
+								   <td>
+									<input type="text" class="form-control" id="Obs10" name="Obs10" ng-model="cert.sections.externals['STHOT'].Test.Observations.Obs10" placeholder="Obs10">
+								 </td>
+							</tr>
+							</table>
+							
+							
+                                
+                             </td>
+                            
+                              <!-- <td  > -->
+                                <!-- <input type="text" class="form-control" id="Obs2" name="Obs2" ng-model="cert.sections.externals['STHOT.Observations.Obs2" placeholder="Obs2"> -->
+                             <!-- </td> -->
+							   <!-- <td  > -->
+                                <!-- <input type="text" class="form-control" id="Obs3" name="Obs3" ng-model="cert.sections.externals['STHOT.Observations.Obs3" placeholder="Obs3"> -->
+                             <!-- </td> -->
+							   <!-- <td  > -->
+                                <!-- <input type="text" class="form-control" id="Obs4" name="Obs4" ng-model="cert.sections.externals['STHOT.Observations.Obs4" placeholder="Obs4"> -->
+                             <!-- </td> -->
+							   <!-- <td  > -->
+                                <!-- <input type="text" class="form-control" id="Obs5" name="Obs5" ng-model="cert.sections.externals['STHOT.Observations.Obs5" placeholder="Obs5"> -->
+                             <!-- </td> -->
+                            <td>
+                                <input type="text" class="form-control" id="Remark" name="Remark" ng-model="cert.sections.externals['STHOT'].Test.Observations.LocalRemark" placeholder="Remark">
+                            </td>
+                          <!--   <td>
+                                <button class="btn btn-default fa fa-remove" ng-click="deletendrow(item,$index)"></button>
+                            </td> -->
+                        </tr>
+                         <tr style="text-align:center;">
+                            <td>2</td>
+                            <td>
+                                Visual 
+								</td>
+                            <td>
+    <textarea rows="2"  class="form-control" id="HRequirement" name="Required" ng-model="cert.sections.externals['STHOT'].Test.Observations.ReqVisual" placeholder="Requirement"></textarea>
+                            </td>
+                            <td colspan="1">
+                                <textarea type="text" class="form-control" id="HObservation" name="Observation" ng-model="cert.sections.externals['STHOT'].Test.Observations.Observation" placeholder="Observations"></textarea>
+                            </td>
+                            
+                            <td>
+                                <input type="text" class="form-control" id="Remark" name="Remark" ng-model="cert.sections.externals['STHOT'].Test.Observations.VisualRemark" placeholder="Remark">
+                            </td>
+                          <!--   <td>
+                                <button class="btn btn-default fa fa-remove" ng-click="deletendrow(item,$index)"></button>
+                            </td> -->
+                        </tr>
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+            
+			 <div class="form-group row">			
+			<div class="col-md-6 col-sm-6">
+				<div class="form-floating">
+					<textarea type="text" class="form-control" rows=1 id="Ref['STHOT']" name="Ref" ng-model="cert.sections.externals['STHOT'].Test.Ref" placeholder="Ref"></textarea>
+					 <label for="Ref['STHOT']">Ref</label>
+				</div>				
+			</div>			
+			<div class="col-md-2 col-sm-2">
+				<div class="form-floating">
+					<input type="text" class="form-control" id="Remark['STHOT']" name="Remark" ng-model="cert.sections.externals['STHOT'].Test.Remark" placeholder="Remark">
+					<label for="Remark['STHOT']">Remark</label>
+				</div>
+			</div>			
+		</div>
+		
+        </div>
+    </div>
+	
+	<!--------------Surface Treatment PLating-------------->    
+
+    <div class="card card-default shadow-sm mb-2" style="border: 1px solid #000;"  ng-if="cert.sections.externals['STP'].Selected">
+        <div class="card-header text-bg-dark p-1"> Surface Treatment-Plating
+         <button class="btn btn-outline-light pull-right btn-sm " ng-click="removeexttest('STP')" ><i class="fa fa-trash-o"></i></button>
+        </div>
+        
+        <div class="card-body p-1">
+            
+      	<div class="form-group row">
+			<div class="col-sm-2">
+				<div class="form-floating">
+							<input type="text" class="form-control"  id="STPSName" name="SName" ng-model="cert.sections.externals['STP'].Test.SName"  placeholder="CTQ/COA" >
+							 <label for="floatingInputInvalid">CTQ/COA</label>
+							</div>
+				</div>				
+				<div class="col-md-4 col-sm-4">
+						<div class="form-floating">						 
+					<input type="text" class="form-control" id="MEReferences" name="Reference" ng-model="cert.sections.externals['STP'].Test.Reference" placeholder="References">
+					<label for="References">References</label>
+					</div>
+				</div>
+				<!-- <div class="col-md-4 col-sm-4"> -->
+					<!-- <input type="text" class="form-control" id="MERefExtra" name="RefExtra" ng-model="cert.sections.externals['ND'].Test.Extra" placeholder="Extra Info"> -->
+				<!-- </div> -->
+			</div>
+        
+            <div class="form-group row ">            
+                <div class="col-md-12" style="padding:20px;">
+                    <!-- <button class="btn btn-info" ng-click="addrowh()">Add Rows</button> -->
+                   <!--  <label class="checkbox-inline">
+                        <input type="checkbox" ng-model="cert.sections.externals['H.Observations.Type" name="attach" ng-true-value="'attach'" ng-false-value="'nonattach'"> <strong>Observations</strong>
+                    </label> -->
+                </div>
+                <div class="col-md-12 table-responsive">
+                    <table class=" table table-bordered table-sm">
+                    <tbody>
+                        <tr style="text-align:center;">
+                            <td rowspan="2" class="col-md-1">#</td>
+                            <td rowspan="2"  class="col-md-2">Parameter</td>
+                            <td colspan="2" class="col-md-2">Requirement</td>
+                            <td  rowspan="2"  colspan="5" class="col-md-5" >Observations</td>
+                            <td rowspan="2"  class="col-md-1">Remark</td>
+                           <!--  <td class="col-md-1">Actions</td> -->
+                        </tr>
+						<tr class="text-center">
+								<td colspan="1">Min</td>
+								<td colspan="1">Max</td>
+						</tr>
+                        <tr style="text-align:center;">
+                            <td> 1</td>
+                            <td>
+                               Local coating Thickness
+							 </td>
+                            <td>
+								<input type="text" class="form-control" name="Min1" ng-model="cert.sections.externals['STP'].Test.Observations.ReqMin" placeholder="Min"></input>
+							</td>
+                            <td  >
+                            <input type="text" class="form-control" name="Min1" ng-model="cert.sections.externals['STP'].Test.Observations.ReqMax" placeholder="Max"></input>
+							</td>
+							<td  >
+							
+								<table class="table table-bordered">
+							<tr>
+								<td>
+									<input type="text" class="form-control" id="Obs1" name="Obs1" ng-model="cert.sections.externals['STP'].Test.Observations.Obs1" placeholder="Obs1">
+								</td>
+								  <td>
+									<input type="text" class="form-control" id="Obs2" name="Obs2" ng-model="cert.sections.externals['STP'].Test.Observations.Obs2" placeholder="Obs2">
+								 </td>
+								  <td>
+									<input type="text" class="form-control" id="Obs3" name="Obs3" ng-model="cert.sections.externals['STP'].Test.Observations.Obs3" placeholder="Obs3">
+								 </td>
+								  <td>
+									<input type="text" class="form-control" id="Obs4" name="Obs4" ng-model="cert.sections.externals['STP'].Test.Observations.Obs4" placeholder="Obs4">
+								 </td>
+								   <td>
+									<input type="text" class="form-control" id="Obs5" name="Obs5" ng-model="cert.sections.externals['STP'].Test.Observations.Obs5" placeholder="Obs5">
+								 </td>
+							</tr>
+							<tr>
+								<td>
+									<input type="text" class="form-control" id="Obs6" name="Obs6" ng-model="cert.sections.externals['STP'].Test.Observations.Obs6" placeholder="Obs6">
+								</td>
+								  <td>
+									<input type="text" class="form-control" id="Obs7" name="Obs7" ng-model="cert.sections.externals['STP'].Test.Observations.Obs7" placeholder="Obs7">
+								 </td>
+								  <td>
+									<input type="text" class="form-control" id="Obs8" name="Obs8" ng-model="cert.sections.externals['STP'].Test.Observations.Obs8" placeholder="Obs8">
+								 </td>
+								  <td>
+									<input type="text" class="form-control" id="Obs9" name="Obs9" ng-model="cert.sections.externals['STP'].Test.Observations.Obs9" placeholder="Obs9">
+								 </td>
+								   <td>
+									<input type="text" class="form-control" id="Obs10" name="Obs10" ng-model="cert.sections.externals['STP'].Test.Observations.Obs10" placeholder="Obs10">
+								 </td>
+							</tr>
+							</table>
+						
+							
+							
+							
+                              
+                             </td>
+                           
+							<!-- <td  > -->
+                                <!-- <input type="text" class="form-control" id="Obs1" name="Obs1" ng-model="cert.sections.externals['STP.Observations.Obs1" placeholder="Obs1"> -->
+                             <!-- </td> -->
+                              <!-- <td  > -->
+                                <!-- <input type="text" class="form-control" id="Obs2" name="Obs2" ng-model="cert.sections.externals['STP.Observations.Obs2" placeholder="Obs2"> -->
+                             <!-- </td> -->
+							   <!-- <td  > -->
+                                <!-- <input type="text" class="form-control" id="Obs3" name="Obs3" ng-model="cert.sections.externals['STP.Observations.Obs3" placeholder="Obs3"> -->
+                             <!-- </td> -->
+							   <!-- <td  > -->
+                                <!-- <input type="text" class="form-control" id="Obs4" name="Obs4" ng-model="cert.sections.externals['STP.Observations.Obs4" placeholder="Obs4"> -->
+                             <!-- </td> -->
+							   <!-- <td  > -->
+                                <!-- <input type="text" class="form-control" id="Obs5" name="Obs5" ng-model="cert.sections.externals['STP.Observations.Obs5" placeholder="Obs5"> -->
+                             <!-- </td> -->
+                            <td>
+                                <input type="text" class="form-control" id="Remark" name="Remark" ng-model="cert.sections.externals['STP'].Test.Observations.Remark" placeholder="Remark">
+                            </td>
+                          <!--   <td>
+                                <button class="btn btn-default fa fa-remove" ng-click="deletendrow(item,$index)"></button>
+                            </td> -->
+                        </tr>
+                       
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+          
+		   <div class="form-group row">			
+			<div class="col-md-6 col-sm-6">
+				<div class="form-floating">
+					<textarea type="text" class="form-control" rows=1 id="Ref['STP']" name="Ref" ng-model="cert.sections.externals['STP'].Test.Ref" placeholder="Ref"></textarea>
+					 <label for="Ref['STP']">Ref</label>
+				</div>				
+			</div>			
+			<div class="col-md-2 col-sm-2">
+				<div class="form-floating">
+					<input type="text" class="form-control" id="Remark['STP']" name="Remark" ng-model="cert.sections.externals['STP'].Test.Remark" placeholder="Remark">
+					<label for="Remark['STP']">Remark</label>
+				</div>
+			</div>			
+		</div>
+		
+		
+        </div>
+    </div>
+	
+			
+	<!---Other Details------->
+	
+	<div class="card card-default shadow-sm mb-2" style="border: 1px solid #000;"  ng-if="cert.sections.externals['OD'].Selected">
+		<div class="card-header text-bg-dark p-1"> Other Details Test
+		<button class="btn btn-outline-light pull-right btn-sm " ng-click="removeexttest('OD')" ><i class="fa fa-trash-o"></i></button>
+		</div>
+		
+		<div class="card-body p-1">
+			
+				<div class="form-group row">
+			<div class="col-sm-2">
+				<div class="form-floating">
+							<input type="text" class="form-control"  id="ODSName" name="SName" ng-model="cert.sections.externals['OD'].Test.SName"  placeholder="CTQ/COA" >
+							 <label for="ODSName">CTQ/COA</label>
+							</div>
+				</div>				
+				<div class="col-md-4 col-sm-4">
+						<div class="form-floating">						 
+					<input type="text" class="form-control" id="MEReferences" name="Reference" ng-model="cert.sections.externals['OD'].Test.Reference" placeholder="References">
+					<label for="References">References</label>
+					</div>
+				</div>
+				<!-- <div class="col-md-4 col-sm-4"> -->
+					<!-- <input type="text" class="form-control" id="MERefExtra" name="RefExtra" ng-model="cert.sections.externals['ND'].Test.Extra" placeholder="Extra Info"> -->
+				<!-- </div> -->
+			</div>
+		
+			<div class="form-group row ">			
+				<div class="col-md-12" style="padding:20px;">
+					<button class="btn btn-info" ng-click="addrowod()">Add Rows</button>
+				</div>
+				<div class="col-md-12 table-responsive">
+					<table class=" table table-bordered table-sm">
+									<tbody>
+						<tr style="text-align:center;">
+							<td class="col-md-1">#</td>
+							
+							<td class="col-md-2">Parameter</td>
+							<td class="col-md-2">Required</td>
+							<td class="col-md-2">Observation</td>
+							<td class="col-md-2">Remark</td>
+							<td class="col-md-2">Actions</td>
+						</tr>
+						<tr style="text-align:center;" ng-repeat="item in cert.sections.externals['OD'].Test.Observations" >
+							<td>{{$index+1}}</td>
+							
+							<td>
+								<textarea rows="2" class="form-control" id="ODParameter" name="Parameter" ng-model="item.Parameter" placeholder="Parameter"></textarea>
+							</td>
+							<td>
+								<textarea rows="2" type="text" class="form-control" id="ODRequired" name="Required" ng-model="item.Required" placeholder="Required"></textarea>
+							</td>
+							<td>
+								<textarea rows="2" type="text" class="form-control" id="ODObservation" name="Observation" ng-model="item.Observation" placeholder="Observation"></textarea>
+							</td>
+							<td>
+								<input type="text" class="form-control" id="ODRemark" name="Remark" ng-model="item.Remark" placeholder="Remark">
+							</td>
+							<td>
+								<button class="btn btn-default " ng-click="deleteodrow(item,$index)"><i class="fa fa-remove"></i></button>
+							</td>
+						</tr>
+						<tr ng-if="cert.sections.externals['OD'].Test.Observations.length<1"><td colspan="7">No Observations</td></tr>
+					</tbody>
+					</table>
+				</div>
+			</div>
+			
+			 <div class="form-group row">			
+			<div class="col-md-6 col-sm-6">
+				<div class="form-floating">
+					<textarea type="text" class="form-control" rows=1 id="Ref['OD']" name="Ref" ng-model="cert.sections.externals['OD'].Test.Ref" placeholder="Ref"></textarea>
+					 <label for="Ref['OD']">Ref</label>
+				</div>				
+			</div>			
+			<div class="col-md-2 col-sm-2">
+				<div class="form-floating">
+					<input type="text" class="form-control" id="Remark['OD']" name="Remark" ng-model="cert.sections.externals['OD'].Test.Remark" placeholder="Remark">
+					<label for="Remark['OD']">Remark</label>
+				</div>
+			</div>			
+		</div>
+		
+		</div>
+	</div>
+
+<!---------------Surface treatment-Delta Coating--------------->
+	<div class="card card-default shadow-sm mb-2" style="border: 1px solid #000;"  ng-if="cert.sections.externals['STDELTA2'].Selected">
+		<div class="card-header text-bg-dark p-1">Surface Treatment-Delta Coating-2
+		<button class="btn btn-outline-light pull-right btn-sm " ng-click="removeexttest('STDELTA2')" ><i class="fa fa-trash-o"></i></button>
+		 </div>
+				
+		<div class="card-body p-1">
+				<div class="form-group row">
+			<div class="col-sm-2">
+				<div class="form-floating">
+							<input type="text" class="form-control"  id="STD2SName" name="SName" ng-model="cert.sections.externals['STDELTA2'].Test.SName"  placeholder="CTQ/COA" >
+							 <label for="STD2SName">CTQ/COA</label>
+							</div>
+				</div>				
+				<div class="col-md-4 col-sm-4">
+						<div class="form-floating">						 
+					<input type="text" class="form-control" id="MEReferences" name="Reference" ng-model="cert.sections.externals['STDELTA2'].Test.Reference" placeholder="References">
+					<label for="References">References</label>
+					</div>
+				</div>
+				<!-- <div class="col-md-4 col-sm-4"> -->
+					<!-- <input type="text" class="form-control" id="MERefExtra" name="RefExtra" ng-model="cert.sections.externals['ND'].Test.Extra" placeholder="Extra Info"> -->
+				<!-- </div> -->
+			</div>
+			
+			<div class="form-group row ">
+				<div class="col-md-5 col-sm-5">
+					<input type="checkbox"  id="Type" name="Type" ng-model="cert.sections.externals['STDELTA2'].Test.Observations.Type" ng-true-value="'attach'" ng-false-value="'nonattach'"> Attachment
+				</div>
+				<div class="col-md-12 table-responsive" ng-if="cert.sections.externals['STDELTA2'].Test.Observations.Type==='attach'">
+				<table class="table table-bordered table-sm">
+						
+					<tbody>
+							<tr>
+								<td>
+									<textarea type="text" class="form-control" rows=2 id="referattach" name="Referattach" ng-model="cert.sections.externals['STDELTA2'].Test.Observations.Observations" placeholder="Reference Details of attachment"></textarea>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				
+				<div class="col-md-12 table-responsive" ng-if="cert.sections.externals['STDELTA2'].Test.Observations.Type==='nonattach'">
+					<table class="table table-bordered" >
+						<tbody>
+							<tr class="text-center">
+								<td rowspan="2" colspan="3">Parameter</td>
+								<td colspan="4">Requirement</td>
+								<td rowspan="2" colspan="3">Observation</td>
+								<td rowspan="2" colspan="2">Remark</td>
+							</tr>
+							
+							<tr class="text-center">
+								<td colspan="2">Min</td>
+								<td colspan="2">Max</td>
+							</tr>
+							
+							<tr>
+								<td colspan="3">
+								<b>Coating thickness µm</b>
+								</td>
+								
+								<td colspan="2">
+									<input type="text" class="form-control" name="Min1" ng-model="cert.sections.externals['STDELTA2'].Test.Observations.CoatMin" placeholder="Min"></input>
+								</td>
+								
+								<td colspan="2">
+									<input type="text" class="form-control" name="Max1" ng-model="cert.sections.externals['STDELTA2'].Test.Observations.CoatMax" placeholder="Max"></input>
+								</td>
+								
+								<td rowspan="4" colspan="3">
+									<textarea rows="10" class="form-control" ng-model="cert.sections.externals['STDELTA2'].Test.Observations.Observations" name="Observation" placeholder="Observation"></textarea>
+								</td>
+								
+								<td colspan="2">
+									<input type="text" class="form-control" name="Remark" ng-model="cert.sections.externals['STDELTA2'].Test.Observations.CoatRemark" placeholder="Remark"></input>
+								</td>
+							</tr>
+							
+							<tr>
+								<td colspan="3">
+								<b>Salt Spray Test (Hrs.)</b>
+								</td>
+								
+								<td colspan="2">
+									<input type="text" class="form-control" name="Min2" ng-model="cert.sections.externals['STDELTA2'].Test.Observations.SaltMin" placeholder="Min"></input>
+								</td>
+								
+								<td colspan="2">
+									<input type="text" class="form-control" name="Max2" ng-model="cert.sections.externals['STDELTA2'].Test.Observations.SaltMax" placeholder="Max"></input>
+								</td>
+							
+								<td colspan="2">
+									<input type="text" class="form-control" name="Remark" ng-model="cert.sections.externals['STDELTA2'].Test.Observations.SaltRemark" placeholder="Remark"></input>
+								</td>
+							</tr>
+							
+							<tr>
+								<td colspan="3">
+								<b>Adhesion	</b>	
+
+								</td>
+								
+								<td colspan="4">
+									<input type="text" class="form-control" name="Adesivereq" ng-model="cert.sections.externals['STDELTA2'].Test.Observations.AdhesionReq" placeholder="Requirement"></input>
+								</td>
+								
+								<td colspan="2">
+									<input type="text" class="form-control" name="Remark" ng-model="cert.sections.externals['STDELTA2'].Test.Observations.AdhesionRemark" placeholder="Remark"></input>
+								</td>
+							</tr>
+							
+							<tr>
+								<td colspan="3">
+									<b>Visual Inspection</b>
+								</td>
+								
+								<td colspan="4">
+									<input type="text" class="form-control" name="VisualInspec" ng-model="cert.sections.externals['STDELTA2'].Test.Observations.VisualReq" placeholder="Requirement"></input>
+								</td>
+							
+								<td colspan="2">
+									<input type="text" class="form-control" name="Remark" ng-model="cert.sections.externals['STDELTA2'].Test.Observations.VisualRemark" placeholder="Remark"></input>
+								</td>
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+			</div>	
+
+			 <div class="form-group row">			
+			<div class="col-md-6 col-sm-6">
+				<div class="form-floating">
+					<textarea type="text" class="form-control" rows=1 id="Ref['STDELTA2']" name="Ref" ng-model="cert.sections.externals['STDELTA2'].Test.Ref" placeholder="Ref"></textarea>
+					 <label for="Ref['STDELTA2']">Ref</label>
+				</div>				
+			</div>			
+			<div class="col-md-2 col-sm-2">
+				<div class="form-floating">
+					<input type="text" class="form-control" id="Remark['STDELTA2']" name="Remark" ng-model="cert.sections.externals['STDELTA2'].Test.Remark" placeholder="Remark">
+					<label for="Remark['STDELTA2']">Remark</label>
+				</div>
+			</div>			
+		</div>
+			
+		</div>
+	</div>		
+
+	<!---------------thermal Zinc Coating--------------->
+	<div class="card card-default shadow-sm mb-2" style="border: 1px solid #000;"  ng-if="cert.sections.externals['TZC'].Selected">
+		<div class="card-header text-bg-dark p-1">Thermal Zinc Coating
+		<button class="btn btn-outline-light pull-right btn-sm " ng-click="removeexttest('TZC')" ><i class="fa fa-trash-o"></i></button>
+		 </div>
+				
+		<div class="card-body p-1">
+				<div class="form-group row">
+			<div class="col-sm-2">
+				<div class="form-floating">
+							<input type="text" class="form-control"  id="TZCSName" name="SName" ng-model="cert.sections.externals['TZC'].Test.SName"  placeholder="CTQ/COA" >
+							 <label for="TZCSName">CTQ/COA</label>
+							</div>
+				</div>				
+				<div class="col-md-4 col-sm-4">
+						<div class="form-floating">						 
+					<input type="text" class="form-control" id="MEReferences" name="Reference" ng-model="cert.sections.externals['TZC'].Test.Reference" placeholder="References">
+					<label for="References">References</label>
+					</div>
+				</div>
+				<!-- <div class="col-md-4 col-sm-4"> -->
+					<!-- <input type="text" class="form-control" id="MERefExtra" name="RefExtra" ng-model="cert.sections.externals['ND'].Test.Extra" placeholder="Extra Info"> -->
+				<!-- </div> -->
+			</div>
+			
+			<div class="form-group row ">
+				
+				<div class="col-md-12 table-responsive" >
+				<table class="table table-bordered table-sm">
+						
+					<tbody>
+							<tr>
+								<td>
+									<textarea type="text" class="form-control" rows=2 id="referattach" name="Referattach" ng-model="cert.sections.externals['TZC'].Test.Observations.Observations" placeholder="Reference Details of attachment"></textarea>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				
+				</div>	
+
+		 <div class="form-group row">			
+			<div class="col-md-6 col-sm-6">
+				<div class="form-floating">
+					<textarea type="text" class="form-control" rows=1 id="Ref['TZC']" name="Ref" ng-model="cert.sections.externals['TZC'].Test.Ref" placeholder="Ref"></textarea>
+					 <label for="Ref['TZC']">Ref</label>
+				</div>				
+			</div>			
+			<div class="col-md-2 col-sm-2">
+				<div class="form-floating">
+					<input type="text" class="form-control" id="Remark['TZC']" name="Remark" ng-model="cert.sections.externals['TZC'].Test.Remark" placeholder="Remark">
+					<label for="Remark['TZC']">Remark</label>
+				</div>
+			</div>			
+		</div>
+
+			
+		</div>
+	</div>		
+			
+	<!---------------Internal Coating Report--------------->
+	<div class="card card-default shadow-sm mb-2" style="border: 1px solid #000;"  ng-if="cert.sections.externals['ICR'].Selected">
+    <div class="card-header text-bg-dark p-1">
+        Internal Coating Report
+        <button class="btn btn-outline-light pull-right btn-sm" ng-click="removeexttest('ICR')">
+            <i class="fa fa-trash-o"></i>
+        </button>
+    </div>
+    
+    <div class="card-body p-1">
+        <div class="form-group row">
+            <div class="col-sm-2">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="SName['ICR']" name="SName" ng-model="cert.sections.externals['ICR'].Test.SName" placeholder="CTQ/COA">
+                    <label for="SName['ICR']" style="color: #9da9bb;">CTQ/COA</label>
+                </div>
+            </div>                
+            <div class="col-md-4 col-sm-4">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="References['ICR']" name="Reference" ng-model="cert.sections.externals['ICR'].Test.Reference" placeholder="References">
+                    <label for="References['ICR']"  style="color: #9da9bb;">References</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-12 table-responsive">
+                <table class="table table-bordered table-sm">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <textarea class="form-control" rows="2" id="referattach" name="Referattach" ng-model="cert.sections.externals['ICR'].Test.Observations.Observations" placeholder="Reference Details of attachment"></textarea>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+         <div class="form-group row">			
+			<div class="col-md-6 col-sm-6">
+				<div class="form-floating">
+					<textarea type="text" class="form-control" rows=1 id="Ref['ICR']" name="Ref" ng-model="cert.sections.externals['ICR'].Test.Ref" placeholder="Ref"></textarea>
+					 <label for="Ref['ICR']">Ref</label>
+				</div>				
+			</div>			
+			<div class="col-md-2 col-sm-2">
+				<div class="form-floating">
+					<input type="text" class="form-control" id="Remark['ICR']" name="Remark" ng-model="cert.sections.externals['ICR'].Test.Remark" placeholder="Remark">
+					<label for="Remark['ICR']">Remark</label>
+				</div>
+			</div>			
+		</div>
+	
+	</div>
+</div>
+
+
+	</div>
+				</div>
+				
+			</div>
+				
+	</div>
+	
+	
+
+<div  class="card-default"  >
+  
+		
+			<div class="form-group" >
+			<label class="col-md-3 col-sm-3 control-label " ><h5>Images</h5></label>
+					
+			<div class="col-md-6 col-sm-6 text-center" >
+
+				<div data-ng-repeat="file in queue "  class="gallery-box" >
+				
+					<div class=" thumbnail" data-ng-switch data-on="!!file.thumbnailUrl" >
+				  
+						<a data-ng-switch-when="true" data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}"  data-gallery>
+						<img data-ng-src="{{file.thumbnailUrl}}" alt="" ></a>
+				   
+					<span class="preview" data-ng-switch-default data-file-upload-preview="file"></span><br>
+				
+					<!-- <span class="title "  style="color:blue;">{{file.name}}</span><br> -->
+					<span class="btn-group">
+						<a class="btn btn-xs btn-danger" data-ng-click="deletefile($index,file)">
+						  Remove
+						</a>
+					</span> 
+					<strong data-ng-if="file.error" ng-init="imageerror(file)" class="error text-danger">{{file.error}}</strong> 
+					</div>
+				  
+				  <input type="hidden" name="userid" ng-model="file.userid"  placeholder="userid">
+				  
+				</div>
+					
+				<div class="row fileupload-buttonbar" ng-hide="queue.length>0">
+
+					<div class="col-sm-12 text-left" style="padding-top:10px;">
+						<!-- The fileinput-button span is used to style the file input field as button -->
+						<span class="btn btn-success fileinput-button" >
+							 <i class="fa fa-plus"></i>
+							<span>Add Sample Image</span> 
+							<input type="file" name="files[]"   >
+						</span>
+										   
+					</div>
+							
+				</div>
+			</div>
+
+
+			   
+				
+	   
+	   
+	   </div>
+	
+</div>	
+
+
+
+<div class="form-group">
+<div class="card card-default">
+
+<div class="card card-body">
+
+
+	
+
+	
+</div>
+</div>
+	
+
+</div>
+
+	<div class="form-group text-center" style="padding-top:20px;">
+		<button type="button" class="btn btn-dark" ui-sref="app.certificates">Cancel</button>
+		<button  class="btn btn-primary" ng-disabled="certform.$invalid || oneclick " ng-click="saveallcert(cert)">Save</button>
+		<!-- <button ng-if="flags.editflag" class="btn btn-default fa fa-pencil" ng-disabled="certbasicform.$invalid" ng-click="flags.editflag=false;">Edit</button>
+		 -->	<!-- <button ng-if="flags.editflag" class="btn btn-success" ng-disabled="certbasicform.$invalid" ng-click="savecertbasic(cert.basic)">Update</button> -->
+		<!--<button  class="btn btn-success" ng-disabled="cmform.$invalid || oneclick " ng-click="saveallcert(cert.sections,cert.certririnfo.Rirs) ; savecertext(cert.extsections,cert.allextsections)">Save & continue</button>
+			-->	
+			</div>	
+
+						
+	</div>			
+</form>					
+
+
+
+
+	</div>
+</div>
+
+
+
+	

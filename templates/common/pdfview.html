@@ -1,0 +1,35 @@
+ <div class="modal-header">
+  <h4 >   PDF 2</h4 >
+			 
+			 <button type="button" class="btn btn-sm btn-outline-light pull-right float-end" data-dismiss="modal" ng-click="closepdfModal()"><i class="fa fa-close"></i></button>
+        </div>
+		   
+			 <div class="modal-body">
+		<div class="row">
+	
+		<div class="col-sm-12" style="height:500px;">
+	
+
+<object
+	data="{{pdffile.url}}"
+	type="application/pdf"
+	width="100%"
+	height="100%"
+>
+	<iframe
+		ng-src="{{pdffile.url}}"
+		width="100%"
+		height="100%"
+		style="border: none"
+	>
+		<p>
+			Your browser does not support PDFs.
+			<a href="document.pdf">Download the PDF</a>
+		</p>
+	</iframe>
+</object>
+		</div>
+		</div>
+		
+        </div>
+	

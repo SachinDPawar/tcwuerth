@@ -1,0 +1,319 @@
+
+
+ <header>
+ 
+
+<nav id="menubar" class=" autohide navbar navbar-expand-lg topnav-navbar fixed-top2" style="background: #03A9F4;box-shadow:1px 2px 3px #ddd;">
+  <div class="{{layout.fluid}}">
+    <!-- LOGO -->
+    <a ui-sref="app.home" class="navbar-brand topnav-logo" style="text-decoration:none;">
+                                <span class="topnav-logo-lg">
+                                   
+									<h4 style="color:#fff;font-family: sans-serif;;margin-left:48px;text-shadow:1px 2px 3px #777;font-size:32px;" > <img src="img/logo.png" style="height:40px;"></h4>
+                                </span>
+                              
+                            </a>
+							<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse navbar-top-collapse order-1 order-lg-0 justify-content-center" id="navbarNavDropdown">
+     
+  
+	
+	 <ul class="navbar-nav navbar-nav-top" data-dropdown-on-hover="data-dropdown-on-hover">
+		<li class="nav-item dropdown " style="margin-left:20px !important;"  ng-if="groups.Dashboard.Apply"   >
+			<a ui-sref="app.home" ui-sref-active="active"   id="rir" class="nav-link lh-1"><img src="img/data.png" class="iconimg">	
+			<span class="">{{'DASHBOARD'|translate}}  </span> </a>
+		</li>
+		
+      
+		<li ui-sref-active="active" class="nav-item dropdown"  ng-if="groups.Sample.Apply" >
+			<a id="rir"  ui-sref="app.receipt"  ui-sref-active="active" class=" nav-link  lh-1"> <span class="">   {{'SAMPLES'|translate}} </span>  </a>
+		</li>
+		
+		<li class="nav-item dropdown "  ng-if="groups.Test.Apply "  >
+		<a class="nav-link dropdown-toggle lh-1" href="javascript:;"  role="link"   data-bs-auto-close="outside"  data-bs-toggle="dropdown"  aria-haspopup="true" aria-expanded="false" id="tests"><span class="uil  me-2 uil-cube"></span>Tests</a>
+		<div class="dropdown-menu dropdown-caret dropdown-menu-card border-0 mt-0" aria-labelledby="pagess">
+                  <div class="card navbar-card-pages shadow-none dark__bg-1000">
+                    <div class="card-body scrollbar max-h-dropdown"><img class="img-dropdown" src="assets/img/icons/spot-illustrations/authentication-corner.png" width="160" alt="">
+                      <div class="row p-0" ng-repeat="(key, value) in pagetests track by $index  ">
+                        <div class="col-6 col-xxl-3" ng-repeat="t in pagetests[key]" >
+                          <div class="nav flex-column">
+                            <!-- <p class="nav-link text-700 mb-0 fw-bold">{{key}} </p> -->
+							<a  class="nav-link py-1 hgy link-600 fw-medium" ui-sref="app.tests({tid:t.tid ,sid:t.sid})"><b>{{t.name}}</b></a>
+							
+                          </div>
+                        </div>
+                       </div>
+                     </div>
+                  </div>
+                </div> </li>
+				
+		
+		
+		
+		
+			
+	
+		 <li class="nav-item "   ng-if="groups.Certificate.Apply"  ui-sref-active="active"   >
+                  <a class="nav-link lh-1"  ui-sref-active="active"  ui-sref="app.contsst"   ><span class="uil  me-2 uil-cube"></span>  Continuous SST </a>
+                </li>
+		
+		 
+			
+	 
+		
+		 <li class="nav-item "   ng-if="groups.Certificate.Apply"  ui-sref-active="active"   >
+                  <a class="nav-link lh-1"  ui-sref-active="active"  ui-sref="app.certificates"   ><span class="uil  me-2 uil-cube"></span> {{'Certificates'|translate}} </a>
+                </li>
+				
+				 <li class="nav-item dropdown" ng-if="groups.Reports.Apply"  >
+          <a class="nav-link lh-1" ui-sref="app.reports.samples"  ui-sref-active="active" role="button" >
+        <span class="uil  me-2 uil-cube"></span>  {{'Reports'|translate}}		  
+          </a>
+		   
+          
+        </li>
+		</ul>
+		
+		<ul class="navbar-nav navbar-nav-icons ms-auto flex-row align-items-center">
+  
+			
+			 <li class="nav-item dropdown">
+              <a class="nav-link"  style="min-width:60px;" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="navbarDropdownNotfication">
+			  <span class="text-700"  style="height:20px;width:20px;"></span><i class="fa fa-bell"></i>
+			   <span ng-if="mynot.allnotis.length>0" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning" style="margin-left: -31px;
+    margin-top: 16px;">
+   {{mynot.allnotis.length}} </span>
+    <span class="visually-hidden">unread messages</span>
+			  </a>
+              <div class="dropdown-menu dropdown-caret dropdown-caret dropdown-menu-end dropdown-menu-card dropdown-menu-notification dropdown-caret-bg"  aria-labelledby="navbarDropdownNotfication">
+                <div class="card position-relative border-0"  style="border-radius:0.5rem;">
+                  <div class="card-header p-2 bg-light" style="border-radius:0rem;border-width:1px;">
+                    <div class="d-flex justify-content-between">
+                      <h5 class="text-black mb-0">{{'Notifications'|translate}}</h5>
+					  <button class="btn btn-link btn-sm p-1 fs--1 fw-normal" type="button" ng-click="markallread()">Mark all as read</button>
+                    </div>
+                  </div>
+                  <div class="card-body p-0" >
+
+                      <div  class="mac-style box" slim-scroll  style="height:280px;" >
+                        <div ng-repeat="i in mynot.allnotis track by $index" class="p-3 border-300 bg-faded-primary notification-card position-relative read border-bottom">
+                          <div class="d-flex align-items-center justify-content-between position-relative">
+                            <div class="d-flex">
+                             
+                              <div class="me-3 flex-1">
+							   <span class=" badge text-bg-light ">
+							{{i.Appsec}}
+							  </span>
+							  <figure class="text-left mb-0">
+  <blockquote class="blockquote " style="font-size:0.8rem;">
+    <p class="fs--1 text-1000 mb-0"><strong>{{i.Notification}} </strong></p>
+  </blockquote>
+  <figcaption class="blockquote-footer text-800 text-dark fs--1 mb-0 pt-1">
+    {{i.CreatedAt}} <span class="ms-2 text-500  fs--2">{{i.Min}} minutes ago</span>
+  </figcaption>
+</figure>
+                             </div>
+                            </div>
+                          
+                          </div>
+                        </div>
+                       
+                      
+                      </div>
+                     
+                </div>
+                </div>
+              </div>
+            </li>
+			
+			
+			
+			
+		<li  class="nav-item dropdown"  ng-if="permissions[1].Apply || permissions[2].Apply "  >
+                <a class="nav-link pe-0 ps-2 "  style="min-width:60px;" href="javascript:;" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+				ui-sref-active="active" id="settings"> <i class="fa fa-gears fa-lg"></i> <span class="arrow open"></span></a>
+               <div class="dropdown-menu dropdown-caret dropdown-menu-end py-0 " aria-labelledby="navbarDropdownUser" data-bs-popper="static">
+			   
+			      <div class="card navbar-card-app shadow-none dark__bg-1000">
+                    <div class="card-body " style="width:360px;">
+					
+				
+                      <div class="row"  >
+                        <div class="col-sm-6 p-0" ng-if="permissions[1].Apply" >
+						  <ul class="  ">
+			
+						<li class="dropdown-item" ng-if="app.isindustry" id="cp" ui-sref-active="active"  >
+							<a class="dropdown-item" ui-sref="app.industry"> <i class="fa fa-flask  fa-fw"></i> {{'Industry'|translate}}</a></li>
+					<li class="dropdown-item"  ui-sref-active="active"     >
+		<a class="dropdown-item" ui-sref="app.testrates({id:userexists.uid})"><i class="fa fa-gear fa-lg"></i> {{'TestMaster'|translate}}</a></li>
+<li class="dropdown-item" ui-sref-active="active"  ><a class="dropdown-item" ui-sref="app.users"> <i class="fa fa-users  fa-fw"></i>{{'Users'|translate}} </a></li>
+	
+	<li class="dropdown-item" ui-sref-active="active"   >
+		<a class="dropdown-item" ui-sref="app.roles({id:userexists.uid})" ><i class="fa fa-gear fa-lg"></i>{{'Roles'|translate}} </a>	</li>
+		
+		
+	
+	<li class="dropdown-item" ui-sref-active="active"  >
+		<a class="dropdown-item" ui-sref="app.labaccredit"><i class="fa fa-gear fa-lg"></i>{{'LabAccreditation'|translate}} </a>
+	</li>
+	
+	
+	<li class="dropdown-item" ui-sref-active="active"   >
+		<a class="dropdown-item" ui-sref="app.defaultsetting.firmset({id:userexists.uid})" ><i class="fa fa-gear fa-lg"></i>{{'AppSetting'|translate}} </a>
+	</li>
+  
+
+	<li class="dropdown-item" ui-sref-active="active"   >
+		<a class="dropdown-item" ui-sref="app.importsettings({id:userexists.uid})" ><i class="fa fa-gear fa-lg"></i>{{'ImportSetting'|translate}} </a>
+	</li>
+	
+	 
+					<!-- <li class="dropdown-item" ui-sref-active="active"   > -->
+		<!-- <a class="dropdown-item" ui-sref="app.activitylog" ><i class="fa fa-gear fa-lg"></i>{{'ActivityLog'|translate}} </a> -->
+	<!-- </li> -->
+	
+	</ul>
+						</div>
+						
+						 <div class="col-sm-6 p-0" ng-if="permissions[2].Apply">
+						 
+						  <ul class="  ">
+			
+						 <li class="dropdown-item" id="std" ui-sref-active="active"    >
+	<a class="dropdown-item" ui-sref="app.standard" > <i class="fa fa-barcode  fa-fw"></i>{{'Standard'|translate}}</a></li>
+	
+					<li class="dropdown-item" id="cp" ui-sref-active="active"  >
+					<a class="dropdown-item" ui-sref="app.substandard"> <i class="fa fa-flask  fa-fw"></i>{{'SubStandard'|translate}}</a></li>
+						
+						
+						<li class="dropdown-item" id="cp" ui-sref-active="active"  >
+					<a class="dropdown-item" ui-sref="app.mdstds"> <i class="fa fa-flask  fa-fw"></i>{{'MdsTds'|translate}}</a></li>
+					
+					
+						<li class="dropdown-item" ui-sref-active="active"   >
+						<a  class="dropdown-item" ui-sref="app.methods"><i class="fa fa-cubes "></i> {{'TestMethods'|translate}}</a></li>
+				
+				
+				
+<li class="dropdown-item"  ui-sref-active="active">
+<a  class="dropdown-item"  ui-sref="app.certformats" ><i class="fa fa-folder-open"/> Cert Formats</a></li>	
+
+	
+		<!-- <li class="dropdown-item" ui-sref-active="active"   > -->
+		<!-- <a class="dropdown-item" ui-sref="app.testplan"><i class="fa fa-gear fa-lg"></i>{{'Testplan'|translate}} </a> -->
+	<!-- </li> -->
+  
+  
+					<li class="dropdown-item" ui-sref-active="active" ><a class="dropdown-item" ui-sref="app.customer" ><i class="fa fa-users  fa-fw"></i>{{'Customers'|translate}} </a></li>	
+					 <li class="dropdown-item" ui-sref-active="active"  ><a class="dropdown-item" ui-sref="app.suppliers"> <i class="fa fa-users  fa-fw"></i>{{'Suppliers'|translate}}</a></li>		 
+                  
+				
+		
+	<li class="dropdown-item" ui-sref-active="active"  >
+		<a class="dropdown-item" ui-sref="app.dropdowns"><i class="fa fa-gear fa-lg"></i>{{'Dropdown-list'|translate}} </a>
+	</li>
+
+	
+		
+	
+  	
+				
+				</ul>
+						 
+						 
+						</div>
+						</div>
+						</div>
+						
+                <!-- <div class="bg-white dark__bg-1000 rounded-2 py-2"> -->
+			   
+				
+				
+			
+			<!-- </div> -->
+			</div>
+			</li>
+					
+	<li  class="nav-item dropdown "> 
+	 <a class="nav-link lh-1" href="#" role="button" style="min-width:60px;" data-bs-toggle="dropdown" aria-expanded="false">
+         <i class="fa fa-user"></i>
+          </a>
+		   
+          <ul class="dropdown-menu dropdown-menu-end  multi-column-dropdown text-start"  >
+        
+		
+          <li class="text-start" >  
+		  <a class="dropdown-item" > 
+		  {{dboard.name}}</a>	</li>
+			<!-- <li class="text-start" >       <a class="dropdown-item" ui-sref="app.profile">   Profile</a>	</li>                    </li> -->
+			<li  class="text-start" >	<a class="dropdown-item" ng-click="logout()">   Logout </a>        </li>
+
+      </ul>
+	</li>
+	
+	
+			
+                              
+	
+        
+        </ul>
+		
+		  
+   
+   
+  
+   
+    </div>
+	
+  </div>
+ 
+</nav>
+<nav aria-label="breadcrumb" class="fixed-top3" ncy-breadcrumb>
+</nav>
+
+
+       </header>  
+    
+
+  
+ <div id="body"  class="container-fluid  main d-flex flex-column "  >
+ 
+           <div class=" bodycontent container-fluid  inner-wrapper mt-4 pt-2 pb-4" style="min-height:500px;" ui-view   ng-if="!loadingView2">
+		   
+		   </div> 
+		
+		<toaster-container style="z-index:1020 !important;top:60px;" toaster-options="{'time-out': 3000, 'toaster-id': 11, 
+    'animation-class': 'toastr-bottom-right'}"></toaster-container>	
+         <div class="loader "  style="margin-top:25%;" ng-if="loadingView2 || flags.oneclick">
+  <div class='loader_overlay'></div>
+  <div class='loader_cogs'>
+    <div class='loader_cogs__top'>
+      <div class='top_part'></div>
+      <div class='top_part'></div>
+      <div class='top_part'></div>
+      <div class='top_hole'></div>
+    </div>
+    <div class='loader_cogs__left'>
+      <div class='left_part'></div>
+      <div class='left_part'></div>
+      <div class='left_part'></div>
+      <div class='left_hole'></div>
+    </div>
+    <div class='loader_cogs__bottom'>
+      <div class='bottom_part'></div>
+      <div class='bottom_part'></div>
+      <div class='bottom_part'></div>
+      <div class='bottom_hole'><!-- lol --></div>
+    </div>
+    <p>loading</p>
+  </div>
+        </div>
+		
+</div>
+<div class="container-fluid">
+
+</div>	
+ 

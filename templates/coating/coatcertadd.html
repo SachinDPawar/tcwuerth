@@ -1,0 +1,158 @@
+<style>
+.form-control {
+padding:5px 3px;
+}
+
+.tablehead{
+background-color:#607d8b;
+color:#fff;
+}
+
+.mgleft{
+margin-left:20px;
+}
+</style>
+<div class="row " >
+
+	<div class="col-md-12 col-md-offset-0" style="margin-top:0px;">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h2 class="panel-title"><i class="fa fa-file"></i><b> Coating Certificate</b></h2>
+			</div>
+			<div class="panel-body">
+			<form class="form-horizontal text-left" name="coatcertform"  novalidate id="fileupload"  method="POST" enctype="multipart/form-data"   data-file-upload="options" data-ng-class="{'fileupload-processing': processing() || loadingFiles}">
+		
+		
+		
+			<div class="form-group">
+				<label class="col-md-2 col-sm-2 control-label">TC No.</label>
+				<div class="col-md-4 col-sm-4">
+						<input type="text" class="form-control" id="TC No" ng-model="coatcert.TCNo" name="TCNo" placeholder="TC No." required />
+					</div>
+				
+				<label class="col-md-2 col-sm-2 control-label">Date of Top_Coat/Hot_Dip   </label>
+				<div class="col-md-4 col-sm-4">
+					<div class="input-group ">
+						<input type="text" class="form-control input-sm"  uib-datepicker-popup ng-model="coatcert.TopCoatDate" is-open="popup.coatdate" datepicker-options="dateOptions" 
+						close-text="Close" required />
+						<span class="input-group-btn">
+						<button type="button" class="btn btn-default btn-sm" ng-click="opencoatdate()"><i class="fa fa-calendar"></i></button>
+						</span>
+					</div>	
+				</div>
+			</div>	
+			
+			
+			<div class="form-group">
+				<label class="col-md-2 col-sm-2 control-label">Customer Name</label>
+				<div class="col-md-4 col-sm-4">
+					<input type="text" class="form-control" id="CustomerName" ng-model="coatcert.Customer" name="CustomerName" placeholder="Customer Name" required />
+				</div>
+				
+				<label class="col-md-2 col-sm-2 control-label">Part Coated</label>
+				<div class="col-md-4 col-sm-4">
+					<input type="text" class="form-control" id="PartCoated" ng-model="coatcert.PartCoated" name="Part Coated" placeholder="Part Coated" required/>
+				</div>
+			</div>	
+			
+			<div class="form-group">
+				<label class="col-md-2 col-sm-2 control-label">Quantity(Nos.)</label>
+				<div class="col-md-4 col-sm-4">
+					<input type="text" class="form-control" id="Quantity" ng-model="coatcert.Quantity" name="Quantity" placeholder="Quantity" required />
+				</div>
+				
+				<label class="col-md-2 col-sm-2 control-label">Batch No.</label>
+				<div class="col-md-4 col-sm-4">
+					<input type="text" class="form-control"  id="BatchNo" ng-model="coatcert.BatchNo" name="BatchNo" placeholder="Batch No." required />
+				</div>
+			</div>	
+			
+			<div class="form-group">
+				<label class="col-md-2 col-sm-2 control-label">Proccess performed</label>
+				<div class="col-md-4 col-sm-4">
+					<input type="text" class="form-control" id="PhTestSoln" ng-model="coatcert.Process" name="Process" placeholder="Process"  required/>
+				</div>
+				
+				<label class="col-md-2 col-sm-2 control-label">RFI Code</label>
+				<div class="col-md-4 col-sm-4">
+					<input type="text" class="form-control"  id="RFICode" ng-model="coatcert.RFICode" name="RFICode" placeholder="RFI Code No."  />
+				</div>
+			</div>	
+			
+			<div class="form-group">
+				<label class="col-md-2 col-sm-2 control-label">DIN No</label>
+				<div class="col-md-4 col-sm-4">
+					<input type="text" class="form-control" id="DINNo" ng-model="coatcert.DINNo" name="DINNo" placeholder="DIN No"  />
+				</div>
+				</div>
+			
+		<!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+			<div class="form-group">
+				<label class="col-md-2 control-label text-right">Upload</label>
+
+						<!-- The table listing the files available for upload/download -->
+				<div class=" col-sm-5 text-center" >
+
+					<div data-ng-repeat="file in queue " ng-init="showqueue()" class="gallery-box" >
+					
+					<div class="thumbnail" data-ng-switch data-on="!!file.thumbnailUrl" >
+						<span style="color:black;">{{file.name}}</span>
+						<a data-ng-switch-when="true" data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}"  data-gallery>
+						<img data-ng-src="{{file.thumbnailUrl}}" alt="" ></a>
+					   
+						<span class="preview" data-ng-switch-default data-file-upload-preview="file"></span>
+						
+						<br>
+						<span class="btn-group">
+							<a class="btn btn-xs btn-danger" data-ng-click="deletefile($index,file)">
+							  Remove
+							</a>
+						</span> 
+						<strong data-ng-if="file.error" ng-init="imageerror(file)" class="error text-danger">{{file.error}}</strong> 
+					</div>
+					  
+					  <input type="hidden" name="coatcertid" ng-model="file.coatcertid" >
+					  
+					</div>
+
+					<!-- <span  ng-repeat="i in getNumber(1) track by $index" ng-if="queue.length<1">
+						<div class="gallery-box " style="margin-top:20px;" >
+						<div class="thumbnail" >  
+							<img src="images/noimage.jpg" alt="">
+						</div>
+						 <span class="btn-group"></span>
+						</div>
+					</span>		 -->   
+					<div class="row fileupload-buttonbar">
+
+					
+						<div class="col-sm-12 text-left" style="padding-top:10px;">
+							<!-- The fileinput-button span is used to style the file input field as button -->
+							<span class="btn btn-success fileinput-button" ng-hide="queue.length===1"  >
+								<i class="fa fa-plus"></i>
+								<span>Add File</span>
+								<input type="file" name="files[]"   >
+							</span>
+							<span ng-if="queue.length<1" class="text-danger"> &nbsp; Uploading file is must to proceed</span>				   
+						</div>
+								
+					</div>
+					
+				</div>
+		   </div>
+			
+			
+			
+			
+		
+			<div class="form-group text-center" >
+				<button type="button"  ng-disabled="coatcertform.$invalid || oneclick " class="btn btn-md btn-success "
+							 ng-click="savecoatcert(coatcert)"> Save</button>
+				<button type="button" class="btn btn-md btn-danger " ng-click="cancelsave()" >Cancel</button>
+			</div>
+		
+			</div>
+		</div>
+	</div>
+
+</div>

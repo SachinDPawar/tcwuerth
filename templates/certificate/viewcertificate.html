@@ -1,0 +1,1375 @@
+ <div class="modal-header">
+         <i class="fa fa-file-text"></i> Certificate View
+		   <button type="button" class="close" ng-click="cancel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+		 
+        <div class="modal-body" style="overflow-x: auto; padding: 20px;">
+	<div class="" id="printThisElement">
+          <table class="table table-bordered" style="font-size:11px;border:1px solid #ddd;"  >
+		  <tbody>
+			<tr>
+				<td rowspan="2" style="text-align:center;padding:2px;border:1px solid #ddd;" colspan="2">
+						<img ng-if="!nablview" src="img/logo.jpg" alt="RFI logo" style="width:45px;height:45px;">
+						<img ng-if="nablview" src="img/nabllogo.jpg" alt="NABL Logo" style="width:45px;height:45px;">
+				</td>
+				<td colspan="8" class="text-center" style="padding:4px;border:1px solid #ddd;">
+					<img ng-if="nablview" src="img/logo.jpg" alt="RFI logo" style="width:45px;height:45px;"><h5 style="margin-top: 5px;margin-bottom: 5px;"><b>RANDACK FASTENERS INDIA PVT. LTD.</b></h5>
+				</td>
+				<td rowspan="2" style="padding:0px;">
+				<table class="table table-bordered " style="padding:0px;margin:0px;font-size:10px;">
+					<tr><td style="padding:0px;">Format No</td><td style="padding:0px;">F / QA / TC</td></tr>
+					<tr><td style="padding:0px;">Rev No</td><td style="padding:0px;">0</td></tr>
+					<tr><td style="padding:0px;">Rev Date</td><td style="padding:0px;">16.04.2018</td></tr>
+					<tr><td style="padding:0px;">Page No</td><td style="padding:0px;">01 of 01</td></tr>
+				</table>
+				</td>
+			</tr>
+			
+			<tr>
+				<td colspan="8"  class="text-center" style="font-size:10px;padding:1px;border:1px solid #ddd;">
+				Gat No 1197, Near Ghotawade Phata, Village Pirangut, Taluka Mulshi,Dist :Pune, 412108.
+				</td>
+			</tr>
+			
+			<tr>
+				<td colspan="10" class="text-center"  style="font-size:13px;padding:4px;border:1px solid #ddd;"><b> {{cert.basic.TCFormat}} CERTIFICATE AS PER EN 10204 : 2005</b></td>
+				<td colspan="2"  style="padding:2px;border:1px solid #ddd;"><b>TC RevNo.: {{cert.basic.TCRevNo}}</b></td>
+				
+			</tr>
+			
+			<tr>
+				<td colspan="6"  style="padding:2px;border:1px solid #ddd;"><b>Customer: {{cert.basic.Customer}}</b></td>
+				<td colspan="3"  style="padding:2px;border:1px solid #ddd;"><b>T.C. No.: {{cert.basic.TCNo}}</b></td>
+				<td colspan="3" style="padding:2px;border:1px solid #ddd;"><b>Date: {{cert.basic.CertDate| date :"dd.MM.y"}}</b></td>
+			</tr>
+			
+			<tr>
+				<td colspan="4"  style="padding:2px;border:1px solid #ddd;"><b>PO No: {{cert.basic.basicextra.PoNo}}</b></td>
+				<td colspan="2" style="padding:2px;border:1px solid #ddd;"><b>Date: {{cert.basic.basicextra.PoDate| date :"dd.MM.y"}}</b></td>
+				<td colspan="6" style="padding:2px;border:1px solid #ddd;"><b>Part Description: {{cert.basic.PartDescription}}</b></td>
+			</tr>
+			
+			<tr>
+				<td colspan="4" style="padding:2px;border:1px solid #ddd;"><b>RFI CO No: {{cert.basic.basicextra.RFICoNo}}</b></td>
+				<td colspan="2" style="padding:2px;border:1px solid #ddd;"><b>Date: {{cert.basic.basicextra.RFIDate| date :"dd.MM.y"}}</b></td>
+				<td colspan="6" style="padding:2px;border:1px solid #ddd;"><b>Ref Std./Drawing No.: {{cert.basic.basicextra.RefStd}}</b></td>
+			</tr>
+			
+			<tr>
+				<td colspan="4" style="padding:2px;border:1px solid #ddd;"><b>Item Code: {{cert.basic.basicextra.ItemCode}}</b></td>
+				<td colspan="2" style="padding:2px;border:1px solid #ddd;"><b>Qty: {{cert.basic.basicextra.Qty}}</b></td>
+				<td colspan="6" style="padding:2px;border:1px solid #ddd;"><b>Material: {{cert.basic.basicextra.Material}}</b></td>
+			</tr>
+			
+		<tr ng-class="{'hiderow': !row1}" ng-if="cert.basic.basicextra.PoLineItemNo">
+				<td colspan="6" style="padding:2px;border:1px solid #ddd;"><b>POLine Item No.: {{cert.basic.basicextra.PoLineItemNo}}</b></td>
+				<td colspan="6" style="padding:2px;border:1px solid #ddd;"><b>Test Plan No.: {{cert.basic.basicextra.TestPlanNo}}</b><span class=" text-danger pull-right fa fa-remove" ng-click="row1 = !row1"></span></td>
+			</tr>
+			
+			<tr ng-class="{'hiderow': !row2}" ng-if="cert.basic.basicextra.PoLineItemNo">
+				<td colspan="6" style="padding:2px;border:1px solid #ddd;"><b>Project: {{cert.basic.basicextra.Project}}</b></td>
+				<td colspan="6" style="padding:2px;border:1px solid #ddd;"><b>Project No.: {{cert.basic.basicextra.ProjectNo}}</b><span class=" text-danger pull-right fa fa-remove" ng-click="row2=!row2"></span></td>
+			</tr>
+			
+			<tr ng-class="{'hiderow': !row3}" ng-if="cert.basic.basicextra.PoLineItemNo">
+				
+				<td colspan="6" style="padding:2px;border:1px solid #ddd;"><b>Pos. No.: {{cert.basic.basicextra.PosNo}}</b></td>
+				<td colspan="6" style="padding:2px;border:1px solid #ddd;"><b>Sl. No.: {{cert.basic.basicextra.SlNo}}</b><span class=" text-danger pull-right fa fa-remove" ng-click="row3=!row3"></span></td>
+			</tr>
+			
+			
+			<tr ng-if="cert.basic.certimgs.length>0">
+			<td colspan="12">
+				<img ng-repeat="l in  cert.basic.certimgs" ng-src="{{l.url}}" alt="{{l.name}}" style="height:100px;width:auto;">
+			</td>
+			
+			</tr>
+			
+<!------------Chemical Properties------------------>		
+			<tr>
+			<td colspan="12" class="table-responsive" style="padding:0px;">
+		
+			<table class="table table-bordered" ng-repeat="chem in cert.basic.chemicals.Ref " style="font-size:10px;margin-bottom:0px;">	
+<tbody >			
+				<tr>
+					<td colspan="4" style="padding:4px;font-size:10.5px;"><b>A. Chemical Composition:  {{chem.SName}}</b></td>
+					<td colspan="8" style="padding:4px;font-size:10.5px;"><b>Reference STD:  <span ng-if="chem.Reference===''">{{chem.Std}} </span> <span ng-if="chem.Reference!=''">{{chem.Reference}} </span> </b></td>
+				</tr>
+				
+				<tr class="text-center">
+					<td colspan="2"  style="padding:2px;border:1px solid #ddd;">Elements <i class="fa fa-long-arrow-right" ></i></td>
+					<td style="padding:2px;border:1px solid #ddd;">{{myflag.heatno}}</td>
+					<td ng-repeat="(key,value) in chem.ChemSpec | limitTo:10"  style="padding:2px;border:1px solid #ddd;">{{value.PSymbol}}%</td>
+				
+					<td rowspan="3" style="padding:2px;vertical-align:middle;">Remark</td>
+				</tr>
+				
+				<tr class="text-center">
+					<td style="vertical-align:middle;padding:2px;" rowspan="2">Sr.No.</td>
+					<td style="vertical-align:middle;padding:2px;" rowspan="2">Batch Code</td>
+					<td style="padding:2px;border:1px solid #ddd;">Min</td>
+					<td  ng-repeat="(key,value) in chem.ChemSpec | limitTo:10"  style="padding:2px;border:1px solid #ddd;">{{value.SpecMin| number:3}}</td>	
+				</tr>
+				
+				<tr class="text-center">
+					<td style="padding:2px;border:1px solid #ddd;">Max</td>
+					<td  ng-repeat="(key,value) in chem.ChemSpec | limitTo:10" style="padding:2px;border:1px solid #ddd;" >{{value.SpecMax| number:3}}</td>
+				</tr>
+				
+				<tr class="text-center"  ng-repeat="item in chem.chemtests | orderBy:'BatchCode'" >
+					<td style="padding:2px;border:1px solid #ddd;">{{$index+1}}</td>
+					<td style="padding:2px;border:1px solid #ddd;">{{item.BatchCode}}<span ng-if='item.BatchNo'>-{{item.BatchNo}}</span></td>
+					<td style="padding:2px;border:1px solid #ddd;"><span>{{item.HeatNo}}</span></td>
+					<td  style="padding:2px;border:1px solid #ddd;" ng-repeat="i in item.Obs | limitTo:10" >{{i.Value | number:3}} </span></td>
+					<td style="padding:2px;border:1px solid #ddd;">{{item.Remark || 'OK'}}</td>
+				</tr>
+				</tbody>
+			<!-- <tfoot> -->
+				<!-- <tr class="text-center"  ng-if="cert.sections.Chemical[0]'].Test.Ref"> -->
+					<!-- <td style="padding:2px;text-align:right;" colspan="2">Ref</td> -->
+					<!-- <td  colspan="10" style="padding:2px;text-align:left;" >{{cert.sections.Chemical[0]'].Test.Ref}}</td> -->
+				<!-- </tr> -->
+				<!-- <tr class="text-center" ng-if="cert.sections.Chemical[0]'].Test.Remark"> -->
+					<!-- <td style="padding:2px;border:1px solid #ddd;" colspan="2">Remark</td> -->
+					<!-- <td  colspan="10" style="padding:2px;border:1px solid #ddd;" >{{cert.sections.Chemical[0]'].Test.Remark}}</td> -->
+				<!-- </tr> -->
+				<!-- </tfoot> -->
+			</table>
+			</td>
+			</tr>
+			
+<!-----------------Mechanical Properties---------------------->			
+			<tr >
+			<td colspan="12" class="table-responsive" style="padding:0px;">
+
+<table class="table table-bordered" ng-repeat="mech in cert.basic.mechanicals.Ref" style="font-size:10px;">
+  <tr>
+    <td colspan="6" style="padding:4px;font-size:10.5px;">
+      <b>B. Mechanical Properties : {{mech.SName}}</b>
+    </td>
+    <td colspan="6" style="padding:4px;font-size:10.5px;">
+      <b>Reference STD:
+        <span ng-if="!mech.Reference">{{mech.Std}}</span>
+        <span ng-if="mech.Reference">{{mech.Reference}}</span>
+      </b>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="12" style="padding:0px;">
+      <table class="table table-bordered table-sm m-0">
+        <tr class="text-center">
+          <td colspan="2" style="padding:2px;vertical-align:middle;">Parameters <i class="fa fa-long-arrow-right"></i></td>
+          <td style="padding:2px;vertical-align:middle;">{{myflag.heatno}}</td>
+          <td ng-repeat="key in cert.basic.mechanicals.orderedKeys"  style="padding:2px;vertical-align:middle; width:9%;">{{mech.MechSpec[key].SSymbol}} </td>
+          <td rowspan="3" colspan="2" style="padding:2px;padding-left:5px;padding-right:5px;vertical-align:middle;">Remark</td>
+        </tr>
+
+        <tr class="text-center" ng-if="cert.basic.CertType !== 'Bushing'">
+          <td style="vertical-align:middle;padding:2px;" rowspan="2">Sr.No.</td>
+          <td style="vertical-align:middle;padding:2px;" rowspan="2">Batch Code</td>
+          <td style="padding:2px;border:1px solid #ddd;">Min</td>
+          <td ng-repeat="key in cert.basic.mechanicals.orderedKeys"  style="padding:2px;border:1px solid #ddd;">{{mech.MechSpec[key].SpecMin}}  <span ng-if="mech.MechSpec[key].SpecMin">{{mech.MechSpec[key].PUnit}}</span></td>
+        </tr>
+
+        <tr class="text-center" ng-if="cert.basic.CertType === 'Bushing'">
+          <td style="vertical-align:middle;padding:2px;" rowspan="3">Sr.No.</td>
+          <td style="vertical-align:middle;padding:2px;" rowspan="3">Batch Code</td>
+          <td style="padding:2px;border:1px solid #ddd;">Min</td>
+          <td ng-repeat="key in cert.basic.mechanicals.orderedKeys"  style="padding:2px;border:1px solid #ddd;">{{mech.MechSpec[key].SpecMin}} <span ng-if="mech.MechSpec[key].SpecMin">{{mech.MechSpec[key].PUnit}}</span></td>
+        </tr>
+
+        <tr class="text-center">
+          <td style="padding:2px;border:1px solid #ddd;">Max</td>
+          <td ng-repeat="key in cert.basic.mechanicals.orderedKeys"  style="padding:2px;border:1px solid #ddd;">{{mech.MechSpec[key].SpecMax}} <span ng-if="mech.MechSpec[key].SpecMax"> {{mech.MechSpec[key].PUnit}}</span></td>
+        </tr>
+
+        <tr class="text-center" ng-if="cert.basic.CertType === 'Bushing'">
+          <td style="padding:2px;border:1px solid #ddd;">Location</td>
+          <td ng-repeat="key in cert.basic.mechanicals.orderedKeys" style="padding:2px;border:1px solid #ddd;">
+            <table class="table table-bordered table-sm p-0 mb-0">
+              <tr>
+                <td>Top</td>
+                <td>Middle</td>
+                <td>Bottom</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr class="text-center" ng-repeat="item in mech.mechtests | orderBy:'BatchCode'">
+          <td style="padding:2px;border:1px solid #ddd;">{{$index + 1}}</td>
+          <td style="padding:2px;border:1px solid #ddd;">{{item.BatchCode}}<span ng-if="item.BatchNo">-{{item.BatchNo}}</span></td>
+          <td style="padding:2px;border:1px solid #ddd;">{{item.HeatNo}}</td>
+
+          <!-- Handling Bushing CertType: Display location-based sub-tests -->
+          <td style="padding:2px;border:1px solid #ddd;" ng-repeat="key in cert.basic.mechanicals.orderedKeys">
+            <span ng-if="cert.basic.CertType === 'Bushing'">
+              <table class="table table-bordered table-sm p-0 mb-0">
+                <tr>
+                  <td ng-repeat="temp in ['Top', 'Middle', 'Bottom']">
+                    <div ng-repeat="subTest in item.Obs[key][temp]">
+                      {{ subTest.Value }} 
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </span>
+
+            <!-- Handling Normal CertType: Display specific values based on TUID -->
+            <span ng-if="cert.basic.CertType === 'Normal'">
+              
+                <span ng-repeat="v in item.Obs[key]">
+                  <span ng-if="v.TUID === 'TENSILE' || v.TUID === 'IMP' || v.TUID === 'PROOF'">{{v.Value}}</span>
+                  <table class="table table-sm mb-0 p-0" ng-if="v.TUID === 'VHARD' || v.TUID === 'MVHARD' || v.TUID === 'BHARD' || v.TUID === 'RCHARD' || v.TUID === 'RBHARD'">
+                    <tr ng-if="v.Value[0].IsSValue">
+                      <td>Surface</td>
+                      <td ng-repeat="j in v.Value">{{j.SValue}}</td>
+                    </tr>
+                    <tr ng-if="v.Value[0].IsCValue">
+                      <td>Core</td>
+                      <td ng-repeat="j in v.Value">{{j.CValue}}</td>
+                    </tr>
+                  </table>
+                </span>
+              
+             
+            </span>
+          </td>
+
+          <td colspan="2" style="padding:2px;border:1px solid #ddd;">{{item.Remark || 'OK'}}</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+</td>
+</tr>
+<!--------------Torque Tension Rating-------------->
+			<tr ng-if="cert.sections['Tension'].Test.RefId">
+			<td colspan="12" class="table-responsive" style="padding:0px;">
+			<table class="table table-bordered" style="font-size:10px;margin-bottom:0px;">		
+				<tr>
+					<td colspan="12" style="padding:4px;font-size:10.5px;"><b>Torque Tension test results:</b></td>
+					
+				</tr>
+				
+				<tr style="text-align:center;">
+					<td colspan="1" style="padding:2px;border:1px solid #ddd;">Sr.No.</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">Batch No.</td>
+					<td colspan="3" style="padding:2px;border:1px solid #ddd;">Applied torque in NM</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">Force in KN</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">Coefficient of friction( µ )</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">Result</td>
+				</tr>
+				
+				<tr style="text-align:center;" ng-repeat="item in cert.sections.Tension.Observations | orderBy:'BatchCode'" >
+					<td colspan="1" style="padding:2px;border:1px solid #ddd;">{{$index+1}}</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+					<span ng-if=" permissions[31].U==='true'"  editable-text="item.BatchCode"   >{{item.BatchCode}}</span>
+					</td>
+					<td colspan="3" style="padding:2px;border:1px solid #ddd;">
+					<span ng-if=" permissions[31].U==='true'"  editable-text="item.Torque"   >{{item.Torque}}</span>
+					</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+					<span ng-if=" permissions[31].U==='true'"  editable-text="item.Force"   >{{item.Force}}</span>
+					</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+					<span ng-if=" permissions[31].U==='true'"  editable-text="item.Coff_Friction"   >{{item.Coff_Friction}}</span>
+					</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">{{item.Remark}}</td>
+				</tr>
+				
+				<!-- <tr class="text-center"  ng-if="cert.basic.externals['NM'].Test.Ref"> -->
+					<!-- <td style="padding:2px;border:1px solid #ddd;" colspan="2">Ref</td> -->
+					<!-- <td  colspan="10" style="padding:2px;border:1px solid #ddd;" >{{cert.basic.externals['NM'].Test.Ref}}</td> -->
+				<!-- </tr> -->
+				
+				<!-- <tr class="text-center" ng-if="cert.basic.externals['NM'].Test.Remark"> -->
+					<!-- <td style="padding:2px;border:1px solid #ddd;" colspan="2">Remark</td> -->
+					<!-- <td colspan="10" style="padding:2px;border:1px solid #ddd;">{{cert.basic.externals['NM'].Test.Remark}}</td> -->
+				<!-- </tr> -->
+				
+			</table>
+			</td>
+			</tr>
+
+<!--------------Wedge Test-------------->
+			<tr ng-if="cert.sections['Wedge'].Test.RefId">
+			<td colspan="12" class="table-responsive" style="padding:0px;">
+			<table class="table table-bordered" style="font-size:10px;margin-bottom:0px;">		
+				<tr>
+					<td colspan="12" style="padding:4px;font-size:10.5px;"><b>Wedge test results:</b></td>
+					
+				</tr>
+				
+				<tr style="text-align:center;">
+					<td colspan="1" style="padding:2px;border:1px solid #ddd;">Sr.No.</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">Batch No.</td>
+					<td colspan="3" style="padding:2px;border:1px solid #ddd;">Required Tensile strength under wedge load(Rm) Mpa
+min.</td>
+					<td colspan="3" style="padding:2px;border:1px solid #ddd;">Observed Tensile strength under wedge load(Rm) Mpa</td>
+					
+					<td colspan="3" style="padding:2px;border:1px solid #ddd;">Result</td>
+				</tr>
+				
+				<tr style="text-align:center;" ng-repeat="item in cert.sections.Wedge.Observations | orderBy:'BatchCode'" >
+					<td colspan="1" style="padding:2px;border:1px solid #ddd;">{{$index+1}}</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+					<span ng-if=" permissions[31].U==='true'"  editable-text="item.BatchCode"   >{{item.BatchCode}}</span>
+					</td>
+					<td colspan="3" style="padding:2px;border:1px solid #ddd;">
+					<span ng-if=" permissions[31].U==='true'"  editable-text="item.RequiredTS"   >{{item.RequiredTS}}</span>
+					</td>
+					<td colspan="3" style="padding:2px;border:1px solid #ddd;">
+					<span ng-if=" permissions[31].U==='true'"  editable-text="item.ObservedTS"   >{{item.ObservedTS}}</span>
+					</td>
+					
+					<td colspan="3" style="padding:2px;border:1px solid #ddd;">{{item.Remark}}</td>
+				</tr>
+				
+				<!-- <tr class="text-center"  ng-if="cert.basic.externals['NM'].Test.Ref"> -->
+					<!-- <td style="padding:2px;border:1px solid #ddd;" colspan="2">Ref</td> -->
+					<!-- <td  colspan="10" style="padding:2px;border:1px solid #ddd;" >{{cert.basic.externals['NM'].Test.Ref}}</td> -->
+				<!-- </tr> -->
+				
+				<!-- <tr class="text-center" ng-if="cert.basic.externals['NM'].Test.Remark"> -->
+					<!-- <td style="padding:2px;border:1px solid #ddd;" colspan="2">Remark</td> -->
+					<!-- <td colspan="10" style="padding:2px;border:1px solid #ddd;">{{cert.basic.externals['NM'].Test.Remark}}</td> -->
+				<!-- </tr> -->
+				
+			</table>
+			</td>
+			</tr>
+
+
+<!--------------Non Metallic Inclusion Rating-------------->
+			<tr ng-if="cert.basic.externals['NM'].Selected">
+			<td colspan="12" class="table-responsive" style="padding:0px;">
+			<table class="table table-bordered" style="font-size:10px;margin-bottom:0px;">		
+				<tr>
+					<td colspan="6" style="padding:4px;font-size:10.5px;"><b>Non Metallic Inclusion Rating: {{cert.basic.externals['NM'].Test.SName}} </b></td>
+					<td colspan="6" style="padding:4px;font-size:10.5px;"><b>Reference STD:{{cert.basic.externals['NM'].Test.Reference}}</b></span></td>
+				</tr>
+				
+				<tr style="text-align:center;">
+					<td colspan="1" style="padding:2px;border:1px solid #ddd;">Sr.No.</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">BatchCode</td>
+					<td colspan="3" style="padding:2px;border:1px solid #ddd;">Parameter</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">Required</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">Observation</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">Remark</td>
+				</tr>
+				
+				<tr style="text-align:center;" ng-repeat="item in cert.basic.externals['NM'].Test.Observations " >
+					<td colspan="1" style="padding:2px;border:1px solid #ddd;">{{$index+1}}</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+					
+					{{item.HeatNo}}
+					</td>
+					<td colspan="3" style="padding:2px;border:1px solid #ddd;">
+					{{item.Parameter}}
+					</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+					{{item.Required}}
+					</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+					{{item.Observation}}
+					</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">{{item.Remark}}</td>
+				</tr>
+				
+				<tr class="text-center"  ng-if="cert.basic.externals['NM'].Test.Ref">
+					<td style="padding:2px;border:1px solid #ddd;" colspan="2">Ref</td>
+					<td  colspan="10" style="padding:2px;border:1px solid #ddd;" >{{cert.basic.externals['NM'].Test.Ref}}</td>
+				</tr>
+				
+				<tr class="text-center" ng-if="cert.basic.externals['NM'].Test.Remark">
+					<td style="padding:2px;border:1px solid #ddd;" colspan="2">Remark</td>
+					<td colspan="10" style="padding:2px;border:1px solid #ddd;">{{cert.basic.externals['NM'].Test.Remark}}</td>
+				</tr>
+				
+			</table>
+			</td>
+			</tr>
+
+<!-------------------Micro Examination------------------->				
+			<tr ng-if="cert.basic.externals['ME'].Selected">
+			<td colspan="12" class="table-responsive" style="padding:0px;">
+			<table class="table table-bordered" style="font-size:10px;margin-bottom:0px;">		
+				<tr>
+					<td colspan="6" style="padding:4px;font-size:10.5px;"><b>Micro Examination   {{cert.basic.externals['ME'].Test.SName}}</b></td>
+					<td colspan="6" style="padding:4px;font-size:10.5px;">
+					<span ng-if="cert.basic.externals['ME'].Test.Reference"><b>Reference STD:{{cert.basic.externals['ME'].Test.Reference}}</b></span></td>
+				</tr>
+				
+				<tr style="text-align:center;">
+					<td colspan="1" style="padding:2px;border:1px solid #ddd;">Sr.No.</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">Batch Code</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">Parameter</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">Required</td>
+					<td colspan="3" style="padding:2px;border:1px solid #ddd;">Observation</td>
+					<td colspan="1" style="padding:2px;border:1px solid #ddd;">Result</td>
+				</tr>
+				
+				<tr style="text-align:center;" ng-repeat="item in cert.basic.externals['ME'].Test.Observations" >
+					<td colspan="1" style="padding:2px;border:1px solid #ddd;">{{$index+1}}</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+						{{item.BatchCode}}
+					</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+						{{item.Parameter}}
+					</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+						{{item.Required}}
+					</td>
+					<td colspan="3" style="padding:2px;border:1px solid #ddd;">
+						{{item.Observation}}
+					</td>
+					<td colspan="1" style="padding:2px;border:1px solid #ddd;">
+						{{item.Remark}}
+					</td>
+				</tr>
+				
+				<tr class="text-center"  ng-if="cert.basic.externals['ME'].Test.Ref">
+					<td style="padding:2px;border:1px solid #ddd;" colspan="2">Ref</td>
+					<td  colspan="10" style="padding:2px;border:1px solid #ddd;" >{{cert.basic.externals['ME'].Test.Ref}}</td>
+				</tr>
+				
+				<tr class="text-center" ng-if="cert.basic.externals['ME'].Test.Remark">
+					<td style="padding:2px;border:1px solid #ddd;" colspan="2">Remark</td>
+					<td colspan="10" style="padding:2px;border:1px solid #ddd;">{{cert.basic.externals['ME'].Test.Remark}}</td>
+				</tr>
+		
+			</table>
+			</td>
+			</tr>			
+			
+			
+<!-----------------MPI Details------------------>
+			<tr ng-if="cert.basic.externals['MPI'].Selected">
+			<td colspan="12" class="table-responsive" style="padding:0px;">
+			<table class="table table-bordered" style="font-size:10px;margin-bottom:0px;">		
+				<tr>
+					<td colspan="6" style="padding:4px;font-size:10.5px;"><b>MPI Details :  {{cert.basic.externals['MPI'].Test.SName}} </b></td>
+					<td colspan="6" style="padding:4px;font-size:10.5px;"><span ng-if="cert.basic.externals['MPI'].Test.Reference"><b>Reference STD:{{cert.basic.externals['MPI'].Test.Reference}}</b></span></td>
+				</tr>
+				
+				<tr style="text-align:center;">
+					<td colspan="1" style="padding:2px;border:1px solid #ddd;">Sr.No.</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">Parameter</td>
+					<td colspan="3" style="padding:2px;border:1px solid #ddd;">Required</td>
+					<td colspan="3" style="padding:2px;border:1px solid #ddd;">Observation</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">Result</td>
+				</tr>
+				
+				<tr style="text-align:center;" ng-repeat="item in cert.basic.externals['MPI'].Test.Observations">
+					<td colspan="1" style="padding:2px;border:1px solid #ddd;">{{$index+1}}</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+					{{item.Parameter}}
+					</td>
+					<td colspan="3" style="padding:2px;border:1px solid #ddd;">
+					{{item.Required}}
+					</td>
+					<td colspan="3" style="padding:2px;border:1px solid #ddd;">
+					{{item.Observation}}
+					</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">{{item.Remark}}</td>
+				</tr>
+				
+				<tr class="text-center"  ng-if="cert.basic.externals['MPI'].Test.Ref">
+					<td style="padding:2px;border:1px solid #ddd;" colspan="2">Ref</td>
+					<td  colspan="10" style="padding:2px;border:1px solid #ddd;" >{{cert.basic.externals['MPI'].Test.Ref}}</td>
+				</tr>
+				
+				<tr class="text-center" ng-if="cert.basic.externals['MPI'].Test.Remark">
+					<td style="padding:2px;border:1px solid #ddd;" colspan="2">Remark</td>
+					<td colspan="10" style="padding:2px;border:1px solid #ddd;">{{cert.basic.externals['MPI'].Test.Remark}}</td>
+				</tr>
+				
+			</table>
+			</td>
+			</tr>
+
+
+<!-------------------Hardness------------------->		
+			<tr ng-if="cert.basic.externals['H'].Selected">
+			<td colspan="12" class="table-responsive" style="padding:0px;">
+			<table class="table table-bordered" style="font-size:10px;margin-bottom:0px;">		
+				<tr>
+					<td colspan="6" style="padding:4px;font-size:10.5px;"><b>Hardness  {{cert.basic.externals['H'].Test.SName}}</b></td>
+					<td colspan="6" style="padding:4px;font-size:10.5px;"><span ng-if="cert.basic.externals['H'].Test.Reference"><b>Reference STD:{{cert.basic.externals['H'].Test.Reference}}</b></span></td>
+				</tr>
+				
+			
+				<tr style="text-align:center;">
+					<td colspan="1" style="padding:2px;border:1px solid #ddd;">Sr.No.</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">Parameter</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">BatchCode</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">Requirement</td>
+					<td colspan="4" style="padding:2px;border:1px solid #ddd;">Observation</td>
+					<td colspan="1" style="padding:2px;border:1px solid #ddd;">Remark</td>
+				</tr>
+				
+				<tr style="text-align:center;" ng-repeat="item in cert.basic.externals['H'].Test.Observations" >
+					<td style="vertical-align: middle;padding:2px;" colspan="1">{{$index+1}}</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+						{{item.Parameter}}
+					</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+						{{item.BatchCode}}
+					</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+						{{item.Requirement}}
+					</td>
+					<td colspan="4" style="padding:2px;border:1px solid #ddd;">
+						{{item.Observation}}
+					</td>
+					<td style="vertical-align: middle;padding:2px;" colspan="1">{{item.Remark}}</td>
+				</tr>
+				
+				<tr class="text-center"  ng-if="cert.basic.externals['H'].Test.Ref">
+					<td style="padding:2px;border:1px solid #ddd;" colspan="2">Ref</td>
+					<td  colspan="10" style="padding:2px;border:1px solid #ddd;" >{{cert.basic.externals['H'].Test.Ref}}</td>
+				</tr>
+				
+				<tr class="text-center" ng-if="cert.basic.externals['H'].Test.Remark">
+					<td style="padding:2px;border:1px solid #ddd;" colspan="2">Remark</td>
+					<td colspan="10" style="padding:2px;border:1px solid #ddd;">{{cert.basic.externals['H'].Test.Remark}}</td>
+				</tr>
+				
+			</table>
+			</td>
+			</tr>		
+						
+
+			
+<!-------------------Non Destructive Testing------------------->		
+			<tr ng-if="cert.basic.externals['ND'].Selected">
+			<td colspan="12" class="table-responsive" style="padding:0px;">
+			<table class="table table-bordered" style="font-size:10px;margin-bottom:0px;">		
+				<tr>
+					<td colspan="6" style="padding:4px;font-size:10.5px;"><b>Non Destructive Testing  {{cert.basic.externals['ND'].Test.SName}}</b></td>
+					<td colspan="6" style="padding:4px;font-size:10.5px;"><span ng-if="cert.basic.externals['ND'].Test.Reference">
+					<b>Reference STD:{{cert.basic.externals['ND'].Test.Reference}}</b></span></td>
+				</tr>
+				
+				<tr style="text-align:center;">
+					<td colspan="1" style="padding:2px;border:1px solid #ddd;">Sr.No.</td>
+					<td colspan="3" style="padding:2px;border:1px solid #ddd;">Parameter</td>
+					<td colspan="3" style="padding:2px;border:1px solid #ddd;">Required</td>
+					<td colspan="4" style="padding:2px;border:1px solid #ddd;">Observation</td>
+					<td colspan="1" style="padding:2px;border:1px solid #ddd;">Remark</td>
+				</tr>
+				
+				<tr style="text-align:center;" ng-repeat="item in cert.basic.externals['ND'].Test.Observations" >
+					<td style="vertical-align: middle;padding:2px;" colspan="1">{{$index+1}}</td>
+					<td colspan="3" style="padding:2px;border:1px solid #ddd;">
+						{{item.Parameter}}
+					</td>
+					<td colspan="3" style="padding:2px;border:1px solid #ddd;">
+						{{item.Required}}
+					</td>
+					<td colspan="4" style="padding:2px;border:1px solid #ddd;">
+						{{item.Observation}}
+					</td>
+					<td style="vertical-align: middle;padding:2px;" colspan="1">{{item.Remark}}</td>
+				</tr>
+				
+				<tr class="text-center"  ng-if="cert.basic.externals['ND'].Test.Ref">
+					<td style="padding:2px;border:1px solid #ddd;" colspan="2">Ref</td>
+					<td  colspan="10" style="padding:2px;border:1px solid #ddd;" >{{cert.basic.externals['ND'].Test.Ref}}</td>
+				</tr>
+				
+				<tr class="text-center" ng-if="cert.basic.externals['ND'].Test.Remark">
+					<td style="padding:2px;border:1px solid #ddd;" colspan="2">Remark</td>
+					<td colspan="10" style="padding:2px;border:1px solid #ddd;">{{cert.basic.externals['ND'].Test.Remark}}</td>
+				</tr>
+				
+			
+			</table>
+			</td>
+			</tr>
+	
+
+<!-----------------Surface Treatment----------------->
+			<tr ng-if="cert.basic.externals['ST'].Selected">
+			<td colspan="12" class="table-responsive" style="padding:0px;">
+			<table class="table table-bordered" style="font-size:10px;margin-bottom:0px;">
+				<tr>
+					<td colspan="6" style="padding:4px;font-size:10.5px;"><b>Surface Treatment  {{cert.basic.externals['ST'].Test.SName}}</b></td>
+					<td colspan="6" style="padding:4px;font-size:10.5px;">
+					<span ng-if="cert.basic.externals['ST'].Test.Reference"><b>Reference STD:{{cert.basic.externals['ST'].Test.Reference}}</b></span></td>
+				</tr>
+				<tbody>
+						<tr style="text-align:center;">
+							<td colspan="1" style="padding:2px;border:1px solid #ddd;">#</td>
+							<td colspan="4" style="padding:2px;border:1px solid #ddd;">Painting System specification</td>
+							<td colspan="4" style="padding:2px;border:1px solid #ddd;">Coat/Observation</td>
+							<td colspan="2" style="padding:2px;border:1px solid #ddd;">Remark</td>
+						</tr>
+						<tr style="text-align:center;" ng-repeat="item in cert.basic.externals['ST'].Test.Observations" >
+							<td colspan="1" style="padding:2px;border:1px solid #ddd;">
+								{{$index+1}}
+							</td>
+							
+							<td colspan="4" style="padding:2px;border:1px solid #ddd;">
+								{{item.Painting}}
+							</td>
+							<td colspan="4" style="padding:2px;border:1px solid #ddd;">
+								{{item.Coat}}
+							</td>
+							<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+								{{item.Remark}}
+							</td>
+						</tr>
+						<tr class="text-center"  ng-if="cert.basic.externals['ST'].Test.Ref">
+							<td style="padding:2px;border:1px solid #ddd;" colspan="2">Ref</td>
+							<td  colspan="10" style="padding:2px;border:1px solid #ddd;" >{{cert.basic.externals['ST'].Test.Ref}}</td>
+						</tr>
+						
+						<tr class="text-center" ng-if="cert.basic.externals['ST'].Test.Remark">
+							<td style="padding:2px;border:1px solid #ddd;" colspan="2">Remark</td>
+							<td colspan="10" style="padding:2px;border:1px solid #ddd;">{{cert.basic.externals['ST'].Test.Remark}}</td>
+						</tr>
+				</tbody>
+			</table>
+			</td>
+			</tr>
+
+<!---------------Delta Coating--------------->
+			<tr ng-if="cert.basic.externals['STDELTA'].Selected">
+			<td colspan="12" class="table-responsive" style="padding:0px;">
+			<table class="table table-bordered " style="font-size:10px;margin-bottom:0px;">
+				<tr>
+					<td colspan="6" style="padding:4px;font-size:10.5px;"><b> Surface Treatment - Delta Coating  {{cert.basic.externals['STDELTA'].Test.SName}}</b></td>
+					<td colspan="6" style="padding:4px;font-size:10.5px;"><span ng-if="cert.basic.externals['STDELTA'].Test.Reference">
+					<b>Reference STD:{{cert.basic.externals['STDELTA'].Test.Reference}}</b></span></td>
+				</tr>
+				<tbody ng-if="cert.basic.externals['STDELTA'].Test.Observations.Type==='attach'">
+				
+					<tr >
+						<td colspan="12" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STDELTA'].Test.Observations.Observations}}
+						</td>
+					</tr>
+				</tbody>
+		<!-------Delta-nonattached------->
+				<tbody ng-if="cert.basic.externals['STDELTA'].Test.Observations.Type !='attach'">
+					<tr class="text-center">
+						<td rowspan="2" colspan="3" style="padding:2px;vertical-align:middle;">Parameter</td>
+						<td colspan="4" style="padding:2px;border:1px solid #ddd;">Requirement</td>
+						<td rowspan="2" colspan="3" style="padding:2px;vertical-align:middle;">Observation</td>
+						<td rowspan="2" colspan="2" style="padding:2px;vertical-align:middle;">Remark</td>
+					</tr>
+					
+					<tr class="text-center">
+						<td colspan="2" style="padding:2px;border:1px solid #ddd;">Min</td>
+						<td colspan="2" style="padding:2px;border:1px solid #ddd;">Max</td>
+					</tr>
+					
+					<tr class="text-center">
+						<td colspan="3" style="padding:2px;border:1px solid #ddd;">
+						Coating thickness µm
+						</td>
+						
+						<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STDELTA'].Test.Observations.CoatMin}}
+						</td>
+						
+						<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STDELTA'].Test.Observations.CoatMax}}
+						</td>
+						
+						<td rowspan="4" colspan="3" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STDELTA'].Test.Observations.Observations}}
+						</td>
+						
+						<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STDELTA'].Test.Observations.CoatRemark}}
+						</td>
+					</tr>
+					
+					<tr class="text-center">
+						<td colspan="3" style="padding:2px;border:1px solid #ddd;">
+						Salt Spray Test(Hrs.)
+						</td>
+						
+						<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STDELTA'].Test.Observations.SaltMin}}
+						</td>
+						
+						<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STDELTA'].Test.Observations.SaltMax}}
+						</td>
+					
+						<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STDELTA'].Test.Observations.SaltRemark}}
+						</td>
+					</tr>
+					
+					<tr class="text-center">
+						<td colspan="3" style="padding:2px;border:1px solid #ddd;">
+						Adhesion		
+
+						</td>
+						
+						<td colspan="4" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STDELTA'].Test.Observations.AdhesionReq}}
+						</td>
+						
+						<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STDELTA'].Test.Observations.AdhesionRemark}}
+						</td>
+					</tr>
+					
+					<tr class="text-center">
+						<td colspan="3" style="padding:2px;border:1px solid #ddd;">
+							Visual Inspection
+						</td>
+						
+						<td colspan="4" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STDELTA'].Test.Observations.VisualReq}}
+						</td>
+					
+						<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STDELTA'].Test.Observations.VisualRemark}}
+						</td>
+					</tr>
+				
+					<tr class="text-center"  ng-if="cert.basic.externals['STDELTA'].Test.Ref">
+						<td style="padding:2px;border:1px solid #ddd;" colspan="2">Ref</td>
+						<td  colspan="10" style="padding:2px;border:1px solid #ddd;" >{{cert.basic.externals['STDELTA'].Test.Ref}}</td>
+					</tr>
+				
+					<tr class="text-center" ng-if="cert.basic.externals['STDELTA'].Test.Remark">
+						<td style="padding:2px;border:1px solid #ddd;" colspan="2">Remark</td>
+						<td colspan="10" style="padding:2px;border:1px solid #ddd;">{{cert.basic.externals['STDELTA'].Test.Remark}}</td>
+					</tr>
+				
+				</tbody>
+			</table>
+			</td>
+			</tr>
+			
+
+<!---------------Delta Coating 2--------------->
+			<tr ng-if="cert.basic.externals['STDELTA2'].Selected">
+			<td colspan="12" class="table-responsive" style="padding:0px;">
+			<table class="table table-bordered " style="font-size:10px;margin-bottom:0px;">
+				<tr>
+					<td colspan="6" style="padding:4px;font-size:10.5px;"><b>Surface Treatment - Delta 2  {{cert.basic.externals['STDELTA2'].Test.SName}}</b></td>
+					<td colspan="6" style="padding:4px;font-size:10.5px;"><span ng-if="cert.basic.externals['STDELTA2'].Test.Reference">
+					<b>Reference STD:{{cert.basic.externals['STDELTA2'].Test.Reference}}</b></span></td>
+				</tr>
+				<tbody ng-if="cert.basic.externals['STDELTA2'].Test.Observations.Type==='attach'">
+				
+					<tr >
+						<td colspan="12" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STDELTA2'].Test.Observations.Observations}}
+						</td>
+					</tr>
+				</tbody>
+		<!-------Delta-nonattached------->
+				<tbody ng-if="cert.basic.externals['STDELTA2'].Test.Observations.Type !='attach'">
+					<tr class="text-center">
+						<td rowspan="2" colspan="3" style="padding:2px;vertical-align:middle;">Parameter</td>
+						<td colspan="4" style="padding:2px;border:1px solid #ddd;">Requirement</td>
+						<td rowspan="2" colspan="3" style="padding:2px;vertical-align:middle;">Observation</td>
+						<td rowspan="2" colspan="2" style="padding:2px;vertical-align:middle;">Remark</td>
+					</tr>
+					
+					<tr class="text-center">
+						<td colspan="2" style="padding:2px;border:1px solid #ddd;">Min</td>
+						<td colspan="2" style="padding:2px;border:1px solid #ddd;">Max</td>
+					</tr>
+					
+					<tr class="text-center">
+						<td colspan="3" style="padding:2px;border:1px solid #ddd;">
+						Coating thickness µm
+						</td>
+						
+						<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STDELTA2'].Test.Observations.CoatMin}}
+						</td>
+						
+						<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STDELTA2'].Test.Observations.CoatMax}}
+						</td>
+						
+						<td rowspan="4" colspan="3" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STDELTA2'].Test.Observations.Observations}}
+						</td>
+						
+						<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STDELTA2'].Test.Observations.CoatRemark}}
+						</td>
+					</tr>
+					
+					<tr class="text-center">
+						<td colspan="3" style="padding:2px;border:1px solid #ddd;">
+						Salt Spray Test(Hrs.)
+						</td>
+						
+						<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STDELTA2'].Test.Observations.SaltMin}}
+						</td>
+						
+						<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STDELTA2'].Test.Observations.SaltMax}}
+						</td>
+					
+						<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STDELTA2'].Test.Observations.SaltRemark}}
+						</td>
+					</tr>
+					
+					<tr class="text-center">
+						<td colspan="3" style="padding:2px;border:1px solid #ddd;">
+						Adhesion		
+
+						</td>
+						
+						<td colspan="4" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STDELTA2'].Test.Observations.AdhesionReq}}
+						</td>
+						
+						<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STDELTA2'].Test.Observations.AdhesionRemark}}
+						</td>
+					</tr>
+					
+					<tr class="text-center">
+						<td colspan="3" style="padding:2px;border:1px solid #ddd;">
+							Visual Inspection
+						</td>
+						
+						<td colspan="4" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STDELTA2'].Test.Observations.VisualReq}}
+						</td>
+					
+						<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STDELTA2'].Test.Observations.VisualRemark}}
+						</td>
+					</tr>
+				
+					<tr class="text-center"  ng-if="cert.basic.externals['STDELTA2'].Test.Ref">
+						<td style="padding:2px;border:1px solid #ddd;" colspan="2">Ref</td>
+						<td  colspan="10" style="padding:2px;border:1px solid #ddd;" >{{cert.basic.externals['STDELTA2'].Test.Ref}}</td>
+					</tr>
+				
+					<tr class="text-center" ng-if="cert.basic.externals['STDELTA2'].Test.Remark">
+						<td style="padding:2px;border:1px solid #ddd;" colspan="2">Remark</td>
+						<td colspan="10" style="padding:2px;border:1px solid #ddd;">{{cert.basic.externals['STDELTA2'].Test.Remark}}</td>
+					</tr>
+				
+				</tbody>
+			</table>
+			</td>
+			</tr>	
+
+<!---------------Surface-Dacromet Coating--------------->	
+			<tr ng-if="cert.basic.externals['STDA'].Selected">
+			<td colspan="12" class="table-responsive" style="padding:0px;">
+			<table class="table table-bordered" style="font-size:10px;margin-bottom:0px;">
+			<tr>
+				<td colspan="6" style="padding:4px;font-size:10.5px;"><b>Surface Treatment - DACROMET Coating  {{cert.basic.externals['STDA'].Test.SName}}</b></td>
+				<td colspan="6" style="padding:4px;font-size:10.5px;">
+				<b ng-if="cert.basic.externals['STDA'].Test.Reference">Reference STD:{{cert.basic.externals['STDA'].Test.Reference}}</b></td>
+			</tr>
+			<tbody>
+				<tr class="text-center">
+					<td rowspan="2" colspan="3" style="padding:2px;vertical-align:middle;">Parameter</td>
+					<td colspan="4" style="padding:2px;border:1px solid #ddd;">Requirement</td>
+					<td rowspan="2" colspan="3" style="padding:2px;vertical-align:middle;">Observation</td>
+					<td rowspan="2" colspan="2" style="padding:2px;vertical-align:middle;">Remark</td>
+				</tr>
+				
+				<tr class="text-center">
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">Min</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">Max</td>
+				</tr>
+				
+				<tr class="text-center">
+					<td colspan="3" style="padding:2px;border:1px solid #ddd;">
+						Coating thickness µm
+					</td>
+					
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+						{{cert.basic.externals['STDA'].Test.Observations.CoatMin}}
+					</td>
+					
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+						{{cert.basic.externals['STDA'].Test.Observations.CoatMax}}
+					</td>
+					
+					<td rowspan="4" colspan="3" style="padding:2px;border:1px solid #ddd;">
+						{{cert.basic.externals['STDA'].Test.Observations.Observations}}
+					</td>
+					
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+						{{cert.basic.externals['STDA'].Test.Observations.CoatRemark}}
+					</td>
+				</tr>
+				
+				<tr class="text-center">
+					<td colspan="3" style="padding:2px;border:1px solid #ddd;">
+						Salt Spray Test(Hrs.)
+					</td>
+					
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+						{{cert.basic.externals['STDA'].Test.Observations.SaltMin}}
+					</td>
+					
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+						{{cert.basic.externals['STDA'].Test.Observations.SaltMax}}
+					</td>
+				
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+						{{cert.basic.externals['STDA'].Test.Observations.SaltRemark}}
+					</td>
+				</tr>
+				
+				<tr class="text-center">
+					<td colspan="3" style="padding:2px;border:1px solid #ddd;">
+						Adhesion
+					</td>
+					
+					<td colspan="4" style="padding:2px;border:1px solid #ddd;">
+						{{cert.basic.externals['STDA'].Test.Observations.AdhesionReq}}
+					</td>
+					
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+						{{cert.basic.externals['STDA'].Test.Observations.AdhesionRemark}}
+					</td>
+				</tr>
+				
+				<tr class="text-center">
+					<td colspan="3" style="padding:2px;border:1px solid #ddd;">
+						Visual Inspection
+					</td>
+					
+					<td colspan="4" style="padding:2px;border:1px solid #ddd;">
+						{{cert.basic.externals['STDA'].Test.Observations.VisualReq}}
+					</td>
+				
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+						{{cert.basic.externals['STDA'].Test.Observations.VisualRemark}}
+					</td>
+				</tr>
+				
+					<tr class="text-center"  ng-if="cert.basic.externals['STDA'].Test.Ref">
+						<td style="padding:2px;border:1px solid #ddd;" colspan="2">Ref</td>
+						<td  colspan="10" style="padding:2px;border:1px solid #ddd;" >{{cert.basic.externals['STDA'].Test.Ref}}</td>
+					</tr>
+				
+					<tr class="text-center" ng-if="cert.basic.externals['STDA'].Test.Remark">
+						<td style="padding:2px;border:1px solid #ddd;" colspan="2">Remark</td>
+						<td colspan="10" style="padding:2px;border:1px solid #ddd;">{{cert.basic.externals['STDA'].Test.Remark}}</td>
+					</tr>
+					
+				</tbody>
+			</table>
+			</td>
+			</tr>
+
+<!---------------Surface- Hot Galvanizing--------------->
+			<tr ng-if="cert.basic.externals['STHOT'].Selected">
+			<td colspan="12" class="table-responsive" style="padding:0px;">
+			<table class="table table-bordered" style="font-size:10px;margin-bottom:0px;">
+				<tr>
+					<td colspan="6" style="padding:4px;font-size:10.5px;"><b>Surface Treatment-Hot Dip Galvanizing  {{cert.basic.externals['STHOT'].Test.SName}}</b></td>
+					<td colspan="6" style="padding:4px;font-size:10.5px;"><b ng-if="cert.basic.externals['STHOT'].Test.Reference">Reference STD:{{cert.basic.externals['STHOT'].Test.Reference}}</b></td>
+				</tr>
+				<tbody>
+					<tr style="text-align:center;">
+						
+						<td rowspan="2" colspan="2" style="padding:2px;border:1px solid #ddd;">Parameter</td>
+						<td rowspan="2" colspan="3" style="padding:2px;border:1px solid #ddd;">Required</td>
+						<td colspan="5" style="padding:2px;border:1px solid #ddd;">Observation</td>
+						<td rowspan="2" style="padding:2px;border:1px solid #ddd;">Remark</td>
+					</tr>
+					
+					<tr class="text-center">
+						<td style="padding:2px;border:1px solid #ddd;" colspan="5"></td>
+						<!-- <td style="padding:2px;border:1px solid #ddd;">2</td> -->
+						<!-- <td style="padding:2px;border:1px solid #ddd;">3</td> -->
+						<!-- <td style="padding:2px;border:1px solid #ddd;">4</td> -->
+						<!-- <td style="padding:2px;border:1px solid #ddd;">5</td> -->
+					</tr>
+					<tr class="text-center">
+						<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+							 Local coating Thickness
+						</td>
+						
+						<td colspan="3" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STHOT'].Test.Observations.ReqLocal}}
+						</td>
+						<td colspan="5" style="padding:2px;border:1px solid #ddd;">
+						
+						<table class="table table-bordered table-condensed" style="margin:0;padding:0;">
+						<tr>
+						<td colspan="1" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STHOT'].Test.Observations.Obs1}}
+						</td>
+						<td colspan="1" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STHOT'].Test.Observations.Obs2}}
+						</td>
+						<td colspan="1" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STHOT'].Test.Observations.Obs3}}
+						</td>
+						<td colspan="1" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STHOT'].Test.Observations.Obs4}}
+						</td>
+						<td colspan="1" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STHOT'].Test.Observations.Obs5}}
+						</td>
+						</tr>
+						<tr>
+						<td colspan="1" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STHOT'].Test.Observations.Obs6}}
+						</td>
+						<td colspan="1" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STHOT'].Test.Observations.Obs7}}
+						</td>
+						<td colspan="1" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STHOT'].Test.Observations.Obs8}}
+						</td>
+						<td colspan="1" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STHOT'].Test.Observations.Obs9}}
+						</td>
+						<td colspan="1" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STHOT'].Test.Observations.Obs10}}
+						</td>
+						</tr>
+						</table>
+							
+						</td>
+						
+						<!-- <td colspan="1" style="padding:2px;border:1px solid #ddd;"> -->
+							<!-- {{cert.basic.externals['STHOT.Observations.Obs1}} -->
+						<!-- </td> -->
+						<!-- <td colspan="1" style="padding:2px;border:1px solid #ddd;"> -->
+							<!-- {{cert.basic.externals['STHOT.Observations.Obs2}} -->
+						<!-- </td> -->
+						<!-- <td colspan="1" style="padding:2px;border:1px solid #ddd;"> -->
+							<!-- {{cert.basic.externals['STHOT.Observations.Obs3}} -->
+						<!-- </td> -->
+						<!-- <td colspan="1" style="padding:2px;border:1px solid #ddd;"> -->
+							<!-- {{cert.basic.externals['STHOT.Observations.Obs4}} -->
+						<!-- </td> -->
+						<!-- <td colspan="1" style="padding:2px;border:1px solid #ddd;"> -->
+							<!-- {{cert.basic.externals['STHOT.Observations.Obs5}} -->
+						<!-- </td> -->
+						<td colspan="1" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STHOT'].Test.Observations.LocalRemark}}
+						</td>
+					</tr>
+					<tr class="text-center">
+						<td colspan="2" style="padding:2px;border:1px solid #ddd;">
+							 Visual
+						</td>
+						
+						<td colspan="3" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STHOT'].Test.Observations.ReqVisual}}
+						</td>
+						<td colspan="5" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STHOT'].Test.Observations.Observation}}
+						</td>
+						<td colspan="1" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STHOT'].Test.Observations.VisualRemark}}
+						</td>
+					</tr>
+					
+					<tr class="text-center"  ng-if="cert.basic.externals['STHOT'].Test.Ref">
+						<td style="padding:2px;border:1px solid #ddd;" colspan="2">Ref</td>
+						<td  colspan="10" style="padding:2px;border:1px solid #ddd;" >{{cert.basic.externals['STHOT'].Test.Ref}}</td>
+					</tr>
+				
+					<tr class="text-center" ng-if="cert.basic.externals['STHOT'].Test.Remark">
+						<td style="padding:2px;border:1px solid #ddd;" colspan="2">Remark</td>
+						<td colspan="10" style="padding:2px;border:1px solid #ddd;">{{cert.basic.externals['STHOT'].Test.Remark}}</td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+			</tr>
+		
+<!-------------------Surface-Plating------------------->		
+			<tr ng-if="cert.basic.externals['STP'].Selected">
+			<td colspan="12" class="table-responsive" style="padding:0px;">
+			<table class="table table-bordered" style="font-size:10px;margin-bottom:0px;">		
+				<tr>
+					<td colspan="6" style="padding:4px;font-size:10.5px;"><b>Surface Treatment-Plating  {{cert.basic.externals['STP'].Test.SName}}</b></td>
+					<td colspan="6" style="padding:4px;font-size:10.5px;">
+					<span ng-if="cert.basic.externals['STP'].Test.Reference"><b>Reference STD:{{cert.basic.externals['STP'].Test.Reference}}</b></span></td>
+				</tr>
+				
+				<tr style="text-align:center;">
+					<td colspan="1" style="vertical-align: middle;padding:2px;" rowspan="2">Sr.No.</td>
+					<td colspan="3" style="vertical-align: middle;padding:2px;" rowspan="2">Parameter</td>
+					<td colspan="2" style="padding:2px;border:1px solid #ddd;">Requirement</td>
+					<td colspan="5" style="vertical-align: middle;padding:2px;" rowspan="2">Observation</td>
+					<td colspan="1" style="vertical-align: middle;padding:2px;" rowspan="2">Remark</td>
+				</tr>
+				
+				<tr style="text-align:center;">
+					<td colspan="1" style="vertical-align: middle;padding:2px;">Min.</td>
+					<td colspan="1" style="vertical-align: middle;padding:2px;">Max.</td>
+				</tr>
+				
+				<tr style="text-align:center;">
+					<td colspan="1" style="padding:2px;border:1px solid #ddd;">{{$index+1}}</td>
+					<td colspan="3" style="padding:2px;border:1px solid #ddd;">Local coating Thickness</td>
+					<td colspan="1" style="padding:2px;border:1px solid #ddd;">
+						{{cert.basic.externals['STP'].Test.Observations.ReqMin}}
+					</td>
+					<td colspan="1" style="padding:2px;border:1px solid #ddd;">
+						{{cert.basic.externals['STP'].Test.Observations.ReqMax}}
+					</td>
+					
+					<td colspan="5" style="padding:2px;border:1px solid #ddd;">
+						
+						<table class="table table-bordered table-condensed" style="margin:0;padding:0;">
+						<tr>
+						<td colspan="1" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STP'].Test.Observations.Obs1}}
+						</td>
+						<td colspan="1" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STP'].Test.Observations.Obs2}}
+						</td>
+						<td colspan="1" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STP'].Test.Observations.Obs3}}
+						</td>
+						<td colspan="1" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STP'].Test.Observations.Obs4}}
+						</td>
+						<td colspan="1" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STP'].Test.Observations.Obs5}}
+						</td>
+						</tr>
+						<tr>
+						<td colspan="1" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STP'].Test.Observations.Obs6}}
+						</td>
+						<td colspan="1" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STP'].Test.Observations.Obs7}}
+						</td>
+						<td colspan="1" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STP'].Test.Observations.Obs8}}
+						</td>
+						<td colspan="1" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STP'].Test.Observations.Obs9}}
+						</td>
+						<td colspan="1" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['STP'].Test.Observations.Obs10}}
+						</td>
+						</tr>
+						</table>
+							
+						</td>
+						
+					<!-- <td colspan="1" style="padding:2px;border:1px solid #ddd;"> -->
+						<!-- {{cert.basic.externals['STP.Observations.Obs1}} -->
+					<!-- </td> -->
+					<!-- <td colspan="1" style="padding:2px;border:1px solid #ddd;"> -->
+						<!-- {{cert.basic.externals['STP.Observations.Obs2}} -->
+					<!-- </td> -->
+					<!-- <td colspan="1" style="padding:2px;border:1px solid #ddd;"> -->
+						<!-- {{cert.basic.externals['STP.Observations.Obs3}} -->
+					<!-- </td> -->
+					<!-- <td colspan="1" style="padding:2px;border:1px solid #ddd;"> -->
+						<!-- {{cert.basic.externals['STP.Observations.Obs4}} -->
+					<!-- </td> -->
+					<!-- <td colspan="1" style="padding:2px;border:1px solid #ddd;"> -->
+						<!-- {{cert.basic.externals['STP.Observations.Obs5}} -->
+					<!-- </td> -->
+					<td colspan="1" style="vertical-align: middle;padding:2px;">{{cert.basic.externals['STP'].Test.Observations.Remark}}</td>
+				</tr>
+				
+				<tr class="text-center"  ng-if="cert.basic.externals['STP'].Test.Ref">
+					<td style="padding:2px;border:1px solid #ddd;" colspan="2">Ref</td>
+					<td  colspan="10" style="padding:2px;border:1px solid #ddd;" >{{cert.basic.externals['STP'].Test.Ref}}</td>
+				</tr>
+				
+				<tr class="text-center" ng-if="cert.basic.externals['STP'].Test.Remark">
+					<td style="padding:2px;border:1px solid #ddd;" colspan="2">Remark</td>
+					<td colspan="10" style="padding:2px;border:1px solid #ddd;">{{cert.basic.externals['STP'].Test.Remark}}</td>
+				</tr>
+				
+			</table>
+			</td>
+			</tr>		
+<!-------------------Thermal Zinc Coating------------------->		
+			<tr ng-if="cert.basic.externals['OD'].Selected">
+			<td colspan="12" class="table-responsive" style="padding:0px;">
+			<table class="table table-bordered" style="font-size:10px;margin-bottom:0px;">		
+				<tr>
+					<td colspan="6" style="padding:4px;font-size:10.5px;"><b>Thermal Zinc Coating {{cert.basic.externals['TZC'].Test.SName}}</b></td>
+					<td colspan="6" style="padding:4px;font-size:10.5px;"><span ng-if="cert.basic.externals['TZC'].Test.Reference">
+					<b>Ref Std/Drawing No:{{cert.basic.externals['TZC'].Test.Reference}}</b></span></td>
+				</tr>
+				
+				<tr >
+						<td colspan="12" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['TZC'].Test.Observations.Observations}}
+						</td>
+					</tr>
+				
+				<tr class="text-center"  ng-if="cert.basic.externals['TZC'].Test.Ref">
+					<td style="padding:2px;border:1px solid #ddd;" colspan="2">Ref</td>
+					<td  colspan="10" style="padding:2px;border:1px solid #ddd;" >{{cert.basic.externals['TZC'].Test.Ref}}</td>
+				</tr>
+				
+				<tr class="text-center" ng-if="cert.basic.externals['TZC'].Test.Remark">
+					<td style="padding:2px;border:1px solid #ddd;" colspan="2">Remark</td>
+					<td colspan="10" style="padding:2px;border:1px solid #ddd;">{{cert.basic.externals['TZC'].Test.Remark}}</td>
+				</tr>
+				
+			</table>
+			</td>
+			</tr>	
+				
+		<!-------------------Thermal Zinc Coating------------------->		
+			<tr ng-if="cert.basic.externals['ICR'].Selected">
+			<td colspan="12" class="table-responsive" style="padding:0px;">
+			<table class="table table-bordered" style="font-size:10px;margin-bottom:0px;">		
+				<tr>
+					<td colspan="6" style="padding:4px;font-size:10.5px;"><b>Internal Coating Report {{cert.basic.externals['ICR'].Test.SName}}</b></td>
+					<td colspan="6" style="padding:4px;font-size:10.5px;"><span ng-if="cert.basic.externals['ICR'].Test.Reference">
+					<b>Ref Std/Drawing No:{{cert.basic.externals['ICR'].Test.Reference}}</b></span></td>
+				</tr>
+				
+				<tr >
+						<td colspan="12" style="padding:2px;border:1px solid #ddd;">
+							{{cert.basic.externals['ICR'].Test.Observations.Observations}}
+						</td>
+					</tr>
+				
+				<tr class="text-center"  ng-if="cert.basic.externals['ICR'].Test.Ref">
+					<td style="padding:2px;border:1px solid #ddd;" colspan="2">Ref</td>
+					<td  colspan="10" style="padding:2px;border:1px solid #ddd;" >{{cert.basic.externals['ICR'].Test.Ref}}</td>
+				</tr>
+				
+				<tr class="text-center" ng-if="cert.basic.externals['ICR'].Test.Remark">
+					<td style="padding:2px;border:1px solid #ddd;" colspan="2">Remark</td>
+					<td colspan="10" style="padding:2px;border:1px solid #ddd;">{{cert.basic.externals['ICR'].Test.Remark}}</td>
+				</tr>
+				
+			</table>
+			</td>
+			</tr>					
+<!-------------------Other Details------------------->		
+			<tr ng-if="cert.basic.externals['OD'].Selected">
+			<td colspan="12" class="table-responsive" style="padding:0px;">
+			<table class="table table-bordered" style="font-size:10px;margin-bottom:0px;">		
+				<tr>
+					<td colspan="6" style="padding:4px;font-size:10.5px;"><b>Other Details  {{cert.basic.externals['OD'].Test.SName}}</b></td>
+					<td colspan="6" style="padding:4px;font-size:10.5px;"><span ng-if="cert.basic.externals['OD'].Test.Reference">
+					<b>Ref Std/Drawing No:{{cert.basic.externals['OD'].Test.Reference}}</b></span></td>
+				</tr>
+				
+				<tr style="text-align:center;">
+					<td colspan="1" style="padding:2px;border:1px solid #ddd;">Sr.No.</td>
+					<td colspan="3" style="padding:2px;border:1px solid #ddd;">Parameter</td>
+					<td colspan="3" style="padding:2px;border:1px solid #ddd;">Required</td>
+					<td colspan="3" style="padding:2px;border:1px solid #ddd;">Observation</td>
+					<td colspan="1" style="padding:2px;border:1px solid #ddd;">Result</td>
+				</tr>
+				
+				<tr style="text-align:center;"  ng-repeat="item in cert.basic.externals['OD'].Test.Observations" >
+					<td colspan="1" style="padding:2px;border:1px solid #ddd;">{{$index+1}}</td>
+					<td colspan="3" style="padding:2px;border:1px solid #ddd;">{{item.Parameter}}</td>
+					<td colspan="3" style="padding:2px;border:1px solid #ddd;">
+						{{item.Required}}
+					</td>
+					<td colspan="3" style="padding:2px;border:1px solid #ddd;">
+						{{item.Observation}}
+					</td>
+					<td colspan="1" style="vertical-align: middle;padding:2px;">{{item.Remark}}</td>
+				</tr>
+				
+				<tr class="text-center"  ng-if="cert.basic.externals['OD'].Test.Ref">
+					<td style="padding:2px;border:1px solid #ddd;" colspan="2">Ref</td>
+					<td  colspan="10" style="padding:2px;border:1px solid #ddd;" >{{cert.basic.externals['OD'].Test.Ref}}</td>
+				</tr>
+				
+				<tr class="text-center" ng-if="cert.basic.externals['OD'].Test.Remark">
+					<td style="padding:2px;border:1px solid #ddd;" colspan="2">Remark</td>
+					<td colspan="10" style="padding:2px;border:1px solid #ddd;">{{cert.basic.externals['OD'].Test.Remark}}</td>
+				</tr>
+				
+			</table>
+			</td>
+			</tr>		
+	
+<!---------Footer--------------------------------------->
+<tr>
+<td colspan="12" style="padding:4px;"><b>The results of tests are satisfactory.</b></td>
+</tr>
+<tr style="border:none ;" class="mybg">
+<td colspan="5"  style="padding:4px;border:none ;"> 
+<span style="padding-left:20px;">Prepared By,</span>
+<br>
+<figure class="figure" style="display:inherit;">
+			<img  ng-src="{{cert.basic.PreparedSign}}"  class="figure-img img-fluid rounded" style="height:65px;width:160px;padding-left:20px;" alt=""/>
+			<figcaption class="figure-caption text-center" >{{cert.basic.PreparedBy}}</figcaption></figure>
+
+
+<!-- 
+<span class="" ><label  >{{cert.PreparedBy}}</label>
+			<img ng-if="cert.PreparedSign" ng-src="{{cert.PreparedSign}}" style="height:65px;width:160px;padding-left:20px;" alt="{{hydro.TestedBy}}"/></span>
+			 -->
+<br>
+<span style="padding-left:20px;"> Jr. Engineer - Q. A.</span>
+</td>
+<td colspan="4"  style="padding:4px;border:none ;"> 
+<span style="padding-left:20px;">Checked By,</span>
+<br>
+<figure class="figure" style="display:inherit;">
+			<img  ng-src="{{cert.basic.CheckedSign}}"  class="figure-img img-fluid rounded" style="height:65px;width:160px;padding-left:20px;" alt=""/>
+			<figcaption class="figure-caption text-center" >{{cert.basic.CheckedBy}}</figcaption></figure>
+
+<br>
+<span style="padding-left:20px;">Engineer - Engineering</span>
+</td>
+<td colspan="3"  style="padding:4px;border:none ;">
+<span style="padding-left:20px;"> Approved By,</span>
+ <br>
+<figure class="figure" style="display:inherit;">
+			<img  ng-src="{{cert.basic.ApprovedSign}}"  class="figure-img img-fluid rounded" style="height:65px;width:160px;padding-left:20px;" alt=""/>
+			<figcaption class="figure-caption text-center" >{{cert.basic.ApprovedBy}}</figcaption></figure>
+<br>
+<span style="padding-left:20px;">A.G.M. - Engineering</span>
+</td>
+</tr>	
+
+<tr ng-if="cert.basic.FormatNo"><td colspan="12">{{cert.basic.FormatNo}}</td></tr>
+<tr><td colspan="12">Country Of Origin - India</td></tr>
+<!--------------End-------------------->		
+			</tbody>
+			</table>
+			
+	</div>		
+			
+	<table class="table table-bordered" id="pdfPrakrutiId">
+	<tr><th>FileName</th><th>Type</th></tr>
+	<tr ng-repeat="item in cert.attachments">
+	<td>
+	<a ng-href="{{item.url}}" target="_blank">{{item.name}}</a>
+	</td>
+	<td>
+	{{item.category}}
+	
+
+	</td>
+	</tr>
+</table>	
+
+		  </div>
+        <div class="modal-footer">
+		 <!-- <button class="btn btn-primary" onclick="generatePDF()"><i class="fa fa-save"></i> Save as PDF</button> -->
+			<!-- <button class="btn btn-primary" ng-click="createpdf(cert)"><i class="fa fa-print"></i> Create Pdf</button> -->
+       		<button class="btn btn-primary" ng-click="printDiv('printThisElement')"><i class="fa fa-print"></i> Print</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>

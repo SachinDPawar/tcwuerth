@@ -1,0 +1,64 @@
+<style>
+.form-control {
+padding:5px 8px;
+}
+
+</style>
+<div class="row " >
+
+	<div class="col-md-12 col-md-offset-0" style="margin-top:0px;">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h2 class="panel-title text-center"><b>Element Info</b></h2>
+			</div>
+			<div class="panel-body">
+				
+				<form class="form-horizontal" name="minmaxform" novalidate>
+					<div class="form-group">
+						<label class="col-md-2 col-sm-2 control-label">Element Name</label>
+						<div class="col-md-4 col-sm-4">
+							<input type="text" class="form-control" id="ElementName" ng-model="element.ElementName" name="ElementName" placeholder="Element Name" />
+							<small >Example:- Carbon</small>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-md-2 col-sm-2 control-label">Symbol</label>
+						<div class="col-md-4 col-sm-4">
+							<input type="text" class="form-control" id="Symbol" ng-model="element.Symbol" name="Symbol" placeholder="Symbol/Letters" />
+							<small>Example:- C</small>
+						</div>
+					</div>
+					
+					<button type="button" class="btn btn-md btn-success" style="display:block;margin:auto;">Submit</button>
+				</form>
+				
+			</div>
+		</div>
+	</div>
+
+</div>
+
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<table class="table table-bordered">
+					<th class="text-center">Sr.No.</th>
+					<th class="text-center">Elements</th>
+					<th class="text-center">Symbol</th>
+					<tbody>
+							
+					<tr class="text-center">
+					<td >
+						1
+					</td>
+					<td>
+						Carbon
+					</td>	
+					<td>
+						C
+					</td>	
+					</tr>						
+					</tbody>
+				</table>
+			</div>
+		</div>

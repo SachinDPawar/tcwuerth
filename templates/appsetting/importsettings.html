@@ -1,0 +1,2532 @@
+<div class="card card-inverse mt-2" >
+	<div class="card-header">
+		<h3 class="card-title text-left"><b><i class="fa fa-envelope"></i> IMPORT SETTINGS v20.12</b></h3>
+	</div>   
+	<div class="card-body">
+	
+	
+	<div class="accordion" id="accordionExample">
+	
+	
+		<div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsehard" 
+	  aria-expanded="true" aria-controls="collapsehard">
+        Import Hardness
+      </button>
+    </h2>
+    <div id="collapsehard" class="accordion-collapse collapse " data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div class="row">
+		<div class="col-sm-12">
+		<div class="form-group">
+		<div class="col-md-6 p-2">	
+		<input type="file" ngf-select="SelecthardFile($file)" />
+		</div>
+		
+		<div class="col-md-6 p-2">	
+		<button type="button" class="btn btn-info" ng-click="Uploadhard()"  >Get Hardness from file</button>
+		<button type="button" class="btn btn-info" ng-click="resetfile()"  >Reset</button>
+		</div>
+	</div>
+	
+		<div class="row pt-2 table-responsive" ng-show="myharddata.Products.length>0">
+				<p> Your sheet contains </p>
+					 <table id="tblCustomers" class="table table-bordered table-condensed"  
+					 style="overflow:scroll;" cellpadding="0" cellspacing="0" ng-show="myharddata.IsVisible">
+            <tr >
+<th>BatchCode</th>				  
+<th>TestName</th>	
+<th>TSeq</th>
+<th>SubStd</th>
+<th>TestMethod</th>
+<th>ExtraInfo</th>		
+<th>FormatNo</th>
+<th>RevNo</th>
+<th>RevDate</th>
+<th>ReceiptOn</th>
+<th>ReqDate</th>	
+<th>TestDate</th>
+<th>Status</th>
+<th>ULRNo</th>
+<th>ApprovedDate</th>
+<th>ApprovedBy</th>
+<th>TestedBy</th>
+<!-- <th>Note</th>		 -->
+<th>LastModified</th>		
+<th>CreationDate</th>		
+
+	
+            </tr>
+            <tbody  pagination-id="dbd"  dir-paginate="m in results =( myharddata.Products | filter:q )| itemsPerPage: dbpageSize"  current-page="dbcurrentPage" >
+                <tr>
+                   
+					
+					 <td>{{m.BatchCode}}</td>
+                    <td>{{m.TestName}}</td>
+					  <td>{{m.TSeq}}</td>
+					   <td>{{m.SubStd}}</td>					  					
+					  <td>{{m.TestMethod}}</td>					 
+					  <td>{{m.ExtraInfo}}</td>
+					   <td>{{m.FormatNo}}</td>
+					    <td>{{m.RevNo}}</td>
+					   <td>{{m.RevDate}}</td>
+					   <td>{{m.ReceiptOn}}</td>
+					   <td>{{m.ReqDate}}</td>
+					   <td>{{m.TestDate}}</td>
+					   <td>{{m.Status}}</td>
+					   <td>{{m.ULRNo}}</td>
+					   <td>{{m.ApprovedDate}}</td>
+					   <td>{{m.ApprovedBy}}</td>
+					   <td>{{m.TestedBy}}</td>
+					   <!-- <td>{{m.Note}}</td> -->
+					   <td>{{m.LastModified}}</td>
+					   <td>{{m.CreationDate}}</td>
+					   
+					  
+
+					   
+                </tr>
+            </tbody>
+        </table>
+		<dir-pagination-controls  pagination-id="dbd" on-page-change="getdata(newPageNumber)"></dir-pagination-controls>
+			<div class="col-md-12 text-center " style="font-size:12px;">
+					<button class="btn btn-primary" ng-disabled=" dbtotalitems<1 || impform.$invalid" ng-click="uploadtensiletodb('confirm',myharddata,'HARD')" >Upload To DB</button>
+					</div>
+				</div>
+				
+		</div>
+		</div>
+      </div>
+    </div>
+  </div>
+ 
+ 
+	
+		<div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseshear" 
+	  aria-expanded="true" aria-controls="collapseshear">
+        Import Shear strength
+      </button>
+    </h2>
+    <div id="collapseshear" class="accordion-collapse collapse " data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div class="row">
+		<div class="col-sm-12">
+		<div class="form-group">
+		<div class="col-md-6 p-2">	
+		<input type="file" ngf-select="SelectshearFile($file)" />
+		</div>
+		
+		<div class="col-md-6 p-2">	
+		<button type="button" class="btn btn-info" ng-click="Uploadshear()"  >Get SHEAR from file</button>
+		<button type="button" class="btn btn-info" ng-click="resetfile()"  >Reset</button>
+		</div>
+	</div>
+	
+		<div class="row pt-2 table-responsive" ng-show="mysheardata.Products.length>0">
+				<p> Your sheet contains </p>
+					 <table id="tblCustomers" class="table table-bordered table-condensed"  
+					 style="overflow:scroll;" cellpadding="0" cellspacing="0" ng-show="mysheardata.IsVisible">
+            <tr >
+<th>LabNo</th>				  
+<th>TestName</th>	
+<th>TSeq</th>
+<th>SubStd</th>
+<th>TestMethod</th>
+<th>ExtraInfo</th>		
+<th>FormatNo</th>
+<th>RevNo</th>
+<th>RevDate</th>
+<th>ReqDate</th>	
+<th>TestDate</th>
+<th>Status</th>
+<th>ULRNo</th>
+<th>ApprovedDate</th>
+<th>ApprovedBy</th>
+<th>TestedBy</th>
+<!-- <th>Note</th>		 -->
+<th>LastModified</th>		
+<th>CreationDate</th>		
+
+	
+            </tr>
+            <tbody  pagination-id="dbd"  dir-paginate="m in results =( mysheardata.Products | filter:q )| itemsPerPage: dbpageSize"  current-page="dbcurrentPage" >
+                <tr>
+                   
+					
+					 <td>{{m.LabNo}}</td>
+                    <td>{{m.TestName}}</td>
+					  <td>{{m.TSeq}}</td>
+					   <td>{{m.SubStd}}</td>					  					
+					  <td>{{m.TestMethod}}</td>					 
+					  <td>{{m.ExtraInfo}}</td>
+					   <td>{{m.FormatNo}}</td>
+					    <td>{{m.RevNo}}</td>
+					   <td>{{m.RevDate}}</td>
+					   <td>{{m.ReqDate}}</td>
+					   <td>{{m.TestDate}}</td>
+					   <td>{{m.Status}}</td>
+					   <td>{{m.ULRNo}}</td>
+					   <td>{{m.ApprovedDate}}</td>
+					   <td>{{m.ApprovedBy}}</td>
+					   <td>{{m.TestedBy}}</td>
+					   <!-- <td>{{m.Note}}</td> -->
+					   <td>{{m.LastModified}}</td>
+					   <td>{{m.CreationDate}}</td>
+					   
+					  
+
+					   
+                </tr>
+            </tbody>
+        </table>
+		<dir-pagination-controls  pagination-id="dbd" on-page-change="getdata(newPageNumber)"></dir-pagination-controls>
+			<div class="col-md-12 text-center " style="font-size:12px;">
+					<button class="btn btn-primary" ng-disabled=" dbtotalitems<1 || impform.$invalid" ng-click="uploadtensiletodb('confirm',mysheardata,'SHEAR')" >Upload To DB</button>
+					</div>
+				</div>
+				
+		</div>
+		</div>
+      </div>
+    </div>
+  </div>
+ 
+ 
+	
+		<div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsehet" 
+	  aria-expanded="true" aria-controls="collapsehet">
+        Import Hydrogen
+      </button>
+    </h2>
+    <div id="collapsehet" class="accordion-collapse collapse " data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div class="row">
+		<div class="col-sm-12">
+		<div class="form-group">
+		<div class="col-md-6 p-2">	
+		<input type="file" ngf-select="SelecthetFile($file)" />
+		</div>
+		
+		<div class="col-md-6 p-2">	
+		<button type="button" class="btn btn-info" ng-click="Uploadhet()"  >Get HET from file</button>
+		<button type="button" class="btn btn-info" ng-click="resetfile()"  >Reset</button>
+		</div>
+	</div>
+	
+		<div class="row pt-2 table-responsive" ng-show="myhetdata.Products.length>0">
+				<p> Your sheet contains </p>
+					 <table id="tblCustomers" class="table table-bordered table-condensed"  
+					 style="overflow:scroll;" cellpadding="0" cellspacing="0" ng-show="myhetdata.IsVisible">
+            <tr >
+<th>LabNo</th>				  
+<th>TestName</th>	
+<th>TSeq</th>
+<th>SubStd</th>
+<th>TestMethod</th>
+<th>ExtraInfo</th>		
+<th>FormatNo</th>
+<th>RevNo</th>
+<th>RevDate</th>
+<th>ReqDate</th>	
+<th>TestDate</th>
+<th>Status</th>
+<th>ULRNo</th>
+<th>ApprovedDate</th>
+<th>ApprovedBy</th>
+<th>TestedBy</th>
+<!-- <th>Note</th>		 -->
+<th>LastModified</th>		
+<th>CreationDate</th>		
+
+	
+            </tr>
+            <tbody  pagination-id="dbd"  dir-paginate="m in results =( myhetdata.Products | filter:q )| itemsPerPage: dbpageSize"  current-page="dbcurrentPage" >
+                <tr>
+                   
+					
+					 <td>{{m.LabNo}}</td>
+                    <td>{{m.TestName}}</td>
+					  <td>{{m.TSeq}}</td>
+					   <td>{{m.SubStd}}</td>					  					
+					  <td>{{m.TestMethod}}</td>					 
+					  <td>{{m.ExtraInfo}}</td>
+					   <td>{{m.FormatNo}}</td>
+					    <td>{{m.RevNo}}</td>
+					   <td>{{m.RevDate}}</td>
+					   <td>{{m.ReqDate}}</td>
+					   <td>{{m.TestDate}}</td>
+					   <td>{{m.Status}}</td>
+					   <td>{{m.ULRNo}}</td>
+					   <td>{{m.ApprovedDate}}</td>
+					   <td>{{m.ApprovedBy}}</td>
+					   <td>{{m.TestedBy}}</td>
+					   <!-- <td>{{m.Note}}</td> -->
+					   <td>{{m.LastModified}}</td>
+					   <td>{{m.CreationDate}}</td>
+					   
+					  
+
+					   
+                </tr>
+            </tbody>
+        </table>
+		<dir-pagination-controls  pagination-id="dbd" on-page-change="getdata(newPageNumber)"></dir-pagination-controls>
+			<div class="col-md-12 text-center " style="font-size:12px;">
+					<button class="btn btn-primary" ng-disabled=" dbtotalitems<1 || impform.$invalid" ng-click="uploadtensiletodb('confirm',myhetdata,'HET')" >Upload To DB</button>
+					</div>
+				</div>
+				
+		</div>
+		</div>
+      </div>
+    </div>
+  </div>
+ 
+ 
+	
+		<div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsewedge" 
+	  aria-expanded="true" aria-controls="collapsewedge">
+        Import Wedge
+      </button>
+    </h2>
+    <div id="collapsewedge" class="accordion-collapse collapse " data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div class="row">
+		<div class="col-sm-12">
+		<div class="form-group">
+		<div class="col-md-6 p-2">	
+		<input type="file" ngf-select="SelectwedgeFile($file)" />
+		</div>
+		
+		<div class="col-md-6 p-2">	
+		<button type="button" class="btn btn-info" ng-click="Uploadwedge()"  >Get WEDGE from file</button>
+		<button type="button" class="btn btn-info" ng-click="resetfile()"  >Reset</button>
+		</div>
+	</div>
+	
+		<div class="row pt-2 table-responsive" ng-show="mywedgedata.Products.length>0">
+				<p> Your sheet contains </p>
+					 <table id="tblCustomers" class="table table-bordered table-condensed"  
+					 style="overflow:scroll;" cellpadding="0" cellspacing="0" ng-show="mywedgedata.IsVisible">
+            <tr >
+<th>LabNo</th>				  
+<th>TestName</th>	
+<th>TSeq</th>
+<th>SubStd</th>
+<th>TestMethod</th>
+<th>ExtraInfo</th>		
+<th>FormatNo</th>
+<th>RevNo</th>
+<th>RevDate</th>
+<th>ReqDate</th>	
+<th>TestDate</th>
+<th>Status</th>
+<th>ULRNo</th>
+<th>ApprovedDate</th>
+<th>ApprovedBy</th>
+<th>TestedBy</th>
+<!-- <th>Note</th>		 -->
+<th>LastModified</th>		
+<th>CreationDate</th>		
+
+	
+            </tr>
+            <tbody  pagination-id="dbd"  dir-paginate="m in results =( mywedgedata.Products | filter:q )| itemsPerPage: dbpageSize"  current-page="dbcurrentPage" >
+                <tr>
+                   
+					
+					 <td>{{m.LabNo}}</td>
+                    <td>{{m.TestName}}</td>
+					  <td>{{m.TSeq}}</td>
+					   <td>{{m.SubStd}}</td>					  					
+					  <td>{{m.TestMethod}}</td>					 
+					  <td>{{m.ExtraInfo}}</td>
+					   <td>{{m.FormatNo}}</td>
+					    <td>{{m.RevNo}}</td>
+					   <td>{{m.RevDate}}</td>
+					   <td>{{m.ReqDate}}</td>
+					   <td>{{m.TestDate}}</td>
+					   <td>{{m.Status}}</td>
+					   <td>{{m.ULRNo}}</td>
+					   <td>{{m.ApprovedDate}}</td>
+					   <td>{{m.ApprovedBy}}</td>
+					   <td>{{m.TestedBy}}</td>
+					   <!-- <td>{{m.Note}}</td> -->
+					   <td>{{m.LastModified}}</td>
+					   <td>{{m.CreationDate}}</td>
+					   
+					  
+
+					   
+                </tr>
+            </tbody>
+        </table>
+		<dir-pagination-controls  pagination-id="dbd" on-page-change="getdata(newPageNumber)"></dir-pagination-controls>
+			<div class="col-md-12 text-center " style="font-size:12px;">
+					<button class="btn btn-primary" ng-disabled=" dbtotalitems<1 || impform.$invalid" ng-click="uploadtensiletodb('confirm',mywedgedata,'WEDGE')" >Upload To DB</button>
+					</div>
+				</div>
+				
+		</div>
+		</div>
+      </div>
+    </div>
+  </div>
+ 
+ 
+	
+	
+		<div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsethread" 
+	  aria-expanded="true" aria-controls="collapsethread">
+        Import Thread lapping
+      </button>
+    </h2>
+    <div id="collapsethread" class="accordion-collapse collapse " data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div class="row">
+		<div class="col-sm-12">
+		<div class="form-group">
+		<div class="col-md-6 p-2">	
+		<input type="file" ngf-select="SelectthreadFile($file)" />
+		</div>
+		
+		<div class="col-md-6 p-2">	
+		<button type="button" class="btn btn-info" ng-click="Uploadthread()"  >Get THREAD from file</button>
+		<button type="button" class="btn btn-info" ng-click="resetfile()"  >Reset</button>
+		</div>
+	</div>
+	
+		<div class="row pt-2 table-responsive" ng-show="mythreaddata.Products.length>0">
+				<p> Your sheet contains </p>
+					 <table id="tblCustomers" class="table table-bordered table-condensed"  
+					 style="overflow:scroll;" cellpadding="0" cellspacing="0" ng-show="mythreaddata.IsVisible">
+            <tr >
+<th>LabNo</th>				  
+<th>TestName</th>	
+<th>TSeq</th>
+<th>SubStd</th>
+<th>TestMethod</th>
+<th>ExtraInfo</th>		
+<th>FormatNo</th>
+<th>RevNo</th>
+<th>RevDate</th>
+<th>ReqDate</th>	
+<th>TestDate</th>
+<th>Status</th>
+<th>ULRNo</th>
+<th>ApprovedDate</th>
+<th>ApprovedBy</th>
+<th>TestedBy</th>
+<!-- <th>Note</th>		 -->
+<th>LastModified</th>		
+<th>CreationDate</th>		
+
+	
+            </tr>
+            <tbody  pagination-id="dbd"  dir-paginate="m in results =( mythreaddata.Products | filter:q )| itemsPerPage: dbpageSize"  current-page="dbcurrentPage" >
+                <tr>
+                   
+					
+					 <td>{{m.LabNo}}</td>
+                    <td>{{m.TestName}}</td>
+					  <td>{{m.TSeq}}</td>
+					   <td>{{m.SubStd}}</td>					  					
+					  <td>{{m.TestMethod}}</td>					 
+					  <td>{{m.ExtraInfo}}</td>
+					   <td>{{m.FormatNo}}</td>
+					    <td>{{m.RevNo}}</td>
+					   <td>{{m.RevDate}}</td>
+					   <td>{{m.ReqDate}}</td>
+					   <td>{{m.TestDate}}</td>
+					   <td>{{m.Status}}</td>
+					   <td>{{m.ULRNo}}</td>
+					   <td>{{m.ApprovedDate}}</td>
+					   <td>{{m.ApprovedBy}}</td>
+					   <td>{{m.TestedBy}}</td>
+					   <!-- <td>{{m.Note}}</td> -->
+					   <td>{{m.LastModified}}</td>
+					   <td>{{m.CreationDate}}</td>
+					   
+					  
+
+					   
+                </tr>
+            </tbody>
+        </table>
+		<dir-pagination-controls  pagination-id="dbd" on-page-change="getdata(newPageNumber)"></dir-pagination-controls>
+			<div class="col-md-12 text-center " style="font-size:12px;">
+					<button class="btn btn-primary" ng-disabled=" dbtotalitems<1 || impform.$invalid" ng-click="uploadtensiletodb('confirm',mythreaddata,'THREAD')" >Upload To DB</button>
+					</div>
+				</div>
+				
+		</div>
+		</div>
+      </div>
+    </div>
+  </div>
+ 
+ 
+	
+		<div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsemcoat" 
+	  aria-expanded="true" aria-controls="collapsemcoat">
+        Import Micro coating
+      </button>
+    </h2>
+    <div id="collapsemcoat" class="accordion-collapse collapse " data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div class="row">
+		<div class="col-sm-12">
+		<div class="form-group">
+		<div class="col-md-6 p-2">	
+		<input type="file" ngf-select="SelectmcoatFile($file)" />
+		</div>
+		
+		<div class="col-md-6 p-2">	
+		<button type="button" class="btn btn-info" ng-click="Uploadmcoat()"  >Get MCOAT from file</button>
+		<button type="button" class="btn btn-info" ng-click="resetfile()"  >Reset</button>
+		</div>
+	</div>
+	
+		<div class="row pt-2 table-responsive" ng-show="mymcoatdata.Products.length>0">
+				<p> Your sheet contains </p>
+					 <table id="tblCustomers" class="table table-bordered table-condensed"  
+					 style="overflow:scroll;" cellpadding="0" cellspacing="0" ng-show="mymcoatdata.IsVisible">
+            <tr >
+<th>LabNo</th>				  
+<th>TestName</th>	
+<th>TSeq</th>
+<th>SubStd</th>
+<th>TestMethod</th>
+<th>ExtraInfo</th>		
+<th>FormatNo</th>
+<th>RevNo</th>
+<th>RevDate</th>
+<th>ReqDate</th>	
+<th>TestDate</th>
+<th>Status</th>
+<th>ULRNo</th>
+<th>ApprovedDate</th>
+<th>ApprovedBy</th>
+<th>TestedBy</th>
+<!-- <th>Note</th>		 -->
+<th>LastModified</th>		
+<th>CreationDate</th>		
+
+	
+            </tr>
+            <tbody  pagination-id="dbd"  dir-paginate="m in results =( mymcoatdata.Products | filter:q )| itemsPerPage: dbpageSize"  current-page="dbcurrentPage" >
+                <tr>
+                   
+					
+					 <td>{{m.LabNo}}</td>
+                    <td>{{m.TestName}}</td>
+					  <td>{{m.TSeq}}</td>
+					   <td>{{m.SubStd}}</td>					  					
+					  <td>{{m.TestMethod}}</td>					 
+					  <td>{{m.ExtraInfo}}</td>
+					   <td>{{m.FormatNo}}</td>
+					    <td>{{m.RevNo}}</td>
+					   <td>{{m.RevDate}}</td>
+					   <td>{{m.ReqDate}}</td>
+					   <td>{{m.TestDate}}</td>
+					   <td>{{m.Status}}</td>
+					   <td>{{m.ULRNo}}</td>
+					   <td>{{m.ApprovedDate}}</td>
+					   <td>{{m.ApprovedBy}}</td>
+					   <td>{{m.TestedBy}}</td>
+					   <!-- <td>{{m.Note}}</td> -->
+					   <td>{{m.LastModified}}</td>
+					   <td>{{m.CreationDate}}</td>
+					   
+					  
+
+					   
+                </tr>
+            </tbody>
+        </table>
+		<dir-pagination-controls  pagination-id="dbd" on-page-change="getdata(newPageNumber)"></dir-pagination-controls>
+			<div class="col-md-12 text-center " style="font-size:12px;">
+					<button class="btn btn-primary" ng-disabled=" dbtotalitems<1 || impform.$invalid" ng-click="uploadtensiletodb('confirm',mymcoatdata,'MCOAT')" >Upload To DB</button>
+					</div>
+				</div>
+				
+		</div>
+		</div>
+      </div>
+    </div>
+  </div>
+ 
+ 
+	
+		<div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsemcase" 
+	  aria-expanded="true" aria-controls="collapsemcase">
+        Import Micro casedepth
+      </button>
+    </h2>
+    <div id="collapsemcase" class="accordion-collapse collapse " data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div class="row">
+		<div class="col-sm-12">
+		<div class="form-group">
+		<div class="col-md-6 p-2">	
+		<input type="file" ngf-select="SelectmcaseFile($file)" />
+		</div>
+		
+		<div class="col-md-6 p-2">	
+		<button type="button" class="btn btn-info" ng-click="Uploadmcase()"  >Get MCASE from file</button>
+		<button type="button" class="btn btn-info" ng-click="resetfile()"  >Reset</button>
+		</div>
+	</div>
+	
+		<div class="row pt-2 table-responsive" ng-show="mymcasedata.Products.length>0">
+				<p> Your sheet contains </p>
+					 <table id="tblCustomers" class="table table-bordered table-condensed"  
+					 style="overflow:scroll;" cellpadding="0" cellspacing="0" ng-show="mymcasedata.IsVisible">
+            <tr >
+<th>LabNo</th>				  
+<th>TestName</th>	
+<th>TSeq</th>
+<th>SubStd</th>
+<th>TestMethod</th>
+<th>ExtraInfo</th>		
+<th>FormatNo</th>
+<th>RevNo</th>
+<th>RevDate</th>
+<th>ReqDate</th>	
+<th>TestDate</th>
+<th>Status</th>
+<th>ULRNo</th>
+<th>ApprovedDate</th>
+<th>ApprovedBy</th>
+<th>TestedBy</th>
+<!-- <th>Note</th>		 -->
+<th>LastModified</th>		
+<th>CreationDate</th>		
+
+	
+            </tr>
+            <tbody  pagination-id="dbd"  dir-paginate="m in results =( mymcasedata.Products | filter:q )| itemsPerPage: dbpageSize"  current-page="dbcurrentPage" >
+                <tr>
+                   
+					
+					 <td>{{m.LabNo}}</td>
+                    <td>{{m.TestName}}</td>
+					  <td>{{m.TSeq}}</td>
+					   <td>{{m.SubStd}}</td>					  					
+					  <td>{{m.TestMethod}}</td>					 
+					  <td>{{m.ExtraInfo}}</td>
+					   <td>{{m.FormatNo}}</td>
+					    <td>{{m.RevNo}}</td>
+					   <td>{{m.RevDate}}</td>
+					   <td>{{m.ReqDate}}</td>
+					   <td>{{m.TestDate}}</td>
+					   <td>{{m.Status}}</td>
+					   <td>{{m.ULRNo}}</td>
+					   <td>{{m.ApprovedDate}}</td>
+					   <td>{{m.ApprovedBy}}</td>
+					   <td>{{m.TestedBy}}</td>
+					   <!-- <td>{{m.Note}}</td> -->
+					   <td>{{m.LastModified}}</td>
+					   <td>{{m.CreationDate}}</td>
+					   
+					  
+
+					   
+                </tr>
+            </tbody>
+        </table>
+		<dir-pagination-controls  pagination-id="dbd" on-page-change="getdata(newPageNumber)"></dir-pagination-controls>
+			<div class="col-md-12 text-center " style="font-size:12px;">
+					<button class="btn btn-primary" ng-disabled=" dbtotalitems<1 || impform.$invalid" ng-click="uploadtensiletodb('confirm',mymcasedata,'MCASE')" >Upload To DB</button>
+					</div>
+				</div>
+				
+		</div>
+		</div>
+      </div>
+    </div>
+  </div>
+ 
+ 
+	
+	
+		<div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsemdcarb" 
+	  aria-expanded="true" aria-controls="collapsemdcarb">
+        Import Micro de carb
+      </button>
+    </h2>
+    <div id="collapsemdcarb" class="accordion-collapse collapse " data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div class="row">
+		<div class="col-sm-12">
+		<div class="form-group">
+		<div class="col-md-6 p-2">	
+		<input type="file" ngf-select="SelectmdcarbFile($file)" />
+		</div>
+		
+		<div class="col-md-6 p-2">	
+		<button type="button" class="btn btn-info" ng-click="Uploadmdcarb()"  >Get MDCARB from file</button>
+		<button type="button" class="btn btn-info" ng-click="resetfile()"  >Reset</button>
+		</div>
+	</div>
+	
+		<div class="row pt-2 table-responsive" ng-show="mymdcarbdata.Products.length>0">
+				<p> Your sheet contains </p>
+					 <table id="tblCustomers" class="table table-bordered table-condensed"  
+					 style="overflow:scroll;" cellpadding="0" cellspacing="0" ng-show="mymdcarbdata.IsVisible">
+            <tr >
+<th>LabNo</th>				  
+<th>TestName</th>	
+<th>TSeq</th>
+<th>SubStd</th>
+<th>TestMethod</th>
+<th>ExtraInfo</th>		
+<th>FormatNo</th>
+<th>RevNo</th>
+<th>RevDate</th>
+<th>ReqDate</th>	
+<th>TestDate</th>
+<th>Status</th>
+<th>ULRNo</th>
+<th>ApprovedDate</th>
+<th>ApprovedBy</th>
+<th>TestedBy</th>
+<!-- <th>Note</th>		 -->
+<th>LastModified</th>		
+<th>CreationDate</th>		
+
+	
+            </tr>
+            <tbody  pagination-id="dbd"  dir-paginate="m in results =( mymdcarbdata.Products | filter:q )| itemsPerPage: dbpageSize"  current-page="dbcurrentPage" >
+                <tr>
+                   
+					
+					 <td>{{m.LabNo}}</td>
+                    <td>{{m.TestName}}</td>
+					  <td>{{m.TSeq}}</td>
+					   <td>{{m.SubStd}}</td>					  					
+					  <td>{{m.TestMethod}}</td>					 
+					  <td>{{m.ExtraInfo}}</td>
+					   <td>{{m.FormatNo}}</td>
+					    <td>{{m.RevNo}}</td>
+					   <td>{{m.RevDate}}</td>
+					   <td>{{m.ReqDate}}</td>
+					   <td>{{m.TestDate}}</td>
+					   <td>{{m.Status}}</td>
+					   <td>{{m.ULRNo}}</td>
+					   <td>{{m.ApprovedDate}}</td>
+					   <td>{{m.ApprovedBy}}</td>
+					   <td>{{m.TestedBy}}</td>
+					   <!-- <td>{{m.Note}}</td> -->
+					   <td>{{m.LastModified}}</td>
+					   <td>{{m.CreationDate}}</td>
+					   
+					  
+
+					   
+                </tr>
+            </tbody>
+        </table>
+		<dir-pagination-controls  pagination-id="dbd" on-page-change="getdata(newPageNumber)"></dir-pagination-controls>
+			<div class="col-md-12 text-center " style="font-size:12px;">
+					<button class="btn btn-primary" ng-disabled=" dbtotalitems<1 || impform.$invalid" ng-click="uploadtensiletodb('confirm',mymdcarbdata,'MDCARB')" >Upload To DB</button>
+					</div>
+				</div>
+				
+		</div>
+		</div>
+      </div>
+    </div>
+  </div>
+ 
+ 
+	
+		<div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseirw" 
+	  aria-expanded="true" aria-controls="collapseirw">
+        Import Inclusion Rating Worst-method
+      </button>
+    </h2>
+    <div id="collapseirw" class="accordion-collapse collapse " data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div class="row">
+		<div class="col-sm-12">
+		<div class="form-group">
+		<div class="col-md-6 p-2">	
+		<input type="file" ngf-select="SelectirwFile($file)" />
+		</div>
+		
+		<div class="col-md-6 p-2">	
+		<button type="button" class="btn btn-info" ng-click="Uploadirw()"  >Get IRW from file</button>
+		<button type="button" class="btn btn-info" ng-click="resetfile()"  >Reset</button>
+		</div>
+	</div>
+	
+		<div class="row pt-2 table-responsive" ng-show="myirwdata.Products.length>0">
+				<p> Your sheet contains </p>
+					 <table id="tblCustomers" class="table table-bordered table-condensed"  
+					 style="overflow:scroll;" cellpadding="0" cellspacing="0" ng-show="myirwdata.IsVisible">
+            <tr >
+<th>LabNo</th>				  
+<th>TestName</th>	
+<th>TSeq</th>
+<th>SubStd</th>
+<th>TestMethod</th>
+<th>ExtraInfo</th>		
+<th>FormatNo</th>
+<th>RevNo</th>
+<th>RevDate</th>
+<th>ReqDate</th>	
+<th>TestDate</th>
+<th>Status</th>
+<th>ULRNo</th>
+<th>ApprovedDate</th>
+<th>ApprovedBy</th>
+<th>TestedBy</th>
+<!-- <th>Note</th>		 -->
+<th>LastModified</th>		
+<th>CreationDate</th>		
+
+	
+            </tr>
+            <tbody  pagination-id="dbd"  dir-paginate="m in results =( myirwdata.Products | filter:q )| itemsPerPage: dbpageSize"  current-page="dbcurrentPage" >
+                <tr>
+                   
+					
+					 <td>{{m.LabNo}}</td>
+                    <td>{{m.TestName}}</td>
+					  <td>{{m.TSeq}}</td>
+					   <td>{{m.SubStd}}</td>					  					
+					  <td>{{m.TestMethod}}</td>					 
+					  <td>{{m.ExtraInfo}}</td>
+					   <td>{{m.FormatNo}}</td>
+					    <td>{{m.RevNo}}</td>
+					   <td>{{m.RevDate}}</td>
+					   <td>{{m.ReqDate}}</td>
+					   <td>{{m.TestDate}}</td>
+					   <td>{{m.Status}}</td>
+					   <td>{{m.ULRNo}}</td>
+					   <td>{{m.ApprovedDate}}</td>
+					   <td>{{m.ApprovedBy}}</td>
+					   <td>{{m.TestedBy}}</td>
+					   <!-- <td>{{m.Note}}</td> -->
+					   <td>{{m.LastModified}}</td>
+					   <td>{{m.CreationDate}}</td>
+					   
+					  
+
+					   
+                </tr>
+            </tbody>
+        </table>
+		<dir-pagination-controls  pagination-id="dbd" on-page-change="getdata(newPageNumber)"></dir-pagination-controls>
+			<div class="col-md-12 text-center " style="font-size:12px;">
+					<button class="btn btn-primary" ng-disabled=" dbtotalitems<1 || impform.$invalid" ng-click="uploadtensiletodb('confirm',myirwdata,'IRW')" >Upload To DB</button>
+					</div>
+				</div>
+				
+		</div>
+		</div>
+      </div>
+    </div>
+  </div>
+ 
+ 
+	
+		<div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseirk" 
+	  aria-expanded="true" aria-controls="collapseirk">
+        Import Inclusion Rating K-method
+      </button>
+    </h2>
+    <div id="collapseirk" class="accordion-collapse collapse " data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div class="row">
+		<div class="col-sm-12">
+		<div class="form-group">
+		<div class="col-md-6 p-2">	
+		<input type="file" ngf-select="SelectirkFile($file)" />
+		</div>
+		
+		<div class="col-md-6 p-2">	
+		<button type="button" class="btn btn-info" ng-click="Uploadirk()"  >Get IRK from file</button>
+		<button type="button" class="btn btn-info" ng-click="resetfile()"  >Reset</button>
+		</div>
+	</div>
+	
+		<div class="row pt-2 table-responsive" ng-show="myirkdata.Products.length>0">
+				<p> Your sheet contains </p>
+					 <table id="tblCustomers" class="table table-bordered table-condensed"  
+					 style="overflow:scroll;" cellpadding="0" cellspacing="0" ng-show="myirkdata.IsVisible">
+            <tr >
+<th>LabNo</th>				  
+<th>TestName</th>	
+<th>TSeq</th>
+<th>SubStd</th>
+<th>TestMethod</th>
+<th>ExtraInfo</th>		
+<th>FormatNo</th>
+<th>RevNo</th>
+<th>RevDate</th>
+<th>ReqDate</th>	
+<th>TestDate</th>
+<th>Status</th>
+<th>ULRNo</th>
+<th>ApprovedDate</th>
+<th>ApprovedBy</th>
+<th>TestedBy</th>
+<!-- <th>Note</th>		 -->
+<th>LastModified</th>		
+<th>CreationDate</th>		
+
+	
+            </tr>
+            <tbody  pagination-id="dbd"  dir-paginate="m in results =( myirkdata.Products | filter:q )| itemsPerPage: dbpageSize"  current-page="dbcurrentPage" >
+                <tr>
+                   
+					
+					 <td>{{m.LabNo}}</td>
+                    <td>{{m.TestName}}</td>
+					  <td>{{m.TSeq}}</td>
+					   <td>{{m.SubStd}}</td>					  					
+					  <td>{{m.TestMethod}}</td>					 
+					  <td>{{m.ExtraInfo}}</td>
+					   <td>{{m.FormatNo}}</td>
+					    <td>{{m.RevNo}}</td>
+					   <td>{{m.RevDate}}</td>
+					   <td>{{m.ReqDate}}</td>
+					   <td>{{m.TestDate}}</td>
+					   <td>{{m.Status}}</td>
+					   <td>{{m.ULRNo}}</td>
+					   <td>{{m.ApprovedDate}}</td>
+					   <td>{{m.ApprovedBy}}</td>
+					   <td>{{m.TestedBy}}</td>
+					   <!-- <td>{{m.Note}}</td> -->
+					   <td>{{m.LastModified}}</td>
+					   <td>{{m.CreationDate}}</td>
+					   
+					  
+
+					   
+                </tr>
+            </tbody>
+        </table>
+		<dir-pagination-controls  pagination-id="dbd" on-page-change="getdata(newPageNumber)"></dir-pagination-controls>
+			<div class="col-md-12 text-center " style="font-size:12px;">
+					<button class="btn btn-primary" ng-disabled=" dbtotalitems<1 || impform.$invalid" ng-click="uploadtensiletodb('confirm',myirkdata,'IRK')" >Upload To DB</button>
+					</div>
+				</div>
+				
+		</div>
+		</div>
+      </div>
+    </div>
+  </div>
+ 
+ 
+	
+		<div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsegrain" 
+	  aria-expanded="true" aria-controls="collapsegrain">
+        Import Grain Size
+      </button>
+    </h2>
+    <div id="collapsegrain" class="accordion-collapse collapse " data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div class="row">
+		<div class="col-sm-12">
+		<div class="form-group">
+		<div class="col-md-6 p-2">	
+		<input type="file" ngf-select="SelectgrainFile($file)" />
+		</div>
+		
+		<div class="col-md-6 p-2">	
+		<button type="button" class="btn btn-info" ng-click="Uploadgrain()"  >Get Grain size from file</button>
+		<button type="button" class="btn btn-info" ng-click="resetfile()"  >Reset</button>
+		</div>
+	</div>
+	
+		<div class="row pt-2 table-responsive" ng-show="mygraindata.Products.length>0">
+				<p> Your sheet contains </p>
+					 <table id="tblCustomers" class="table table-bordered table-condensed"  
+					 style="overflow:scroll;" cellpadding="0" cellspacing="0" ng-show="mygraindata.IsVisible">
+            <tr >
+<th>LabNo</th>				  
+<th>TestName</th>	
+<th>TSeq</th>
+<th>SubStd</th>
+<th>TestMethod</th>
+<th>ExtraInfo</th>		
+<th>FormatNo</th>
+<th>RevNo</th>
+<th>RevDate</th>
+<th>ReqDate</th>	
+<th>TestDate</th>
+<th>Status</th>
+<th>ULRNo</th>
+<th>ApprovedDate</th>
+<th>ApprovedBy</th>
+<th>TestedBy</th>
+<!-- <th>Note</th>		 -->
+<th>LastModified</th>		
+<th>CreationDate</th>		
+
+	
+            </tr>
+            <tbody  pagination-id="dbd"  dir-paginate="m in results =( mygraindata.Products | filter:q )| itemsPerPage: dbpageSize"  current-page="dbcurrentPage" >
+                <tr>
+                   
+					
+					 <td>{{m.LabNo}}</td>
+                    <td>{{m.TestName}}</td>
+					  <td>{{m.TSeq}}</td>
+					   <td>{{m.SubStd}}</td>					  					
+					  <td>{{m.TestMethod}}</td>					 
+					  <td>{{m.ExtraInfo}}</td>
+					   <td>{{m.FormatNo}}</td>
+					    <td>{{m.RevNo}}</td>
+					   <td>{{m.RevDate}}</td>
+					   <td>{{m.ReqDate}}</td>
+					   <td>{{m.TestDate}}</td>
+					   <td>{{m.Status}}</td>
+					   <td>{{m.ULRNo}}</td>
+					   <td>{{m.ApprovedDate}}</td>
+					   <td>{{m.ApprovedBy}}</td>
+					   <td>{{m.TestedBy}}</td>
+					   <!-- <td>{{m.Note}}</td> -->
+					   <td>{{m.LastModified}}</td>
+					   <td>{{m.CreationDate}}</td>
+					   
+					  
+
+					   
+                </tr>
+            </tbody>
+        </table>
+		<dir-pagination-controls  pagination-id="dbd" on-page-change="getdata(newPageNumber)"></dir-pagination-controls>
+			<div class="col-md-12 text-center " style="font-size:12px;">
+					<button class="btn btn-primary" ng-disabled=" dbtotalitems<1 || impform.$invalid" ng-click="uploadtensiletodb('confirm',mygraindata,'GRAIN')" >Upload To DB</button>
+					</div>
+				</div>
+				
+		</div>
+		</div>
+      </div>
+    </div>
+  </div>
+ 
+ 
+		<div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsemstruct" 
+	  aria-expanded="true" aria-controls="collapsemstruct">
+        Import Micro structure
+      </button>
+    </h2>
+    <div id="collapsemstruct" class="accordion-collapse collapse " data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div class="row">
+		<div class="col-sm-12">
+		<div class="form-group">
+		<div class="col-md-6 p-2">	
+		<input type="file" ngf-select="SelectmstructFile($file)" />
+		</div>
+		
+		<div class="col-md-6 p-2">	
+		<button type="button" class="btn btn-info" ng-click="Uploadmstruct()"  >Get Micro STRUCT from file</button>
+		<button type="button" class="btn btn-info" ng-click="resetfile()"  >Reset</button>
+		</div>
+	</div>
+	
+		<div class="row pt-2 table-responsive" ng-show="mymstructdata.Products.length>0">
+				<p> Your sheet contains </p>
+					 <table id="tblCustomers" class="table table-bordered table-condensed"  
+					 style="overflow:scroll;" cellpadding="0" cellspacing="0" ng-show="mymstructdata.IsVisible">
+            <tr >
+<th>BatchCode</th>				  
+<th>TestName</th>	
+<th>TSeq</th>
+<th>SubStd</th>
+<th>TestMethod</th>
+<th>ExtraInfo</th>		
+<th>FormatNo</th>
+<th>RevNo</th>
+<th>RevDate</th>
+<th>ReqDate</th>	
+<th>TestDate</th>
+<th>Status</th>
+<th>ULRNo</th>
+<th>ApprovedDate</th>
+<th>ApprovedBy</th>
+<th>TestedBy</th>
+<!-- <th>Note</th>		 -->
+<th>LastModified</th>		
+<th>CreationDate</th>		
+
+	
+            </tr>
+            <tbody  pagination-id="dbd"  dir-paginate="m in results =( mymstructdata.Products | filter:q )| itemsPerPage: dbpageSize"  current-page="dbcurrentPage" >
+                <tr>
+                   
+					
+					 <td>{{m.BatchCode}}</td>
+                    <td>{{m.TestName}}</td>
+					  <td>{{m.TSeq}}</td>
+					   <td>{{m.SubStd}}</td>					  					
+					  <td>{{m.TestMethod}}</td>					 
+					  <td>{{m.ExtraInfo}}</td>
+					   <td>{{m.FormatNo}}</td>
+					    <td>{{m.RevNo}}</td>
+					   <td>{{m.RevDate}}</td>
+					   <td>{{m.ReqDate}}</td>
+					   <td>{{m.TestDate}}</td>
+					   <td>{{m.Status}}</td>
+					   <td>{{m.ULRNo}}</td>
+					   <td>{{m.ApprovedDate}}</td>
+					   <td>{{m.ApprovedBy}}</td>
+					   <td>{{m.TestedBy}}</td>
+					   <!-- <td>{{m.Note}}</td> -->
+					   <td>{{m.LastModified}}</td>
+					   <td>{{m.CreationDate}}</td>
+					   
+					  
+
+					   
+                </tr>
+            </tbody>
+        </table>
+		<dir-pagination-controls  pagination-id="dbd" on-page-change="getdata(newPageNumber)"></dir-pagination-controls>
+			<div class="col-md-12 text-center " style="font-size:12px;">
+					<button class="btn btn-primary" ng-disabled=" dbtotalitems<1 || impform.$invalid" ng-click="uploadtensiletodb('confirm',mymstructdata,'MSTRUCT')" >Upload To DB</button>
+					</div>
+				</div>
+				
+		</div>
+		</div>
+      </div>
+    </div>
+  </div>
+ 
+ 
+ 
+		<div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsesst" 
+	  aria-expanded="true" aria-controls="collapsesst">
+        Import SST
+      </button>
+    </h2>
+    <div id="collapsesst" class="accordion-collapse collapse " data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div class="row">
+		<div class="col-sm-12">
+		<div class="form-group">
+		<div class="col-md-6 p-2">	
+		<input type="file" ngf-select="SelectsstFile($file)" />
+		</div>
+		
+		<div class="col-md-6 p-2">	
+		<button type="button" class="btn btn-info" ng-click="Uploadsst()"  >Get sst from file</button>
+		<button type="button" class="btn btn-info" ng-click="resetfile()"  >Reset</button>
+		</div>
+	</div>
+	
+		<div class="row pt-2 table-responsive" ng-show="mysstdata.Products.length>0">
+				<p> Your sheet contains </p>
+					 <table id="tblCustomers" class="table table-bordered table-condensed"  
+					 style="overflow:scroll;" cellpadding="0" cellspacing="0" ng-show="mysstdata.IsVisible">
+            <tr >
+<th>LabNo</th>				  
+<th>TestName</th>	
+<th>TSeq</th>
+<th>SubStd</th>
+<th>TestMethod</th>
+<th>ExtraInfo</th>		
+<th>FormatNo</th>
+<th>RevNo</th>
+<th>RevDate</th>
+<th>ReqDate</th>	
+<th>TestDate</th>
+<th>Status</th>
+<th>ULRNo</th>
+<th>ApprovedDate</th>
+<th>ApprovedBy</th>
+<th>TestedBy</th>
+<!-- <th>Note</th>		 -->
+<th>LastModified</th>		
+<th>CreationDate</th>		
+
+	
+            </tr>
+            <tbody  pagination-id="dbd"  dir-paginate="m in results =( mysstdata.Products | filter:q )| itemsPerPage: dbpageSize"  current-page="dbcurrentPage" >
+                <tr>
+                   
+					
+					 <td>{{m.LabNo}}</td>
+                    <td>{{m.TestName}}</td>
+					  <td>{{m.TSeq}}</td>
+					   <td>{{m.SubStd}}</td>					  					
+					  <td>{{m.TestMethod}}</td>					 
+					  <td>{{m.ExtraInfo}}</td>
+					   <td>{{m.FormatNo}}</td>
+					    <td>{{m.RevNo}}</td>
+					   <td>{{m.RevDate}}</td>
+					   <td>{{m.ReqDate}}</td>
+					   <td>{{m.TestDate}}</td>
+					   <td>{{m.Status}}</td>
+					   <td>{{m.ULRNo}}</td>
+					   <td>{{m.ApprovedDate}}</td>
+					   <td>{{m.ApprovedBy}}</td>
+					   <td>{{m.TestedBy}}</td>
+					   <!-- <td>{{m.Note}}</td> -->
+					   <td>{{m.LastModified}}</td>
+					   <td>{{m.CreationDate}}</td>
+					   
+					  
+
+					   
+                </tr>
+            </tbody>
+        </table>
+		<dir-pagination-controls  pagination-id="dbd" on-page-change="getdata(newPageNumber)"></dir-pagination-controls>
+			<div class="col-md-12 text-center " style="font-size:12px;">
+					<button class="btn btn-primary" ng-disabled=" dbtotalitems<1 || impform.$invalid" ng-click="uploadtensiletodb('confirm',mysstdata,'SST')" >Upload To DB</button>
+					</div>
+				</div>
+				
+		</div>
+		</div>
+      </div>
+    </div>
+  </div>
+ 
+ 
+	
+	
+	
+		<div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsecase" 
+	  aria-expanded="true" aria-controls="collapsecase">
+        Import Case Depth
+      </button>
+    </h2>
+    <div id="collapsecase" class="accordion-collapse collapse " data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div class="row">
+		<div class="col-sm-12">
+		<div class="form-group">
+		<div class="col-md-6 p-2">	
+		<input type="file" ngf-select="SelectcaseFile($file)" />
+		</div>
+		
+		<div class="col-md-6 p-2">	
+		<button type="button" class="btn btn-info" ng-click="Uploadcase()"  >Get case from file</button>
+		<button type="button" class="btn btn-info" ng-click="resetfile()"  >Reset</button>
+		</div>
+	</div>
+	
+		<div class="row pt-2 table-responsive" ng-show="mycasedata.Products.length>0">
+				<p> Your sheet contains </p>
+					 <table id="tblCustomers" class="table table-bordered table-condensed"  
+					 style="overflow:scroll;" cellpadding="0" cellspacing="0" ng-show="mycasedata.IsVisible">
+            <tr >
+<th>LabNo</th>				  
+<th>TestName</th>	
+<th>TSeq</th>
+<th>SubStd</th>
+<th>TestMethod</th>
+<th>ExtraInfo</th>		
+<th>FormatNo</th>
+<th>RevNo</th>
+<th>RevDate</th>
+<th>ReqDate</th>	
+<th>TestDate</th>
+<th>Status</th>
+<th>ULRNo</th>
+<th>ApprovedDate</th>
+<th>ApprovedBy</th>
+<th>TestedBy</th>
+<!-- <th>Note</th>		 -->
+<th>LastModified</th>		
+<th>CreationDate</th>		
+
+	
+            </tr>
+            <tbody  pagination-id="dbd"  dir-paginate="m in results =( mycasedata.Products | filter:q )| itemsPerPage: dbpageSize"  current-page="dbcurrentPage" >
+                <tr>
+                   
+					
+					 <td>{{m.LabNo}}</td>
+                    <td>{{m.TestName}}</td>
+					  <td>{{m.TSeq}}</td>
+					   <td>{{m.SubStd}}</td>					  					
+					  <td>{{m.TestMethod}}</td>					 
+					  <td>{{m.ExtraInfo}}</td>
+					   <td>{{m.FormatNo}}</td>
+					    <td>{{m.RevNo}}</td>
+					   <td>{{m.RevDate}}</td>
+					   <td>{{m.ReqDate}}</td>
+					   <td>{{m.TestDate}}</td>
+					   <td>{{m.Status}}</td>
+					   <td>{{m.ULRNo}}</td>
+					   <td>{{m.ApprovedDate}}</td>
+					   <td>{{m.ApprovedBy}}</td>
+					   <td>{{m.TestedBy}}</td>
+					   <!-- <td>{{m.Note}}</td> -->
+					   <td>{{m.LastModified}}</td>
+					   <td>{{m.CreationDate}}</td>
+					   
+					  
+
+					   
+                </tr>
+            </tbody>
+        </table>
+		<dir-pagination-controls  pagination-id="dbd" on-page-change="getdata(newPageNumber)"></dir-pagination-controls>
+			<div class="col-md-12 text-center " style="font-size:12px;">
+					<button class="btn btn-primary" ng-disabled=" dbtotalitems<1 || impform.$invalid" ng-click="uploadtensiletodb('confirm',mycasedata,'CASE')" >Upload To DB</button>
+					</div>
+				</div>
+				
+		</div>
+		</div>
+      </div>
+    </div>
+  </div>
+ 
+ 
+		<div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsecarb" aria-expanded="true" aria-controls="collapsecarb">
+        Import Carb De Carb
+      </button>
+    </h2>
+    <div id="collapsecarb" class="accordion-collapse collapse " data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div class="row">
+		<div class="col-sm-12">
+		<div class="form-group">
+		<div class="col-md-6 p-2">	
+		<input type="file" ngf-select="SelectcarbFile($file)" />
+		</div>
+		
+		<div class="col-md-6 p-2">	
+		<button type="button" class="btn btn-info" ng-click="Uploadcarb()"  >Get carb from file</button>
+		<button type="button" class="btn btn-info" ng-click="resetfile()"  >Reset</button>
+		</div>
+	</div>
+	
+		<div class="row pt-2 table-responsive" ng-show="mycarbdata.Products.length>0">
+				<p> Your sheet contains </p>
+					 <table id="tblCustomers" class="table table-bordered table-condensed"  style="overflow:scroll;" cellpadding="0" cellspacing="0" ng-show="mycarbdata.IsVisible">
+            <tr >
+<th>LabNo</th>				  
+<th>TestName</th>	
+<th>TSeq</th>
+<th>SubStd</th>
+<th>TestMethod</th>
+<th>ExtraInfo</th>		
+<th>FormatNo</th>
+<th>RevNo</th>
+<th>RevDate</th>
+<th>ReqDate</th>	
+<th>TestDate</th>
+<th>Status</th>
+<th>ULRNo</th>
+<th>ApprovedDate</th>
+<th>ApprovedBy</th>
+<th>TestedBy</th>
+<!-- <th>Note</th>		 -->
+<th>LastModified</th>		
+<th>CreationDate</th>		
+
+	
+            </tr>
+            <tbody  pagination-id="dbd"  dir-paginate="m in results =( mycarbdata.Products | filter:q )| itemsPerPage: dbpageSize"  current-page="dbcurrentPage" >
+                <tr>
+                   
+					
+					 <td>{{m.LabNo}}</td>
+                    <td>{{m.TestName}}</td>
+					  <td>{{m.TSeq}}</td>
+					   <td>{{m.SubStd}}</td>					  					
+					  <td>{{m.TestMethod}}</td>					 
+					  <td>{{m.ExtraInfo}}</td>
+					   <td>{{m.FormatNo}}</td>
+					    <td>{{m.RevNo}}</td>
+					   <td>{{m.RevDate}}</td>
+					   <td>{{m.ReqDate}}</td>
+					   <td>{{m.TestDate}}</td>
+					   <td>{{m.Status}}</td>
+					   <td>{{m.ULRNo}}</td>
+					   <td>{{m.ApprovedDate}}</td>
+					   <td>{{m.ApprovedBy}}</td>
+					   <td>{{m.TestedBy}}</td>
+					   <!-- <td>{{m.Note}}</td> -->
+					   <td>{{m.LastModified}}</td>
+					   <td>{{m.CreationDate}}</td>
+					   
+					  
+
+					   
+                </tr>
+            </tbody>
+        </table>
+		<dir-pagination-controls  pagination-id="dbd" on-page-change="getdata(newPageNumber)"></dir-pagination-controls>
+			<div class="col-md-12 text-center " style="font-size:12px;">
+					<button class="btn btn-primary" ng-disabled=" dbtotalitems<1 || impform.$invalid" ng-click="uploadtensiletodb('confirm',mycarbdata,'CARBDC')" >Upload To DB</button>
+					</div>
+				</div>
+				
+		</div>
+		</div>
+      </div>
+    </div>
+  </div>
+ 
+ 
+	
+	<div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsetorque" aria-expanded="true" aria-controls="collapsetorque">
+        Import Torque
+      </button>
+    </h2>
+    <div id="collapsetorque" class="accordion-collapse collapse " data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div class="row">
+		<div class="col-sm-12">
+		<div class="form-group">
+		<div class="col-md-6 p-2">	
+		<input type="file" ngf-select="SelecttorqueFile($file)" />
+		</div>
+		
+		<div class="col-md-6 p-2">	
+		<button type="button" class="btn btn-info" ng-click="Uploadtorque()"  >Get Torque from file</button>
+		<button type="button" class="btn btn-info" ng-click="resetfile()"  >Reset</button>
+		</div>
+	</div>
+	
+		<div class="row pt-2 table-responsive" ng-show="mytorquedata.Products.length>0">
+				<p> Your sheet contains </p>
+					 <table id="tblCustomers" class="table table-bordered table-condensed"  style="overflow:scroll;" 
+					 cellpadding="0" cellspacing="0" ng-show="mytorquedata.IsVisible">
+            <tr >
+<th>LabNo</th>				  
+<th>TestName</th>	
+<th>TSeq</th>
+<th>SubStd</th>
+<th>TestMethod</th>
+<th>ExtraInfo</th>		
+<th>FormatNo</th>
+<th>RevNo</th>
+<th>RevDate</th>
+<th>ReqDate</th>	
+<th>TestDate</th>
+<th>Status</th>
+<th>ULRNo</th>
+<th>ApprovedDate</th>
+<th>ApprovedBy</th>
+<th>TestedBy</th>
+<!-- <th>Note</th>		 -->
+<th>LastModified</th>		
+<th>CreationDate</th>		
+
+	
+            </tr>
+            <tbody  pagination-id="dbd"  dir-paginate="m in results =( mytorquedata.Products | filter:q )| itemsPerPage: dbpageSize"  current-page="dbcurrentPage" >
+                <tr>
+                   
+					
+					 <td>{{m.LabNo}}</td>
+                    <td>{{m.TestName}}</td>
+					  <td>{{m.TSeq}}</td>
+					   <td>{{m.SubStd}}</td>					  					
+					  <td>{{m.TestMethod}}</td>					 
+					  <td>{{m.ExtraInfo}}</td>
+					   <td>{{m.FormatNo}}</td>
+					    <td>{{m.RevNo}}</td>
+					   <td>{{m.RevDate}}</td>
+					   <td>{{m.ReqDate}}</td>
+					   <td>{{m.TestDate}}</td>
+					   <td>{{m.Status}}</td>
+					   <td>{{m.ULRNo}}</td>
+					   <td>{{m.ApprovedDate}}</td>
+					   <td>{{m.ApprovedBy}}</td>
+					   <td>{{m.TestedBy}}</td>
+					   <!-- <td>{{m.Note}}</td> -->
+					   <td>{{m.LastModified}}</td>
+					   <td>{{m.CreationDate}}</td>
+					   
+					  
+
+					   
+                </tr>
+            </tbody>
+        </table>
+		<dir-pagination-controls  pagination-id="dbd" on-page-change="getdata(newPageNumber)"></dir-pagination-controls>
+			<div class="col-md-12 text-center " style="font-size:12px;">
+					<button class="btn btn-primary" ng-disabled=" dbtotalitems<1 || impform.$invalid" ng-click="uploadtensiletodb('confirm',mytorquedata,'TORQ')" >Upload To DB</button>
+					</div>
+				</div>
+				
+		</div>
+		</div>
+      </div>
+    </div>
+  </div>
+ 
+	
+	<div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseProofload" aria-expanded="true" aria-controls="collapseProofload">
+        Import Proofload
+      </button>
+    </h2>
+    <div id="collapseProofload" class="accordion-collapse collapse " data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div class="row">
+		<div class="col-sm-12">
+		<div class="form-group">
+		<div class="col-md-6 p-2">	
+		<input type="file" ngf-select="SelectProofloadFile($file)" />
+		</div>
+		
+		<div class="col-md-6 p-2">	
+		<button type="button" class="btn btn-info" ng-click="UploadProofload()"  >Get Proofload from file</button>
+		<button type="button" class="btn btn-info" ng-click="resetfile()"  >Reset</button>
+		</div>
+	</div>
+	
+		<div class="row pt-2 table-responsive" ng-show="myproofloaddata.Products.length>0">
+				<p> Your sheet contains </p>
+					 <table id="tblCustomers" class="table table-bordered table-condensed"  style="overflow:scroll;" cellpadding="0" cellspacing="0" ng-show="myproofloaddata.IsVisible">
+            <tr >
+<th>LabNo</th>				  
+<th>TestName</th>	
+<th>TSeq</th>
+<th>SubStd</th>
+<th>TestMethod</th>
+<th>ExtraInfo</th>		
+<th>FormatNo</th>
+<th>RevNo</th>
+<th>RevDate</th>
+<th>ReqDate</th>	
+<th>TestDate</th>
+<th>Status</th>
+<th>ULRNo</th>
+<th>ApprovedDate</th>
+<th>ApprovedBy</th>
+<th>TestedBy</th>
+<!-- <th>Note</th>		 -->
+<th>LastModified</th>		
+<th>CreationDate</th>		
+
+	
+            </tr>
+            <tbody  pagination-id="dbd"  dir-paginate="m in results =( myproofloaddata.Products | filter:q )| itemsPerPage: dbpageSize"  current-page="dbcurrentPage" >
+                <tr>
+                   
+					
+					 <td>{{m.LabNo}}</td>
+                    <td>{{m.TestName}}</td>
+					  <td>{{m.TSeq}}</td>
+					   <td>{{m.SubStd}}</td>					  					
+					  <td>{{m.TestMethod}}</td>					 
+					  <td>{{m.ExtraInfo}}</td>
+					   <td>{{m.FormatNo}}</td>
+					    <td>{{m.RevNo}}</td>
+					   <td>{{m.RevDate}}</td>
+					   <td>{{m.ReqDate}}</td>
+					   <td>{{m.TestDate}}</td>
+					   <td>{{m.Status}}</td>
+					   <td>{{m.ULRNo}}</td>
+					   <td>{{m.ApprovedDate}}</td>
+					   <td>{{m.ApprovedBy}}</td>
+					   <td>{{m.TestedBy}}</td>
+					   <!-- <td>{{m.Note}}</td> -->
+					   <td>{{m.LastModified}}</td>
+					   <td>{{m.CreationDate}}</td>
+					   
+					  
+
+					   
+                </tr>
+            </tbody>
+        </table>
+		<dir-pagination-controls  pagination-id="dbd" on-page-change="getdata(newPageNumber)"></dir-pagination-controls>
+			<div class="col-md-12 text-center " style="font-size:12px;">
+					<button class="btn btn-primary" ng-disabled=" dbtotalitems<1 || impform.$invalid" ng-click="uploadtensiletodb('confirm',myproofloaddata,'PROOF')" >Upload To DB</button>
+					</div>
+				</div>
+				
+		</div>
+		</div>
+      </div>
+    </div>
+  </div>
+ 
+	
+	<div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseImpact" aria-expanded="true" aria-controls="collapseImpact">
+        Import Impact
+      </button>
+    </h2>
+    <div id="collapseImpact" class="accordion-collapse collapse " data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div class="row">
+		<div class="col-sm-12">
+		<div class="form-group">
+		<div class="col-md-6 p-2">	
+		<input type="file" ngf-select="SelectImpactFile($file)" />
+		</div>
+		
+		<div class="col-md-6 p-2">	
+		<button type="button" class="btn btn-info" ng-click="UploadImpact()"  >Get Impact from file</button>
+		<button type="button" class="btn btn-info" ng-click="resetfile()"  >Reset</button>
+		</div>
+	</div>
+	
+		<div class="row pt-2 table-responsive" ng-show="myimpactdata.Products.length>0">
+				<p> Your sheet contains </p>
+					 <table id="tblCustomers" class="table table-bordered table-condensed"  style="overflow:scroll;" cellpadding="0" cellspacing="0" ng-show="myimpactdata.IsVisible">
+            <tr >
+<th>BatchCode</th>				  
+<th>TestName</th>	
+<th>TSeq</th>
+<th>SubStd</th>
+<th>TestMethod</th>
+<th>ExtraInfo</th>		
+<th>FormatNo</th>
+<th>RevNo</th>
+<th>RevDate</th>
+<th>ReqDate</th>	
+<th>TestDate</th>
+<th>Status</th>
+<th>ULRNo</th>
+<th>ApprovedDate</th>
+<th>ApprovedBy</th>
+<th>TestedBy</th>
+<!-- <th>Note</th>		 -->
+<th>LastModified</th>		
+<th>CreationDate</th>		
+
+<th>Al</th>	
+<th>As</th>	
+<th>B</th>		
+<th>Bi</th>		
+<th>C</th>		
+<th>Ca</th>		
+<th>Ce</th>		
+<th>Co</th>		
+<th>Cr</th>		
+<th>Cu</th>		
+<th>Fe</th>		
+<th>La</th>		
+<th>Mg</th>		
+<th>Mn</th>		
+<th>Mo</th>		
+<th>Nb</th>		
+<th>Ni</th>		
+<th>P</th>		
+<th>Pb</th>		
+<th>S</th>		
+<th>Sb</th>		
+<th>Se</th>		
+<th>Si</th>		
+<th>Sn</th>		
+<th>Ta</th>		
+<th>Te</th>		
+<th>Ti</th>		
+<th>V</th>		
+<th>W</th>		
+<th>Zn</th>		
+<th>Zr</th>		
+            </tr>
+            <tbody  pagination-id="dbd"  dir-paginate="m in results =( myimpactdata.Products | filter:q )| itemsPerPage: dbpageSize"  current-page="dbcurrentPage" >
+                <tr>
+                   
+					
+					 <td>{{m.BatchCode}}</td>
+                    <td>{{m.TestName}}</td>
+					  <td>{{m.TSeq}}</td>
+					   <td>{{m.SubStd}}</td>					  					
+					  <td>{{m.TestMethod}}</td>					 
+					  <td>{{m.ExtraInfo}}</td>
+					   <td>{{m.FormatNo}}</td>
+					    <td>{{m.RevNo}}</td>
+					   <td>{{m.RevDate}}</td>
+					   <td>{{m.ReqDate}}</td>
+					   <td>{{m.TestDate}}</td>
+					   <td>{{m.Status}}</td>
+					   <td>{{m.ULRNo}}</td>
+					   <td>{{m.ApprovedDate}}</td>
+					   <td>{{m.ApprovedBy}}</td>
+					   <td>{{m.TestedBy}}</td>
+					   <!-- <td>{{m.Note}}</td> -->
+					   <td>{{m.LastModified}}</td>
+					   <td>{{m.CreationDate}}</td>
+					   
+					   <td>{{m.SS}}</td>
+					   <td>{{m.GD}}</td>
+					   <td>{{m.GL}}</td>
+					   <td>{{m.A}}</td>
+					   <td>{{m.PL}}</td>	
+<td>{{m.UL}}</td>		
+<td>{{m.FL}}</td>	
+<td>{{m.FD}}</td>		
+<td>{{m.EX}}</td>	
+<td>{{m.PS}}</td>		
+<td>{{m.UTS}}</td>		
+<td>{{m.EL}}</td>		
+<td>{{m.RA}}</td>		
+<td>{{m.YM}}</td>		
+<td>{{m.YS}}</td>		
+<td>{{m.R}}</td>		
+<td>{{m.SpecSS}}</td>		
+<td>{{m.SpecUTS}}</td>		
+<td>{{m.SpecPS}}</td>		
+<td>{{m.SpecEL}}</td>		
+<td>{{m.SpecRA}}</td>		
+
+					   
+                </tr>
+            </tbody>
+        </table>
+		<dir-pagination-controls  pagination-id="dbd" on-page-change="getdata(newPageNumber)"></dir-pagination-controls>
+			<div class="col-md-12 text-center " style="font-size:12px;">
+					<button class="btn btn-primary" ng-disabled=" dbtotalitems<1 || impform.$invalid" ng-click="uploadtensiletodb('confirm',myimpactdata,'IMP')" >Upload To DB</button>
+					</div>
+				</div>
+				
+		</div>
+		</div>
+      </div>
+    </div>
+  </div>
+ 
+	
+	
+	
+		<div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTensile" aria-expanded="true" aria-controls="collapseTensile">
+        Import Tensile
+      </button>
+    </h2>
+    <div id="collapseTensile" class="accordion-collapse collapse " data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div class="row">
+		<div class="col-sm-12">
+		<div class="form-group">
+		<div class="col-md-6 p-2">	
+		<input type="file" ngf-select="SelectTensileFile($file)" />
+		</div>
+		
+		<div class="col-md-6 p-2">	
+		<button type="button" class="btn btn-info" ng-click="UploadTensile()"  >Get Tensile from file</button>
+		<button type="button" class="btn btn-info" ng-click="resetfile()"  >Reset</button>
+		</div>
+	</div>
+	
+		<div class="row pt-2 table-responsive" ng-show="mytensiledata.Products.length>0">
+				<p> Your sheet contains </p>
+					 <table id="tblCustomers" class="table table-bordered table-condensed"  style="overflow:scroll;" cellpadding="0" cellspacing="0" ng-show="mytensiledata.IsVisible">
+            <tr >
+<th>BatchCode/BatchNo</th>				  
+<th>TestName</th>	
+<th>TSeq</th>
+<th>SubStd</th>
+<th>TestMethod</th>
+<th>ExtraInfo</th>		
+<th>FormatNo</th>
+<th>RevNo</th>
+<th>RevDate</th>
+<th>ReceiptOn</th>
+<th>ReqDate</th>	
+<th>TestDate</th>
+<th>Status</th>
+<th>ULRNo</th>
+<th>ApprovedDate</th>
+<th>ApprovedBy</th>
+<th>TestedBy</th>
+<!-- <th>Note</th>		 -->
+<th>Equipment</th>		
+<th>Temp</th>		
+
+<th>HTBatchNo</th>	
+<th>Description</th>	
+<th>SS</th>		
+<th>GD</th>		
+	
+<th>GL</th>	
+<th>A</th>		
+<th>PL</th>		
+<th>UL</th>		
+<th>FL</th>		
+<th>FD</th>		
+<th>EX</th>		
+<th>PS</th>		
+<th>UTS</th>		
+<th>EL</th>		
+<th>RA</th>		
+<th>YM</th>		
+<th>YS</th>		
+<th>R</th>		
+		
+            </tr>
+            <tbody  pagination-id="dbd"  dir-paginate="m in results =( mytensiledata.Products | filter:q )| itemsPerPage: dbpageSize"  current-page="dbcurrentPage" >
+                <tr>
+                   
+					
+					 <td>{{m.BatchCode}}</td>
+                    <td>{{m.TestName}}</td>
+					  <td>{{m.TSeq}}</td>
+					   <td>{{m.SubStd}}</td>					  					
+					  <td>{{m.TestMethod}}</td>					 
+					  <td>{{m.ExtraInfo}}</td>
+					   <td>{{m.FormatNo}}</td>
+					    <td>{{m.RevNo}}</td>
+					   <td>{{m.RevDate}}</td>
+					   <td>{{m.ReceiptOn}}</td>
+					   <td>{{m.ReqDate}}</td>
+					   <td>{{m.TestDate}}</td>
+					   <td>{{m.Status}}</td>
+					   <td>{{m.ULRNo}}</td>
+					   <td>{{m.ApprovedDate}}</td>
+					   <td>{{m.ApprovedBy}}</td>
+					   <td>{{m.TestedBy}}</td>
+					   <!-- <td>{{m.Note}}</td> -->
+					   <td>{{m.Equipment}}</td>
+					   <td>{{m.Temp}}</td>
+					   <td>{{m.HTBatchNo}}</td>
+					   <td>{{m.Description}}</td>
+					   
+					   <td>{{m.SS}}</td>
+					   <td>{{m.GD}}</td>
+					   <td>{{m.GL}}</td>
+					   <td>{{m.A}}</td>
+					   <td>{{m.PL}}</td>	
+<td>{{m.UL}}</td>		
+<td>{{m.FL}}</td>	
+<td>{{m.FD}}</td>		
+<td>{{m.EX}}</td>	
+<td>{{m.PS}}</td>		
+<td>{{m.UTS}}</td>		
+<td>{{m.EL}}</td>		
+<td>{{m.RA}}</td>		
+<td>{{m.YM}}</td>		
+<td>{{m.YS}}</td>		
+<td>{{m.R}}</td>		
+	
+
+					   
+                </tr>
+            </tbody>
+        </table>
+		<dir-pagination-controls  pagination-id="dbd" on-page-change="getdata(newPageNumber)"></dir-pagination-controls>
+			<div class="col-md-12 text-center " style="font-size:12px;">
+					<button class="btn btn-primary" ng-disabled=" dbtotalitems<1 || impform.$invalid" ng-click="uploadtensiletodb('confirm',mytensiledata,'TENSILE')" >Upload To DB</button>
+					</div>
+				</div>
+				
+		</div>
+		</div>
+      </div>
+    </div>
+  </div>
+ 
+	
+	
+		<div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCHEM" aria-expanded="true" aria-controls="collapseRIR">
+        Import Chemical
+      </button>
+    </h2>
+    <div id="collapseCHEM" class="accordion-collapse collapse " data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div class="row">
+		<div class="col-sm-12">
+		<div class="form-group">
+		<div class="col-md-6 p-2">	
+		<input type="file" ngf-select="SelectCHEMFile($file)" />
+		</div>
+		
+		<div class="col-md-6 p-2">	
+		<button type="button" class="btn btn-info" ng-click="UploadCHEM()"  >Get Sample from file</button>
+		<button type="button" class="btn btn-info" ng-click="resetfile()"  >Reset</button>
+		</div>
+	</div>
+	
+		<div class="row pt-2 table-responsive" ng-show="mychemdata.Products.length>0">
+				<p> Your sheet contains </p>
+					 <table id="tblCustomers" class="table table-bordered table-condensed"  style="overflow:scroll;" cellpadding="0" cellspacing="0" ng-show="mychemdata.IsVisible">
+            <tr >
+			  
+<th>BatchCode</th>				  
+<th>TestNo</th>				  
+<th>TestName</th>	
+<th>TSeq</th>
+<th>SubStd</th>
+<th>TestMethod</th>
+<th>ExtraInfo</th>		
+<th>FormatNo</th>
+<th>RevNo</th>
+<th>RevDate</th>
+<th>ReqDate</th>	
+<th>TestDate</th>
+<th>Status</th>
+<th>ULRNo</th>
+<th>ApprovedDate</th>
+<th>ApprovedBy</th>
+<th>TestedBy</th>
+<!-- <th>Note</th>		 -->
+<th>LastModified</th>		
+<th>CreationDate</th>		
+
+<th>Al</th>	
+<th>As</th>	
+<th>B</th>		
+<th>Bi</th>		
+<th>C</th>		
+<th>Ca</th>		
+<th>Ce</th>		
+<th>Co</th>		
+<th>Cr</th>		
+<th>Cu</th>		
+<th>Fe</th>		
+<th>La</th>		
+<th>Mg</th>		
+<th>Mn</th>		
+<th>Mo</th>		
+<th>Nb</th>		
+<th>Ni</th>		
+<th>P</th>		
+<th>Pb</th>		
+<th>S</th>		
+<th>Sb</th>		
+<th>Se</th>		
+<th>Si</th>		
+<th>Sn</th>		
+<th>Ta</th>		
+<th>Te</th>		
+<th>Ti</th>		
+<th>V</th>		
+<th>W</th>		
+<th>Zn</th>		
+<th>Zr</th>		
+            </tr>
+            <tbody  pagination-id="dbd"  dir-paginate="m in results =( mychemdata.Products | filter:q )| itemsPerPage: dbpageSize"  current-page="dbcurrentPage" >
+                <tr>
+                   
+					
+					
+					 <td>{{m.BatchCode}}</td>
+					 <td>{{m.TestNo}}</td>
+                    <td>{{m.TestName}}</td>
+					  <td>{{m.TSeq}}</td>
+					   <td>{{m.SubStd}}</td>					  					
+					  <td>{{m.TestMethod}}</td>					 
+					  <td>{{m.ExtraInfo}}</td>
+					   <td>{{m.FormatNo}}</td>
+					    <td>{{m.RevNo}}</td>
+					   <td>{{m.RevDate}}</td>
+					   <td>{{m.ReqDate}}</td>
+					   <td>{{m.TestDate}}</td>
+					   <td>{{m.Status}}</td>
+					   <td>{{m.ULRNo}}</td>
+					   <td>{{m.ApprovedDate}}</td>
+					   <td>{{m.ApprovedBy}}</td>
+					   <td>{{m.TestedBy}}</td>
+					   <!-- <td>{{m.Note}}</td> -->
+					   <td>{{m.LastModified}}</td>
+					   <td>{{m.CreationDate}}</td>
+					   <td>{{m.Al}}</td>
+					   <td>{{m.As}}</td>
+					   <td>{{m.B}}</td>
+					   <td>{{m.Bi}}</td>
+					   <td>{{m.C}}</td>	
+<td>{{m.Ca}}</td>		
+<td>{{m.Ce}}</td>	
+<td>{{m.Co}}</td>		
+<td>{{m.Cr}}</td>	
+<td>{{m.Cu}}</td>		
+<td>{{m.Fe}}</td>		
+<td>{{m.La}}</td>		
+<td>{{m.Mg}}</td>		
+<td>{{m.Mn}}</td>		
+<td>{{m.Mo}}</td>		
+<td>{{m.Nb}}</td>		
+<td>{{m.Ni}}</td>		
+<td>{{m.P}}</td>		
+<td>{{m.Pb}}</td>		
+<td>{{m.S}}</td>		
+<td>{{m.Sb}}</td>		
+<td>{{m.Se}}</td>	
+<td>{{m.Si}}</td>		
+<td>{{m.Sn}}</td>		
+<td>{{m.Ta}}</td>	
+<td>{{m.Te}}</td>	
+<td>{{m.Ti}}</td>		
+<td>{{m.V}}</td>	
+<td>{{m.W}}</td>		
+<td>{{m.Zn}}</td>	
+<td>{{m.Zr}}</td>
+					   
+                </tr>
+            </tbody>
+        </table>
+		<dir-pagination-controls  pagination-id="dbd" on-page-change="getdata(newPageNumber)"></dir-pagination-controls>
+			<div class="col-md-12 text-center " style="font-size:12px;">
+					<button class="btn btn-primary" ng-disabled=" dbtotalitems<1 || impform.$invalid" ng-click="uploadchemtodb('confirm')" >Upload To DB</button>
+					</div>
+				</div>
+				
+		</div>
+		</div>
+      </div>
+    </div>
+  </div>
+ 
+	
+	<div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRIR" aria-expanded="true" aria-controls="collapseRIR">
+        Import Samples
+      </button>
+    </h2>
+    <div id="collapseRIR" class="accordion-collapse collapse " data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div class="row">
+		<div class="col-sm-12">
+		<div class="form-group">
+		<div class="col-md-6 p-2">	
+		<input type="file" ngf-select="SelectRIRFile($file)" />
+		</div>
+		
+		<div class="col-md-6 p-2">	
+		<button type="button" class="btn btn-info" ng-click="UploadRIR()"  >Get Sample from file</button>
+		<button type="button" class="btn btn-info" ng-click="resetfile()"  >Reset</button>
+		</div>
+	</div>
+	
+		<div class="row pt-2 table-responsive" ng-show="myrirdata.Products.length>0">
+				<p> Your sheet contains </p>
+					 <table id="tblCustomers" class="table table-bordered table-condensed"  style="overflow:scroll;" cellpadding="0" cellspacing="0" ng-show="myrirdata.IsVisible">
+            <tr >
+
+<th>LabNo</th>				  
+<th>BatchCode/BatchNo</th>	
+<th>HeatNo</th>
+<th>SampleName</th>
+<th>IsMdsTds</th>
+
+<th>Supplier</th>		
+<th>GrinNo</th>
+<th>Condition</th>
+<th>RefPurchaseOrder</th>
+<th>Quantity</th>	
+<th>Material Grade</th>
+<th>NoType</th>
+<th>No</th>
+<th>TCNo</th>
+<th>InvoiceNo</th>
+<th>InvoiceDate</th>
+<th>Customer</th>		
+<th>RouteCardNo</th>		
+<th>CreationDate</th>		
+<th>Action</th>		
+<th>EnteredBy</th>		
+            </tr>
+            <tbody  pagination-id="dbd"  dir-paginate="m in results =( myrirdata.Products | filter:q )| itemsPerPage: dbpageSize"  current-page="dbcurrentPage" >
+                <tr>
+                   
+					
+					 <td>{{m.LabNo}}</td>
+                    <td>{{m.BatchCode}}</td>
+						   <td>{{m.HeatNo}}</td>					  					
+					  <td>{{m.SampleName}}</td>					 
+					  <td>{{m.IsMdsTds}}</td>					 
+									 
+					  <td>{{m.Supplier}}</td>
+					   <td>{{m.GrinNo}} {{m.GrinDt}}</td>
+					    <td>{{m.Condition}}</td>
+					   <td>{{m.RefPurchaseOrder}}</td>
+					   <td>{{m.Quantity}}</td>
+					   <td>{{m.MaterialGrade}}</td>
+					   <td>{{m.NoType}}</td>
+					   <td>{{m.No}}</td>
+					   <td>{{m.TCNo}}</td>
+					   <td>{{m.InvoiceNo}}</td>
+					   <td>{{m.InvoiceDate}}</td>
+					   <td>{{m.Customer}}</td>
+					   <td>{{m.RouteCardNo}}</td>
+					   <td>{{m.CreationDate}}</td>
+					   <td>{{m.Action}}</td>
+					   <td>{{m.EnteredBy}}</td>
+					   
+                </tr>
+            </tbody>
+        </table>
+		<dir-pagination-controls  pagination-id="dbd" on-page-change="getdata(newPageNumber)"></dir-pagination-controls>
+			<div class="col-md-12 text-center " style="font-size:12px;">
+					<button class="btn btn-primary" ng-disabled=" dbtotalitems<1 || impform.$invalid" ng-click="uploadrirtodb('confirm')" >Upload To DB</button>
+					</div>
+				</div>
+				
+		</div>
+		</div>
+      </div>
+    </div>
+  </div>
+ 
+ 
+ <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        Import standards and sub standards
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse " data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div class="row">
+		<div class="col-sm-12">
+		<div class="form-group">
+		<div class="col-md-6 p-2">	
+		<input type="file" ngf-select="SelectFile($file)" />
+		</div>
+		
+		<div class="col-md-6 p-2">	
+		<button type="button" class="btn btn-info" ng-click="UploadSubStd()"  >Get Data from file</button>
+		<button type="button" class="btn btn-info" ng-click="resetfile()"  >Reset</button>
+		</div>
+	</div>
+	
+		<div class="row pt-2" ng-show="mysubstddata.Products.length>0">
+				<p> Your sheet contains </p>
+					 <table id="tblCustomers" class="table table-bordered table-condensed"  style="overflow:scroll;" cellpadding="0" cellspacing="0" ng-show="mysubstddata.IsVisible">
+            <tr >
+<th>Industry</th>
+<th>Standard</th>
+<th>SubStd</th>				  
+<th>Test</th>	
+<th>Parameter</th>
+<th>Symbol</th>
+<th>Unit</th>
+<th>SpecMin</th>		
+<th>SpecMax</th>
+<th>TestMethod</th>
+<th>ssdesc</th>
+<th>Cost</th>	
+<th>OId</th>
+<th>OSSID</th>
+<th>OSID</th>
+<th>OPId</th>		
+            </tr>
+            <tbody  pagination-id="dbd"  dir-paginate="m in results =( mysubstddata.Products | filter:q )| itemsPerPage: dbpageSize"  current-page="dbcurrentPage" >
+                <tr>
+                   
+					<td>{{m.Industry}}</td>
+                    <td>{{m.Standard}}</td>
+					 <td>{{m.SubStd}}</td>
+                    <td>{{m.Test}}</td>
+					  <td>{{m.Parameter}}</td>
+					   <td>{{m.Symbol}}</td>					  					
+					  <td>{{m.Unit}}</td>					 
+					  <td>{{m.SpecMin}}</td>
+					   <td>{{m.SpecMax}}</td>
+					    <td>{{m.TestMethod}}</td>
+					   <td>{{m.ssdesc}}</td>
+					   <td>{{m.Cost}}</td>
+					   <td>{{m.OId}}</td>
+					   <td>{{m.OSSID}}</td>
+					   <td>{{m.OSID}}</td>
+					   <td>{{m.OPId}}</td>
+					   
+                </tr>
+            </tbody>
+        </table>
+		<dir-pagination-controls  pagination-id="dbd" on-page-change="getdata(newPageNumber)"></dir-pagination-controls>
+			<div class="col-md-12 text-center " style="font-size:12px;">
+					<button class="btn btn-primary" ng-disabled=" dbtotalitems<1 || impform.$invalid" ng-click="uploadsubstdtodb('confirm')" >Upload To DB</button>
+					</div>
+				</div>
+				
+		</div>
+		</div>
+      </div>
+    </div>
+  </div>
+  
+<div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTM" aria-expanded="false" aria-controls="collapseTM">
+       Import Test Method
+      </button>
+    </h2>
+    <div id="collapseTM" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+            <div class="row">
+		<div class="col-sm-12">
+		<div class="form-group">
+		<div class="col-md-6 p-2">	
+		<input type="file" ngf-select="SelectTMFile($file)" />
+		</div>
+		
+		<div class="col-md-6 p-2">	
+		<button type="button" class="btn btn-info" ng-click="UploadTM()"  >Get Data from file</button>
+		<button type="button" class="btn btn-info" ng-click="resettmfile()"  >Reset</button>
+		</div>
+	</div>
+	
+		<div class="row pt-2" ng-show="mytmdata.Products.length>0">
+				<p> Your sheet contains </p>
+				 <table id="tblCustomers" class="table table-bordered table-condensed"  style="max-width:500px;overflow:scroll;" 
+				 cellpadding="0" cellspacing="0" ng-show="mytmdata.IsVisible">
+            <tr >
+                <th>Id</th>
+                  <th>Test</th>
+				   <th>Method</th>				  
+				 <th>Industry</th>	
+            </tr>
+            <tbody  dir-paginate="m in results =( mytmdata.Products | filter:q )| itemsPerPage: dbpageSize" total-items="dbtotalitems" current-page="dbcurrentPage" >
+                <tr>
+                    <td >{{($index+1)+((currentPage-1)*pageSize) }}</td>
+                    <td>{{m.Test}}</td>
+                    <td>{{m.Method}}</td>
+					  <td>{{m.IndId}}</td>
+                </tr>
+            </tbody>
+        </table>
+		<dir-pagination-controls  pagination-id="dbd" on-page-change="getdata(newPageNumber)"></dir-pagination-controls>
+			<div class="col-md-12 text-center " style="font-size:12px;">
+					<button class="btn btn-primary" ng-disabled=" dbtotalitems<1 || impform.$invalid" ng-click="uploadsubstdtodb('confirm')" >Upload To DB</button>
+					</div>
+				</div>
+				
+		</div>
+		</div>
+   
+      </div>
+    </div>
+  </div>
+ 
+
+
+<div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+       Import Mds and Tds
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+            <div class="row">
+		<div class="col-sm-12">
+		<div class="form-group">
+		<div class="col-md-6 p-2">	
+		<input type="file" ngf-select="SelectMdsFile($file)" />
+		</div>
+		
+		<div class="col-md-6 p-2">	
+		<button type="button" class="btn btn-info" ng-click="UploadMds()"  >Get Data from file</button>
+		<button type="button" class="btn btn-info" ng-click="resetmdsfile()"  >Reset</button>
+		</div>
+	</div>
+	
+		<div class="row pt-2" ng-show="mymdstdsdata.Products.length>0">
+				<p> Your sheet contains </p>
+					 <table id="tblCustomers" class="table table-bordered table-condensed"  style="overflow:scroll;" cellpadding="0" cellspacing="0" ng-show="mymdstdsdata.IsVisible">
+            <tr >
+<th>Industry</th>
+<th>Type</th>
+<th>No</th>
+<th>Description</th>
+
+            </tr>
+            <tbody  pagination-id="dbd"  dir-paginate="m in results =( mymdstdsdata.Products | filter:q )| itemsPerPage: dbpageSize"  current-page="dbcurrentPage" >
+                <tr>
+                   
+					<td>{{m.Industry}}</td>
+					<td>{{m.Type}}</td>
+					<td>{{m.No}}</td>
+					<td>{{m.Description}}</td>
+                  
+                </tr>
+            </tbody>
+        </table>
+		<dir-pagination-controls  pagination-id="dbd" on-page-change="getdata(newPageNumber)"></dir-pagination-controls>
+			<div class="col-md-12 text-center " style="font-size:12px;">
+					<button class="btn btn-primary" ng-disabled=" dbtotalitems<1 || impform.$invalid" ng-click="uploadmdstdstodb('confirm')" >Upload MDS/TDS To DB</button>
+					</div>
+				</div>
+				
+		</div>
+		</div>
+   
+      </div>
+    </div>
+  </div>
+ 
+
+
+
+ <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        Accordion Item #3
+      </button>
+    </h2>
+    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+      </div>
+    </div>
+  </div>
+
+	</div>
+	
+	
+		<form name="setform" class="form-horizontal" novalidate>
+		
+		<div class="form-group row pt-2">
+				<div class="col-md-12">	
+				
+				<p>Your Excel sheet column should be in this Sequence (total 12 columns) 
+				<br>
+				<img class="img-responsive" src="img/importall.PNG" style="height:140px;">
+				
+					</p>
+					</div>
+					</div>
+	<div class="form-group">
+		<div class="col-md-6 p-2">	
+		<input type="file" ngf-select="SelectFile($file)" />
+		</div>
+		
+		<div class="col-md-6 p-2">	
+		<button type="button" class="btn btn-info" ng-click="UploadSubStd()"  >Get Data from file</button>
+		<button type="button" class="btn btn-info" ng-click="resetfile()"  >Reset</button>
+		</div>
+	</div>
+			
+		
+					
+					<div class="row pt-2" ng-show="mysubstddata.Products.length>0">
+				<p> Your sheet contains </p>
+					 <table id="tblCustomers" class="table table-bordered table-condensed"  style="overflow:scroll;" cellpadding="0" cellspacing="0" ng-show="mysubstddata.IsVisible">
+            <tr >
+<th>Industry</th>
+<th>Standard</th>
+<th>SubStd</th>				  
+<th>Test</th>	
+<th>Parameter</th>
+<th>Symbol</th>
+<th>Unit</th>
+<th>SpecMin</th>		
+<th>SpecMax</th>
+<th>TestMethod</th>
+<th>ssdesc</th>
+<th>Cost</th>	
+<th>OId</th>
+<th>OSSID</th>
+<th>OSID</th>
+<th>OPId</th>		
+            </tr>
+            <tbody  pagination-id="dbd"  dir-paginate="m in results =( mysubstddata.Products | filter:q )| itemsPerPage: dbpageSize"  current-page="dbcurrentPage" >
+                <tr>
+                   
+					<td>{{m.Industry}}</td>
+                    <td>{{m.Standard}}</td>
+					 <td>{{m.SubStd}}</td>
+                    <td>{{m.Test}}</td>
+					  <td>{{m.Parameter}}</td>
+					   <td>{{m.Symbol}}</td>					  					
+					  <td>{{m.Unit}}</td>					 
+					  <td>{{m.SpecMin}}</td>
+					   <td>{{m.SpecMax}}</td>
+					    <td>{{m.TestMethod}}</td>
+					   <td>{{m.ssdesc}}</td>
+					   <td>{{m.Cost}}</td>
+					   <td>{{m.OId}}</td>
+					   <td>{{m.OSSID}}</td>
+					   <td>{{m.OSID}}</td>
+					   <td>{{m.OPId}}</td>
+					   
+                </tr>
+            </tbody>
+        </table>
+		<dir-pagination-controls  pagination-id="dbd" on-page-change="getdata(newPageNumber)"></dir-pagination-controls>
+			<div class="col-md-12 text-center " style="font-size:12px;">
+					<button class="btn btn-primary" ng-disabled=" dbtotalitems<1 || impform.$invalid" ng-click="uploadsubstdtodb('confirm')" >Upload To DB</button>
+					</div>
+				</div>
+				
+		
+		
+		
+		<!-- <div class="form-group"> -->
+		<!-- <div class="col-sm-3 col-xs-12  "> -->
+			<!-- <button class="btn btn-sm btn-primary" ng-if="permissions[28].C==='true'" ng-click="importall()"><i class="fa fa-database"></i> Import All in one</button> -->
+		<!-- </div> -->
+		<!-- </div> -->
+		
+		
+		
+		<!-- <div class="form-group"> -->
+		<!-- <div class="col-sm-3 col-xs-12  "> -->
+			<!-- <button class="btn btn-sm btn-primary" ng-if="permissions[28].C==='true'" ng-click="importstds()"><i class="fa fa-database"></i> Import Standards</button> -->
+		<!-- </div> -->
+		<!-- </div> -->
+		
+		
+			<!-- <div class="form-group"> -->
+		<!-- <div class="col-sm-3 col-xs-12  "> -->
+			<!-- <button class="btn btn-sm btn-primary" ng-if="permissions[28].C==='true'" ng-click="importsubstds()"><i class="fa fa-database"></i> Import Sub Standards</button> -->
+		<!-- </div> -->
+		<!-- </div> -->
+		
+		
+			<!-- <div class="form-group"> -->
+		<!-- <div class="col-sm-3 col-xs-12  "> -->
+			<!-- <button class="btn btn-sm btn-primary" ng-if="permissions[28].C==='true'" ng-click="importparameters()"><i class="fa fa-database"></i> Import Test Parameters</button> -->
+		<!-- </div> -->
+		<!-- </div> -->
+		
+			<!-- <div class="form-group"> -->
+		<!-- <div class="col-sm-3 col-xs-12  "> -->
+			<!-- <button class="btn btn-sm btn-primary" ng-if="permissions[28].C==='true'" ng-click="importtestmethods()"><i class="fa fa-database"></i> Import Test Methods</button> -->
+		<!-- </div> -->
+		<!-- </div> -->
+		  
+		
+		  
+	
+				
+			
+			
+		</form>
+	</div>
+</div>
+<toaster-container toaster-options="{'close-button': false,'position-class': 'toast-top-center'}" style="margin-top:20%;"></toaster-container>  
+
+<script type="text/ng-template" id="confirmdbModal.html">
+<div class="modal-content">
+		
+			<div class="modal-header bg-success dialog-header-confirm">
+				<button type="button" class="close" data-dismiss="modal" ng-click="closedbconfirmModal()" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel" style="margin-top:5px;margin-bottom:5px;"><i class="fa fa-check-square-o"></i> Confirm Publish</h4>
+			</div>
+		
+			<div class="modal-body">
+				<p>You are about to add {{log.Products.length}} entries to Database </p>
+				<p>Do you want to proceed?</p>
+			 </div>
+			
+			<div class="modal-footer">
+				<button class="btn btn-success" ng-disabled="issaving" data-ng-click="uploadsubstdtodb('approved',log)">Publish</button>
+				<button type="button" class="btn btn-danger" ng-click="closedbconfirmModal()">Cancel</button>
+			</div>
+</script>	
+
+
+<script type="text/ng-template" id="confirmmdsdbModal.html">
+<div class="modal-content">
+		
+			<div class="modal-header bg-success dialog-header-confirm">
+				<button type="button" class="close" data-dismiss="modal" ng-click="closedbconfirmModal()" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel" style="margin-top:5px;margin-bottom:5px;"><i class="fa fa-check-square-o"></i> Confirm Publish</h4>
+			</div>
+		
+			<div class="modal-body">
+				<p>You are about to add {{log.Products.length}} entries to Database </p>
+				<p>Do you want to proceed?</p>
+			 </div>
+			
+			<div class="modal-footer">
+				<button class="btn btn-success" ng-disabled="issaving" data-ng-click="uploadmdstdstodb('approved',log)">MDS Publish</button>
+				<button type="button" class="btn btn-danger" ng-click="closedbconfirmModal()">Cancel</button>
+			</div>
+</script>	
+
+<script type="text/ng-template" id="confirmrirdbModal.html">
+<div class="modal-content">
+		
+			<div class="modal-header bg-success dialog-header-confirm">
+				<button type="button" class="close" data-dismiss="modal" ng-click="closedbconfirmModal()" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel" style="margin-top:5px;margin-bottom:5px;"><i class="fa fa-check-square-o"></i> Confirm Publish</h4>
+			</div>
+		
+			<div class="modal-body">
+				<p>You are about to add {{log.Products.length}} entries to Database </p>
+				<p>Do you want to proceed?</p>
+			 </div>
+			
+			<div class="modal-footer">
+				<button class="btn btn-success" ng-disabled="issaving" data-ng-click="uploadrirtodb('approved',log)">MDS Publish</button>
+				<button type="button" class="btn btn-danger" ng-click="closedbconfirmModal()">Cancel</button>
+			</div>
+</script>
+
+
+
+<script type="text/ng-template" id="confirmchemdbModal.html">
+<div class="modal-content">
+		
+			<div class="modal-header bg-success dialog-header-confirm">
+				<button type="button" class="close" data-dismiss="modal" ng-click="closedbconfirmModal()" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel" style="margin-top:5px;margin-bottom:5px;"><i class="fa fa-check-square-o"></i> Confirm Publish</h4>
+			</div>
+		
+			<div class="modal-body">
+				<p>You are about to add {{log.Products.length}} entries to Database </p>
+				<p>Do you want to proceed?</p>
+			 </div>
+			
+			<div class="modal-footer">
+				<button class="btn btn-success" ng-disabled="issaving" data-ng-click="uploadchemtodb('approved',log)">CHEM Publish</button>
+				<button type="button" class="btn btn-danger" ng-click="closedbconfirmModal()">Cancel</button>
+			</div>
+</script>	
+
+
+
+<script type="text/ng-template" id="confirmtensiledbModal.html">
+<div class="modal-content">
+		
+			<div class="modal-header bg-success dialog-header-confirm">
+				<button type="button" class="close" data-dismiss="modal" ng-click="closedbconfirmModal()" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel" style="margin-top:5px;margin-bottom:5px;"><i class="fa fa-check-square-o"></i> Confirm Publish</h4>
+			</div>
+		
+			<div class="modal-body">
+				<p>You are about to add {{log.Products.length}} entries to Database </p>
+				<p>Do you want to proceed?</p>
+			 </div>
+			
+			<div class="modal-footer">
+				<button class="btn btn-success" ng-disabled="issaving" data-ng-click="uploadtensiletodb('approved',log,tuid)">{{tuid}} Publish</button>
+				<button type="button" class="btn btn-danger" ng-click="closedbconfirmModal()">Cancel</button>
+			</div>
+</script>									

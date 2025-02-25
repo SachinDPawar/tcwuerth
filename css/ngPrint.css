@@ -1,0 +1,25 @@
+@media screen {
+    #printSection {
+        display: none;
+    }
+	.non-printable { display: none; }
+    .printable { display: block; }
+}
+
+@media print {
+    body * {
+        display:none;
+    }
+	.non-printable { display: none; }
+    .printable { display: block; }
+
+    #printSection, #printSection * {
+        display: inline;
+    }
+
+    #printSection {
+        position:absolute;
+        left:0;
+        top:0;
+    }
+}

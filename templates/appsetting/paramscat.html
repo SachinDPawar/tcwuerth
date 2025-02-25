@@ -1,0 +1,194 @@
+<style>
+.form-control {
+padding:5px 8px;
+}
+
+.sml{
+color:#DFDDDF;
+}
+</style>
+<div class="row " >
+	
+	
+	<div class="col-md-12" style="margin-top:20px;">
+		<div class="card card-default">
+			<div class="card-header">
+				<h3 class="card-title text-left"><b><i class="fa fa-flask"></i> Parameter Category </b></h3>
+			</div>
+			<div class="card-body">
+			<div class="row">
+			
+			
+				
+				<div class="col-md-3" style="padding:15px;">
+		<button class="btn btn-primary fa fa-plus"  ng-click="edittestparam('new')"> Add New </button>
+	</div>
+	<div class="col-md-6">
+	<dir-pagination-controls pagination-id="rirpage" ></dir-pagination-controls>
+	</div>
+	<div class="col-sm-3 col-xs-12  ">
+			<button class="btn btn-sm btn-primary" ng-if="permissions[28].C==='true'" ng-click="importparams()"><i class="fa fa-database"></i> Import Params</button>
+		</div>
+				</div>
+			<div class="row">
+			
+			
+				
+				<div class="col-md-12">
+				<table class="table col-md-12 table-bordered table-sm">
+				<thead class="table-dark">
+					<th class="text-center" style="width:10px">#</th>
+					
+					<th class="text-center">Param</th>
+					<th class="text-center">Symbol</th>
+					<th class="text-center">Unit</th>
+					<th class="text-center">Value Type</th>
+					<th class="text-center">TestId</th>
+					<th class="text-center">IndId</th>
+					<th class="text-center">Status</th>
+					
+					<th class="text-center " style="width:150px">Action</th>
+					</thead>
+					<tbody>
+							
+					<tr class="text-center" pagination-id="rirpage"   dir-paginate="item in results =( alltparams  ) |itemsPerPage: pageSize   " >
+					<td >
+						{{($index+1)+((currentPage-1)*pageSize) }}
+					</td>
+					 
+					<td>{{item.Param}}	</td>
+					<td>{{item.Symbol}}	</td>
+					<td>{{item.PUnit}}	</td>
+					<td>{{item.PDType}}	</td>
+						<td>{{item.TestName}}	</td>
+							<td>{{item.Industry}}	</td>
+								<td>{{item.Status}}	</td>
+								
+					<td class="center">
+				
+						<button ng-if="permissions[20].U==='true'" class="btn btn-default fa fa-pencil btn-sm" ng-click="edittestparam(item)"></button>	
+						
+					</td>
+					</tr>	
+					<tr  class="text-center" ng-if="results.length <1">
+				<td colspan="4"><strong>No results found...</strong></td>
+			</tr>
+									
+					</tbody>
+				</table>
+				
+				<dir-pagination-controls pagination-id="rirpage" ></dir-pagination-controls>
+			
+			
+			</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+	
+	
+	
+		
+	
+
+</div>
+
+
+<script type="text/ng-template" id="testparameditModal.html">
+        <div class="modal-header">
+         Test Parameters  
+			 <button type="button" class="close" ng-click="closetestModal()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+		
+				<form class="form-horizontal" name="minmaxform" novalidate >
+				
+					<div class="form-group row">
+						
+						
+							<div class="col-md-4 col-sm-4">
+							<label for="Supplier" class=" control-label ">Industry </label>
+						
+							<ui-select id="IndId"  ng-model="info.IndId" name="IndId" ng-change="getindtests(info.IndId);info.TestId=''"    >
+							<ui-select-match placeholder="Select Industry">
+							<span ng-bind="$select.selected.Industry"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat="item.Id as item in (allindustries | filter: $select.search)">
+							<span ng-bind="item.Industry"></span>
+							</ui-select-choices>
+							</ui-select>
+						</div>
+						
+						<div class="col-md-4 col-sm-4">
+								<label for="Test" class=" control-label ">Parameter for Test </label>
+						
+								<ui-select id="TestId" ng-model="info.TestId" name="TestId"     >
+								<ui-select-match placeholder="Select Test">
+								<span ng-bind="$select.selected.TestName"></span>
+								</ui-select-match>
+								<ui-select-choices  repeat="item.Id as item in (indtests | filter: $select.search)">
+								<span ng-bind="item.TestName"></span>
+								</ui-select-choices>
+								</ui-select>
+						</div>
+						
+					</div>
+					
+					<div class="form-group row">
+						
+						<div class="col-md-4 col-sm-4">
+						<label class="control-label">Parameter </label>
+								<input type="text" class="form-control"  id="Param" ng-model="info.Param" name="Param" placeholder="Param" required />		
+						</div>
+				
+						
+						<div class="col-md-4 col-sm-4">
+						<label class=" control-label">Symbol/unique Keyword for Parameter </label>
+								<input type="text" class="form-control" id="Symbol" ng-model="info.Symbol" name="Symbol" placeholder="Symbol" required />		
+						</div>
+					</div>
+					
+					
+				
+					
+					
+					
+						<div class="form-group row">
+						
+						<div class="col-md-4 col-sm-4">
+						<label class="control-label">Unit (if anys)</label>
+								<input type="text" class="form-control"  id="Param" ng-model="info.PUnit" name="PUnit" placeholder="PUnit"  />		
+						</div>
+				
+						
+						<div class="col-md-4 col-sm-4">
+						<label class=" control-label">Value data type (numeric/text) </label>
+								<ui-select id="PDType"  ng-model="info.PDType" name="PDType"     >
+							<ui-select-match placeholder="Select Data Type">
+							<span ng-bind="$select.selected"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat=" item in (alldtypes| filter: $select.search)">
+							<span ng-bind="item"></span>
+							</ui-select-choices>
+							</ui-select>
+						</div>
+					</div>
+					
+					
+					
+					
+					
+			<div class="form-group text-center">						
+					<button type="button" class="btn btn-md btn-success fa fa-"  ng-disabled="minmaxform.$invalid" ng-click="testparamsave(info)" id="cp_submit" >Submit</button>
+				<button type="button" class="btn btn-md btn-default fa fa-" ng-click="closetestModal()" >Cancel</button>
+			</div>	
+				
+				</form>
+			
+        </div>
+        <div class="modal-footer">
+        
+        </div>
+    </script>
+		

@@ -1,0 +1,193 @@
+<div class="row">
+
+	<div class="col-xs-12 col-sm-12">
+		<div class="card card-default">
+			<div class="card-header ">
+				<h3 class="card-title text-left"><b><i class="fa fa-cubes"/> Test methods Table</b></h3>
+			</div>
+			
+			<div class="card-body ">
+				<div class="row">	
+				<div class="col-sm-4 col-xs-12  ">
+			<button class="btn btn-sm btn-primary"  ng-click="addmethod('new')"><i class="fa fa-plus-circle"></i> Add methods</button>
+		</div>
+				<div class="col-sm-5 col-xs-12  pull-right">
+					<form class="form-horizontal ">
+						<div class="form-group">
+							
+							<div class="col-md-10">
+							  <input type="text" class="form-control" id="inputEmail3" ng-model="searchstring" placeholder="Search">
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="col-sm-3 col-xs-12  ">
+			<button class="btn btn-sm btn-primary"  ng-click="importtest('new')"><i class="fa fa-database"></i> Import methods</button>
+		</div>
+				</div>
+				<div class="col-md-12">	
+				<table class="table table-bordered">
+					<thead>
+					<tr class="active text-left table-info">
+						<td>#</td>
+						<td>Test</td>
+						<td>Method</td>
+						<td>Industry</td>
+						<td>Action</td>
+					</tr>
+					</thead>
+					<tbody class="table-group-divider">
+					<tr class="animate-repeat" dir-paginate="i in results =(methods | filter:searchstring )| itemsPerPage: pageSize" current-page="currentPage">
+						<td >{{($index+1)+((currentPage-1)*pageSize) }}</td>
+						<td><strong>{{i.Test}} {{i.Type}}</strong></td>
+						<td>{{i.Method }}</td>
+						<td>{{i.Industry}}</td>
+						<td>
+						<div class="btn-group">
+						<button class="btn btn-sm "  title="Edit" ng-click="addmethod(i)" ><i class="fa fa-pencil"></i></button>
+						<button class="btn btn-sm "  title="Delete" ng-click="deletemethod('confirm',i)" ><i class="fa fa-trash"></i></button>
+						</div>
+						</td>
+					</tr>
+					<tr class="text-center" ng-if="results.length < 1">
+						<td colspan="4">
+							<strong>No results found...</strong>
+						</td>
+					</tr>
+					<tbody>
+				</table>
+				<dir-pagination-controls ></dir-pagination-controls>  
+				</div>	
+			</div><!-- /.box-body -->
+		</div><!-- /.box -->
+	</div>
+
+
+</div>
+
+
+
+<script type="text/ng-template" id="addmethodModal"  data-keyboard=false>
+<div class="modal-body" style="padding:0px;" >
+
+	<div class="modal-header col-sm-12 " style="padding:10px;">
+	
+    <h4><i class="fa fa-plus-circle"></i>
+	<span ng-if="!editflag">Add Test Method</span>
+	<span ng-if="editflag">Edit Test Method</span>
+	</h4>
+	
+	 <button type="button" class="close pull-right" ng-click="cancel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	
+
+	</div>
+  
+<div class="model-body p-2">
+<div class="col-sm-12 " style="margin-top:15px;">
+	
+<form class="form-horizontal col-sm-offset-1" name="methodform"  novalidate>	
+
+	<div class="form-group">
+						
+					<div class="col-md-10">
+						<label  class=" control-label">Industry Type</label>
+						<ui-select id="Type" ng-model="method.IndId"  name="IndId" theme="bootstrap" ng-change="getindtests(method.IndId)"	remove-selected="false"	 required>
+							<ui-select-match placeholder="Select Industry...">
+							   {{$select.selected.PTree}}
+							</ui-select-match>
+							<ui-select-choices group-by="'FParent'" repeat="item.Id as item in (allindustries | filter: $select.search) ">
+								
+								<div ng-bind="item.PTree "></div>
+								
+							</ui-select-choices>
+						</ui-select>
+						</div>
+						
+					</div>
+					
+					
+	<div class="form-group " >
+		<label class="col-md-6" for="methodform_name">Select Tests </label>
+		<div class="col-md-10">
+			<ui-select  id="TestId" name="TestId" ng-model="method.TestId"  required  >
+    <ui-select-match placeholder="select test ">
+        <span ng-bind="$select.selected.TestName"></span>
+    </ui-select-match>
+    <ui-select-choices  repeat="item.Id as item in (indtests | filter: $select.search) track by item.Id">
+       {{item.TestName}} 
+    </ui-select-choices>
+</ui-select>
+		<div class="error-container"  ng-show="methodform.TestId.$dirty || methodform.TestId.$invalid ">
+        <small class="showerror"  ng-show="methodform.TestId.$error.required">
+           Test  is required.
+        </small>
+        </div>
+		</div>
+		
+	</div>
+
+
+
+	<div class="form-group " >
+		<label class=" col-sm-6 " for="methodform_name">method</label>
+		<div class=" col-sm-10">
+		<input  placeholder="Enter test methods " ng-disabled="issaving" class="form-control" name="method" ng-model="method.Method" 
+		type="text"  required/>
+		
+		 <div class="error-container"  ng-show="methodform.method.$dirty || methodform.method.$invalid ">
+        <small class="showerror"  ng-show="methodform.method.$error.required">
+            method Value is required.
+        </small>
+
+       <!--  <small class="error" ng-show="methodform.method.$error.maxlength">
+            method cannot be longer than 30 characters
+        </small> -->
+		</div>
+	
+		</div>
+		
+	</div>
+
+	
+	
+</form>
+</div>
+<toaster-container toaster-options="{'position-class': 'toast-bottom-full-width'}"></toaster-container>
+
+</div><!--card body-->
+<div class="card-footer  " style="padding:2px 5px;">
+	<div class=" text-center " style="padding:10px 2px;">
+	
+	<button class="btn btn-secondary" ng-click="cancel()">Cancel</button>
+		<button  ng-disabled="issaving || methodform.$invalid" ng-click="savemethod(method)"   class="btn btn-primary" style=" padding:5px 15px 5px 15px;">
+	<span ng-if="!editflag">Save</span>
+	<span ng-if="editflag">Update</span>  <i class="fa fa-chevron-circle-right fa-lg" style="color:#A8C539;"></i></button>
+	
+
+	</div>
+</div>
+</div>
+</script>
+
+
+<script type="text/ng-template" id="delmethodModal"  data-keyboard=false>
+       
+            <div class="modal-content">
+            
+                <div class="modal-header dialog-header-confirm">
+                   <button type="button" class="close" data-dismiss="modal" ng-click="closeconfirmModal()" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-check"></span> Confirm Delete</h4>
+                </div>
+            
+                <div class="modal-body">
+                    <p>You are about to delete method <strong>{{name}}</strong>, this procedure is irreversible.</p>
+                    <p>Do you want to proceed?</p>
+                 </div>
+                
+                <div class="modal-footer">
+                  <button class="btn btn-danger" data-ng-click="deletemethod('delete',did)">Delete</button>
+		<button type="button" class="btn btn-default" ng-click="closeconfirmModal()">Cancel</button>
+                </div>
+            </div>
+      
+</script>

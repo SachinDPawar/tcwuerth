@@ -1,0 +1,173 @@
+
+  <div class="tab-pane " id="nav-quote" role="tabpanel" aria-labelledby="nav-quote-tab" tabindex="0">
+   <div class="card">
+  <div class="card-body">
+    <form class="form-horizontal " name="form" id="fileupload" method="POST" enctype="multipart/form-data" data-file-upload="quoteoptions" 
+		data-ng-class="{'fileupload-processing': processing() || loadingFiles}"  novalidate>
+		 	<div class="form-group row">
+		
+			<div class="col-sm-3 col-xs-12 ">					
+					<label  class="control-label text-left">Currency</label>
+					<ui-select id="Currency" class="form-control" ng-disabled="ds.accounteditflag" ng-model="account.Currency" name="Currency" style="padding:0px;border:0px;" required>
+						<ui-select-match placeholder="Select Currency">
+							<span ng-bind="$select.selected"></span>
+						</ui-select-match>
+						<ui-select-choices repeat=" item in allcurrency  ">
+							<span ng-bind="item" style="color:#000;font-weight:bold;"></span>
+						</ui-select-choices>
+					</ui-select>
+                    <small class="error" ng-show="catform.Currency.$error.required">
+                        Currency is required.
+                    </small>
+				</div>	
+			
+			<div class="col-md-3 col-sm-3 ">
+			<label  class="control-label">Tax</label>
+			<input type="text" class="form-control" id="Tax" ng-disabled="ds.accounteditflag"  name="Tax" ng-model="account.Tax" placeholder="Tax">
+			</div>
+		
+			<div class="col-md-3 col-sm-3">
+			<label  class=" control-label">Tax Label</label>
+			<input type="text" class="form-control" id="TaxLabel" ng-disabled="ds.accounteditflag"   name="TaxLabel" ng-model="account.TaxLabel" placeholder="Tax Label">
+			</div>
+			
+			<div class="col-md-3 col-sm-3">
+			<label  class="control-label">Quotation Valid Days</label>
+			<input type="text" class="form-control" id="QVDays" ng-disabled="ds.accounteditflag"  name="QVDays" ng-model="account.QVDays" placeholder="Quotation Valid Days">
+			</div>
+			
+			
+			
+			
+		</div>
+		<div class="form-group row">
+		
+			
+			<div class="col-md-3 col-sm-3">
+			<label  class="control-label">Incoice Valid Days/Time</label>
+			<input type="text" class="form-control" id="IVDays"  ng-disabled="ds.accounteditflag"  name="IVDays" ng-model="account.IVDays" placeholder="Invoice Valid Time">
+			</div>
+			
+			
+			<div class="col-md-3 col-sm-3">
+			<label  class="control-label">HSN</label>
+			<input type="text" class="form-control" id="HSN"  ng-disabled="ds.accounteditflag"  name="HSN" ng-model="account.HSN" placeholder="HSN">
+			</div>
+			
+		</div>
+		<div class="form-group row">
+		
+			
+			<div class="col-md-6 col-sm-6">
+			<label  class=" control-label">Default Quotation Note</label>
+			<!-- <textarea rows="6" class="form-control" ng-disabled="oneclick" id="QuoteNote" name="QuoteNote" ng-model="setdefault.QuoteNote" placeholder="Quote Note "></textarea> -->
+			
+			<div text-angular class="form-control" ng-disabled="ds.accounteditflag" id="QuoteNote"  name="QuoteNote" ng-model="account.QuoteNote"></div>
+						
+			</div>
+		
+		<!-- </div> -->
+		
+		<!-- <div class="form-group row"> -->
+		
+			
+			<div class="col-md-6 col-sm-6">
+			<label  class=" control-label"> Invoice Note</label>
+			<!-- <textarea rows="6" class="form-control" ng-disabled="oneclick" id="QuoteNote" name="QuoteNote" ng-model="setdefault.QuoteNote" placeholder="Quote Note "></textarea> -->
+			
+			<div text-angular class="form-control" ng-disabled="ds.accounteditflag" id="InvoiceNote"  name="InvoiceNote" ng-model="account.InvoiceNote"></div>
+						
+			</div>
+		
+		</div>
+	
+   		<div class="form-group row"   >
+		<div class="col-sm-12">
+		   <table class="table table-striped files ">
+		   <tr>
+		   <td></td>
+		   <td></td>
+		   <td></td>
+		   </tr>
+            <tr data-ng-repeat="file in queue" data-ng-class="{'processing': file.$processing()}">
+				
+			
+                <td data-ng-switch data-on="!!file.thumbnailUrl">
+                    <div class="preview" data-ng-switch-when="true">
+                        <a data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}" data-gallery><img data-ng-src="{{file.thumbnailUrl}}" alt=""></a>
+                    </div>
+                    <div class="preview" data-ng-switch-default data-file-upload-preview="file"></div>
+                </td>
+                <td>
+                    <p class="name" data-ng-switch data-on="!!file.url">
+                        <span data-ng-switch-when="true" data-ng-switch data-on="!!file.thumbnailUrl">
+                            <a data-ng-switch-when="true" data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}" data-gallery>{{file.name}}</a>
+                            <a data-ng-switch-default data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}">{{file.name}}</a>
+                        </span>
+                        <span data-ng-switch-default>{{file.name}}</span>
+                    </p>
+                    <strong data-ng-show="file.error" class="error text-danger">{{file.error}}</strong>
+                </td>
+                <td>
+                    <p class="size">{{file.size | formatFileSize}}</p>
+                    <div class="progress progress-striped active fade" data-ng-class="{pending: 'in'}[file.$state()]" data-file-upload-progress="file.$progress()"><div class="progress-bar progress-bar-success" data-ng-style="{width: num + '%'}"></div></div>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary start"  data-ng-click="saveupload(file)" data-ng-hide="!file.$submit || options.autoUpload" data-ng-disabled="file.$state() == 'pending' || file.$state() == 'rejected' || uploadform.$invalid">
+                        <i class="glyphicon glyphicon-upload"></i>
+                        <span>Start</span>
+                    </button>
+                    <button type="button" class="btn btn-warning cancel" data-ng-click="file.$cancel()" data-ng-hide="!file.$cancel">
+                        <i class="glyphicon glyphicon-ban-circle"></i>
+                        <span>Cancel</span>
+                    </button>
+                    <button  type="button" data-ng-controller="FileDestroyController" class="btn btn-danger destroy" data-ng-click="deletefile($index,file)">
+                        <i class="glyphicon glyphicon-trash"></i>
+                        <span>Delete</span>
+                    </button>
+                </td>
+            </tr>
+        </table>
+   </div>
+			<div class=" col-sm-12 text-left" style="margin-left:0px;">
+
+		
+
+				   
+			<div class="row fileupload-buttonbar" >	
+				<div class=" text-left" style="padding-top:0px;">
+					<!-- The fileinput-button span is used to style the file input field as button -->
+					<span class="btn btn-success fileinput-button" ng-hide="queue.length===1"  >
+						<i class="fa fa-plus"></i>
+						<span>Add Uploads</span>
+						<input type="file" name="files[]">
+					</span>
+									   
+				</div>
+						
+			</div>
+		</div>
+
+		</div>		
+	
+	
+		
+		<hr>	
+		
+		<div class="form-group text-start" >
+		<button type="button" class="btn  btn-primary"  ng-click="ds.accounteditflag =  !ds.accounteditflag">
+		<span ng-if="ds.accounteditflag">Edit</span><span  ng-if="!ds.accounteditflag">Cancel</span>
+		 </button>
+		
+		
+			<button type="button" class="btn btn-md btn-success systmbtn" ng-show="!ds.accounteditflag" ng-disabled="oneclick || form.$invalid" ng-click="saveaccountinfo(account)"> <i class="fa fa-save "></i>Update</button>
+		</div>	
+
+		</form>
+    
+  </div>
+  </div>
+ </div>
+   
+
+ 

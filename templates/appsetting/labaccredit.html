@@ -1,0 +1,227 @@
+
+  
+  
+  <div class="row">
+	
+	<div class="col-md-12">
+		<div class="card card-inverse p-2 shadow-none">
+	   
+		<div class="card-body p-4" style="background:#fff;padding-top:15px;">
+		<div class="row " style="background:#fff;" >
+		<div class="col-md-6">
+			<button class="btn btn-primary  " ng-click="addcat('new')" style="box-shadow:1px 2px 3px gray;border-radius:0px;"> ADD {{'Accreditation'|translate}}</button>
+		</div>
+		</div>
+		
+				
+		<div class="row " style="background:#fff;" >	
+			<div ui-tree="treeOptions" id="tree-root" data-nodrop-enabled="true"  data-dropzone-enabled="false" data-nodrag>
+				<ol ui-tree-nodes ng-model="allvcats" class="row " >
+					<li ng-repeat="node in allvcats | orderBy:'SeqNo'" class="alert alert-light m-2 col-sm-5" data-collapsed="true" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+				</ol>
+			</div>			
+			
+				
+			
+		</ul> 
+			
+			
+		</div>
+		
+		</div>
+		</div>
+	</div>
+	
+</div>
+
+ 
+
+<script type="text/ng-template" id="nodes_renderer.html">
+		<div ui-tree-handle class="tree-node tree-node-content">
+		<img  err-src="app/img/noimage.jpg" class="img-responsive" ng-src="{{node.Img.url}}" style="margin:auto;display:inline-block;height:170px;width:auto;">
+		
+		
+		<span class="pull-left label-warning" style="width:100px;color:white;padding:4px;display:contents;color:#fdaf40;background:#fdaf40;">  
+		</span>
+		<span ng-class="{'text-info':node.Status=='1','text-danger':node.Status=='0'}" style="padding-left:15px;">	{{node.Name}}  </span>
+		<a class="icon-link icon-link-hover" ng-if="node.children && node.children.length > 0" data-nodrag ng-click="toggle(this)"><i
+		class="fa"		ng-class="{		'fa-chevron-right': collapsed,		'fa-chevron-down': !collapsed		}"></i></a>
+		
+		<a class="pull-right btn btn-outline-danger btn-sm" data-nodrag ng-click="deletecat('confirm',node)"><span
+		class="fa fa-close"></span></a>
+		<a class="pull-right btn btn-outline-primary btn-sm"  data-nodrag ng-click="addcat(node)" style="margin-right: 8px;"><span
+		class="fa fa-pencil"></span></a>
+		
+		
+		</div>
+		<ol ui-tree-nodes="" ng-model="node.children" ng-class="{hidden: collapsed}">
+		<li ng-repeat="node in node.children" ui-tree-node ng-include="'nodes_renderer.html'">
+        
+		</li>
+        
+		</ol>
+</script>
+
+
+<script type="text/ng-template" id="categoryModal" data-keyboard="false">
+
+		
+	<div class="modal-header col-sm-12 ">
+		
+		<label><i class="fa fa-plus-circle"></i>
+			<span ><span ng-if="!editflag"> Add</span>
+				<span ng-if="editflag"> Edit</span> {{'Accreditation'|translate}}</span>			
+		</label>
+		<button type="button" class="close btn btn-outline-primary  pull-right" data-dismiss="modal" ng-click="closeModal()"><i class="fa fa-close"></i> </button>
+	</div>
+
+	
+	
+		<div class="modal-body">
+		<form class="form-horizontal row" name="labform" id="fileupload" method="POST" enctype="multipart/form-data" data-file-upload="options" 
+		data-ng-class="{'fileupload-processing': processing() || loadingFiles}" novalidate>	
+		<div class="col-sm-12" style="margin-top:5px;">
+	
+			<blockquote class="mybg-info"><p>All * mark feilds are mandatory</p></blockquote>
+			
+					
+		<div class="form-group row">
+			<div class="col-sm-12">
+				<label class="control-label text-left" for="labform_name">{{'Accreditation'|translate}} Name </label>
+				<input placeholder="Enter Name" class="form-control" name="Name" ng-model="info.Name" type="text" ng-maxlength="150"
+				ng-pattern="/^[a-zA-Z0-9\s]/" required>
+				
+				<div class="error-container" ng-show="labform.Name.$dirty || labform.Name.$invalid">
+				<small class="error" ng-show="labform.Name.$error.required">
+					Name is required.
+				</small>
+				<small class="error" ng-show="labform.Name.$error.maxlength">
+					 Name cannot be longer than 150 characters
+				</small>
+				<small class="error" ng-show="labform.Name.$error.pattern">
+					Name should not start with special characters.
+				</small>
+				</div>
+			</div>
+			
+		</div>
+					
+					
+		<div class="form-group row">
+			<div class="col-sm-6">
+			<label class="control-label text-left" for="labform_name">Cost
+			
+			</label>
+			<input placeholder="Cost" class="form-control" name="Cost" ng-model="info.Cost" type="text"></input>
+					
+			 <div class="error-container" ng-show="labform.Cost.$dirty || labform.Cost.$invalid">
+				<small class="error" ng-show="labform.Cost.$error.required">
+					Accreditation Cost is required.
+				</small>
+			</div>
+			</div>	
+			<div class="col-sm-6 col-xs-12 ">					
+					<label  class="control-label text-left">Status</label>
+					<ui-select id="status" class="form-control" ng-model="info.Status" name="Status" style="padding:0px;border:0px;" required>
+						<ui-select-match placeholder="Select Status">
+							<span ng-bind="$select.selected.Text"></span>
+						</ui-select-match>
+						<ui-select-choices repeat="item.Id as item in (statuses | filter: $select.search) ">
+							<span ng-bind="item.Text" style="color:#000;font-weight:bold;"></span>
+						</ui-select-choices>
+					</ui-select>
+                    <small class="error" ng-show="labform.Status.$error.required">
+                        Status is required.
+                    </small>
+				</div>	
+          
+			</div>
+			
+			
+			
+			<div class=" col-sm-5 text-center" style="margin-left:0px;">
+
+		<div data-ng-repeat="file in queue" ng-init="showqueue()" class="gallery-box" >
+		<span class="title"  >{{file.name1}}</span>
+		 <div class=" thumbnail" data-ng-switch data-on="!!file.url" style="background-color:#fff;">
+		  
+			<a data-ng-switch-when="true" data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}"  data-gallery>
+			<img class="awesome" data-ng-src="{{file.url }}" alt="" style="height:100px;width:auto;" ></a>
+		   
+		  <span class="preview" data-ng-switch-default data-file-upload-preview="file"></span>
+		
+		
+		  <div class="btn-group p-2">
+			<button class="btn  btn-danger btn-sm" data-ng-click="deletefile($index,file)">
+			  Remove
+			</button>
+		  </div> 
+		  <strong data-ng-if="file.error" ng-init="imageerror(file)" class="error text-danger">{{file.error}}</strong> 
+		  </div>
+		  
+		  <input type="hidden" name="categoryid" ng-model="file.categoryid"   placeholder="categoryid">
+		  
+		</div>
+
+			<span   ng-if="queue.length<1">
+				<div class="gallery-box " style="margin-top:20px;" >
+				<div class="thumbnail" >  
+					  <img src="app/images/noimage.jpg" style="height:100px;" alt="">
+					   </div>
+				 <span class="btn-group"></span>
+				</div>
+			</span>		   
+			<div class="row fileupload-buttonbar">	
+				<div class="col-sm-12 text-left" style="padding-top:0px;">
+					<!-- The fileinput-button span is used to style the file input field as button -->
+					<span class="btn btn-success fileinput-button" ng-hide="queue.length===1"  >
+						<i class="glyphicon glyphicon-plus"></i>
+						<span>Add Images</span>
+						<input type="file" name="files[]">
+					</span>
+									   
+				</div>
+						
+			</div>
+		</div>
+
+<div class="form-group text-center" style="margin-top:10px;border-top:1px solid #d8d2d2;padding:10px 2px;">
+				<!-- <div class="text-center" style="padding:10px 2px;"> -->
+				<button class="btn btn-danger" ng-click="closeModal()">Cancel</button>
+					<button type="submit" ng-click="savecat(info)" ng-disabled="labform.$invalid || issaving || queue.length<1" class="btn btn-primary">
+						<span ng-if="!editflag"> Save</span>
+						<span ng-if="editflag"> Update</span>  <i class="fa fa-chevron-circle-right fa-lg" style="color:#A8C539;"></i>
+					</button>
+					
+				<!-- </div> -->
+			</div>
+		</div>		
+			</form>	
+				</div>
+		
+
+
+</script>
+
+
+<script type="text/ng-template" id="delcatModal"  >
+		<div class="modal-content">
+		
+			<div class="modal-header  bg-danger dialog-header-confirm">
+				<button type="button" class="close" data-dismiss="modal" ng-click="closeconfirmModal()" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel"><i class="fa fa-check-square-o"></i> Confirm Delete</h4>
+			</div>
+		
+			<div class="modal-body">
+				<p>You are about to delete Category  <strong>{{log.Name}}</strong>,All Products under this category will be deleted.
+				this procedure is irreversible.</p>
+				<p>Do you want to proceed?</p>
+			 </div>
+			
+			<div class="modal-footer">
+				<button class="btn btn-sm btn-danger" ng-disabled="issaving" data-ng-click="deletecat('delete',log)">Delete</button>
+				<button type="button" class="btn btn-sm btn-primary" ng-click="closeconfirmModal()">Cancel</button>
+			</div>
+			<toaster-container toaster-options="{'toaster-id':31,'close-button': false,'position-class': 'toast-top-center'}" style="margin-top:20%;z-index:1052;"></toaster-container> 
+		</div>
+</script>

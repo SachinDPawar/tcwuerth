@@ -1,0 +1,32 @@
+<div class="center-block mt-xl wd-xl login-box" style="height:100vh;">
+<div class="col col-md-12 px-0 col-md-auto">
+   <!-- START card-->
+  <div class="card card-default login-card position-absolute top-50 start-50 translate-middle" 
+ style="box-shadow:none;border-radius:0px;background:#fff;border:0px;">
+      <div class="card-header text-center" style="background: linear-gradient(45deg, #2196f3, #9c27b0);border-radius:0px;">
+         <img src="img/logo.png" alt="Image" class="center-block img-rounded"    style="background: transparent;    height: 40px;" />
+      </div>
+     <div class="card-body text-center" style="background: linear-gradient(45deg, #eee, #fff);" >
+         <p class="text-center pv text-bold " style="font-size:17px;">RESET PASSWORD</p>
+         <form role="form" name="recform" ng-submit="submitForm(user)">
+            <p class="text-center">We will send you new password to your email.</p>
+			<toaster-container  toaster-options="{'time-out': 10000}" ></toaster-container>       
+            <div class="form-group has-feedback">
+               <input id="resetInputEmail1" type="email" placeholder="Your email" ng-model="user.Email" ng-disabled="sendingflag" autocomplete="off" class="form-control my-input" required />
+              
+            </div>
+            <button type="submit" ng-click="submitForm(user)" ng-disabled="sendingflag || recform.$invalid" class="btn login-btn btn-block text-bg-primary">
+			
+			<span ng-show="!sendingflag">Send </span>
+			<span ng-show="sendingflag" ><i  class="fa fa-spinner fa-spin" style="color:#ffffff !important;"></i> sending..</span>
+			
+			</button>
+         </form>
+      </div>
+	   <div class="text-center mt"><a ui-sref="login" class="text-muted" style="font-weight:600;font-size:16px;">Login</a>
+   <!-- END card-->
+   </div>
+    </div>
+   </div>
+   
+</div>

@@ -1,0 +1,238 @@
+<div class="row" >
+	<!-- <div class="col-md-12" style="padding:15px;">
+		<button class="btn btn-primary fa fa-plus" ng-click="editsstcert('new','0')"> Add Pdir Details</button>
+	</div>
+	 -->
+	<div class="col-md-12" style="padding:15px;">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h2 class="panel-title text-left"><i class="fa fa-file"></i><b> SST certificate Details</b></h2>
+			</div>
+			<div class="panel-body">
+			
+			<div class="col-sm-4">
+				<button class="btn btn-primary fa fa-plus" ng-if="permissions[17].C==='true'" ui-sref="dashboard.admin.sstcertadd"> Add SST Certificate</button>
+			</div>
+			
+			<div class="col-sm-6">
+				<form class="form-horizontal ">
+					<div class="form-group">
+					<!-- <label for="inputEmail3" class="col-md-2 control-label"></label> -->
+					<div class="input-group">
+					  <input type="text" class="form-control" id="inputEmail3" ng-model="searchstring" placeholder="Search text here ...">
+					    <span class="input-group-btn">
+        <button class="btn btn-default " ng-click="searchdata(searchstring)" type="button"><i class="fa fa-search"></i></button>
+		
+      </span>
+					</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-sm-2">
+			 <button class="btn btn-default " ng-click="refreshdata()" data-toggle="tooltip" data-placement="bottom" title="refresh table" type="button"><i class="fa fa-refresh"></i></button>
+			 </div>
+			
+			<div class="col-md-12 table-responsive">
+			<div ng-show="flags.loadingdata" class=" modal-backdrop fade in demo-1" style=" opacity:0.8;   background-color: rgb(234, 241, 239);"> 
+<div class="bar" style="opacity:1;" >
+<i class="sphere"></i>
+</div>
+</div>
+			<dir-pagination-controls on-page-change="getdata(newPageNumber)"></dir-pagination-controls>		
+				<table class="table table-striped table-bordered" id="sample_1">
+					<thead>
+						<tr class="tablehead">
+							<th style="width:8px">#</th>
+							<th>To</th>
+							<th>Date </th>
+							<th class="hidden-phone">Component</th>
+							<th class="hidden-phone">BatchNo</th>
+							<th class="hidden-phone">LoadedOn</th>
+							<th class="hidden-phone">No. of samples</th>
+							<th class="hidden-phone">Hours</th>
+							<th class="hidden-phone">SerialNo</th>
+							<th class="hidden-phone">Actions</th>
+							
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="odd gradeX" dir-paginate="item in results=(allsstcerts | filter:searchstring ) |itemsPerPage: pageSize   " total-items="totalitems" current-page="currentPage">
+								<td>{{($index+1)+((currentPage-1)*pageSize) }}</td>
+							<td>{{item.To}}</td>
+							<td class="hidden-phone">{{item.CertDate}}</td>
+							<td>{{item.Component}}</td>
+							<td>{{item.BatchNo}}</td>
+							<td class="hidden-phone">{{item.LoadedOn}}</td>
+							<td class="hidden-phone">{{item.SampleNos}}</td>
+							<td class="hidden-phone">{{item.Hrs}}</td>
+							<td class="hidden-phone">{{item.SerialNo}}</td>
+							<td class="center">
+							<button ng-if=" permissions[17].R==='true'" class="btn btn-default fa fa-eye btn-sm" ng-click="showsstcert('lg',item)" ></button>							
+							<button ng-if=" permissions[17].U==='true'" class="btn btn-default fa fa-pencil btn-sm" ng-click="editsstcert('edit',item.Id)"> Edit</button>
+<button ng-if=" permissions[17].D==='true'" class="btn btn-danger fa fa-trash-o btn-sm pull-right" ng-click="deletesstcert('confirm',item)" ></button>								
+					<button  ng-if="  permissions[17].A==='true' && item.ApprovedBy ===''" class="btn btn-default fa fa-check btn-sm pull-right" ng-click="approvesstcert('confirm',item)"> Approve</button>	
+	<span ng-if=" permissions[17].A==='true' && item.ApprovedBy !=''" ng-class="{'label-success':item.ApprovedBy !=''}" class="label pull-right">Approved</span>			</td>
+			
+							</td>
+						</tr>
+						<tr class="animate-repeat text-center" ng-if="results.length < 1">
+						<td colspan="10">No results found...</td>
+						</tr>
+						
+					
+					</tbody>
+				</table>	
+				<dir-pagination-controls on-page-change="getdata(newPageNumber)"></dir-pagination-controls>		
+			</div>
+
+							
+			</div>
+		</div>
+	</div>
+	
+</div>
+
+
+<script type="text/ng-template" id="sstviewContent.html">
+        <div class="modal-header">
+         SALT SPRAY TEST COMPLETION CERTIFICATE
+         <button type="button" class="close" ng-click="cancel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body" id="printThisElement">
+          	<table class="table table-bordered"  style="font-size:13px;">
+				<thead>
+					<tr>
+						<td rowspan="4" colspan="2" style="text-align:center">
+							<img ng-if="!nablview" src="img/logo.jpg" alt="RFI logo" style="width:80px;height:80px;">
+						<img ng-if="nablview" src="img/nabllogo.jpg" alt="NABL Logo" style="width:80px;height:80px;"></td>
+						<td rowspan="4" colspan="4" style="text-align:center;vertical-align:middle;">
+						<img ng-if="nablview" src="img/logo.jpg" alt="RFI logo" style="width:50px;height:50px;">
+						<h4 style="margin-top: 5px;margin-bottom: 5px;"><b>SALT SPRAY TEST COMPLETION CERTIFICATE</b></h4></td>
+						<td colspan="2" style="padding:4px;font-size:12px;">Format No: F/LAM/CSST</td>
+					</tr>
+					<tr>
+						<td colspan="2" style="padding:4px;font-size:12px;">Rev. 1</td>
+					</tr>
+					<tr>
+						<td colspan="2" style="padding:4px;font-size:12px;">Rev. Date: 24/10/2013</td>
+					</tr>
+					<tr>
+						<td colspan="2" style="padding:4px;font-size:12px;">Page: 1 of 1</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+					<td colspan="6">
+						To,<br>
+						<b>{{sstcert.To}}</b>
+					</td>
+					<td colspan="2">
+						<b>Date: {{sstcert.CertDate}}</b>
+					</td>
+					</tr>
+					<tr>
+						<td colspan="6">
+							<h5>Salt Spray Chamber Details</h5>
+							<h6>MAKE- Liebisch</h6>
+							<h6><b>LABORTECHNIK</b></h6>
+							<h6><em>Gebr Liebisch GmbH & Co</em></h6>
+							<h6>Capacity- 1000ltrs</h6>
+						</td>
+						<td colspan="2">
+							<br>
+							<b>Serial No.: {{sstcert.SerialNo}} </b>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="8">Neutral Salt Spray Test was conducted as per DIN EN ISO 9227 & test results are as follows:-</td>
+					</tr>
+					<tr>
+						<td><b>Sr.No.</b></td>
+						<td><b>Component tested for SST</b></td>
+						<td><b>Batch No.</b></td>
+						<td><b>Component loaded for SST on</b></td>
+						<td><b>No. of samples</b></td>
+						<td colspan="2">Observation after completion of<b> {{sstcert.Hrs}} hrs.</b> of Salt Spray Test duration(As per ISO 10683)</td>
+						<td><b>Remarks</b></td>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>{{sstcert.Component}}</td>
+						<td>{{sstcert.BatchNo}}</td>
+						<td>{{sstcert.LoadedOn}}</td>
+						<td>{{sstcert.SampleNos}}</td>
+						<td colspan="2">No red rust observed till the completion of {{sstcert.Hrs}} hrs. on the sample. Test discountinued On-{{sstcert.CertDate}}</td>
+						<td>{{sstcert.Remarks}}</td>
+					</tr>
+					<tr>
+						<td colspan="4" class="text-center" >
+						<span class="" >
+						<label ng-if="!sstcert.TestSign" >{{sstcert.TestedBy}}</label>
+					<img ng-if="sstcert.TestSign" ng-src="{{sstcert.TestSign}}" style="height:65px;width:160px;padding-left:20px;" alt="{{sstcert.TestedBy}}"/></span>
+			</td>
+						<td colspan="4" >For Randack Fasteners India Pvt. Ltd.,<br><br>
+						
+						<span class="" ><label ng-if="!sstcert.ApprovedSign" >{{sstcert.ApprovedBy}}</label>
+			<img ng-if="sstcert.ApprovedSign" ng-src="{{sstcert.ApprovedSign}}" style="height:65px;width:160px;padding-left:20px;" alt="{{sstcert.ApprovedBy}}"/></span>
+			
+						
+						<br>
+						Authorised signatory Delta Coating Plant
+						</td>
+					</tr>
+					<tr>
+						<td colspan="8"><b>Ref :</b> {{sstcert.Ref}}</td>
+						</tr>
+				</tbody>
+			</table>
+		</div>
+        <div class="modal-footer">
+		<span class="checkbox pull-left">
+        <label>
+          <input type="checkbox" ng-model="nablview"> NABL View
+        </label>
+      </span>
+			<button class="btn btn-primary"ng-click="printDiv('printThisElement')"><i class="fa fa-print"></i> Print</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+	
+<script type="text/ng-template" id="deltestModal"  data-keyboard=false>
+<div class="modal-content">
+            
+                <div class="modal-header dialog-header-confirm">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="closeconfirmModal()" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-check"></span> Confirm Delete</h4>
+                </div>
+            
+                <div class="modal-body">
+                    <p>You are about to delete SST certificate <strong>{{Temp}}</strong>, this procedure is irreversible.</p>
+                    <p>Do you want to proceed?</p>
+                 </div>
+                
+                <div class="modal-footer">
+                  <button class="btn btn-danger" ng-disabled="oneclick" data-ng-click="deletesstcert('delete',did)">Delete</button>
+		<button type="button" class="btn btn-default" ng-click="closeconfirmModal()">Cancel</button>
+                </div>
+            </div>
+</script>	
+
+<script type="text/ng-template" id="approveModal"  data-keyboard=false>
+<div class="modal-content">
+            
+                <div class="modal-header dialog-header-confirm">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="closeconfirmModal()" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-check"></span> Approve Test</h4>
+                </div>
+            
+                <div class="modal-body">
+                    <p>You are about to approve <strong>{{Test}}</strong>, Salt spray test completion certificate. </p>
+                    <p>Do you want to proceed?</p>
+                 </div>
+                
+                <div class="modal-footer">
+                  <button class="btn btn-danger" ng-disabled="oneclick" data-ng-click="approvesstcert('approve',did)">Approve</button>
+		<button type="button" class="btn btn-default" ng-click="closeconfirmModal3()">Cancel</button>
+                </div>
+            </div>
+</script>

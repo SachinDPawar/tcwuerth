@@ -1,0 +1,203 @@
+<div class="row mb-3 mt-4">
+            <div class="col-sm-12">
+              <div class="card bg-100 shadow-none border bg-white"  style="background-image:url('img/corner-2.png') no-repeat;repeat:no-repeat;">
+                <div class="row gx-0 flex-between-center">
+                  <div class="col-sm-12 d-flex align-items-center">
+				  <img class="ms-n2" src="img/crm-bar-chart.png" alt="" width="90">
+                    <div>
+                      <h6 class="text-primary fs--1 mb-0">Welcome to </h6>
+                       <h4 class="text-primary fw-bold mb-0">TC+ <span class="text-info fw-medium">LIMS</span></h4>
+                    </div><img class="ms-n4 d-md-none d-lg-block" src="img/crm-line-chart.png" alt="" width="150">
+                  </div>
+                    
+              
+              </div>
+            </div>
+          </div>
+</div>
+<div class="row">
+		<div class="col-sm-8">
+		</div>
+		<div class="col-sm-4">
+		<button class="btn btn-primary"   ui-sref="app.addcustquote"> New Sample Test Request</button>
+		</div>
+		</div>
+		  <!---------Table View----->
+<div class="row">
+	
+		<div class="col-md-12 table-responsive" style="padding-top:10px;">
+			<table class="table table-bordered table-hover table-sm example-animate-container">
+				<thead><tr class="table-info text-dark fw-bold">
+					<th>#</th>
+					<th>Q No / Date</th>
+					
+						<th>Industry  </th>
+					<th>Sample  </th>
+					<th>Particulars  </th>
+					<th>Total</th>
+					<th>Valid Till</th>					
+				
+					
+					<th>Status</th>
+					
+                	
+					
+                  
+					<th>Action</th>				
+				</tr>
+				</thead>
+				<tbody  class="table-group-divider">
+				<tr   class="animate-repeat" pagination-id="quotes" dir-paginate="i in results =( allquotes | filter:searchstring1 )| itemsPerPage: pageSize" total-items="totalitems" current-page="currentPage">
+					<td>{{($index+1)+((currentPage-1)*pageSize) }}</td>
+					
+						<td><span style="color:#000;font-weight:500;">{{i.QNo}}  </span><br>
+<small>						<span style="color:#000;font-weight:500;"> {{i.QDate | date:'dd.mm.yy'}}</span> </small>
+						</td>
+												
+					</td>
+					<td>
+					 {{i.Details[0].Industry}}
+					</td>
+					<td>
+					{{i.Details[0].SampleName}} 
+					</td>
+					<td><span ng-repeat="j in i.Details">
+						
+						<label  style="min-width:120px;" class=" mb-3 px-2 py-1 text-success-emphasis bg-default-subtle border border-success-subtle rounded-2 text-start position-relative" >{{j.TestName  }} 
+						<small class="text-info">({{j.Qty}}) </small>  <span class="position-absolute translate-middle badge text-dark bg-info-subtle " style="margin-top:27px;">{{j.labnames.toString()}}</span>
+							
+							
+							</label>
+										</span>	</td>
+								<td style="width:120px;"> <span class="fa  fw-semibold ">{{appset.Currency}}</span>{{i.Total |number:2}}</td>
+											<td style="width:100px;"><span style="color:#000;font-weight:500;"> {{i.ValidDate}}</span>	</td>
+						
+						
+						
+                	
+				
+					
+					<td> <label class="badge " ng-click="showtest(i)" ng-class="{'text-bg-secondary':i.Status==='Disacarded','text-bg-info':i.Status==='Pending','text-bg-success':i.Status==='Approved',
+					'text-bg-warning':i.Status==='Verified','text-bg-primary':i.Status==='Inverification'}" >{{i.Status}}
+							
+							
+							</label>		</td>
+				
+					<td>
+					<div class="btn btn-group btn-sm shadow-none">
+						<button class="btn btn-sm btn-primary"  ng-if="permissions[7].U" ui-sref="app.editquote({id:i.Id})" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit Quote">
+						<i class=" fa fa-pencil-square-o"></i> </button>
+						<button class="btn btn-sm btn-info " ng-click="viewquote(i)" data-bs-toggle="tooltip" data-bs-placement="bottom" title="View Quote"><i class=" fa fa-eye"></i>  </button> 
+						
+							
+						<!-- <button class="btn btn-danger  btn-sm " disabled ng-click="deletequote('confirm',item)" ><i class="fa fa-trash-o"></i></button>  -->
+						</div>
+						<div class="btn btn-group btn-sm shadow-none">
+						
+						
+
+					
+					
+						
+							
+		<button  ng-if=" i.Status ==='Verified'  && i.ApprovedBy ===''" class="btn btn-outline-primary btn-sm pull-right" ng-click="approvequote('confirm',i)"> Approve</button>	
+	
+	</div>
+					</td>
+					
+				</tr>
+				
+		
+				<tr ng-if="allquotes.length <1">
+					<td class="animate-repeat col-md-12 text-center highlight" colspan="8" >
+					<h5>No results found...</h5>
+					</td >	
+				</tr>
+				
+</tbody>				
+			</table>
+	<dir-pagination-controls  pagination-id="quotes"  on-page-change="getallquotes(newPageNumber)" ></dir-pagination-controls>
+
+		</div>
+		
+	
+
+</div>
+
+		<div class="row" >
+		
+		<div class="col-sm-12">
+			<h4> Your Test Reports</h4>
+		</div>
+		<div class="col-sm-12">
+			
+				<table class="table table-striped table-sm table-hover table-bordered" id="sample_1">
+										<thead>
+											<tr class="table-info fw-bold align-middle">
+												<th style="width:8px">#</th>
+											<!-- 	<th>RIRNo.</th> -->
+											<th class="hidden-phone">{{'LabNo'|translate}} /{{'SampleCode'| translate}}</th>
+												
+												<th class="hidden-phone">{{'SampleDetails'| translate}}</th>
+												<th class="hidden-phone">{{'Industry'| translate}}</th>
+												<th class="hidden-phone" style="max-width:250px !important;">{{'Tests'|translate}}</th>
+												<th></th>
+
+												
+											</tr>
+										</thead>
+										<tbody class="table-group-divider">
+											<tr class="odd gradeX" pagination-id="rirpage" dir-paginate="item in results =( allrirs  ) |itemsPerPage: pageSize   "  total-items="totalcount" current-page="currentPage">
+												<td>{{($index+1)+((currentPage-1)*pageSize) }}</td>
+												<!-- <td class="hidden-phone">{{item.RirNo}}</td> -->
+												<td class="hidden-phone">{{item.LabNo}} /{{item.BatchCode}}</td>
+												
+												<td>{{item.SampleName}}  {{item.SampleWeight}} {{item.TAT}}<br> 
+												<small> {{item.GeneratedDate | date :"dd.MM.y"}} </small>
+												</td>
+												<td class="hidden-phone">{{item.Industry}}</td>
+												
+												<td class="hidden-phone">
+												
+												
+												
+												
+												
+												
+												<span ng-repeat="i in item.alltests">
+						
+						<label  style="min-width:100px;" ng-click="getpdfview(i)" class=" mb-3 px-2 py-1 text-success-emphasis bg-default-subtle border border-success-subtle rounded-2 text-start position-relative" ng-click="showtest(i)" ng-class="{'text-bg-secondary':i.Overdue=='true' && i.Status==='pending','text-bg-warning':i.Overdue=='false' && i.Status==='pending','text-bg-success':i.Status==='complete','text-bg-danger':i.Status==='failed'}" >{{i.TestName}}
+							
+							 <span class="position-absolute translate-middle badge text-dark bg-info-subtle " style="margin-top:27px;">{{i.labnames.toString()}}</span>
+							</label>
+										</span>	
+												</td>
+												
+												
+											</tr>
+											<tr class="animate-repeat text-center" ng-if="results.length === 0">
+      <td colspan="7">No results found...</td>
+    </tr>	
+											
+											
+								</tbody>
+</table>	
+<dir-pagination-controls pagination-id="rirpage"  on-page-change="getdata(newPageNumber)"></dir-pagination-controls>
+
+		</div>
+</div>
+
+	
+<div class="row" style="min-height:200px;">
+
+
+
+
+
+  <div class="col-sm-6">
+       
+        
+    </div>
+	</div>
+			
+

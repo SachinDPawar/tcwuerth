@@ -1,0 +1,381 @@
+	
+
+<div class="row mt-4" >
+	<div class="col-md-12 col-md-offset-0" style="margin-top:0px;">
+		<div class="card  mb-3" >
+			<div class="card-header bg-light p-2">
+				<h3 class="card-title text-left mb-1"> <i class="fa fa-hash-tag"></i>Basic Observations</h3>
+			</div>
+			<div class="card-body p-2 " >
+		
+			
+			
+			<div class="row p-2 ">
+				
+				<form class="form-horizontal mb-4" name="testform" id="fileupload"  method="POST" enctype="multipart/form-data"  data-file-upload="options" 
+				data-ng-class="{'fileupload-processing': processing() || loadingFiles}"  novalidate>
+				
+					
+					<toaster-container toaster-options="{'toaster-id': 1, 
+    'position-class': 'toast-bottom-right'}"></toaster-container>
+
+						
+					
+					<div class="form-group row" ng-if="info.basic.TopBasicParameters.length>0" >
+					<div class="card " style="box-shadow:none !important;">
+			
+					<div class="card-body row" >
+						<div class="col-md-4 col-sm-4 mb-2" ng-repeat="param in info.basic.TopBasicParameters " >
+						<label for="{{param.Parameter}}" class="control-label">{{param.Parameter}}</label>
+						
+							<input type="text" ng-if="param.PDType==='T'" class="form-control" name="{{param.Parameter}}" id="{{param.Parameter}}"  ng-model="param.BValue" placeholder="{{param.Parameter}}" required>
+							
+							<input type="number" ng-if="param.PDType==='N'" class="form-control" name="{{param.Parameter}}" id="{{param.Parameter}}"  ng-model="param.BValue" placeholder="{{param.Parameter}}" required>
+							
+							<ui-select id="{{param.Parameter}}" ng-if="param.PDType==='L'"  class="form-control" ng-model="param.BValue" name="{{param.Parameter}}" style="padding:0px;border:0px;" required >
+						<ui-select-match placeholder="Select {{param.Parameter}}">
+							<span ng-bind="$select.selected.Value"></span>
+						</ui-select-match>
+						<ui-select-choices repeat="item.Value as item in (param.LCats | filter: $select.search) ">
+							<span ng-bind="item.Value" style="color:#000;font-weight:bold;"></span>
+						</ui-select-choices>
+					</ui-select>
+					
+					
+					
+					<div class="input-group" ng-if="param.PDType==='D'" >
+	<input type="text" class="form-control input-sm" uib-datepicker-popup ng-model="param.BValue" is-open="popup2.opened[$index]" datepicker-options="dateOptions"  
+	close-text="Close"   ng-required="true" >
+	
+	<button type="button" class="btn btn-default inputbtn btn-sm" style="height:36px;" ng-click="open2($index)"><i class="fa fa-calendar"></i></button>			</div>	
+	
+	
+						</div>
+						
+					</div>
+					</div>
+					</div>
+				
+
+	<!----------Upload----------->
+				<div class="form-group row">
+					<div class="col-md-12 col-sm-12 text-left" >
+					
+					 <table class="table table-sm table-bordered table-striped ">
+					 <tr>
+					 <td>#</td>
+					 <td>File</td>
+					 <td>Description</td>
+					 <td>Action</td>
+					 </tr>
+					 
+					  <tr ng-repeat="fl in info.basic.fileuploads">
+					 <td>{{$index+1}}</td>
+					 <td>	
+<img ng-src="{{fl.url}}" style="height:120px;width:auto;">					 
+					 <a ng-href="{{fl.url}}" title="{{fl.name}}" download="{{fl.name}}" >{{fl.name}}</a>					 
+					 </td>
+					 	 <td>{{fl.description}}</td>
+					 <td>
+					    <button type="button" class="btn btn-warning cancel" ng-click="deletefile($index,fl)" >                    
+                        <span>Delete</span>
+                    </button>
+					 </td>
+					 </tr>
+					 <tr ng-if="info.files.length < 1">
+					 <td colspan="4"> No files added yet</td>
+					 </tr>
+					 
+					  <tr data-ng-repeat="file in queue"  ng-init="showqueue()" data-ng-class="{'processing': file.$processing()}">
+		      <td data-ng-switch data-on="!!file.url">
+                    <div class="preview" data-ng-switch-when="true">
+                        <a data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}" data-gallery><img data-ng-src="{{file.url}}" alt="" style="height:100px;"></a>
+                    </div>
+                    <div class="preview" data-ng-switch-default data-file-upload-preview="file"></div>
+                </td>
+                <td>
+                    <p class="name" data-ng-switch data-on="!!file.url">
+                        <span data-ng-switch-when="true" data-ng-switch data-on="!!file.url">
+                            <a data-ng-switch-when="true" data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}" data-gallery>{{file.name}}</a>
+                            <a data-ng-switch-default data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}">{{file.name}}</a>
+                        </span>
+                        <span data-ng-switch-default>{{file.name}}</span>
+                    </p>
+                    <p class="size">{{file.size | formatFileSize}}</p>
+                    <div class="progress progress-striped active fade" data-ng-class="{pending: 'in'}[file.$state()]" data-file-upload-progress="file.$progress()"><div class="progress-bar progress-bar-success" data-ng-style="{width: num + '%'}"></div></div>
+                    <strong data-ng-show="file.error" class="error text-danger">{{file.error}}</strong>
+                </td>
+                <!-- <td> -->
+                    <!-- <input class="form-control" name="description"  ng-disabled="" ng-model="file.description" placeholder="Description here"> -->
+                    <!-- </td> -->
+                    <td>
+                    <input class="form-control" name="description"  ng-disabled="" ng-model="file.description" placeholder="Description">
+                    </td>
+               
+                <td>
+                    <!-- <button type="button" class="btn btn-primary start"  data-ng-click="saveupload(file)" data-ng-hide="!file.$submit || options.autoUpload" data-ng-disabled="file.$state() == 'pending' || file.$state() == 'rejected' || uploadform.$invalid"> -->
+                        <!-- <i class="glyphicon glyphicon-upload"></i> -->
+                        <!-- <span>Start</span> -->
+                    <!-- </button> -->
+                    <button type="button" class="btn btn-warning cancel" data-ng-click="deletefile($index,file)" >
+                        <i class="glyphicon glyphicon-ban-circle"></i>
+                        <span>Delete</span>
+                    </button>
+                    <!-- <button  type="button" data-ng-controller="FileDestroyController" class="btn btn-danger destroy" data-ng-click="file.$destroy()" data-ng-hide="!file.$destroy"> -->
+                        <!-- <i class="glyphicon glyphicon-trash"></i> -->
+                        <!-- <span>Delete</span> -->
+                    <!-- </button> -->
+                </td>
+            </tr>
+					 <tr >
+					 <td colspan="4">
+
+	
+							<div class="row fileupload-buttonbar">
+
+							
+								<div class="col-sm-12 text-left" style="padding-top:10px;">
+									<!-- The fileinput-button span is used to style the file input field as button -->
+									<span class="btn btn-success fileinput-button" >
+										 <i class="fa fa-plus"></i>
+										<span>Add File/Attachment</span> 
+										<input type="file" name="files[]"   >
+									</span>
+													   
+								</div>
+										
+							</div>
+
+					 </td>
+					 </tr>
+					 </table>
+					
+			
+  
+					</div>
+					</div>
+					
+					
+				
+				
+					<!-------Important Custom Part--->
+						<div class="form-group row" >
+						<button class="btn btn-default"></button>
+						</div>
+					
+					
+						<div class="form-group row" ng-if="info.basic.TestType==='D'">
+						
+							<div class="card " style="box-shadow:none !important;">
+								<div class="card-header bg-light p-2">
+											<h4 style="margin-left:10px;"><b><u>Observation Details </u></b>
+											
+
+<button class="btn btn-primary systmbtn btn-sm  pull-right mx-2"  ng-click="systemupload(info)">
+<span ng-show="!flags.loadwait"><i  class="fa fa-upload" ></i> Upload data from System </span>
+<span ng-show="flags.loadwait" ><i  class="fa fa-spinner fa-spin" ></i> Uploading wait..</span>
+</button>
+						 
+						 </h4>
+								</div>
+								<div class="card-body" >
+								
+								<div class="row mb-2">
+									<!-- <button class="btn btn-info  btn-sm pull-right" ng-click="addrow()"  ng-disabled="info.basic.Parameters[0].Values.length >4"style="width:250px;" >Add Rows</button> -->
+								</div>
+								
+								<div class="form-group row"  >
+								<div class="col-md-12" >
+							
+						<table class="table table-bordered table-condensed"  style="background:#fff;font-size:12px;" >
+						
+						
+						
+						
+						<tr ng-repeat="(key,value) in info.basic.Parameters | groupBy:'CatName'" ng-init="rowIndex = $index" >
+						
+						<td colspan="12" class="p-0">
+						<table class="table table-bordered mb-0">
+						<tr rowspan="2" class="bg-light"  ng-if="$first">
+						<th rowspan="2" style="width:30px;">#</th>
+						<th rowspan="2" style="width:200px;max-width:200px;">Parameters</th>						
+						<th rowspan="2" style="min-width:150px;max-width:150px;" ng-if="info.basic.IsParamTM">Test Method</th>	
+						<th rowspan="2" style="min-width:60px;max-width:60px;">Units</th>										
+						<th rowspan="2" ng-repeat="k in value[0].Values track by $index"> 						
+						Obs. {{$index+1}} 
+						
+						<!-- <button class="btn-link " ng-if="$index>0"><i class="fa fa-close"></i></button> -->
+						</th>
+						
+						
+						<th colspan="2" >Remark</th>
+						</tr>
+						<tr>
+						<th  >Permissible </th>
+						<th  ></th>
+						</tr>
+						<tr ng-if="key" >
+						<td  colspan="12" >{{key}}</td>
+					
+						</tr>
+						<tr ng-repeat="item in value" >
+						<td style="width:30px;" >{{$index+1}}</td>
+						<td style="min-width:200px;max-width:200px;"> {{item.Param}} </td>									
+						<td style="min-width:150px;max-width:150px;" ng-if="info.basic.IsParamTM">{{item.TestMethod}}</td>
+						
+						<td style="min-width:60px;max-width:60px;" >  {{item.PUnit}}</td>
+						
+						<td ng-repeat="k in item.Values track by $index" ng-init="columnIndex = $index">
+						
+							<input type="text" class="form-control input-sm "  ng-if="item.PDType==='T' "   ng-model="k.Value" 
+								name="Value_{{rowIndex}}_{{columnIndex}}" id="Value_{{rowIndex}}_{{columnIndex}}"/>
+								
+								<input type="text" name="Value_{{rowIndex}}_{{columnIndex}}" ng-class="{'inputerror':ifvaluetrue(k,item) && info.basic.IsStd}"  class="form-control input-sm " 
+								ng-if="item.PDType==='N' && !item.FormVal" ng-change="updateformvalues(item,k,$index)"
+								  ng-model="k.Value" 
+								 id="Value_{{rowIndex}}_{{columnIndex}}"/>	
+								
+								<ui-select id="{{item.Param}}" ng-if="item.PDType==='L'"  class="form-control" ng-model="k.Value" name="{{item.Param}}" style="padding:0px;border:0px;" required >
+						<ui-select-match placeholder="Select {{item.Param}}">
+							<span ng-bind="$select.selected.Value"></span>
+						</ui-select-match>
+						<ui-select-choices repeat="item.Value as item in (item.LCats | filter: $select.search) ">
+							<span ng-bind="item.Value" style="color:#000;font-weight:bold;"></span>
+						</ui-select-choices>
+					</ui-select>
+								
+								 <span ng-if="item.FormVal" ng-bind="k.Value=$parent.$eval(k.Formula) | number : 4"></span>
+							
+						</td>
+						
+
+
+						<td >
+					
+							<input   type="text" class="form-control input-sm "    ng-model="item.SpecMin" 
+								name="SpecMin{{$index}}" id="SpecMin[{{$index}}]"/>	
+							
+					
+						</td>
+						<td >
+					
+							
+								<input ng-if="item.IsSpec" type="text" class="form-control input-sm "  ng-hide="true"  ng-model="item.SpecMax" 
+								name="SpecMax{{$index}}" id="SpecMax[{{$index}}]"/>	
+					
+						</td>
+						
+						</tr>
+					</table>
+					</td>
+</tr>
+					</table>
+						</div>
+						
+						
+								</div>
+
+					
+						
+								
+								
+								
+				
+									
+							
+
+							
+								
+								</div>
+								
+							</div>
+							
+						</div>
+					
+							
+		<div class="form-group card p-4 shadow-none row"  ng-show="info.basic.TestType==='C' || info.basic.IsImg || info.basic.TestId==='9'">
+		
+		
+		
+		<div class="form-group" ng-if="info.basic.TestType==='C'">
+				<label class="col-md-2 col-sm-2 control-label">Obs. Remark</label>
+				<div class="col-md-8 col-sm-8">
+					
+					<textarea type="text" class="form-control" id="ObsRemark" ng-model="info.basic.Parameters.ObsRemark" name="ObsRemark" placeholder="Observation Remark" rows="2"></textarea>
+					
+					
+				</div>
+				</div>
+	
+	
+	</div>
+					
+					<!------------------------>
+											<div class="form-group row">
+					
+				<div class="col-md-4 col-sm-4">
+				<label class=" control-label">Test Date </label>	
+					<div class="input-group ">
+						<input type="text" class="form-control input-sm" id="TestDate" name="TestDate" uib-datepicker-popup ng-model="info.basic.TestDate" is-open="popup2.opened[$index]" datepicker-options="dateOptions" 
+						close-text="Close" required>
+						<span class="input-group-btn">
+						<button type="button" class="btn btn-default btn-sm" ng-click="open2($index)"><i class="fa fa-calendar"></i></button>
+						</span>
+					</div>	
+				</div>
+				
+
+
+<div class="col-md-4 " >
+						<label  class=" control-label">Test Status</label>
+						
+							<ui-select id="Remark" ng-model="info.basic.Remark" name="Remark"   required >
+<ui-select-match placeholder="Select Remark">
+<span ng-bind="$select.selected.Text"></span>
+</ui-select-match>
+<ui-select-choices  repeat=" item.Id as item in (remarks | filter: $select.search)">
+<span ng-bind="item.Text"></span>
+</ui-select-choices>
+</ui-select>
+					</div>					
+					
+			<div class="col-md-4 " >
+						<label  class="control-label">Test Remark Note</label>
+						<div class="col-md-12 col-sm-12">
+						<textarea class="form-control"  name="TNote" ng-model="info.basic.TNote"></textarea>
+						
+						</div>
+					</div>			
+					
+</div>	
+
+<div class="alert alert-info py-1 px-6" role="alert">
+Note: <span ng-bind-html="info.basic.Note"></span></div>
+					
+					
+					<div class="form-group  text-center" >
+	<button type="button" class="btn btn-md btn-dark fa fa-" ng-click="cancelsave()" >Cancel</button>
+					<button type="button"  ng-disabled="testform.$invalid || flags.oneclick" class="btn btn-md btn-primary "
+					 ng-click="saveinfotest(info, testform)"> Save</button>
+					
+		</div>	
+					
+		</form>
+					
+					
+								
+						</div>
+						
+				
+				
+					
+					
+			
+					
+			
+		
+			</div>					
+		</div>
+	</div>
+</div>
+			

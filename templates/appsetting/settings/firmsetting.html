@@ -1,0 +1,138 @@
+
+  <div class="tab-pane  "  role="tabpanel" aria-labelledby="nav--tab" tabindex="0">
+  <div class="card">
+  <div class="card-body">
+     <form class="form-horizontal " name="form" id="fileupload" method="POST" enctype="multipart/form-data" data-file-upload="options" 
+		data-ng-class="{'fileupload-processing': processing() || loadingFiles}" novalidate>
+
+		
+		     <div class="form-group row">
+		
+			
+			<div class="col-md-4 col-sm-4">
+			<label class=" control-label">Firm Location</label>
+				
+				<ui-select id="status" class="form-control" ng-disabled="ds.firmeditflag" ng-model="firmset.Location" name="Location" style="padding:0px;border:0px;" disabled required>
+						<ui-select-match placeholder="Select Location">
+							<span ng-bind="$select.selected.Name"></span>
+						</ui-select-match>
+						<ui-select-choices repeat=" item.Name as item in alllocs  ">
+							<span ng-bind="item.Name" style="color:#000;font-weight:bold;"></span>
+						</ui-select-choices>
+					</ui-select>
+			</div>
+		
+			
+			<div class="col-md-4 col-sm-4">
+			<label class=" control-label">Firm Name</label>
+				<input type="text" class="form-control" id="Name"  ng-disabled="ds.firmeditflag" name="Name" ng-model="firmset.Name" placeholder="Firm Name" required>
+			</div>
+		</div>	
+		
+		
+			
+	<div class="form-group row">	
+<div class="col-md-4 col-sm-4">
+			<label class=" control-label">Firm ContactNo</label>
+				<input type="text" class="form-control" id="ContactNo" ng-disabled="ds.firmeditflag" name="ContactNo" ng-model="firmset.ContactNo" placeholder="Firm ContactNo" required>
+			</div>
+			
+<div class="col-md-4 col-sm-4">
+			<label class=" control-label">Firm Email</label>
+				<input type="text" class="form-control" id="Email" ng-disabled="ds.firmeditflag" name="Email" ng-model="firmset.Email" placeholder="Firm Email" required>
+			</div>
+			
+		
+		
+		</div>
+		
+	
+		<div class="form-group row">
+		<div class="col-md-4 col-sm-4">
+			<label  class=" control-label">GSTIN</label>
+			<input type="text" class="form-control" id="GSTIN"  name="GSTIN" ng-disabled="ds.firmeditflag" ng-model="firmset.GSTIN" placeholder="GSTIN " required>
+			</div>
+			
+			<div class="col-md-4 col-sm-4">
+			<label  class="control-label">PAN</label>
+			<input type="text" class="form-control" id="PAN" ng-disabled="ds.firmeditflag"  name="PAN" ng-model="firmset.PAN" placeholder="Firm PAN" required>
+			</div>
+			
+		</div>
+	
+	<div class="form-group row">	
+		<div class="col-md-4 col-sm-4">
+			<label class="control-label">Firm Address</label>
+			<textarea type="text" rows="2s" class="form-control" ng-disabled="ds.firmeditflag" name="Address"  ng-model="firmset.Address" id="Address" placeholder="Firm Address" required></textarea> 
+			</div>
+	</div>
+		
+	<div class="form-group row"   >
+		
+			<div class=" col-sm-5 text-left" style="margin-left:0px;">
+
+		<div data-ng-repeat="file in queue" ng-init="showqueue()" class="gallery-box" >
+		<span class="title"  >{{file.name1}}</span>
+		 <div class=" thumbnail" data-ng-switch data-on="!!file.url" >
+		  
+			<a data-ng-switch-when="true" data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}"  data-gallery>
+			<img class="awesome" data-ng-src="{{file.url }}" alt="" style="height:100px;width:auto;" ></a>
+		   
+		  <span class="preview" data-ng-switch-default data-file-upload-preview="file"></span>
+		
+		
+		  <span class="btn-group">
+			<a class="btn btn-xs btn-danger"  ng-hide="ds.firmeditflag" data-ng-click="deletefile($index,file)">
+			  Remove
+			</a>
+		  </span> 
+		  <strong data-ng-if="file.error" ng-init="imageerror(file)" class="error text-danger">{{file.error}}</strong> 
+		  </div>
+		  
+		  <input type="hidden" name="testid" ng-model="file.testid"   placeholder="testid">
+		  
+		</div>
+
+			<span   ng-if="queue.length<1">
+				<div class="gallery-box " style="margin-top:20px;" >
+				<div class="thumbnail" >  
+					  <img src="app/images/noimage.jpg" style="height:100px;" alt="">
+					   </div>
+				 <span class="btn-group"></span>
+				</div>
+			</span>		   
+			<div class="row fileupload-buttonbar" >	
+				<div class=" text-left" style="padding-top:0px;">
+					<!-- The fileinput-button span is used to style the file input field as button -->
+					<span class="btn btn-success fileinput-button" ng-hide="queue.length===1"  >
+						<i class="fa fa-plus"></i>
+						<span>Add Firm logo</span>
+						<input type="file"  ng-disabled="ds.firmeditflag"  name="files[]">
+					</span>
+									   
+				</div>
+						
+			</div>
+		</div>
+
+		</div>		
+	
+		<hr>	
+		
+		<div class="form-group text-start" >
+		<button type="button" class="btn btn-md btn-primary systmbtn"  ng-click="ds.firmeditflag =  !ds.firmeditflag">
+		<span ng-if="ds.firmeditflag">Edit</span><span  ng-if="!ds.firmeditflag">Cancel</span>
+		 </button>
+		
+		
+			<button type="button" class="btn btn-md btn-success systmbtn" ng-show="!ds.firmeditflag" ng-disabled="oneclick || form.$invalid" ng-click="savefirminfo(firmset)"> <i class="fa fa-save "></i>Update</button>
+		</div>	
+
+		
+		</form>
+	</div>
+</div>	
+	</div>
+   
+
+ 

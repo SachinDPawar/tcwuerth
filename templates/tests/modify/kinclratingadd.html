@@ -1,0 +1,532 @@
+	
+
+<div class="row mt-4" >
+	<div class="col-md-12 col-md-offset-0" style="margin-top:0px;">
+		<div class="card  mb-3" >
+			<div class="card-header bg-light p-2">
+				<h3 class="card-title text-left mb-1"> <i class="fa fa-hash-tag"></i> Observations</h3>
+			</div>
+			<div class="card-body p-2 " >
+		
+			
+			
+			<div class="row p-2 ">
+				
+				<form class="form-horizontal mb-4" name="testform" id="fileupload"  method="POST" enctype="multipart/form-data"  data-file-upload="options" 
+				data-ng-class="{'fileupload-processing': processing() || loadingFiles}"  novalidate>
+				
+					
+					<toaster-container toaster-options="{'toaster-id': 1, 
+    'position-class': 'toast-bottom-right'}"></toaster-container>
+
+						
+					
+					<div class="form-group row" ng-if="info.basic.TopBasicParameters.length>0" >
+					<div class="card " style="box-shadow:none !important;">
+			
+					<div class="card-body row" >
+						<div class="col-md-6 col-sm-6 mb-2" ng-repeat="param in info.basic.TopBasicParameters " >
+						<label for="{{param.Parameter}}" class="control-label">{{param.Parameter}}</label>
+						
+							<input type="text" ng-if="param.PDType==='T'" class="form-control" name="{{param.Parameter}}" id="{{param.Parameter}}"  ng-model="param.BValue" placeholder="{{param.Parameter}}" required
+							uib-typeahead="state for state in param.LCats | filter:$viewValue | limitTo:8"
+							>
+							
+							<input type="number" ng-if="param.PDType==='N'" class="form-control" name="{{param.Parameter}}" id="{{param.Parameter}}"  ng-model="param.BValue" placeholder="{{param.Parameter}}" required>
+						
+
+
+	<!-- <input type="text" ng-if="param.PDType==='L'" class="form-control" name="{{param.Parameter}}" id="{{param.Parameter}}"  ng-model="param.BValue" placeholder="{{param.Parameter}}" required -->
+							<!-- uib-typeahead="state.Value for state in param.LCats | filter:$viewValue | limitTo:8" -->
+							<!-- >						 -->
+							<ui-select id="{{param.Parameter}}" ng-if="param.PDType==='L'"  class="form-control" ng-model="param.BValue" name="{{param.Parameter}}" style="padding:0px;border:0px;" required >
+						<ui-select-match placeholder="Select {{param.Parameter}}">
+							<span ng-bind="$select.selected.Value"></span>
+						</ui-select-match>
+						<ui-select-choices repeat="item.Value as item in (param.LCats | filter: $select.search) ">
+							<span ng-bind="item.Value" style="color:#000;font-weight:bold;"></span>
+						</ui-select-choices>
+					</ui-select>
+					
+					
+					
+					<div class="input-group" ng-if="param.PDType==='D'" >
+	<input type="text" class="form-control input-sm" uib-datepicker-popup ng-model="param.BValue" is-open="popup2.opened[$index]" datepicker-options="dateOptions"  
+	close-text="Close"   ng-required="true" >
+	
+	<button type="button" class="btn btn-default inputbtn btn-sm" style="height:36px;" ng-click="open2($index)"><i class="fa fa-calendar"></i></button>			</div>	
+	
+	
+						</div>
+						
+					</div>
+					</div>
+					</div>
+				
+
+<div class="form-group card p-4 shadow-none row"  ng-show="info.basic.TestType==='C' || info.basic.IsImg || info.basic.TestId==='9'">
+		
+		<div class="form-group "  >
+		
+		
+       	<div class="col-md-6 col-sm-6 text-center" >
+
+				<div data-ng-repeat="file in queue " ng-init="showqueue()" class="gallery-box"  >
+				
+					<div class=" thumbnail" data-ng-switch data-on="!!file.thumbnailUrl" >
+				  
+						<a data-ng-switch-when="true" data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}"  data-gallery>
+						<img data-ng-src="{{file.thumbnailUrl}}" alt="" ></a>
+				   
+					<span class="preview" data-ng-switch-default data-file-upload-preview="file"></span><br>
+				
+					<!-- <span class="title "  style="color:blue;">{{file.name}}</span><br> -->
+					<span class="btn-group">
+						<a class="btn btn-xs btn-danger" data-ng-click="deletefile($index,file)">
+						  Remove
+						</a>
+					</span> 
+					<strong data-ng-if="file.error" ng-init="imageerror(file)" class="error text-danger">{{file.error}}</strong> 
+					</div>
+				  
+				  
+				  
+				</div>
+					<!--  <span  ng-repeat="i in getNumber(1) track by $index" ng-if="queue.length<1">
+						<div class="gallery-box " style="margin-top:20px;" >
+						<div class="thumbnail" >  
+							<img src="images/noimage.jpg" alt="">
+						</div>
+						 <span class="btn-group"></span>
+						</div>
+					</span>		 -->
+				<div class="row fileupload-buttonbar" ng-hide="queue.length>0">
+
+					<div class="col-sm-12 text-left" style="padding-top:10px;">
+						<!-- The fileinput-button span is used to style the file input field as button -->
+						<span class="btn btn-success fileinput-button" >
+							 <i class="fa fa-plus"></i>
+							<span>Add Images</span> 
+							<input type="file" name="files[]"   >
+						</span>
+										   
+					</div>
+							
+				</div>
+			</div>
+
+
+          
+		</div>		
+		
+</div>		
+					<!-------Important Custom Part--->
+					
+					
+					
+						<div class="form-group row" >
+						
+							<div class="card " style="box-shadow:none !important;">
+								<div class="card-header bg-light p-2">
+										<h4 style="margin-left:10px;"><b><u>Observation Details </u></b>
+						 </h4>
+								</div>
+								<div class="card-body" >
+								
+								
+								
+								<div class="form-group row"  >
+								<div class="col-md-12" >
+								
+								
+									<table class="table table-bordered">
+									<thead>
+				<tr class="table-light">
+					<td rowspan="2" colspan="1"  class="text-center " style="max-width:50px;" >Specif. No. </td>
+					<td rowspan="2" colspan="1"  class="text-center" style="max-width:100px;" >Type of Inclusion in Diagram Plate No 1 </td>
+					<td rowspan="2" colspan="1"  class="text-center " style="max-width:100px;" >Area Polished section evalucated in mm2 </td>
+					<td colspan="9" class="text-center ">No of Inclusion satisfied by rating No </td>
+					<td colspan="2"  class="text-center " style="max-width:120px;" >Multifiaction & List </td>	
+					<td colspan="1" rowspan="2" class="text-center ">Actions</td>					
+				</tr>
+				
+				<tr class="text-center table-light"  >
+				
+				
+				
+				<td  colspan="9" style="padding:0px;">
+				<table class="table table-bordered" style="margin-bottom:0px;table-layout: fixed;    ">
+				<tr class="table-light">
+				<td style="max-width:50px;min-width:50px;height:35px;padding:4px;">0</td>
+				<td style="max-width:50px;min-width:50px;height:35px;padding:4px;">1</td>
+				<td style="max-width:50px;min-width:50px;height:35px;padding:4px;">2</td>
+				<td style="max-width:50px;min-width:50px;height:35px;padding:4px;">3</td>
+				<td style="max-width:50px;min-width:50px;height:35px;padding:4px;">4</td>
+				<td style="max-width:50px;min-width:50px;height:35px;padding:4px;">5</td>
+				<td style="max-width:50px;min-width:50px;height:35px;padding:4px;">6</td>
+				<td style="max-width:50px;min-width:50px;height:35px;padding:4px;">7</td>
+				<td style="max-width:50px;min-width:50px;height:35px;padding:4px;">8</td>
+				</tr>
+				
+				<tr class="table-light">
+				<td colspan="9">Factor</td>
+				</tr>
+				
+				<tr class="table-light">
+				<td style="max-width:50px;min-width:50px;height:35px;padding:4px;">0.05</td>
+				<td style="max-width:50px;min-width:50px;height:35px;padding:4px;">0.1</td>
+				<td style="max-width:50px;min-width:50px;height:35px;padding:4px;">0.2</td>
+				<td style="max-width:50px;min-width:50px;height:35px;padding:4px;">0.5</td>
+				<td style="max-width:50px;min-width:50px;height:35px;padding:4px;">1</td>
+				<td style="max-width:50px;min-width:50px;height:35px;padding:4px;">2</td>
+				<td style="max-width:50px;min-width:50px;height:35px;padding:4px;">5</td>
+				<td style="max-width:50px;min-width:50px;height:35px;padding:4px;">10</td>
+				<td style="max-width:50px;min-width:50px;height:35px;padding:4px;">20</td>
+				</tr>
+				</table>
+				</td>
+				
+				<td style="max-width:50px;min-width:50px;height:35px;padding:4px;" colspan="1">S*)</td>
+				<td style="max-width:50px;min-width:50px;height:35px;padding:4px;" colspan="1">O*)</td>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+				<td colspan="15" class="text-center" ng-if="info.basic.Parameters.Obs.Values.length<1">
+				No results
+				</td>
+				</tr>
+				
+				<tr ng-if="info.basic.Parameters.Obs.Values.length>0" 
+				ng-repeat="item in info.basic.Parameters.Obs.Values">
+				<td  colspan="1" style="max-width:50px;min-width:50px;height:35px;padding:4px;" >{{$index+1}} </td>
+				<td  colspan="1" style="padding:0px;" >
+				<table class="table table-bordered" style="margin-bottom:0px;">
+				<tr ng-repeat="i in item.obs">
+				<td style="max-width:50px;min-width:50px;height:35px;padding:4px;">{{i.TypeOfInc}}</td></tr></table></td>
+				<td  colspan="1" style="max-width:50px;min-width:50px;height:35px;padding:4px;">{{item.AreaPol}}</td>
+				<td colspan="9" style="padding:0px;"  >
+				<table  class="table table-bordered" style="margin-bottom:0px;table-layout: fixed;">
+				<tr ng-repeat="i in item.obs">
+				<td  style="max-width:50px;min-width:50px;height:35px;padding:4px;" >{{i.RatNo0 | number:2}}</td>
+				<td  style="max-width:50px;min-width:50px;height:35px;padding:4px;">{{i.RatNo1 | number:2}}</td>
+				<td  style="max-width:50px;min-width:50px;height:35px;padding:4px;">{{i.RatNo2 | number:2}}</td>
+				<td  style="max-width:50px;min-width:50px;height:35px;padding:4px;">{{i.RatNo3 | number:2}}</td>
+				<td  style="max-width:50px;min-width:50px;height:35px;padding:4px;">{{i.RatNo4 | number:2}}</td>
+				<td  style="max-width:50px;min-width:50px;height:35px;padding:4px;">{{i.RatNo5 | number:2}}</td>
+				<td  style="max-width:50px;min-width:50px;height:35px;padding:4px;">{{i.RatNo6 | number:2}}</td>
+				<td  style="max-width:50px;min-width:50px;height:35px;padding:4px;">{{i.RatNo7 | number:2}}</td>
+				<td  style="max-width:50px;min-width:50px;height:35px;padding:4px;">{{i.RatNo8 | number:2}}</td>
+				
+				</tr></table></td>
+				<td  colspan="2" style="padding:0px;"  ><table  class="table table-bordered" style="margin-bottom:0px;">
+				<tr ng-repeat="i in item.obs">
+				<td  style="max-width:50px;min-width:50px;height:35px;padding:4px;">{{i.SStar}}</td>
+				<td  style="max-width:50px;min-width:50px;height:35px;padding:4px;">{{i.OStar}}</td></tr></table></td>
+				<td colspan="1"  class="text-center ">
+				<button class="btn btn-default " ng-click="addirkobs(item,$index)"><i class="fa fa-pencil"></i></button>
+				<button class="btn btn-default" ng-click="removeirkobs(item)"><i class=" fa fa-close"></i></button>
+				</td>
+				</tr>
+				
+				<tr>
+				<td colspan="2" class="text-right">Total:</td>
+				<td>{{areapoltotal()}}
+				</td>
+				<td colspan="9" class="text-right">Second Sub Total:</td>
+				<td>{{ info.basic.Parameters.SSTotalS.Values[0].Value}}</td>
+				<td>{{ info.basic.Parameters.SSTotalO.Values[0].Value}}</td>				
+				</tr>
+				
+				<tr>
+				<td colspan="3"></td>
+				<td colspan="9" class="text-right">Total Index K3:</td>
+				<td>{{ info.basic.Parameters.TotalK3S.Values[0].Value}}</td>
+				<td>{{ info.basic.Parameters.TotalK3O.Values[0].Value}}</td>				
+				</tr>
+				
+				<tr>
+				<td colspan="3"></td>
+				<td colspan="9" class="text-right">Overvall total Index K3:</td>
+				<td colspan="2">{{ info.basic.Parameters.OverAllTotK3.Values[0].Value }}</td>				
+				</tr>
+				
+					</tbody>
+			</table>
+		
+								
+						
+							
+					</div>
+						
+						
+								</div>
+
+					
+						
+								
+								
+								
+				
+									
+							
+
+							
+								
+								</div>
+								
+							</div>
+							
+						</div>
+					
+						
+<div class="form-group row">
+<div class="col-sm-12">
+	<button class="btn btn-default" ng-click="addirkobs('new')">Add Observation</button>
+</div>
+</div>
+
+
+
+	<div class="form-group row" ng-if="info.basic.BottomBasicParameters.length>0" >
+					<div class="card " style="box-shadow:none !important;">
+			
+					<div class="card-body row" >
+						<div class="col-md-6 col-sm-6 mb-2" ng-repeat="param in info.basic.BottomBasicParameters " >
+						<label for="{{param.Parameter}}" class="control-label">{{param.Parameter}}</label>
+						
+							<input type="text" ng-if="param.PDType==='T'" class="form-control" name="{{param.Parameter}}" id="{{param.Parameter}}"  ng-model="param.BValue" placeholder="{{param.Parameter}}" required
+							uib-typeahead="state for state in param.LCats | filter:$viewValue | limitTo:8"
+							>
+							
+							<input type="text" ng-if="param.PDType==='N'" class="form-control" name="{{param.Parameter}}" id="{{param.Parameter}}"  ng-model="param.BValue" placeholder="{{param.Parameter}}" required>
+						
+
+
+	<!-- <input type="text" ng-if="param.PDType==='L'" class="form-control" name="{{param.Parameter}}" id="{{param.Parameter}}"  ng-model="param.BValue" placeholder="{{param.Parameter}}" required -->
+							<!-- uib-typeahead="state.Value for state in param.LCats | filter:$viewValue | limitTo:8" -->
+							<!-- >						 -->
+							<ui-select id="{{param.Parameter}}" ng-if="param.PDType==='L'"  class="form-control" ng-model="param.BValue" name="{{param.Parameter}}" style="padding:0px;border:0px;" required >
+						<ui-select-match placeholder="Select {{param.Parameter}}">
+							<span ng-bind="$select.selected.Value"></span>
+						</ui-select-match>
+						<ui-select-choices repeat="item.Value as item in (param.LCats | filter: $select.search) ">
+							<span ng-bind="item.Value" style="color:#000;font-weight:bold;"></span>
+						</ui-select-choices>
+					</ui-select>
+					
+					
+					
+					<div class="input-group" ng-if="param.PDType==='D'" >
+	<input type="text" class="form-control input-sm" uib-datepicker-popup ng-model="param.BValue" is-open="popup2.opened[$index]" datepicker-options="dateOptions"  
+	close-text="Close"   ng-required="true" >
+	
+	<button type="button" class="btn btn-default inputbtn btn-sm" style="height:36px;" ng-click="open2($index)"><i class="fa fa-calendar"></i></button>			</div>	
+	
+	
+						</div>
+						
+					</div>
+					</div>
+					</div>
+			
+			
+		
+
+					
+					<!------------------------>
+											<div class="form-group row">
+					
+				<div class="col-md-4 col-sm-4">
+				<label class=" control-label">Test Date </label>	
+					<div class="input-group ">
+						<input type="text" class="form-control input-sm" id="TestDate" name="TestDate" uib-datepicker-popup ng-model="info.basic.TestDate" is-open="popup2.opened[$index]" datepicker-options="dateOptions" 
+						close-text="Close" required>
+						<span class="input-group-btn">
+						<button type="button" class="btn btn-default btn-sm" ng-click="open2($index)"><i class="fa fa-calendar"></i></button>
+						</span>
+					</div>	
+				</div>
+				
+
+
+<div class="col-md-4 " >
+						<label  class=" control-label">Test Status</label>
+						
+							<ui-select id="Remark" ng-model="info.basic.Remark" name="Remark"   required >
+<ui-select-match placeholder="Select Remark">
+<span ng-bind="$select.selected.Text"></span>
+</ui-select-match>
+<ui-select-choices  repeat=" item.Id as item in (remarks | filter: $select.search)">
+<span ng-bind="item.Text"></span>
+</ui-select-choices>
+</ui-select>
+					</div>					
+					
+			<div class="col-md-4 " >
+						<label  class="control-label">Test Remark Note</label>
+						<div class="col-md-12 col-sm-12">
+						<textarea class="form-control"  name="TNote" ng-model="info.basic.TNote"></textarea>
+						
+						</div>
+					</div>			
+					
+</div>	
+
+<div class="alert alert-info py-1 px-6" role="alert">
+Note: <span ng-bind-html="info.basic.Note"></span></div>
+					
+					
+					<div class="form-group  text-center" >
+	<button type="button" class="btn btn-md btn-dark fa fa-" ng-click="cancelsave()" >Cancel</button>
+					<button type="button"  ng-disabled="testform.$invalid || flags.oneclick" class="btn btn-md btn-primary "
+					 ng-click="saveinfotest(info, testform)"> Save</button>
+					
+		</div>	
+					
+		</form>
+					
+					
+								
+						</div>
+						
+				
+				
+					
+					
+			
+					
+			
+		
+			</div>					
+		</div>
+	</div>
+</div>
+			
+			
+			
+			
+			
+<script type="text/ng-template" id="newrowModal"  data-keyboard=false>
+<div class="modal-content">
+            
+                <div class="modal-header dialog-header-confirm">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="closeaddrowModal()" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel"><span class="fa fa-check"></span> Add Observation</h4>
+                </div>
+            
+                <div class="modal-body">
+                   <form name="obsform">
+				   <div class="row">
+							<!-- <div class="form-group col-md-6"> -->
+						<!-- <label class=" ">Specification No.</label> -->
+						
+						<!-- <input type="text" class="form-control" id="SpecNo" ng-model="row.SpecNo" name="SpecNo" placeholder="SpecNo" required /> -->
+						
+						<!-- </div> -->
+				   
+							<div class="form-group col-md-6">
+						<label class=" ">Area Polished section evalucated in mm2</label>
+						
+						<input type="text" class="form-control" id="AreaPol" ng-model="row.AreaPol" name="AreaPol" placeholder="AreaPol" required />
+						
+						</div>
+						
+						 <div class="form-group col-md-12">
+						 <table class="table table-bordered">
+						 <tr >
+					
+					<th colspan="1" rowspan="2" class="text-center">Type of Inclusion in Diagram Plate No 1 </th>
+					<th colspan="9" class="text-center ">No of Inclusion satisfied by rating No </th>
+					<th colspan="2" class="text-center ">Multifiaction & List </th>		
+										
+				</tr>
+						 <tr>
+							
+							<td>0</td>
+							<td>1</td>
+							<td>2</td>
+							<td>3</td>
+							<td>4</td>
+							<td>5</td>
+							<td>6</td>
+							<td>7</td>
+							<td>8</td>
+							<td>S*)</td>
+							<td>O*)</td>
+						 </tr>
+						 <tr>
+							<td><input type="text" class="form-control" id="ratss{{$index}}" disabled ng-model="row.obs[0].TypeOfInc" ng-value="'SS'" name="SSTypeOfInc"  /></td>
+							<td><input type="text" class="form-control" id="ratss{{$index}}" ng-model="row.obs[0].RatNo0" ng-change="getrowtot(row.obs[0])" name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td><input type="text" class="form-control" id="ratss{{$index}}" ng-model="row.obs[0].RatNo1" ng-change="getrowtot(row.obs[0])" name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td><input type="text" class="form-control" id="ratss{{$index}}" ng-model="row.obs[0].RatNo2" ng-change="getrowtot(row.obs[0])" name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td><input type="text" class="form-control" id="ratss{{$index}}" ng-model="row.obs[0].RatNo3" ng-change="getrowtot(row.obs[0])" name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td><input type="text" class="form-control" id="ratss{{$index}}" ng-model="row.obs[0].RatNo4" ng-change="getrowtot(row.obs[0])" name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td><input type="text" class="form-control" id="ratss{{$index}}" ng-model="row.obs[0].RatNo5" ng-change="getrowtot(row.obs[0])" name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td><input type="text" class="form-control" id="ratss{{$index}}" ng-model="row.obs[0].RatNo6" ng-change="getrowtot(row.obs[0])" name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td><input type="text" class="form-control" id="ratss{{$index}}" ng-model="row.obs[0].RatNo7" ng-change="getrowtot(row.obs[0])" name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td><input type="text" class="form-control" id="ratss{{$index}}" ng-model="row.obs[0].RatNo8" ng-change="getrowtot(row.obs[0])" name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td><input type="text" class="form-control" id="ratSStar{{$index}}" ng-model="row.obs[0].SStar" disabled name="ratSStar[{{$index}}]" placeholder="Rating"  /></td>
+							<td></td>
+						 </tr>
+						  <tr>
+							<td><input type="text" class="form-control" id="ratoa{{$index}}" disabled ng-model="row.obs[1].TypeOfInc" ng-value="'OA'" name="OATypeOfInc"  /></td>
+							<td><input type="text" class="form-control" id="ratoa{{$index}}" ng-model="row.obs[1].RatNo0" ng-change="getrowtot1(row.obs[1])" name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td><input type="text" class="form-control" id="ratoa{{$index}}" ng-model="row.obs[1].RatNo1" ng-change="getrowtot1(row.obs[1])"  name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td><input type="text" class="form-control" id="ratoa{{$index}}" ng-model="row.obs[1].RatNo2" ng-change="getrowtot1(row.obs[1])"  name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td><input type="text" class="form-control" id="ratoa{{$index}}" ng-model="row.obs[1].RatNo3" ng-change="getrowtot1(row.obs[1])"  name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td><input type="text" class="form-control" id="ratoa{{$index}}" ng-model="row.obs[1].RatNo4" ng-change="getrowtot1(row.obs[1])"  name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td><input type="text" class="form-control" id="ratoa{{$index}}" ng-model="row.obs[1].RatNo5" ng-change="getrowtot1(row.obs[1])"  name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td><input type="text" class="form-control" id="ratoa{{$index}}" ng-model="row.obs[1].RatNo6" ng-change="getrowtot1(row.obs[1])"  name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td><input type="text" class="form-control" id="ratoa{{$index}}" ng-model="row.obs[1].RatNo7" ng-change="getrowtot1(row.obs[1])"  name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td><input type="text" class="form-control" id="ratoa{{$index}}" ng-model="row.obs[1].RatNo8" ng-change="getrowtot1(row.obs[1])"  name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td></td>
+							<td><input type="text" class="form-control" id="ratOStar{{$index}}" ng-model="row.obs[1].OStar" disabled name="ratOStar[{{$index}}]" placeholder="Rating"  /></td>
+							
+						 </tr>
+						  <tr>
+							<td><input type="text" class="form-control" id="ratos{{$index}}" disabled ng-model="row.obs[2].TypeOfInc" ng-value="'OS'" name="OATypeOfInc"  /></td>
+							<td><input type="text" class="form-control" id="ratos{{$index}}" ng-model="row.obs[2].RatNo0" ng-change="getrowtot2(row.obs[2])"  name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td><input type="text" class="form-control" id="ratos{{$index}}" ng-model="row.obs[2].RatNo1" ng-change="getrowtot2(row.obs[2])"   name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td><input type="text" class="form-control" id="ratos{{$index}}" ng-model="row.obs[2].RatNo2" ng-change="getrowtot2(row.obs[2])"   name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td><input type="text" class="form-control" id="ratos{{$index}}" ng-model="row.obs[2].RatNo3" ng-change="getrowtot2(row.obs[2])"   name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td><input type="text" class="form-control" id="ratos{{$index}}" ng-model="row.obs[2].RatNo4" ng-change="getrowtot2(row.obs[2])"   name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td><input type="text" class="form-control" id="ratos{{$index}}" ng-model="row.obs[2].RatNo5" ng-change="getrowtot2(row.obs[2])"   name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td><input type="text" class="form-control" id="ratos{{$index}}" ng-model="row.obs[2].RatNo6" ng-change="getrowtot2(row.obs[2])"   name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td><input type="text" class="form-control" id="ratos{{$index}}" ng-model="row.obs[2].RatNo7" ng-change="getrowtot2(row.obs[2])"   name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td><input type="text" class="form-control" id="ratos{{$index}}" ng-model="row.obs[2].RatNo8" ng-change="getrowtot2(row.obs[2])"   name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td></td>
+							<td><input type="text" class="form-control" id="ratOStar{{$index}}" ng-model="row.obs[2].OStar" name="ratOStar[{{$index}}]" placeholder="Rating"  /></td>
+							
+						 </tr>
+						  <tr>
+							<td><input type="text" class="form-control" id="ratog{{$index}}" disabled ng-model="row.obs[3].TypeOfInc" ng-value="'OG'" name="OATypeOfInc"  /></td>
+							<td><input type="text" class="form-control" id="ratog{{$index}}" ng-model="row.obs[3].RatNo0"  ng-change="getrowtot3(row.obs[3])"   name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td><input type="text" class="form-control" id="ratog{{$index}}" ng-model="row.obs[3].RatNo1"  ng-change="getrowtot3(row.obs[3])"   name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td><input type="text" class="form-control" id="ratog{{$index}}" ng-model="row.obs[3].RatNo2"  ng-change="getrowtot3(row.obs[3])"   name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td><input type="text" class="form-control" id="ratog{{$index}}" ng-model="row.obs[3].RatNo3"  ng-change="getrowtot3(row.obs[3])"   name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td><input type="text" class="form-control" id="ratog{{$index}}" ng-model="row.obs[3].RatNo4"  ng-change="getrowtot3(row.obs[3])"   name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td><input type="text" class="form-control" id="ratog{{$index}}" ng-model="row.obs[3].RatNo5"  ng-change="getrowtot3(row.obs[3])"   name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td><input type="text" class="form-control" id="ratog{{$index}}" ng-model="row.obs[3].RatNo6"  ng-change="getrowtot3(row.obs[3])"   name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td><input type="text" class="form-control" id="ratog{{$index}}" ng-model="row.obs[3].RatNo7"  ng-change="getrowtot3(row.obs[3])"   name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td><input type="text" class="form-control" id="ratog{{$index}}" ng-model="row.obs[3].RatNo8"  ng-change="getrowtot3(row.obs[3])"   name="rat[{{$index}}]" placeholder="Rating"  /></td>
+							<td></td>
+							<td><input type="text" class="form-control" id="ratOStar{{$index}}" ng-model="row.obs[3].OStar" disabled  name="ratOStar[{{$index}}]" placeholder="Rating"  /></td>
+							
+						 </tr>
+						  
+						  </table>
+							
+					</div>
+				   </form>
+                 
+				 </div>
+                
+                <div class="modal-footer">
+				
+                 
+				   <button class="btn btn-danger" ng-disabled="oneclick || obsform.$invalid"  data-ng-click="saveobs(row,rowidx)">Save</button>
+		<button type="button" class="btn btn-default" ng-click="closeaddrowModal()">Cancel</button>
+                </div>
+            </div>
+</script>

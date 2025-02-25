@@ -1,0 +1,412 @@
+
+
+	<div class="card card-inverse bg-light">
+		<div class="card-header">
+			<h3 class="card-title text-left"><b><i class="fa fa-tasks" ></i> {{'Quotations'|translate}}</b></h3>
+		</div>   
+		<div class="card-body">
+		 <toaster-container style="z-index:1093 !important;top:100px;" toaster-options="{'toaster-id': 'Inv1', 
+    'animation-class': 'toast-bottom-right'}"></toaster-container>	  
+		<div class="row">
+		
+<div class="col-sm-6">
+	<button class="btn btn-primary"  ng-if="permissions[7].C && appsetconfig.IsQuote" ui-sref="app.addquote({stype:'quote'})"> {{'NewQuote'|translate}}</button>
+	<button class="btn btn-primary me-1 mb-1" ng-if="permissions[7].C && !appsetconfig.IsQuote" ui-sref="app.addquote({stype:'sample'})"><i class=" fa fa-plus"></i> {{'ADDSAMPLE' |translate}} </button>
+</div>
+		<div class="col-sm-6">
+		<form name="searchform"  ng-submit="searchdata(searchstring)">
+		 <div class="form-group">
+		                       		 <div class="input-group">
+							<input type="text" class="form-control input-sm" id="search1" ng-model="searchstring" placeholder="Search text ..Here..">
+                               
+                                <button class="btn btn-sm btn-primary" type="submit" ng-click="searchdata(searchstring)"><i class="fa fa-search"></i></button>
+                             <button class="btn btn-outline-primary btn-sm " ng-click="refreshdata()"> {{'Reset'| translate}} </button>
+                             
+                        </div>
+						
+						
+						</div>
+				</form>		 
+		</div>
+		
+		
+		</div>
+		
+	<!--------Excel sheet----->
+       
+<!---------Table View----->
+<div class="row">
+	
+		<div class="col-md-12 table-responsive" style="padding-top:10px;">
+			<table class="table table-bordered table-hover table-sm example-animate-container">
+				<thead><tr class="table-info text-dark fw-bold">
+					<th>#</th>
+					<th>Q No / Date</th>
+					<th>Customer  </th>
+						<th>Industry  </th>
+					<th>Sample  </th>
+					<th>Particulars  </th>
+					<th ng-if="appsetconfig.IsQuote">Total</th>
+					<th ng-if="appsetconfig.IsQuote">Valid Till</th>					
+				
+					<!-- <th>Assigned To</th> -->
+					<th>Status</th>
+					
+                	
+					
+                  
+					<th>Action</th>				
+				</tr>
+				</thead>
+				<tbody  class="table-group-divider">
+				<tr   class="animate-repeat" pagination-id="quotes" dir-paginate="i in results =( allquotes | filter:searchstring1 )| itemsPerPage: pageSize" total-items="totalitems" current-page="currentPage">
+					<td>{{($index+1)+((currentPage-1)*pageSize) }}</td>
+					
+						<td><span style="color:#000;font-weight:500;">{{i.QNo}}  </span><br>
+<small>						<span style="color:#000;font-weight:500;"> {{i.QDate | date:'dd.mm.yy'}}</span> </small>
+						</td>
+						<td><span class="" >{{i.Customer.Name}} </span> 						
+					</td>
+					<td>
+					 {{i.Details[0].Industry}}
+					</td>
+					<td>
+					{{i.Details[0].SampleName}} 
+					</td>
+					<td><span ng-repeat="j in i.Details">
+						
+						<label  style="min-width:120px;" class=" mb-3 px-2 py-1 text-success-emphasis bg-default-subtle border border-success-subtle rounded-2 text-start position-relative" >{{j.TestName  }} 
+						<small class="text-info">({{j.Qty}}) </small>  <span class="position-absolute translate-middle badge text-dark bg-info-subtle " style="margin-top:27px;">{{j.labnames.toString()}}</span>
+							
+							
+							</label>
+										</span>	</td>
+								<td ng-if="appsetconfig.IsQuote" style="width:120px;"> <span class="fa  fw-semibold ">{{appset.Currency}}</span>{{i.Total |number:2}}</td>
+											<td ng-if="appsetconfig.IsQuote" style="width:100px;"><span style="color:#000;font-weight:500;"> {{i.ValidDate}}</span>	</td>
+						<!-- <td>{{i.AssignUser}}</td> -->
+						
+						
+						
+                	
+				
+					
+					<td> <label class="badge " ng-click="showtest(i)" ng-class="{'text-bg-secondary':i.Status==='Disacarded','text-bg-info':i.Status==='Pending','text-bg-success':i.Status==='Approved',
+					'text-bg-warning':i.Status==='Verified','text-bg-primary':i.Status==='Inverification'}" >{{i.Status}}
+							
+							
+							</label>		</td>
+				
+					<td>
+					<div class="btn btn-group btn-sm shadow-none">
+						<button class="btn btn-sm btn-primary"  ng-if="permissions[7].U" ui-sref="app.editquote({id:i.Id})" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit Quote">
+						<i class=" fa fa-pencil-square-o"></i> </button>
+						<button class="btn btn-sm btn-info " ng-click="viewquote(i)" data-bs-toggle="tooltip" data-bs-placement="bottom" title="View Quote"><i class=" fa fa-eye"></i>  </button> 
+						
+							<button class="btn btn-sm btn-primary " ng-if="permissions[7].A && (i.Status ==='Verified' || i.Status==='Approved')"  ng-click="sendmail(i,'confirm')" ng-hide="mflags.oneclick[$index]" data-bs-toggle="tooltip" data-bs-placement="top" title="Send E-Mail"> <i class=" fa fa-envelope"></i>  </button> 
+						<!-- <button class="btn btn-danger  btn-sm " disabled ng-click="deletequote('confirm',item)" ><i class="fa fa-trash-o"></i></button>  -->
+						</div>
+						<div class="btn btn-group btn-sm shadow-none">
+						
+						<button  class="btn btn-outline-primary btn-sm pull-right" 	ng-if=" i.Status !='Approved'  && i.Status !='Verified'" ng-click="verifyquote('confirm',i)"> Verify</button>	
+
+					
+						<label ng-if="mflags.oneclick[$index]"> <i class="fa fa-spinner fa-pluse"></i> Sending  </label> 
+						
+							
+		<button  ng-if="permissions[7].A && i.Status ==='Verified'  && i.ApprovedBy ===''" class="btn btn-outline-primary btn-sm pull-right" ng-click="approvequote('confirm',i)"> Approve</button>	
+	
+	</div>
+					</td>
+					
+				</tr>
+				
+		
+				<tr ng-if="allquotes.length <1">
+					<td class="animate-repeat col-md-12 text-center highlight" colspan="8" >
+					<h5>No results found...</h5>
+					</td >	
+				</tr>
+				
+</tbody>				
+			</table>
+	<dir-pagination-controls  pagination-id="quotes"  on-page-change="getallquotes(newPageNumber)" ></dir-pagination-controls>
+
+		</div>
+		
+	
+
+</div>
+
+</div>
+</div>
+
+
+
+
+
+
+<script type="text/ng-template" id="viewinvoice"  data-keyboard="false">
+
+	<div class="modal-content card card-inverse">
+		
+			<div class="card-header  proptype2">
+		
+			
+			</div>
+  
+<div class="card-body">
+  <div class="toolbar hidden-print container ">
+        <div class="text-right">
+            <button id="printInvoice" class="btn btn-info" ng-click="printDiv('inventory-quote')"><i class="fa fa-print"></i> Print</button>
+			
+				<button type="button" class="btn btn-sm btn-link btn-primary  pull-right" data-dismiss="modal" ng-click="closemModal()"><i class="fa fa-close "></i></button>
+          
+        </div>
+        <hr>
+    </div>
+	<div id="inventory-quote">
+
+  
+    <div class="invoice overflow-auto" >
+        <div style="width:100%;">
+           
+            <main>
+              
+                <table class="col-lg-12 col-sm-12 table table-bordered " border="0" cellspacing="0" cellpadding="0" style="background:#fff;" >
+                    <thead class="" >
+                        <tr style="background:#fff;border-bottom:2px solid #3f51b5;">
+					
+						<td style="background:#fff;border-width:0px;vertical-align:middle;" colspan="5">
+						 <img ng-src="{{appset.Applogo}}" style="height:60px;float:left;">
+								<div style="max-width:500px;" ng-bind-html="appset.CompanyName"></div>
+                        <div style="max-width:500px;" ng-bind-html="appset.CompanyAddress"></div>
+                          
+						</td>
+						
+						</tr>
+						<tr class=" contacts" style="background:#fff;">
+						<td style="background:#fff;border-width:0px;"colspan="3"  class="quote-to">
+						 <div class="text-gray-light " ><strong>QUOTATION TO: </strong></div>
+                        <h2 class="to">{{quote.Customer.Name}}</h2>
+                        <div class="address">{{quote.Customer.Address}}</div>
+                        <div class="email"><a ng-href="{{quote.Customer.Email}}">{{quote.Customer.Email}}</a></div>
+						</td>
+						<td style="background:#fff;border-width:0px;" colspan="2" class="quote-details">
+						<h1 class="quote-id" style="font-size: 16px;color:#3f51b5;" >QNO. {{quote.QNo}}</h1>
+                        <div class="date">Issue Date: {{quote.QDate }}</div>
+                        <div class="date">Valid Till: {{quote.ValidDate }}</div>
+						</td>
+						</tr>
+                    </thead>
+                    <tbody>
+					<!-- <tr> -->
+					<!-- <td colspan="5">SAMPLE INFORMATION:    -->
+						<!-- <table class="table table-sm table-borderless mb-0"> -->
+						<!-- <tr> -->
+					<!-- <td colspan="1">Sample Group/ Category: {{quote.SampleGroup}}  </td><td colspan="1">Sample Conditions:  {{quote.SampleConditions}}   </td> -->
+					<!-- </tr> -->
+					<!-- <tr> -->
+					<!-- <td colspan="1">End Use: {{quote.EndUse}}   </td><td colspan="1">Specification if any:   {{quote.Specifications}} </td> -->
+					<!-- </tr> -->
+					<!-- <tr> -->
+					<!-- <td colspan="1">Sample drawn by: {{quote.DrawnBy}}   </td> -->
+					<!-- <td colspan="1">Mode of Receipt of Samples: {{quote.ModeOfReceipt}}   </td> -->
+					<!-- </tr> -->
+						<!-- </table> -->
+
+					<!-- </td> -->
+					<!-- </tr> -->
+					
+					
+					<tr class="" style="font-weight:700;background-color:#eceff1 !important;">
+                            <th style="background-color:#eceff1;max-width:25px;text-align:center;">#</th>
+                            <th style="background-color:#eceff1;" class="text-left">DESCRIPTION</th>
+                            <th style="background-color:#eceff1;min-width:100px;text-align:right;"  class="text-right">PRICE</th>
+                            <th style="background-color:#eceff1;min-width:60px;text-align:right;"  class="text-right">QTY</th>
+                            <th style="background-color:#eceff1;min-width:120px;text-align:right;" class="text-right">TOTAL</th>
+                        </tr>
+                        <tr ng-repeat="item in quote.Details" class="align-middle">
+                            <td class="no text-left" style="max-width:35px !important;">{{$index+1}}</td>
+                            <td class="text-left" style="background-color:#eceff1;max-width:250px;">
+							<table class="table table-sm table-borderless mb-0" border="0" style="font-size:12px;border-width:0px;background-color:#eceff1;">
+							<tr><td style="background-color:#eceff1;" class="p-1 fw-bold">Category/group : {{item.Industry}}</td></tr>
+							<!-- <tr><td style="background-color:#eceff1;" class="p-1  fw-bold">Test Condition : {{item.testcondition}}</td></tr> -->
+							<tr><td style="background-color:#eceff1;" class="p-1  fw-bold">Sample  : {{item.SampleName}} - {{item.SampleWeight}} ,TAT:{{item.TAT}}</td></tr>
+							<tr><td style="background-color:#eceff1;" class="p-1  fw-bold">Test : {{item.TestName}}</td></tr>
+							<tr><td style="background-color:#eceff1;" class="p-1  fw-bold">
+							Standard : <div  style="inline-size: 300px;
+    overflow-wrap: break-word;;">{{item.SubStdName}}</div ></td></tr>
+							<!-- <tr><td style="background-color:#eceff1;" class="p-1  fw-bold">TestMethod : {{item.TestMethod}}</td></tr> -->
+							
+								<tr ><td  style="background-color:#eceff1;" class="p-0">
+									Parameters Below
+									
+									<ul class="list-inline" style="max-width:300px;overflow:hidden;">
+  <li class="list-inline-item" ng-repeat="k in item.Parameters" style="word-break: break-all;" >
+<small class="badge text-bg-light "  style="text-overflow:ellipsis;max-width: 200px;
+    overflow: hidden;" >{{k.Parameter}} , TM: {{k.TestMethod}}</small></li></ul>
+									
+										</td></tr>
+							</table>
+							
+							</td>
+                            <td class="unit text-right"><span class="fa">{{appset.Currency}}</span> {{item.Price}}</td>
+                            <td class="tax text-right" style="background-color:#eceff1;text-align:right;">{{item.Qty}}</td>
+                            <td class="total text-right">
+							
+							<span class="fa">{{appset.Currency}}</span> {{item.Total | number:2}}
+							<span ng-if="quote.Tax>0"><br> <small>Tax: <span class="fa">{{appset.Currency}}</span> {{quote.Tax * (item.Price*item.Qty /100  )}} </small></span>
+							</td>
+                        </tr>
+                        
+                
+                    <!-- <tfoot> -->
+                        <tr style="background:#fff;">
+                            <td  style="background:#fff;" colspan="2" > 
+								
+							</td>
+                            <td  style="background:#fff;"  colspan="2">SUBTOTAL</td>
+                            <td style="background:#fff;text-align:right;"><span class="fa">{{appset.Currency}}</span> {{quote.SubTotal | number:2}}</td>
+                        </tr>
+                        <tr style="background:#fff;" ng-if="quote.Discount">
+                              <td style="background:#fff;text-align:right;" colspan="2" > 
+								
+							</td>
+                            <td style="background:#fff;" colspan="2">DISCOUNT</td>
+                            <td style="background:#fff;text-align:right;"><span class="fa">{{appset.Currency}}</span> {{quote.Discount | number:2}}</td>
+                        </tr>
+						  <tr style="background:#fff;" >
+                              <td  colspan="2" style="background:#fff;"> 
+								
+							</td>
+                            <td style="background:#fff;" colspan="2">TOTAL TAX</td>
+                            <td style="background:#fff;text-align:right;"><span class="fa">{{appset.Currency}}</span> {{quote.TotTax | number:2}}</td>
+                        </tr>
+                        <tr style="background:#fff;">
+                            <td colspan="2" style="background:#fff;"> </td>
+                            <td colspan="2" style="background:#E1F5FE;font-weight:700;font-size:16px;color:#3f51b5;">GRAND TOTAL<br><small>(rounded)</small></td>
+                            <td  style="background:#E1F5FE;font-weight:700;font-size:16px;color:#3f51b5;text-align:right;"><span class="fa">{{appset.Currency}}</span> {{quote.Total | number:0}}</td>
+                        </tr>
+						
+						
+                        </tbody>
+                </table>
+               
+                <div class="notices" ng-if="quote.Note" >
+                    <figure>
+  <blockquote class="blockquote">
+    <p>Note:</p>
+  </blockquote>
+  <figcaption class="blockquote-footer">
+    <span ng-bind-html="quote.Note"></span>
+  </figcaption>
+</figure>
+                </div>
+            </main>
+            <footer class="mb-0">
+			
+                Quotation was generated on a computer and is valid without the signature and seal.
+            </footer>
+        </div>
+        <div></div>
+    </div>
+</div>
+	
+	  <div class="toolbar hidden-print container ">
+        <div class="text-right">
+            <button id="printInvoice" class="btn btn-info" ng-click="printDiv('inventory-quote')"><i class="fa fa-print"></i> Print</button>
+			
+				<button type="button" class="btn btn-sm btn-link btn-primary  pull-right" data-dismiss="modal" ng-click="closemModal()"><i class="fa fa-close "></i></button>
+          
+        </div>
+        <hr>
+    </div>
+	</div>
+	
+	
+	
+
+
+
+</div>
+
+</script>
+
+	
+
+
+
+
+	
+<script type="text/ng-template" id="deltestModal"  data-keyboard=false>
+<div class="modal-content">
+            
+                <div class="modal-header dialog-header-confirm">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="closeconfirmModal()" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-check"></span> Confirm Delete</h4>
+                </div>
+            
+                <div class="modal-body">
+                    <p>You are about to delete  test<strong>{{Temp}}</strong>, this procedure is irreversible.</p>
+                    <p>Do you want to proceed?</p>
+                 </div>
+                
+                <div class="modal-footer">
+                  <button class="btn btn-danger" ng-disabled="oneclick" data-ng-click="deletetest('delete',did)">Delete</button>
+		<button type="button" class="btn btn-default" ng-click="closeconfirmModal()">Cancel</button>
+                </div>
+            </div>
+</script>
+
+
+<script type="text/ng-template" id="approveModal"  data-keyboard=false>
+<div class="modal-content">
+            
+                <div class="modal-header dialog-header-confirm">
+                    
+                    <h4 class="modal-title" id="myModalLabel"><span class="fa fa-check"></span> Approve Quote</h4>
+					<button type="button" class="close" data-dismiss="modal" ng-click="closeapprovemodal()" aria-hidden="true">&times;</button>
+                </div>
+            
+                <div class="modal-body">
+                    <p class="fw-bold text-dark" style="font-size:1.2rem;">You are about to approve Quotation No. {{log.QNo}}.
+                    Do you want to proceed?</p>
+                 </div>
+                
+                <div class="modal-footer">
+                  <button class="btn btn-danger" ng-disabled="oneclick" data-ng-click="approvequote('approve',log)">Approve</button>
+		<button type="button" class="btn btn-default" ng-click="closeapprovemodal()">Cancel</button>
+                </div>
+            </div>
+</script>
+
+
+<script type="text/ng-template" id="verifyModal"  data-keyboard=false>
+<div class="modal-content">
+            
+                <div class="modal-header bg-warning dialog-header-confirm">
+                    
+                    <h4 class="modal-title" id="myModalLabel"><span class="fa fa-check"></span> Verify Quote
+					</h4>
+					
+					 
+					
+                </div>
+            
+                <div class="modal-body">
+                    <p class="fw-bold text-dark" style="font-size:1.2rem;">
+					<span ng-if="!permissions[7].Ch">You are about to send  Quotation No. {{vquote.QNo}} for verification</span>
+					<span ng-if="permissions[7].Ch">You are about to verify  Quotation No. {{vquote.QNo}}</span>
+                   Do you want to proceed ?</p>
+                 </div>
+                
+                <div class="modal-footer">
+				   <button class="btn btn-warning" ng-disabled="oneclick" ng-hide="oneclick" ng-if="permissions[7].Ch" data-ng-click="verifyquote('verify',vquote)">Verify</button>
+                  <button class="btn btn-info" ng-disabled="oneclick" ng-hide="oneclick" ng-hide="permissions[7].Ch" data-ng-click="verifyquote('mail',vquote)">Send for Verification</button>
+				  <button class="btn btn-primary" type="button"  ng-show="oneclick" >
+		<i class="fa fa-spin fa-spinner"></i> Please Wait</button>
+		
+		<button type="button" class="btn btn-outline-secondary" ng-click="closeverifymodal()">Cancel</button>
+                </div>
+            </div>
+</script>

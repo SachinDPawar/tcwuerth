@@ -1,0 +1,399 @@
+<div class="row mb-3 mt-4">
+            <div class="col">
+              <div class="card bg-100 shadow-none border bg-white"  style="background-image:url('img/corner-2.png') no-repeat;repeat:no-repeat;">
+                <div class="row gx-0 flex-between-center">
+                  <div class="col-sm-3 d-flex align-items-center">
+				  <img class="ms-n2" src="img/crm-bar-chart.png" alt="" width="90">
+                    <div>
+                      <h6 class="text-primary fs--1 mb-0">Welcome to </h6>
+                       <h4 class="text-primary fw-bold mb-0">TC+ <span class="text-info fw-medium">LIMS</span></h4>
+                    </div><img class="ms-n4 d-md-none d-lg-block" src="img/crm-line-chart.png" alt="" width="150">
+                  </div>
+                  <div class="col-sm-9 p-3 align-items-center">
+                    <form class="row d-flex align-items-center align-items-center g-3 mt-2">
+					
+					 <div class="col-sm-3 row" >
+<h6 class="text-600 mb-0 col-sm-5 col-form-label text-end p-0">Location: </h6>
+<div class="col-sm-7">
+				<ui-select id="Filter" ng-model="reg.Locations" name="Filter" ng-change="getfiltdata(reg)" ng-required="true" class="form-control p-0 form-control-light shadow-lg  bg-body-tertiary rounded" >
+							<ui-select-match placeholder="Select Location">
+							<span ng-bind="$select.selected.Name"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat="item.Id as item in (alllocations | filter: $select.search)">
+							<span ng-bind="item.Name"></span>
+							</ui-select-choices>
+							</ui-select>
+							</div>
+				  </div>
+                     
+                          <div class="col-sm-6 row" ng-if="permissions[3].R" >
+						   <h6 class="text-600 mb-0 col-sm-5 col-form-label text-end p-0">Showing Data For: </h6>
+						   <div class="col-sm-7">
+				<ui-select id="Filter" ng-model="reg.Filter" name="Filter" ng-change="getfiltdata(reg)" ng-required="true" class="form-control p-0 form-control-light shadow-lg  bg-body-tertiary rounded"   >
+							<ui-select-match placeholder="Select Filter Type">
+							<span ng-bind="$select.selected.Name"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat="item.Id as item in (allfilts | filter: $select.search)">
+							<span ng-bind="item.Name"></span>
+							</ui-select-choices>
+							</ui-select>
+							</div>
+				  </div>
+                <div class="col-sm-3" ng-if="permissions[3].R">
+				<div class="row" ng-if="reg.Filter==='CD'">
+				<div class="col-xs-12">
+						<label>From Date</label>
+						
+						
+						<div class="input-group ">
+	<input type="text" class="form-control input-sm" ng-click="open1()" uib-datepicker-popup ng-model="reg.From" is-open="popup1.opened" datepicker-options="dateOptions" 
+	close-text="Close"   ng-required="true" >
+	<span class="input-group-btn">
+	<button type="button" class="btn btn-default bg-primary btn-sm" ng-click="open1()"><i class="fa fa-calendar"></i></button>
+	</span>
+	</div>
+						<small class="text-danger" ng-show="!reg.From">From Date required</small>
+					</div>
+					
+					<div class=" col-xs-12">
+						<label>To Date</label>
+						<div class="input-group ">
+	<input type="text" class="form-control input-sm" ng-click="open2()" uib-datepicker-popup ng-model="reg.To" is-open="popup2.opened" datepicker-options="dateOptions" 
+	close-text="Close"   ng-required="true" >
+	<span class="input-group-btn">
+	<button type="button" class="btn btn-default btn-sm" ng-click="open2()"><i class="fa fa-calendar"></i></button>
+	</span>
+	</div>
+						<small class="text-danger" ng-show="!reg.To">To Date required</small>
+					</div>
+					
+					<div class="col-sm-3  col-xs-12 p-4">
+						<div class="btn-group">
+						
+						<button class="btn btn-info" ng-click="fetchinfo(reg)" style="padding:3px 8px;">Apply</button>
+					
+						<button class="btn btn-danger" ng-click="refreshdata()" data-toggle="tooltip" data-placement="bottom" 
+							title="refresh filter" type="button" style="padding:3px 10px;"><i class="fa fa-refresh"></i></button>
+						</div>
+					</div>
+				</div>
+				</div>
+         
+              </div>
+            </div>
+          </div>
+
+
+		  
+		  <div class="row mb-3 mt-2 g-3" ng-if="permissions[3].R">
+                    <div class="col-sm-3">
+					<a class="fw-semi-bold fs--1 text-nowrap" ng-disabled="!permissions[4].R" ui-sref="app.receipt">
+                      <div class="card overflow-hidden" style="min-width: 12rem">
+                        <div class="bg-holder bg-card" style="background-image:url('img/corner-2.png');"></div>
+                        <!--/.bg-holder-->
+                        <div class="card-body position-relative">
+						
+						<div class="row">
+						<div class="col-sm-6">
+                           <h5>Samples</h5>
+                          <div class="display-4 fs-4 mb-2 fw-normal font-sans-serif text-info" >{{rir[0]| number:0}}</div>
+						 
+						  
+						  </div>
+						  <div class="col-sm-6 mt-2">
+						  <div class="d-flex align-items-center mb-2" >
+						<ul  class="list-unstyled">
+						<li>
+						<h6 class="text-900 fw-semi-bold flex-1 mb-0">{{rir[1]}} <span class="badge text-bg-primary" style="min-width:60px;"> Completed </span> </h6> </li>
+						<li>
+						<h6 class="text-900 fw-semi-bold flex-1 mb-0 ">{{rir[2]}} <span class="badge text-bg-warning" style="min-width:60px;"> Pending </span> </h6>
+						</li>
+						</ul>						
+						   </div>
+						</div>
+</div>
+
+                        </div>
+                      </div>
+					  </a>
+                    </div>
+					
+					
+					<div class="col-sm-3">
+					 <a class="fw-semi-bold fs--1 text-nowrap"   ng-disabled="!permissions[2].R" ui-sref="app.customer">
+                      <div class="card overflow-hidden" style="min-width: 12rem">
+                        <div class="bg-holder bg-card" style="background-image:url('img/corner-3.png');"></div>
+                        <!--/.bg-holder-->
+                        <div class="card-body position-relative">
+						<div class="row">
+						<div class="col-sm-6">
+                          <h5>Customers</h5>
+                          <div class="display-4 fs-4 mb-2 fw-normal font-sans-serif text-warning" >{{custcount | number:0}}</div>
+						
+						  
+						  </div>
+						  <div class="col-sm-6">
+						 
+						</div>
+</div>
+                        </div>
+                      </div>
+					  </a>
+                    </div>
+					
+					
+					<div class="col-sm-3">
+					 <a class="fw-semi-bold fs--1 text-nowrap"  ng-disabled="!permissions[5].R" ui-sref="app.certificates">
+                      <div class="card overflow-hidden" style="min-width: 12rem">
+                        <div class="bg-holder bg-card" style="background-image:url('img/corner-1.png');"></div>
+                        <!--/.bg-holder-->
+                        <div class="card-body position-relative">
+						<div class="row">
+						<div class="col-sm-6">
+                          <h5>Certificates</h5>
+                          <div class="display-4 fs-4 mb-2 fw-normal font-sans-serif text-primary" >{{certcount | number:0}}</div>
+						
+						  
+						  </div>
+						  <div class="col-sm-6">
+						  <div class="d-flex align-items-center mb-2" >
+						
+						<!-- <h6 class="text-900 fw-semi-bold flex-1 mb-0">{{rir[1]}} <br><span class="badge text-bg-primary"> Completed </span> </h6> -->
+						<!-- <h6 class="text-900 fw-semi-bold flex-1 mb-0 px-2">{{rir[2]}}<br><span class="badge text-bg-light"> Pending </span> </h6> -->
+						   </div>
+						</div>
+</div>
+                        </div>
+                      </div>
+					  </a>
+                    </div>
+					
+						
+					<div class="col-sm-3">
+					 <a class="fw-semi-bold fs--1 text-nowrap" ng-disabled="!permissions[6].R" ui-sref="app.custreports">
+                      <div class="card overflow-hidden" style="min-width: 12rem">
+                        <div class="bg-holder bg-card" style="background-image:url('img/corner-3.png');"></div>
+                        <!--/.bg-holder-->
+                        <div class="card-body position-relative">
+						<div class="row">
+						<div class="col-sm-6">
+                          <h5>Sale</h5>
+                          <div class="display-4 fs-4 mb-2 fw-normal font-sans-serif text-warning" >
+						 <span class="fa"> {{currency}}</span> {{revenuedata.Expected | number:0}} </div>
+						
+						  
+						  </div>
+						  <div class="col-sm-6">
+						
+						</div>
+</div>
+                        </div>
+                      </div>
+					  </a>
+                    </div>
+					
+                  </div>
+	
+	
+
+                  <div class="row g-1 mb-3"  ng-if="false">
+                    
+                            <div class=" col-sm-6  "   >
+		   <div class=" card   m-1 p-2" >
+	 <div class="card-header bg-light py-2">
+                  <div class="row flex-between-center">
+                    <div class="col-auto">
+                      <h6 class="mb-0">Revenue </h6>
+                    </div>
+                   
+                  </div>
+                </div>
+<div class="card-body h-100 " >
+<div class="row   ">
+			<div class="col-sm-12 p-1">
+			 <div class="position-relative">
+				<canvas id="base" class="chart chart-bar" 
+  chart-labels="polarlabels30"   chart-data="polardata30" chart-options="options2">
+</canvas> 
+</div>
+			</div>
+			
+			</div>
+			</div>
+			</div>
+	
+		</div>
+                       
+                        <div class="col-sm-6 "  >
+                               <div class=" card   m-1 p-2" >
+	 <div class="card-header bg-light py-2">
+	   <div class="row flex-between-center">
+                    <div class="col-auto">
+                      <h6 class="mb-0">Revenue Industry wise</h6>
+                    </div>
+                   
+                  </div>
+                 
+                  
+                </div>
+                <div class="card-body h-100 " >
+                  <div class="row ">
+                    <div class="col-sm-6 offset-1 p-2" >
+                      <div class="position-relative">
+                        <!-- Find the JS file for the following chart at: src/js/charts/echarts/most-leads.js-->
+                        <!-- If you are not using gulp based workflow, you can find the transpiled code at: public/assets/js/theme.js-->
+                      <canvas id="doughnut" class="chart chart-doughnut " 
+  chart-data="revinddata" chart-colors="backgroundColors"  chart-labels="revindlabels" chart-options="options">
+</canvas> 
+                        <div class="position-absolute top-50 start-50 translate-middle text-center" >
+                          <p class="fs--1 mb-0 text-400 font-sans-serif fw-medium">Total</p>
+                          <p class="fs-3 mb-0 font-sans-serif fw-medium mt-n2">  <span class="fa"> {{currency}}</span> {{revenuedata.Expected| number:0}}</p>
+                        </div>
+                      </div>
+                    </div>
+					 <div class="col-sm-3 mt-4  text-right">
+                     
+                      <ul   class=" list-inline   py-1 pt-md-0 pt-xxl-3">
+                        <li class=" list-inline-item p-2" ng-repeat="(key,value) in revindlabels | limitTo : 5 as results track by $index" >
+                          <h5 class="text-700 mb-0"><span class="badge"   ng-style="mybackgroundColors($index)">{{value}} -{{revinddata[$index]}} </span> </h5>
+                        </li>
+                        
+                      </ul>
+                      
+                    </div>
+					
+					</div>
+					
+                </div>
+               
+              </div>
+         
+                        </div>
+                     
+                  </div>
+               
+	
+	
+		<div class="row mb-3 g-1 mt-2" ng-if="false">
+	<div class="col-sm-12 ">
+              <div class="card m-1 p-2">
+                
+				 <div class="card-header bg-light py-2">
+	   <div class="row flex-between-center">
+                    <div class="col-auto">
+                        <h6 class="mb-0">All Tests</h6>
+                
+                    </div>
+                   
+                  </div>
+                 
+                  
+                </div>
+                <div class="card-body h-100 d-flex flex-column justify-content-between">
+                  <div class="row align-items-center">
+                    <div class="col-md-4 col-xxl-12 mb-xxl-1">
+                      <div class="position-relative">
+                        <!-- Find the JS file for the following chart at: src/js/charts/echarts/most-leads.js-->
+                        <!-- If you are not using gulp based workflow, you can find the transpiled code at: public/assets/js/theme.js-->
+                      <canvas id="doughnut" class="chart chart-doughnut " 
+  chart-data="polardata" chart-colors="backgroundColors" style="height:350px !important;" chart-labels="polarlabels" chart-options="options">
+</canvas> 
+                        <div class="position-absolute top-50 start-50 translate-middle text-center" >
+                          <p class="fs--1 mb-0 text-400 font-sans-serif fw-medium">Total</p>
+                          <p class="fs-3 mb-0 font-sans-serif fw-medium mt-n2">{{rir[0]| number:0}}</p>
+                        </div>
+                      </div>
+                    </div>
+					
+					
+                    <div class="col-xxl-12 col-md-2">
+                      <hr class="mx-ncard mb-0 d-md-none d-xxl-block">
+                      <div ng-repeat="(key,value) in indwise track by $index" ng-mouseover="showgraph(indwise[key])"  class="myhober d-flex flex-between-center py-2 pt-md-0 pt-xxl-3">
+                        <div class="d-flex">
+                          <h5 class="text-700 mb-0"><span class="badge"   ng-style="mybackgroundColors($index)">{{key}} </span> </h5>
+                        </div>
+                        <!-- <p class="fs--1 text-500 mb-0 fw-semi-bold"></p> -->
+                        <!-- <h6 class="text-700 mb-0">{{value}}</h6> -->
+                      </div>
+                      
+                    </div>
+					
+					<div class="col-xxl-12 col-md-4">
+					{{myvalue.key}}
+					<canvas id="bar" class="chart chart-bar m-0" chart-options="options2"  style="height:120px !important;"  chart-data="myvalue.ldata" chart-labels="myvalue.labels" chart-series="series" ></canvas>
+					</div>
+                  </div>
+                </div>
+               
+              </div>
+            </div>
+			</div>
+			
+	<!-----DASHBOARD SUMMARY ENDS HERE--------------->
+	
+		<div class="row m-0 mt-2">
+		
+		<div class="col-sm-12 p-4" style="background:transparent;">
+		
+		<div ng-repeat="(key, value) in alltests2 track by $index  ">
+  <h4> {{ key }} </h4>
+ <ul class="list-inline mydash row tests justify-content-left"  style="display:inline-flex;"  >
+			
+			<li  class="" ng-repeat="i in value " style="width:200px;margin:5px;">
+			<a  ui-sref="app.tests({tid:i.tid,sid:i.sid})">
+			<div class="card bg-holder bg-card" style="width:190px;background-image:url('img/corner-2.png') !important;"   >
+<div class="card-body p-2 pb-1">
+
+<div class="row">
+
+
+	<div class="col-8 text-center">
+
+	<div class="numbers">
+	<p class="text-sm mb-0 text-capitalize font-weight-bold" style="font-weight: 800;font-size:12px;min-height:40px;
+		color: gray;">{{i.name}}</p>
+		
+		 <div class="d-flex align-items-center mb-2" >
+						
+						<h6 class="text-900 fw-semi-bold flex-1 mb-0">{{i.data[0]}} <br><span class="badge text-bg-primary"> Completed </span> </h6>
+						<h6 class="text-900 fw-semi-bold flex-1 mb-0 px-2">{{i.data[1]}}<br><span class="badge text-bg-warning"> Pending </span> </h6>
+						   </div>
+
+	</div>
+	</div>
+	<div class="col-4 text-end">
+	<div class="icon icon-shape    text-center border-radius-md" style="width:40px;height:40px;background:transparent !important">
+	<!-- <i class="fa {{i.icon}}  text-lg opacity-10 " style="color:#fff;" aria-hidden="true"></i> -->
+	<img ng-src="{{i.img.url}}" class="img-responsive" style="height:40px;opacity:0">
+	</div>
+	</div>
+</div>
+
+</div>
+</div>
+			
+		</a>	
+							  </li>
+							 
+
+
+							  </ul>
+</div>
+				
+							 
+</div>
+</div>
+
+<div class="row" style="min-height:200px;">
+
+
+
+
+
+  <div class="col-sm-6">
+       
+        
+    </div>
+	</div>
+			
+

@@ -1,0 +1,42 @@
+			<table class="table table-bordered">
+				<tr >
+						<td class=" text-end bg-light" >Lab No.</td><td class="">{{info.basic.LabNo}}   <small>{{info.basic.TestName}}</small></td>
+					<td  class=" text-end bg-light">BatchCode/BatchNo</td><td class="">{{info.basic.BatchCode}}<span ng-if="info.basic.BatchNo">/{{info.basic.BatchNo}}</span></td> 
+		<td  class=" text-end bg-light">Required Date</td><td class="">{{info.basic.ReqDate}}</td>
+				</tr>
+				<tr>
+					<td  class=" text-end bg-light">Part Name</td><td colspan="3" class="">{{info.basic.SampleName}}</td>
+					
+					<td  class=" text-end bg-light">Heat No.</td><td class="">{{info.basic.HeatNo}}</td>
+					
+				</tr>
+								
+				<tr>
+					<td  class=" text-end bg-light">Supplier</td><td colspan="" class="">{{info.basic.Supplier}}</td>
+					
+					<td  class=" text-end bg-light">GrinNo</td><td class="">{{info.basic.extra.GrinNoDate}}</td>
+					<td  class=" text-end bg-light">Customer</td><td colspan="" class="">{{info.basic.Customer}}</td>
+				</tr>
+				
+				<tr>
+					<td  class=" text-end bg-light">Material Grade</td><td class="">{{info.basic.extra.Grade}}</td> 
+					<td  class=" text-end bg-light">Material Condition</td><td class="">{{info.basic.extra.Condition}}</td>
+				<td  class=" text-end bg-light">Quantity</td><td class="">{{info.basic.extra.Quantity}}</td> 
+				</tr>
+				
+				
+				<tr>
+					<td class=" text-end bg-light"><span ng-if="info.basic.IsMdsTds==='mds'">MdsNo</span><span ng-if="info.basic.IsMdsTds==='tds'">TdsNo</span>
+					<td colspan="3">{{info.basic.MdsTds}}</td></td>
+					<td  class=" text-end bg-light">HT Batch No.</td><td class="">{{info.basic.HTBatchNo}}</td>
+				
+				</tr>
+				<tr>
+					<td class=" text-end bg-light">Standard<td colspan="2">{{info.basic.Standard}}</td></td>
+					<td  class=" text-end bg-light">Test Method</td><td colspan="2">{{info.basic.TestMethod}}</td>
+				</tr>
+				
+				
+					
+				
+</table>	

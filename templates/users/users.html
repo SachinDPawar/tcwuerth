@@ -1,0 +1,153 @@
+<div class="row " >
+
+
+	<div class="col-md-12 col-lg-10" style="margin-top:0px;">
+		<div class="card card-default">
+			<!-- <div class="card-header"> -->
+				<!-- <h3 class="card-title text-left"><b><i class="fa fa-users"></i> Users Info</b></h3> -->
+			<!-- </div>   -->
+
+<div class="card-header border-bottom border-200 px-0">
+                  <div class="d-lg-flex justify-content-between">
+                    <div class="row flex-between-center  px-x1">
+                      <div class="col-auto pe-0">
+                        <h6 class="mb-0">All Users</h6>
+                      </div>
+                      <div class="col-auto">
+                        <form>
+                           <div class="input-group">
+							<input type="text" class="form-control input-sm" id="search1" ng-model="searchstring" placeholder="Search text ..Here..">
+                               
+                            
+                             <button class="btn btn-default btn-sm inputbtn" ng-click="refreshdata()"> {{'Reset'| translate}} </button>
+                             
+                        </div>
+                        </form>
+                      </div>
+                    </div>
+                    <div class="border-bottom border-200 my-3"></div>
+                    <div class="d-flex align-items-center justify-content-between justify-content-lg-end px-x1">
+                     <button class=" btn btn-primary me-1 mb-1 btn-sm" ui-sref="app.adduser"> <i class="fa fa-plus"></i> Add Users </button>
+                    </div>
+                  </div>
+                </div>			
+                               
+						<div class="card-body ">
+						
+						<div class="col-md-12 table-responsive greensea">
+						
+							<table class="table table-hover table-condensed table-bordered example-animate-container">
+								<tr class="text-800 table-info">
+									<th>#</th>
+									<th>Name</th>
+									<th>Email</th>
+									<th>Contact</th>
+									<th>Designation</th>
+									<th>Role</th>
+									<th>Actions</th>
+								</tr>
+							<tbody	class="table-group-divider">
+								<tr  class="animate-repeat"  dir-paginate="i in results =( users | filter:searchstring )| itemsPerPage: pageSize" current-page="currentPage">
+									<td>{{($index+1)+((currentPage-1)*pageSize) }}</td>
+									<td>{{i.FName}} {{i.MName}} {{i.LName}}</td>
+									<td>{{i.Email}}</td>
+										<td>{{i.ContactNo}}</td>
+										<td>{{i.Designation}}</td>
+									<td>{{i.RoleName}}</td>
+									<td class="text-left">
+								<div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+
+									<button  class=" btn btn-outline-primary  btn-sm" ng-click="showuser('lg',i)" ><i class=" fa fa-eye"></i></button>
+									<button class="btn btn-outline-success " title="Edit" ui-sref="app.edituser({id:i.Id })" ><i class=" fa fa-pencil"></i> </button>
+									<button class="btn btn-outline-danger " title="Delete" ng-click="deleteuser('confirm',i)" ><i class=" fa fa-trash"></i> </button>
+									</div>
+									</td>
+								</tr>
+						
+								<tr ng-if="results.length == 0">
+									<td class="animate-repeat col-md-12 text-center highlight" colspan="7" >
+									<h5>No results found...</h5>
+									</td >	
+								</tr>
+</tbody>								
+							</table>
+						<dir-pagination-controls ></dir-pagination-controls> 
+						</div>
+
+						</div>
+							</div>
+
+</div>
+</div>
+<script type="text/ng-template" id="deluserModal"  data-keyboard=false>
+<div class="modal-body" style="padding:2px;" >
+
+   <div class="modal-content">
+            
+                <div class="modal-header dialog-header-confirm">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="closeconfirmModal()" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-check"></span> Confirm Delete</h4>
+                </div>
+            
+                <div class="modal-body">
+                    <p>You are about to delete user <strong>{{name}}</strong>, this procedure is irreversible.</p>
+                    <p>Do you want to proceed?</p>
+                 </div>
+                
+                <div class="modal-footer">
+                  <button class="btn btn-danger" data-ng-click="deleteuser('delete',did)">Delete</button>
+		<button type="button" class="btn btn-default" ng-click="closeconfirmModal()">Cancel</button>
+                </div>
+            </div>
+
+
+</div>
+</script>					
+	
+<script type="text/ng-template" id="userviewContent.html">
+        <div class="modal-header">
+           User Details
+			 <button type="button" class="close" ng-click="cancel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+			<!-- <pre>{{viewuser}}</pre> -->
+            <table class="table table-bordered">
+			
+			<tbody>
+			<tr>
+				<th>Name</th><td>{{viewuser.FName}} {{viewuser.MName}}  {{viewuser.LName}}</td>
+				</tr>
+				<tr>
+				<th>Email</th><td>{{viewuser.Email}}</td>
+				</tr>
+				<tr>
+				
+				<th>UserName</th><td>{{viewuser.Username}}</td>
+				</tr>
+				<tr>
+				<th>Contact No.</th>
+				<td>{{viewuser.ContactNo}}</td>
+				</tr>
+				<tr>
+				<th>Branches</th>
+				<td>{{viewuser.Branches}}</td>
+				</tr>
+				<tr>
+				<th>Role</th>
+				<td>{{viewuser.RoleName}}</td>
+				</tr>
+				<tr>
+				<th>Signature</th>
+				<td>
+				{{viewuser.Signature}}
+				<img class="img-responsive" style="height:80px;" ng-src="{{viewuser.Signature.url}}"/></td>
+				</tr>
+
+				</tbody>
+			</table>
+        </div>
+        <div class="modal-footer">
+          <!--   <button class="btn btn-primary" type="button" ng-click="ok()">OK</button> -->
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>

@@ -1,0 +1,116 @@
+<div class="row" >
+	<!-- <div class="col-md-12" style="padding:15px;">
+		<button class="btn btn-primary fa fa-plus" ng-click="editcoatcert('new','0')"> Add Pdir Details</button>
+	</div>
+	 -->
+	<div class="col-md-12" style="padding:15px;">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h2 class="panel-title text-left"><i class="fa fa-file"></i><b> Coating certificate Details</b></h2>
+			</div>
+			<div class="panel-body">
+			
+			<div class="col-sm-4">
+				<button class="btn btn-primary fa fa-plus" ng-if=" permissions[16].C==='true'" ui-sref="dashboard.admin.coatcertadd"> Add Coating Certificate</button>
+			</div>
+			
+			<div class="col-sm-6">
+				<form class="form-horizontal ">
+					<div class="form-group">
+					<!-- <label for="inputEmail3" class="col-md-2 control-label"></label> -->
+					<div class="input-group">
+					  <input type="text" class="form-control" id="inputEmail3" ng-model="searchstring" placeholder="Search text here ...">
+					    <span class="input-group-btn">
+        <button class="btn btn-default " ng-click="searchdata(searchstring)" type="button"><i class="fa fa-search"></i></button>
+		
+      </span>
+					</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-sm-2">
+			 <button class="btn btn-default " ng-click="refreshdata()" data-toggle="tooltip" data-placement="bottom" title="refresh table" type="button"><i class="fa fa-refresh"></i></button>
+			 </div>
+			
+			<div class="col-md-12 table-responsive">
+			<div ng-show="flags.loadingdata" class=" modal-backdrop fade in demo-1" style=" opacity:0.8;   background-color: rgb(234, 241, 239);"> 
+<div class="bar" style="opacity:1;" >
+<i class="sphere"></i>
+</div>
+</div>
+			<dir-pagination-controls on-page-change="getdata(newPageNumber)"></dir-pagination-controls>		
+				<table class="table table-striped table-bordered" id="sample_1">
+					<thead>
+						<tr class="tablehead">
+							<th style="width:8px">#</th>
+							<th>TC No</th>
+							<th>Date </th>
+							<th class="hidden-phone">Customer</th>
+							<th class="hidden-phone">Part Coated</th>
+							<th class="hidden-phone">Quantity</th>
+							<th class="hidden-phone">Batch No</th>
+							<th class="hidden-phone">Process</th>
+							<th class="hidden-phone">RFI-Code</th>
+							<th class="hidden-phone">DIN No</th>
+							<th class="hidden-phone">Uploads</th>
+							<th class="hidden-phone">Actions</th>
+							
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="odd gradeX" dir-paginate="item in results=(allcoatcerts | filter:searchstring ) |itemsPerPage: pageSize   " total-items="totalitems" current-page="currentPage">
+								<td>{{($index+1)+((currentPage-1)*pageSize) }}</td>
+							<td>{{item.TCNo}}</td>
+							<td class="hidden-phone">{{item.TopCoatDate| date :"dd.MM.y"}}</td>
+							<td>{{item.Customer}}</td>
+							<td>{{item.PartCoated}}</td>
+							<td class="hidden-phone">{{item.Quantity}}</td>
+							<td class="hidden-phone">{{item.BatchNo}}</td>
+							<td class="hidden-phone">{{item.Process}}</td>
+							<td class="hidden-phone">{{item.RFICode}}</td>
+							<td class="hidden-phone">{{item.DINNo}}</td>
+							<td class="hidden-phone"><a target="_blank" ng-href="{{item.image.url}}">{{item.image.name}}</a></td>
+							<td class="center">
+							<!-- <button  class="btn btn-default fa fa-eye btn-sm" ng-click="showcoatcert('lg',item)" ></button> -->
+							
+							<button ng-if=" permissions[16].U==='true'" class="btn btn-default fa fa-pencil btn-sm" ng-click="editcoatcert('edit',item.Id)"> Edit</button><br>
+<button ng-if=" permissions[16].D==='true'" class="btn btn-danger fa fa-trash-o btn-sm pull-right" style="margin:3px;" ng-click="deletetest('confirm',item)" ></button>								
+								
+							</td>
+						</tr>
+						<tr class="animate-repeat text-center" ng-if="results.length < 1">
+						<td colspan="10">No results found...</td>
+						</tr>
+						
+							
+					</tbody>
+				</table>
+<dir-pagination-controls on-page-change="getdata(newPageNumber)"></dir-pagination-controls>					
+			</div>
+
+							
+			</div>
+		</div>
+	</div>
+	
+</div>
+	
+<script type="text/ng-template" id="deltestModal"  data-keyboard=false>
+<div class="modal-content">
+            
+                <div class="modal-header dialog-header-confirm">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="closeconfirmModal()" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-check"></span> Confirm Delete</h4>
+                </div>
+            
+                <div class="modal-body">
+                    <p>You are about to delete Coating certificate <strong>{{Temp}}</strong>, this procedure is irreversible.</p>
+                    <p>Do you want to proceed?</p>
+                 </div>
+                
+                <div class="modal-footer">
+                  <button class="btn btn-danger" ng-disabled="oneclick" data-ng-click="deletetest('delete',did)">Delete</button>
+		<button type="button" class="btn btn-default" ng-click="closeconfirmModal()">Cancel</button>
+                </div>
+            </div>
+</script>	

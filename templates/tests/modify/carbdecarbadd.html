@@ -1,0 +1,329 @@
+	
+
+<div class="row mt-4" >
+	<div class="col-md-12 col-md-offset-0" style="margin-top:0px;">
+		<div class="card  mb-3" >
+			<div class="card-header bg-light p-2">
+				<h3 class="card-title text-left mb-1"> <i class="fa fa-hash-tag"></i> Observations</h3>
+			</div>
+			<div class="card-body p-2 " >
+		
+			
+			
+			<div class="row p-2 ">
+				
+				<form class="form-horizontal mb-4" name="testform" id="fileupload"  method="POST" enctype="multipart/form-data"  data-file-upload="options" 
+				data-ng-class="{'fileupload-processing': processing() || loadingFiles}"  novalidate>
+				
+					
+					<toaster-container toaster-options="{'toaster-id': 1, 
+    'position-class': 'toast-bottom-right'}"></toaster-container>
+
+						
+					
+					<div class="form-group row" ng-if="info.basic.TopBasicParameters.length>0" >
+					<div class="card " style="box-shadow:none !important;">
+			
+					<div class="card-body row" >
+						<div class="col-md-6 col-sm-6 mb-2" ng-repeat="param in info.basic.TopBasicParameters " >
+						<label for="{{param.Parameter}}" class="control-label">{{param.Parameter}}</label>
+						
+							<input type="text" ng-if="param.PDType==='T'" class="form-control" name="{{param.Parameter}}" id="{{param.Parameter}}"  ng-model="param.BValue" placeholder="{{param.Parameter}}" required
+							uib-typeahead="state for state in param.LCats | filter:$viewValue | limitTo:8"
+							>
+							
+							<input type="text" ng-if="param.PDType==='N'" class="form-control" name="{{param.Parameter}}" id="{{param.Parameter}}"  ng-model="param.BValue" placeholder="{{param.Parameter}}" required>
+						
+
+
+	<!-- <input type="text" ng-if="param.PDType==='L'" class="form-control" name="{{param.Parameter}}" id="{{param.Parameter}}"  ng-model="param.BValue" placeholder="{{param.Parameter}}" required -->
+							<!-- uib-typeahead="state.Value for state in param.LCats | filter:$viewValue | limitTo:8" -->
+							<!-- >						 -->
+							<ui-select id="{{param.Parameter}}" ng-if="param.PDType==='L'"  class="form-control" ng-model="param.BValue" name="{{param.Parameter}}" style="padding:0px;border:0px;" required >
+						<ui-select-match placeholder="Select {{param.Parameter}}">
+							<span ng-bind="$select.selected.Value"></span>
+						</ui-select-match>
+						<ui-select-choices repeat="item.Value as item in (param.LCats | filter: $select.search) ">
+							<span ng-bind="item.Value" style="color:#000;font-weight:bold;"></span>
+						</ui-select-choices>
+					</ui-select>
+					
+					
+					
+					<div class="input-group" ng-if="param.PDType==='D'" >
+	<input type="text" class="form-control input-sm" uib-datepicker-popup ng-model="param.BValue" is-open="popup2.opened[$index]" datepicker-options="dateOptions"  
+	close-text="Close"   ng-required="true" >
+	
+	<button type="button" class="btn btn-default inputbtn btn-sm" style="height:36px;" ng-click="open2($index)"><i class="fa fa-calendar"></i></button>			</div>	
+	
+	
+						</div>
+						
+					</div>
+					</div>
+					</div>
+				
+
+<div class="form-group card p-4 shadow-none row"  ng-show="info.basic.TestType==='C' || info.basic.IsImg || info.basic.TestId==='9'">
+		
+		<div class="form-group "  >
+		
+		
+       	<div class="col-md-6 col-sm-6 text-center" >
+
+				<div data-ng-repeat="file in queue " ng-init="showqueue()" class="gallery-box"  >
+				
+					<div class=" thumbnail" data-ng-switch data-on="!!file.thumbnailUrl" >
+				  
+						<a data-ng-switch-when="true" data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}"  data-gallery>
+						<img data-ng-src="{{file.thumbnailUrl}}" alt="" ></a>
+				   
+					<span class="preview" data-ng-switch-default data-file-upload-preview="file"></span><br>
+				
+					<!-- <span class="title "  style="color:blue;">{{file.name}}</span><br> -->
+					<span class="btn-group">
+						<a class="btn btn-xs btn-danger" data-ng-click="deletefile($index,file)">
+						  Remove
+						</a>
+					</span> 
+					<strong data-ng-if="file.error" ng-init="imageerror(file)" class="error text-danger">{{file.error}}</strong> 
+					</div>
+				  
+				  
+				  
+				</div>
+					<!--  <span  ng-repeat="i in getNumber(1) track by $index" ng-if="queue.length<1">
+						<div class="gallery-box " style="margin-top:20px;" >
+						<div class="thumbnail" >  
+							<img src="images/noimage.jpg" alt="">
+						</div>
+						 <span class="btn-group"></span>
+						</div>
+					</span>		 -->
+				<div class="row fileupload-buttonbar" ng-hide="queue.length>0">
+
+					<div class="col-sm-12 text-left" style="padding-top:10px;">
+						<!-- The fileinput-button span is used to style the file input field as button -->
+						<span class="btn btn-success fileinput-button" >
+							 <i class="fa fa-plus"></i>
+							<span>Add Images</span> 
+							<input type="file" name="files[]"   >
+						</span>
+										   
+					</div>
+							
+				</div>
+			</div>
+
+
+          
+		</div>		
+		
+</div>		
+					<!-------Important Custom Part--->
+					
+					
+					
+						<div class="form-group row" ng-if="info.basic.TestType==='D'">
+						
+							<div class="card " style="box-shadow:none !important;">
+								<div class="card-header bg-light p-2">
+											<h4 style="margin-left:10px;"><b><u>Observation Details </u></b>
+											
+
+
+						 
+						 </h4>
+								</div>
+								<div class="card-body" >
+								
+								
+								
+								<div class="form-group row"  >
+								<div class="col-md-12" >
+								
+								
+							
+						<table class="table table-bordered table-condensed"  style="background:#fff;font-size:12px;" >
+						
+						
+						
+						
+						<tr ng-repeat="(key,value) in info.basic.Parameters | groupBy:'CatName'" ng-init="rowIndex = $index" >
+						
+						<td colspan="5" class="p-0">
+						<table class="table table-bordered mb-0">
+						<tr class="bg-light"  ng-if="$first">
+						<th style="width:30px;">#</th>
+						<th style="width:200px;max-width:200px;">Parameters</th>		
+							
+										
+					<th > 
+						
+						Observations
+						
+						
+						</th>
+						
+						
+						<th >Specifications</th>
+						</tr>
+						<tr ng-if="key" >
+						<td  colspan="5" >{{key}}</td>
+					
+						</tr>
+						
+						<tr ng-repeat="item in value" >
+						<td style="width:30px;" >{{$index+1}}</td>
+						<td style="min-width:200px;max-width:200px;"> {{item.Param}} <br>{{item.PUnit}}</td>	
+						
+						
+						
+						<td >
+						<table class="table table-bordered">
+				<thead>
+					<th class="text-center col-md-1" >Sr.No</th>
+					<th class="text-center col-md-2">Location</th>
+					<th class="text-center col-md-3">Value</th>
+					
+				</thead>
+				<tbody>
+					<tr class="text-center" ng-repeat="j in item.Values">
+						<td class="">{{$index+1}}</td>
+						<td>
+						HV{{$index+1}}
+							
+						</td>	
+						<td>
+						<input type="text" class="form-control"   id="CValue" 
+						name="CValue[{{$index}}]" ng-model="j.Value"  placeholder=""/>
+							<!-- <input type="text" class="form-control" id="limit_min" name="Status[{{$index}}]" ng-model="item.Status" placeholder="Ok/Falied" ng-required="$index<3"/> -->
+						</td>
+						
+					</tr>
+					
+				</tbody>
+			</table>
+			
+						
+								</td>
+						
+
+
+						<td >
+					{{item.SpecMin}} <span ng-if="item.SpecMax">-{{ item.SpecMax}}</span>
+						</td>
+						</tr>
+					</table>
+					</td>
+</tr>
+					</table>
+						</div>
+						
+						
+								</div>
+
+					
+						
+								
+								
+								
+				
+									
+							
+
+							
+								
+								</div>
+								
+							</div>
+							
+						</div>
+					
+							
+		<div class="form-group card p-4 shadow-none row"  ng-show="info.basic.TestType==='C' || info.basic.IsImg || info.basic.TestId==='9'">
+		
+		
+		
+		<div class="form-group" ng-if="info.basic.TestType==='C'">
+				<label class="col-md-2 col-sm-2 control-label">Obs. Remark</label>
+				<div class="col-md-8 col-sm-8">
+					
+					<textarea type="text" class="form-control" id="ObsRemark" ng-model="info.basic.Parameters.ObsRemark" name="ObsRemark" placeholder="Observation Remark" rows="2"></textarea>
+					
+					
+				</div>
+				</div>
+	
+	
+	</div>
+					
+					<!------------------------>
+											<div class="form-group row">
+					
+				<div class="col-md-4 col-sm-4">
+				<label class=" control-label">Test Date </label>	
+					<div class="input-group ">
+						<input type="text" class="form-control input-sm" id="TestDate" name="TestDate" uib-datepicker-popup ng-model="info.basic.TestDate" is-open="popup2.opened[$index]" datepicker-options="dateOptions" 
+						close-text="Close" required>
+						<span class="input-group-btn">
+						<button type="button" class="btn btn-default btn-sm" ng-click="open2($index)"><i class="fa fa-calendar"></i></button>
+						</span>
+					</div>	
+				</div>
+				
+
+
+<div class="col-md-4 " >
+						<label  class=" control-label">Test Status</label>
+						
+							<ui-select id="Remark" ng-model="info.basic.Remark" name="Remark"   required >
+<ui-select-match placeholder="Select Remark">
+<span ng-bind="$select.selected.Text"></span>
+</ui-select-match>
+<ui-select-choices  repeat=" item.Id as item in (remarks | filter: $select.search)">
+<span ng-bind="item.Text"></span>
+</ui-select-choices>
+</ui-select>
+					</div>					
+					
+			<div class="col-md-4 " >
+						<label  class="control-label">Test Remark Note</label>
+						<div class="col-md-12 col-sm-12">
+						<textarea class="form-control"  name="TNote" ng-model="info.basic.TNote"></textarea>
+						
+						</div>
+					</div>			
+					
+</div>	
+
+<div class="alert alert-info py-1 px-6" role="alert">
+Note: <span ng-bind-html="info.basic.Note"></span></div>
+					
+					
+					<div class="form-group  text-center" >
+	<button type="button" class="btn btn-md btn-dark fa fa-" ng-click="cancelsave()" >Cancel</button>
+					<button type="button"  ng-disabled="testform.$invalid || flags.oneclick" class="btn btn-md btn-primary "
+					 ng-click="saveinfotest(info, testform)"> Save</button>
+					
+		</div>	
+					
+		</form>
+					
+					
+								
+						</div>
+						
+				
+				
+					
+					
+			
+					
+			
+		
+			</div>					
+		</div>
+	</div>
+</div>
+			

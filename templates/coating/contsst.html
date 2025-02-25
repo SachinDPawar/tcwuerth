@@ -1,0 +1,451 @@
+<div class="col-md-12 " >
+	
+	
+	
+		<div class="card card-default">
+			<div class="card-header">
+				<h2 class="card-title text-left"><i class="fa fa-fire-extinguisher"></i><b> CONTINUOUS SALT SPARY TEST REPORTS</b></h2>
+			</div>
+			<div class="card-body">
+			
+			<div class="row">
+			<div class="col-sm-4">
+			<button class="btn btn-primary " ui-sref="app.contsstadd" >Add Continuous SST</button>
+			</div>
+			
+			<div class="col-sm-6">
+				<form class="form-horizontal ">
+					<div class="form-group">
+					<!-- <label for="inputEmail3" class="col-md-2 control-label"></label> -->
+					<div class="input-group">
+					  <input type="text" class="form-control" id="inputEmail3" ng-model="searchstring" placeholder="Search text here ...">
+					    <span class="input-group-btn">
+        <button class="btn btn-default " ng-click="searchdata(searchstring)" type="button"><i class="fa fa-search"></i></button>
+		
+      </span>
+					</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-sm-2">
+			 <button class="btn btn-default " ng-click="refreshdata()" data-toggle="tooltip" data-placement="bottom" title="refresh table" type="button"><i class="fa fa-refresh"></i></button>
+			 </div>
+			</div>
+			<div class="row">
+			<div class="col-md-12 table-responsive">
+			<div ng-show="flags.loadingdata" class=" modal-backdrop fade in demo-1" style=" opacity:0.8;   background-color: rgb(234, 241, 239);"> 
+<div class="bar" style="opacity:1;" >
+<i class="sphere"></i>
+</div>
+</div>
+			<dir-pagination-controls on-page-change="getdata(newPageNumber)"></dir-pagination-controls>		
+				<table class="table table-striped table-bordered" id="sample_1">
+										<thead>
+											<tr>
+												<th style="width:8px">#</th>
+												<th>Sample</th>
+												<th>Customer</th>
+												<th>ReportNo.</th>
+												<th class="hidden-phone">ReportDate</th>
+												<th class="hidden-phone">LabNo.</th>
+												<th class="hidden-phone">BatchNo</th>
+												<th class="hidden-phone">Hours</th>
+												<th class="hidden-phone">Receipt On</th>
+												<th class="hidden-phone">Coating System</th>
+												<th class="hidden-phone">Status</th>
+												<th class="hidden-phone" style="width:200px;">Actions</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr class="odd gradeX" dir-paginate="item in results =( allrirs | filter:searchstring ) |itemsPerPage: pageSize   "
+											total-items="totalitems"  current-page="currentPage">
+												<td>{{($index+1)+((currentPage-1)*pageSize) }}</td>
+												<td class="hidden-phone">{{item.basic.Sample}}</td>
+												<td class="hidden-phone">{{item.basic.CustomerName}}</td>
+												<td class="hidden-phone">{{item.basic.ReportNo}}</td>
+												<td class="hidden-phone">{{item.basic.ReportDate| date :  "dd.MM.y"}}</td>
+												<td>{{item.basic.LabNo}}</td>
+												<td>{{item.basic.BatchNo}}</td>
+												<td>{{item.basic.TestDuration}}</td>
+												<td class="hidden-phone">{{item.basic.ReceiptOn| date :  "dd.MM.y"}}</td>
+											<td class="hidden-phone">{{item.basic.CoatingSystem}}</td>
+												
+											<td class="hidden-phone"><span ng-class="{'label-warning':item.basic.Status==='pending','label-success':item.basic.Status==='complete','label-danger':item.basic.Status==='failed'}" 
+												class="label">{{item.basic.Status}}</span>
+												
+												</td>
+												<td class="center">
+													<!-- <button class="btn btn-default fa fa-pencil btn-sm" ng-click="editresult('edit',item.Id)"></button>	
+												 -->	
+												 <div class="btn-group" role="group" aria-label="...">
+												  <button ng-if="item.basic.Status==='complete'" ng-click="viewcertificate('lg',item)" class="btn btn-default btn-sm fa fa-certificate"></button>
+			
+												 <button   class="btn btn-default  btn-sm" data-toggle="tooltip" data-placement="top" title="view" ng-click="showsst('lg',item)" ><i class="fa fa-eye"></i></button>
+<button  class="btn btn-default  btn-sm" ng-click="editresult('edit',item.Id)" data-toggle="tooltip" data-placement="top" title="edit"><i class="fa fa-pencil"></i> </button>													
+			<button    class="btn btn-danger fa fa-trash-o btn-sm " ng-click="deletecontsst('confirm',item)" data-toggle="tooltip" data-placement="top" title="delete" ></button>	
+			</div>
+												
+				<button  ng-if="item.basic.Status !='pending' && permissions[15].A==='true' && item.basic.ApprovedBy ===''" class="btn btn-default fa fa-check btn-sm pull-right" ng-click="approvecontsst('confirm',item)"> Approve</button>	
+	<span ng-if=" permissions[15].A==='true' && item.basic.ApprovedBy !=''" ng-class="{'label-success':item.basic.ApprovedBy !=''}" class="label pull-right">Approved</span>			
+	
+	</td>
+
+												</td>
+											</tr>
+											<tr class="animate-repeat text-center" ng-if="results.length === 0">
+      <td colspan="9">No results found...</td>
+    </tr>
+											
+											
+								</tbody>
+</table>
+<dir-pagination-controls on-page-change="getdata(newPageNumber)"></dir-pagination-controls>		
+</div>
+
+			</div>				
+			</div>
+		</div>
+	</div>
+	
+	
+ <script type="text/ng-template" id="sstviewContent.html">
+        <div class="modal-header non-printable">
+           CONTINUOUS SST REPORT
+         <button type="button" class="close" ng-click="cancel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body" id="printThisElement">
+		
+		
+		  	<table class="table table-bordered printable"  style="font-size:13px;"  >
+					<tbody>
+					<tr>
+						<td rowspan="4" colspan="4" style="text-align:center">
+						<img ng-if="!nablview" src="img/logo.jpg" alt="RFI logo" style="width:80px;height:80px;">
+						<img ng-if="nablview" src="img/nabllogo.jpg" alt="NABL Logo" style="width:80px;height:80px;">
+						</td>
+						<td rowspan="4" colspan="5" style="text-align:center">
+						<img ng-if="nablview" src="img/logo.jpg" alt="RFI logo" style="width:50px;height:50px;">
+						<h4 style="margin-top: 5px;margin-bottom: 5px;"><b>RANDACK FASTENERS INDIA PVT.LTD.</b><br>(Material Testing Lab)</h4></td>
+						<td colspan="3" style="width:200px;padding:4px;font-size:12px;">Format No: RFI/LAB/F/17</td>
+					</tr>
+					<tr>
+						<td colspan="3" style="width:200px;padding:4px;font-size:12px;">Rev. 02</td>
+					</tr>
+					<tr>
+						<td colspan="3" style="width:200px;padding:4px;font-size:12px;">Rev Date 16/01/2017</td>
+					</tr>
+						<tr>
+						<td colspan="3" style="width:200px;padding:4px;font-size:12px;">PageNo - 01 of 02</td>
+					</tr>
+				
+			
+					<tr>
+						<td class="text-center" colspan="12"><h5><b>CONTINUOUS SALT SPARY TEST REPORT</b></h5></td>
+					</tr>
+					<tr>
+						<td colspan="7"><b>Test Report No. :</b> {{sst.basic.ReportNo}}</td>
+						<td colspan="5"><b>Report Date : </b> {{sst.basic.ReportDate | date :  "dd.MM.y"}}</td>
+					</tr>
+					<tr>
+						<td colspan="7"><b>Batch No. :</b>{{sst.basic.BatchNo}}</td>
+						<td colspan="5"><b>Lab No. : </b> {{sst.basic.LabNo}}</td>
+					</tr>
+					<tr>
+						<td colspan="7"><b>Sample Receipt on :</b> {{sst.basic.ReceiptOn}}</td>
+						<td colspan="5"><b>Ref. Std. : </b> {{sst.basic.RefStd}}</td>
+					</tr>
+					<tr>
+						<td colspan="7"><b>Coating System :</b> {{sst.basic.CoatingSystem}}</td>
+						<td colspan="5"></td>
+					</tr>
+					<tr>
+						<td colspan="12"><span editable-text="sst.basic.CustomerName" e-label="CustomerName :"  ><b>Customer : </b><span class="text-info"> {{sst.basic.CustomerName || '' }}</span></span></td>
+						
+					</tr>
+					<tr>
+						<td colspan="12"><b>Sample Description :</b> {{sst.basic.Sample}}</td>
+						<!-- <td colspan="8">{{sst.basic.Sample}}</td> -->
+					</tr>
+					<tr>
+						<td colspan="4" rowspan="5"><b>Test Condition :</b> </td>
+						<td colspan="4"><b>Test Loading Date :</b> {{sst.basic.LoadingDate | date :  "dd.MM.y"}} {{sst.basic.LoadTime}}</td>
+						<td colspan="4"><b>Test completed Date :</b> {{sst.basic.CompleteDate | date :  "dd.MM.y"}} {{sst.basic.UnloadTime}}</td>
+					</tr>
+					<tr>
+						<td colspan="4"><b>Salt Soln. Conc. :</b> {{sst.basic.SaltSolnConc}}</td>
+						<td colspan="4"><b>Fog Collection :</b> {{sst.basic.FogCollection}}</td>
+					</tr>
+					<tr>
+						<td colspan="4"><b>Chember Temperature :</b> {{sst.basic.ChemberTemp}}</td>
+						<td colspan="4"><b>Test Duration :</b> {{sst.basic.TestDuration}}</td>
+					</tr>
+					<tr>
+						<td colspan="4"><b>pH of test Soln. : </b> {{sst.basic.PhTestSoln}}</td>
+						<td colspan="4"><b>pH of Collected Sample:</b> {{sst.basic.PhCollectedSample}}</td>
+					</tr>
+					<tr>
+						<td colspan="4"><b>Angle :</b> {{sst.basic.Angle}}</td>
+						<td colspan="4"><b>Interval of Inspection:</b> {{sst.basic.Interval}}</td>
+					</tr>
+					<tr>
+						<td colspan="12" Class="text-center"><b>Observation Sheet</b> </td>
+					</tr>
+					
+					<tr class="active text-center" >
+					<small>	
+						<!-- <td colspan="1" style="width:85px;"><b>Duration of SST(Hrs)</b></td>
+						<td colspan="1"style="width:90px;"><b>Date</b></td>
+						<td colspan="3" style="width:350px;"><b>Observation</b></td>
+						<td colspan="1" style="width:120px;"><b>Sign</b></td>
+						<td colspan="1" style="width:80px;"><b>Duration of SST(Hrs)</b></td>
+						<td colspan="1" style="width:90px;"><b>Date</b></td>
+						<td colspan="3" style="width:300px;"><b>Observation</b></td>
+						<td colspan="1" style="width:100px;"><b>Sign</b></td></small> -->
+						
+						<td colspan="1" ><b>Duration of SST(Hrs)</b></td>
+						<td colspan="1"><b>Date</b></td>
+						<td colspan="3" ><b>Observation</b></td>
+						<td colspan="1" ><b>Sign</b></td>
+						<td colspan="1" ><b>Duration of SST(Hrs)</b></td>
+						<td colspan="1" ><b>Date</b></td>
+						<td colspan="3" ><b>Observation</b></td>
+						<td colspan="1"><b>Sign</b></td></small>
+					</tr>
+					<tr class="text-center" ng-repeat="item in sst.observations1">
+					
+						<td colspan="1" style="font-size:12px;padding:4px;">{{item.Duration}}</td>
+						<td colspan="1" style="font-size:12px;padding:4px;">{{item.OnDate | date :  "dd.MM.y"}}</td>
+						
+						<td colspan="3" class="text-left" style="font-size:12px;">
+												
+								<label ng-if="item.White==='true'">White rust observed<br></label>
+								<label ng-if="item.White===''"><s>White rust observed</s><br></label>
+								<label ng-if="item.NoWhite==='true'">No White rust observed<br></label>
+								<label ng-if="item.NoWhite===''"><s>No White rust observed</s><br></label>
+								<label ng-if="item.Red==='true'">Red rust observed<br></label>
+								<label ng-if="item.Red===''"><s>Red rust observed</s><br></label>
+								<label ng-if="item.NoRed==='true'">No Red rust observed<br></label>
+								<label ng-if="item.NoRed===''"><s>No Red rust observed</s><br></label>
+													
+					</td>
+					<td colspan="1"   style="vertical-align:middle;width:101px;padding:4px;">
+			
+						<img  ng-if="item.Status !='Pending'" ng-src="{{sst.basic.TestSign}}" style="height:45px;width:95px;" alt="{{sst.basic.TestedBy}}"/>
+			</td>
+						<td colspan="1" style="font-size:12px;padding:4px;">{{sst.observations2[$index].Duration}}</td>
+						<td colspan="1" style="font-size:12px;padding:4px;">{{sst.observations2[$index].OnDate | date :  "dd.MM.y"}}</td>
+						
+						<td colspan="3" class="text-left" style="font-size:12px;">
+							
+								<label ng-if="sst.observations2[$index].White==='true'">White rust observed<br></label>
+								<label ng-if="sst.observations2[$index].White===''"><s>White rust observed</s><br></label>
+								<label ng-if="sst.observations2[$index].NoWhite==='true'">No White rust observed<br></label>
+								<label ng-if="sst.observations2[$index].NoWhite===''"><s>No White rust observed<br></s></label>
+								<label ng-if="sst.observations2[$index].Red==='true'">Red rust observed<br></label>
+								<label ng-if="sst.observations2[$index].Red===''"><s>Red rust observed</s><br></label>
+								<label ng-if="sst.observations2[$index].NoRed==='true'">No Red rust observed<br></label>
+								<label ng-if="sst.observations2[$index].NoRed===''"><s>No Red rust observed</s><br></label>
+							
+					</td>
+					<td colspan="1"   style="vertical-align:middle;padding:4px;">
+			
+						<img  ng-if="sst.observations2[$index].Status !='Pending'" ng-src="{{sst.basic.TestSign}}" style="height:45px;width:95px;" alt="{{sst.basic.TestedBy}}"/>
+			</td>
+					</tr>
+					
+					<tr>
+						<td class="col-md-1 text-right active"><b>Remark :</b></td><td colspan="11"><strong ng-if="sst.basic.Remark==='passed'"> Satisfactory</strong></td>
+					</tr>
+				
+					<tr>
+					<td style="vertical-align:top;border-bottom:0px solid;"  colspan="12" >
+					<strong>NOTE:</strong><br>
+					 
+					<p  class="" ng-bind-html="sst.basic.Note">
+						
+					  </p>
+
+
+					</td>
+					</tr>
+					
+								<tr >
+			<td colspan="6" rowspan="2"  style="vertical-align:middle;">
+			<span class="pull-left">
+			<b>Tested By<br>
+			(Technician)</b></span>
+			<span class="" ><label ng-if="!sst.basic.TestSign" >{{sst.basic.TestedBy}}</label>
+			<img ng-if="sst.basic.TestSign" ng-src="{{sst.basic.TestSign}}" style="height:65px;width:160px;padding-left:20px;" alt="{{sst.basic.TestedBy}}"/></span>
+			</td>
+			<td colspan="6" rowspan="2" style="vertical-align:middle;" >
+			<span class="pull-left">
+			<b>Authorised Signature<br>
+			(Technical Manager)</b> </span>
+			<span class="" ><label ng-if="!sst.basic.ApprovedSign" >{{sst.basic.ApprovedBy}}</label>
+			<img ng-if="sst.basic.ApprovedSign" ng-src="{{sst.basic.ApprovedSign}}" style="height:65px;width:160px;padding-left:20px;" alt="{{sst.basic.ApprovedBy}}"/></span>
+			</td>
+
+			</tr>
+				</tbody>
+				</table>
+		
+          
+		</div>
+        <div class="modal-footer">
+		<span class="checkbox pull-left">
+        <label>
+          <input type="checkbox" ng-model="nablview"> NABL View
+        </label>
+      </span>
+			<button   ng-if="permissions[15].Print==='true'"  class="btn btn-primary"ng-click="printDiv('printThisElement')"><i class="fa fa-print"></i> Print</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+	
+	
+	
+	<script type="text/ng-template" id="deleteModal"  data-keyboard=false>
+<div class="modal-content">
+            
+                <div class="modal-header dialog-header-confirm">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="closeconfirmModal()" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-check"></span> Confirm Delete</h4>
+                </div>
+            
+                <div class="modal-body">
+                    <p>You are about to delete CONTINUOUS SALT SPARY TEST REPORT <strong>{{Temp}}</strong>, this procedure is irreversible.</p>
+                    <p>Do you want to proceed?</p>
+                 </div>
+                
+                <div class="modal-footer">
+                  <button class="btn btn-danger" ng-disabled="oneclick" data-ng-click="deletecontsst('delete',did)">Delete</button>
+		<button type="button" class="btn btn-default" ng-click="closeconfirmModal()">Cancel</button>
+                </div>
+            </div>
+</script>
+	
+	<script type="text/ng-template" id="approveModal"  data-keyboard=false>
+<div class="modal-content">
+            
+                <div class="modal-header dialog-header-confirm">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="closeconfirmModal()" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-check"></span> Approve Test</h4>
+                </div>
+            
+                <div class="modal-body">
+                    <p>You are about to approve <strong>{{Test}}</strong>, Continuos salt spray test. </p>
+                    <p>Do you want to proceed?</p>
+                 </div>
+                
+                <div class="modal-footer">
+                  <button class="btn btn-danger" ng-disabled="oneclick" data-ng-click="approvecontsst('approve',did)">Approve</button>
+		<button type="button" class="btn btn-default" ng-click="closeconfirmModal3()">Cancel</button>
+                </div>
+            </div>
+</script>
+
+<script type="text/ng-template" id="sstcertContent.html">
+        <div class="modal-header">
+         SALT SPRAY TEST COMPLETION CERTIFICATE
+         <button type="button" class="close" ng-click="cancelcert()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body" id="printThisElement">
+          	<table class="table table-bordered"  style="font-size:13px;">
+				<thead>
+					<tr>
+						<td rowspan="4" colspan="2" style="text-align:center">
+							<img ng-if="!nablview" src="img/logo.jpg" alt="RFI logo" style="width:80px;height:80px;">
+						<img ng-if="nablview" src="img/nabllogo.jpg" alt="NABL Logo" style="width:80px;height:80px;"></td>
+						<td rowspan="4" colspan="5" style="text-align:center;vertical-align:middle;">
+						<img ng-if="nablview" src="img/logo.jpg" alt="RFI logo" style="width:50px;height:50px;">
+						<h4 style="margin-top: 5px;margin-bottom: 5px;"><b>SALT SPRAY TEST COMPLETION CERTIFICATE</b></h4></td>
+						<td colspan="2" style="padding:4px;font-size:12px;">Format No: F/LAM/CSST</td>
+					</tr>
+					<tr>
+						<td colspan="2" style="padding:4px;font-size:12px;">Rev. 02</td>
+					</tr>
+					<tr>
+						<td colspan="2" style="padding:4px;font-size:12px;">Rev. Date: 16/01/2017</td>
+					</tr>
+					<tr>
+						<td colspan="2" style="padding:4px;font-size:12px;">Page: 1 of 1</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+					<td colspan="6">
+						To,<br>
+						<b>{{sstcert.basic.CustomerName}}</b>
+					</td>
+					<td colspan="3">
+						<b>Date: {{sstcert.basic.CompleteDate}}</b>
+					</td>
+					</tr>
+					<tr>
+						<td colspan="6">
+							<h5>Salt Spray Chamber Details</h5>
+							<h6>MAKE- Liebisch</h6>
+							<h6><b>LABORTECHNIK</b></h6>
+							<h6><em>Gebr Liebisch GmbH & Co</em></h6>
+							<h6>Capacity- 1000ltrs</h6>
+						</td>
+						<td colspan="3">
+							<br>
+							<b>Serial No.: PM-LAM-19 </b>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="9">Neutral Salt Spray Test was conducted as per DIN EN ISO 9227 & test results are as follows:-</td>
+					</tr>
+					<tr>
+						<td><b>Sr.No.</b></td>
+						<td><b>Component tested for SST</b></td>
+						<td><b>Lab No.</b></td>
+						<td><b>Batch No.</b></td>
+						<td><b>Component loaded for SST on</b></td>
+						<td><b>No. of samples</b></td>
+						<td colspan="2">Observation after completion of<b> {{sstcert.basic.TestDuration}} hrs.</b> of Salt Spray Test duration(As per ISO 10683)</td>
+						<td><b>Remarks</b></td>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>{{sstcert.basic.Sample}}</td>
+						<td style="min-width:100px;">{{sstcert.basic.LabNo}}</td>
+						<td style="min-width:100px;">{{sstcert.basic.BatchNo}}</td>
+						<td>{{sstcert.basic.LoadingDate}}</td>
+						<td>1 Nos.</td>
+						<td colspan="2">No red rust observed till the completion of {{sstcert.basic.TestDuration}} hrs. on the sample. Test discountinued On-{{sstcert.basic.CompleteDate}}</td>
+						<td>{{sstcert.basic.Remark}}</td>
+					</tr>
+					<tr>
+						<td colspan="5" class="text-center" >
+						<span class="" >
+						<label ng-if="!sstcert.basic.TestSign" >{{sstcert.basic.TestedBy}}</label>
+					<img ng-if="sstcert.basic.TestSign" ng-src="{{sstcert.basic.TestSign}}" style="height:65px;width:160px;padding-left:20px;" alt="{{sstcert.basic.TestedBy}}"/></span>
+			</td>
+						<td colspan="4" >For Randack Fasteners India Pvt. Ltd.,<br><br>
+						
+						<span class="" ><label ng-if="!sstcert.basic.ApprovedSign" >{{sstcert.basic.ApprovedBy}}</label>
+			<img ng-if="sstcert.basic.ApprovedSign" ng-src="{{sstcert.basic.ApprovedSign}}" style="height:65px;width:160px;padding-left:20px;" alt="{{sstcert.basic.ApprovedBy}}"/></span>
+			
+						
+						<br>
+						Authorised signatory Delta Coating Plant
+						</td>
+					</tr>
+					<tr>
+						<td colspan="9"><b>Ref :</b> {{sstcert.basic.Ref}}</td>
+						</tr>
+				</tbody>
+			</table>
+		</div>
+        <div class="modal-footer">
+		<span class="checkbox pull-left">
+        <label>
+          <input type="checkbox" ng-model="nablview"> NABL View
+        </label>
+      </span>
+			<button   ng-if="permissions[15].Print==='true'"  class="btn btn-primary"ng-click="printDiv('printThisElement')"><i class="fa fa-print"></i> Print</button>
+            <button class="btn btn-warning" type="button" ng-click="cancelcert()">Cancel</button>
+        </div>
+    </script>

@@ -1,0 +1,296 @@
+<style>
+.form-control {
+padding:5px 8px;
+}
+
+.sml{
+color:#DFDDDF;
+}
+</style>
+<div class="row " >
+	
+	
+	<div class="col-md-12" style="margin-top:20px;">
+		<div class="card card-default">
+			
+			<div class="card-body">
+			<div class="row">
+			
+			
+				
+				<div class="col-md-12 p-2">
+				<button class="btn btn-primary"  ui-sref="app.addtestrate"><i class="fa fa-plus"></i> New Test Master</button>
+				</div>
+				</div>
+			<div class="row">
+			
+			
+				
+				<div class="col-md-12">
+				<table class="table col-md-12 table-bordered table-hover table-sm">
+				<thead class="table-info">
+				<tr class="fw-bold text-left">
+					<th class="text-center" style="width:10px">#</th>
+					
+					<th class="text-left">TestName</th>
+						
+					<th class="text-left">Industries</th>
+					<th class="text-left">Cost in {{appset.Currency}} 
+					</th>
+					<!-- <th class="text-center">Qty</th> -->
+				
+					<th class="text-left">FormatNo</th>
+					<th class="text-left">Rev Date</th>
+					<th class="text-left">Rev No</th>
+					<!-- <th class="text-left">Image</th> -->
+					<th class="text-left">Status</th>
+					<th class="text-left " style="width:150px">Action</th>
+					</tr>
+					</thead>
+					<tbody class="table-group-divider">
+							
+					<tr class="text-left align-middle" 
+					pagination-id="testmaster" dir-paginate="item in results =(alltests | filter:searchstring )| itemsPerPage: pageSize" current-page="currentPage"		 >
+					<td>	{{($index+1)+((currentPage-1)*pageSize) }}			</td>					 
+					<td>{{item.TestName}}	</td>				
+					<td>{{item.Industry}}	</td>
+					<td><i class="fa {{appset.CurrencyIcon}}"></i> {{item.Cost}}	</td>	
+					<!-- <td>{{item.Qty}}	</td> -->
+					
+						<td>{{item.FormatNo}}	</td>
+							<td>{{item.RevDate}}	</td>
+								<td>{{item.RevNo}}	</td>
+									<!-- <td><img ng-src="{{item.Img.url}}" class="img-responsive" style="height:50px;">	</td> -->
+										<td><span ng-if="item.Status===1" class="badge text-bg-success">Active </span>	
+										<span ng-if="item.Status===0" class="badge text-bg-secondary">Inactive </span>	
+										</td>
+					<td class="center">
+				<button  class="btn btn-default  btn-sm" 
+						ng-click="viewtestrate(item)"><i class="fa fa-info-circle"></i></button>	
+						<button  class="btn btn-default  btn-sm" 
+						ui-sref="app.edittestrate({id:item.Id})"><i class="fa fa-pencil"></i></button>	
+						
+					</td>
+					</tr>	
+					<tr  class="text-center" ng-if="alltests.length <1">
+				<td colspan="4"><strong>No results found...</strong></td>
+			</tr>
+									
+					</tbody>
+				</table>
+				
+				<dir-pagination-controls pagination-id="testmaster" ></dir-pagination-controls>
+			
+			
+			</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+	
+	
+	
+	
+	
+
+</div>
+
+
+		
+
+<script type="text/ng-template" id="testrateviewModal.html">
+        <div class="modal-header">
+         Test Rate  
+			 <button type="button" class="close" ng-click="closetestviewModal()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+		
+		<div class="row">
+		<div class="col-sm-12">
+		
+		<table class="table table-bordered table-sm">
+		<tr>
+		<td>Industry : {{info.Industry}}</td>
+		<td >Test Name : {{info.TestName}}</td>
+		<td >Status : {{info.Status}}</td>
+		</tr>
+		<tr>
+		<td>Keyword : {{info.Keyword}}</td>
+		<td>Price: {{info.Price}}</td>
+		<td>Quantity: {{info.Qty}}</td>
+		</tr>
+		<tr>
+		<td>FormatNo : {{info.FormatNo}}</td>
+		<td>RevDate: {{info.RevDate}}</td>
+		<td>RevNo: {{info.RevNo}}</td>
+		</tr>
+		<tr>
+		<td colspan="3">
+		<div class="card shadow-none">
+		<div class="card-header p-2 bg-light">
+		<h5 class="m-0" >Basic Parameters</h5>
+		</div>
+		<div class="card-body p-0">
+		
+		<table class="table  table-bordered table-sm mb-0">
+				<thead class="table-light">
+					<th class="text-center" style="width:10px">#</th>
+					
+					<th class="text-center">Parameter</th>
+				<th class="text-center">UID</th>
+					<th class="text-center">Unit</th>
+					<th class="text-center">Value Type</th>
+					<th class="text-center">SeqNo</th>
+					
+					
+					</thead>
+					<tbody>
+							
+					<tr class="text-center" ng-repeat="item in info.testbasicparams track by $index" >
+					<td >
+						{{$index+1 }}
+					</td>
+					 
+					<td>{{item.Parameter}}	</td>
+				<td>{{item.PSymbol}}	</td>
+					<td>{{item.PUnit}}	</td>
+					<td><span ng-if="item.PDType==='N'">Numeric</span>
+					<span ng-if="item.PDType==='T'">Text</span>
+					<span ng-if="item.PDType==='L'">List <span > - {{item.LCategory}}</span></span>
+					<span ng-if="item.PDType==='D'">Date</span>	</td>
+				<td>{{item.SeqNo}}	</td>
+						
+								
+					
+					</tr>	
+					<tr  class="text-center" ng-if="info.testbasicparams.length <1">
+				<td colspan="4"><strong>No Basic parameter available.</strong></td>
+			</tr>
+									
+					</tbody>
+				</table>
+		</div>
+</div>		
+		</td>
+		</tr>
+		
+		<tr>
+		<td colspan="3">
+		<div class="card shadow-none">
+		<div class="card-header p-2 bg-light">
+		<h5 class="m-0" >Observatory Parameters Category</h5>
+		</div>
+		<div class="card-body p-0">
+		<table class="table mb-0 table-bordered table-sm">
+				<thead class="table-light">
+					<th class="text-center" style="width:10px">#</th>
+					
+					<th class="text-center">Category</th>
+					
+					
+					</thead>
+					<tbody>
+							
+					<tr class="text-center" ng-repeat="item in info.testparamcats track by $index" >
+					<td >
+						{{$index+1 }}
+					</td>
+					 
+					<td>{{item.CatName}}	</td>
+					
+						
+							
+								
+					
+					</tr>	
+					<tr  class="text-center" ng-if="info.testparamcats.length <1">
+				<td colspan="4"><strong>No results found...</strong></td>
+			</tr>
+									
+					</tbody>
+				</table>
+		</div>
+</div>		
+		</td>
+		</tr>
+		
+		<tr>
+		<td colspan="3">
+		<div class="card shadow-none">
+		<div class="card-header p-2 bg-light">
+		<h5 class="m-0" >Observatory Parameters</h5>
+		</div>
+		<div class="card-body p-0">
+		<table class="table mb-0 table-bordered table-sm">
+				<thead class="table-light">
+					<th class="text-center" style="width:10px">#</th>
+					
+					<th class="text-center">Param</th>
+					<th class="text-center">UID/Symbol</th>
+					<th class="text-center">Unit</th>
+					<th class="text-center">Value Type</th>
+					<th class="text-center">Category</th>	
+					<th class="text-center">IsNABL</th>	
+<th class="text-center">Cost</th>						
+					<th class="text-center">SeqNo</th>	
+					</thead>
+					<tbody>
+							
+					<tr class="text-center" ng-repeat="item in info.testobsparams track by $index" >
+					<td >
+						{{$index+1 }}
+					</td>
+					 
+					<td>{{item.Parameter}}	</td>
+					<td>{{item.PSymbol}}	</td>
+					<td>{{item.PUnit}}	</td>
+					<td>{{item.PDType}}	</td>
+					<td>{{item.PCat.CatName}}	</td>
+					<td>{{item.ISNABL}}	</td>
+					<td>{{item.Cost}}	</td>
+						<td>{{item.SeqNo}}	</td>
+							
+					
+					</tr>	
+					<tr  class="text-center" ng-if="info.testobsparams.length <1">
+				<td colspan="4"><strong>No results found...</strong></td>
+			</tr>
+									
+					</tbody>
+				</table>
+			</div>
+</div>			
+		</td>
+		</tr>
+		<tr>
+		<td colspan="3">
+		Note: <p ng-bind-html="info.DefaultNote"></p>
+		</td>
+		</tr>
+		
+		<tr>
+		<td colspan="3">
+		MachinePath: <p ng-bind-html="info.MachinePath"></p>
+		</td>
+		</tr>
+		
+		<tr>
+		<td colspan="3">
+		Image/Icon: <img ng-src="{{info.Img.url}}" style="height:80px;weight:80px;">
+		</td>
+		</tr>
+		</table>
+		
+		</div>
+		</div>
+		
+			
+			
+        </div>
+        <div class="modal-footer">
+        
+        </div>
+    </script>
+		
+		

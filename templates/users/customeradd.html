@@ -1,0 +1,125 @@
+					
+
+<div class="modal-body card" style="padding:0px;" >
+
+<div class="card-header modal-header col-sm-12 bg-primary rounded-0" >
+	
+    <h4><i class="fa fa-plus-circle"></i>
+	<span ng-if="!editflag">Add Customer</span>
+	<span ng-if="editflag">Edit Customer</span>
+	</h4>
+	<button type="button" class="btn pull-right btn-outline-light" data-dismiss="modal" ng-click="custcancel()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	
+
+</div>
+  
+<div class="card-body">
+<div class="col-sm-12 row" style="margin-top:15px;">
+	
+<form class="form-horizontal" name="customerform"  novalidate>	
+	<div class="form-group row" >
+	
+		<div class=" col-sm-6">
+			<label class="  text-left" for="customerform_name">Customer Name</label>
+		<input  placeholder="Customer Name" ng-disabled="issaving" class="form-control" name="Name" ng-model="customer.Name" 
+		type="text"   ng-minlength=2 required/>
+		
+		<div class="error-container"  ng-show="customerform.Name.$dirty || customerform.Name.$invalid ">
+        <small class="showerror"  ng-show="customerform.Name.$error.required">
+            Customer Name is required.
+        </small>
+        
+        <small class="showerror" ng-show="customerform.Name.$error.minlength">
+            Customer Name cannot be smaller than 2 characters
+        </small>
+		</div>
+	
+		</div>
+		
+
+		
+		<div class=" col-sm-6">
+		<label class=" text-left" for="customerform_name">Customer Email</label>
+		<input  placeholder="Customer Email" ng-disabled="issaving" class="form-control" name="Email" ng-model="customer.Email" 
+		type="email"   />
+		
+		<div class="error-container"  ng-show="customerform.Email.$dirty || customerform.Email.$invalid ">
+        <small class="showerror"  ng-show="customerform.Email.$error.required">
+            Customer Email is required.
+        </small>
+        
+        <small class="showerror" ng-show="customerform.Email.$error.minlength">
+            Customer Email cannot be smaller than 2 characters
+        </small>
+		</div>
+	
+		</div>
+		
+	</div>
+	<div class="form-group " >
+	<div class="col-sm-12">
+	<label> Addresses </label>
+	
+	<table class="table table-bordered table-sm" ng-repeat="address in customer.Addresses">
+	<tr><td > Address {{$index+1}}</td><td><button class="btn btn-link btn-sm" ng-click="deladdress(address,$index)" ><i class="fa fa-close"></i> Delete </button></td></tr>
+	<tr >
+	
+	<td>
+	<div class="form-floating ">
+  <input type="text" class="form-control" id="Name_{{$index}}"  ng-disabled="issaving " name="Name_{{$index}}" ng-model="address.Name"  placeholder="Name ">
+  <label for="Name_{{$index}}">Name</label>
+</div>
+</td>
+<td> <div class="form-floating ">
+  <input type="text" class="form-control" id="Email_{{$index}}"  ng-disabled="issaving " name="Email_{{$index}}" ng-model="address.Email"  placeholder="Email ">
+  <label for="Email_{{$index}}">Email</label>
+</div>
+</td>
+</tr>
+<tr >
+<td colspan="2"> <div class="form-floating ">
+  <textarea rows="3" type="text" class="form-control" id="Address_{{$index}}"  ng-disabled="issaving " name="Address_{{$index}}" ng-model="address.Address"  placeholder="Address "></textarea>
+  <label for="Address_{{$index}}">Address</label>
+</div>
+</td>
+</tr>
+<tr >
+<td> 
+<div class="form-floating ">
+  <input type="text" class="form-control" id="ContactNo_{{$index}}"  ng-disabled="issaving " name="ContactNo_{{$index}}" ng-model="address.ContactNo"  placeholder="ContactNo ">
+  <label for="ContactNo_{{$index}}">ContactNo</label>
+</div></td>
+<td> 
+<div class="form-floating ">
+  <input type="text" class="form-control" id="ContactPerson_{{$index}}"  ng-disabled="issaving " name="ContactPerson_{{$index}}" ng-model="address.ContactPerson"  placeholder="Contact Person ">
+  <label for="ContactPerson_{{$index}}">Contact Person Name</label>
+</div></td>
+
+	</tr>
+	
+	</table>
+	</div>
+	</div>
+	<div class="form-group " >
+	<button class="btn btn-primary" ng-click="addaddress()"> Add Address</button>
+	</div>
+		
+	
+</form>
+</div>
+<toaster-container toaster-options="{'position-class': 'toast-bottom-full-width'}"></toaster-container>
+
+</div>
+<!--Panel body-->
+
+<div class="card-footer  " style="background-color:#D9EDF7;padding:2px 5px;">
+	<div class=" text-center " style="padding:10px 2px;">
+		<button class="btn btn-secondary" ng-click="custcancel()">Cancel</button>
+		<button  ng-disabled="issaving || customerform.$invalid" ng-click="customerform.$valid && savecustomer(customer)"   class="btn btn-primary" style=" padding:5px 15px 5px 15px;">
+		<span ng-if="!editflag">Save</span>
+		<span ng-if="editflag">Update</span>  <i class="fa fa-chevron-circle-right fa-lg" style="color:#A8C539;"></i></button>
+	
+
+	</div>
+</div>
+</div>

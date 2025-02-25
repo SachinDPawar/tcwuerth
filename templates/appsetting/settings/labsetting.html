@@ -1,0 +1,124 @@
+
+  <div class="tab-pane " id="nav-quote" role="tabpanel" aria-labelledby="nav-quote-tab" tabindex="0">
+  <div class="card">
+  <div class="card-body">
+	
+	<form name="labform" novalidate>
+		<div class="form-group row">
+		
+			<div class="col-md-3 col-sm-3 ">
+			<label  class="control-label">LabNoStart</label>
+			<input type="text" class="form-control" id="LabNoStart"  name="LabNoStart" ng-disabled="ds.labseteditflag"  ng-model="labset.LabNoStart" placeholder="LabNo Start">
+			</div>
+			
+			
+			<div class="col-md-3 col-sm-3 ">
+			<label  class="control-label">BatchCodeStart</label>
+			<input type="text" class="form-control" id="BatchCodeStart"  name="BatchCodeStart" ng-disabled="ds.labseteditflag"  ng-model="labset.BatchCodeStart" placeholder="BatchCode Start">
+			</div>
+			
+			<div class="col-md-3 col-sm-3 ">
+			<label  class="control-label">TestNoStart</label>
+			<input type="text" class="form-control" id="TestNoStart"  name="TestNoStart" ng-disabled="ds.labseteditflag"  ng-model="labset.TestNoStart" placeholder="TestNo Start">
+			</div>
+			
+			<div class="col-md-3 col-sm-3 ">
+			<label  class="control-label">ULRNoStart</label>
+			<input type="text" class="form-control" id="ULRNoStart"  name="ULRNoStart" ng-disabled="ds.labseteditflag"  ng-model="labset.ULRNoStart" placeholder="ULRNo Start">
+			</div>
+		</div>
+		
+		<div class="form-group row">
+		
+			<div class="col-md-3 col-sm-3 ">
+			<label  class="control-label">Last LabNo</label>
+			<input type="text" class="form-control" id="LastLabNo"  name="LastLabNo" ng-disabled="ds.labseteditflag"  ng-model="labset.LastLabNo" placeholder="Last LabNo">
+			</div>
+			
+			<div class="col-md-3 col-sm-3 ">
+			<label  class="control-label">Last BatchCode</label>
+			<input type="text" class="form-control" id="LastBatchCode"  name="LastBatchCode" ng-disabled="ds.labseteditflag"  ng-model="labset.LastBatchCode" placeholder="Last BatchCode">
+			</div>
+			
+			<div class="col-md-3 col-sm-3 ">
+			<label  class="control-label">Last TestNo</label>
+			<input type="text" class="form-control" id="LastTestNo"  name="LastTestNo" ng-disabled="ds.labseteditflag"  ng-model="labset.LastTestNo" placeholder="Last TestNo">
+			</div>
+			
+			
+			
+			<div class="col-md-3 col-sm-3 ">
+			<label  class="control-label">Last ULRNo</label>
+			<input type="text" class="form-control" id="LastULRNo"  name="LastULRNo" ng-disabled="ds.labseteditflag" ng-model="labset.LastULRNo" placeholder="Last ULRNo">
+			</div>
+		</div>
+		
+		<div class="form-group row">
+		
+			
+			<div class="col-md-12 col-sm-12">
+			<label  class=" control-label">Default Test Note</label>
+			<!-- <textarea rows="6" class="form-control" ng-disabled="oneclick" id="DefaultNote" name="DefaultNote" ng-model="setdefault.DefaultNote" placeholder="Default Note"></textarea> -->
+			<div text-angular class="form-control"  ng-disabled="ds.labseteditflag" id="DefaultTestNote" name="DefaultTestNote" ng-model="labset.DefaultTestNote"></div>
+						
+			</div>
+		
+		</div>
+		
+		<div class="form-group row">
+		
+			
+			<div class="col-md-12 col-sm-12">
+			<label  class=" control-label">Default NABL Test Note</label>
+			<!-- <textarea rows="6" class="form-control" ng-disabled="oneclick" id="DefaultNote" name="DefaultNote" ng-model="setdefault.DefaultNote" placeholder="Default Note"></textarea> -->
+			<div text-angular class="form-control"  ng-disabled="ds.labseteditflag" id="DefaultNABLNote" name="DefaultNABLNote" ng-model="labset.DefaultNABLNote"></div>
+						
+			</div>
+		
+		</div>
+		
+		
+		<div class="form-group row">
+		
+			
+			<div class="col-md-12 col-sm-12">
+			<label  class=" control-label">Default Non NABL Note</label>
+			<!-- <textarea rows="6" class="form-control" ng-disabled="oneclick" id="DefaultNote" name="DefaultNote" ng-model="setdefault.DefaultNote" placeholder="Default Note"></textarea> -->
+			<div text-angular class="form-control"  ng-disabled="ds.labseteditflag" id="DefaultNonNABLNote" name="DefaultNonNABLNote" ng-model="labset.DefaultNonNABLNote"></div>
+						
+			</div>
+		
+		</div>
+			<div class="form-group row">
+		
+			
+			<div class="col-md-12 col-sm-12">
+			<label  class=" control-label">Default EIC Test Note</label>
+			<!-- <textarea rows="6" class="form-control" ng-disabled="oneclick" id="DefaultNote" name="DefaultNote" ng-model="setdefault.DefaultNote" placeholder="Default Note"></textarea> -->
+			<div text-angular class="form-control"  ng-disabled="ds.labseteditflag" id="DefaultEICNote" name="DefaultEICNote" ng-model="labset.DefaultEICNote"></div>
+						
+			</div>
+		
+		</div>
+		
+		
+	
+			<hr>	
+		
+		<div class="form-group text-start" >
+		<button type="button" class="btn  btn-primary systmbtn"  ng-click="ds.labseteditflag =  !ds.labseteditflag">
+		<span ng-if="ds.labseteditflag">Edit</span><span  ng-if="!ds.labseteditflag">Cancel</span>
+		 </button>
+		
+		
+			<button type="button" class="btn btn-md btn-success systmbtn" ng-show="!ds.labseteditflag" ng-disabled="oneclick || labform.$invalid" ng-click="savelabinfo(labset)"> <i class="fa fa-save "></i>Update</button>
+		</div>	
+		
+	</form>
+	
+  </div>
+  </div>
+ </div>
+   
+
+ 

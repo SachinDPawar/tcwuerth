@@ -1,0 +1,133 @@
+	<div class="card card-default">
+		<div class="card-header border-bottom border-200 px-0">
+                  <div class="d-lg-flex justify-content-between">
+                    <div class="row flex-between-center gy-2 px-x1">
+                      <div class="col-auto pe-0">
+                        <h6 class="mb-0">Accountability Reports</h6>
+                      </div>
+					    <div class="col-auto"><a class="btn btn-sm btn-falcon-default" ng-click="exportSheetJS(info.allsamples,'sample')" >Export</a></div>
+					</div>
+		</div>  
+		</div>
+		<div class="card-body" style="">	
+		<div class="row p-4">
+<div class=" col-sm-3">
+			
+		<ui-select id="RoleId" class="form-control p-0" style="height:33px;border:0;"  ng-change="getfiltdata(reg)"  
+		ng-model="reg.UserId" name="RoleId"    >
+							<ui-select-match placeholder="Select User">
+							<span ng-bind="$select.selected.Name"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat="item.Id as item in (allusers | filter: $select.search)">
+							<span ng-bind="item.Name"></span><small> ({{item.Role}})</small>
+							</ui-select-choices>
+							</ui-select>
+		
+		
+	
+		</div>
+
+                <div class="col-sm-3">
+				<ui-select id="Filter" ng-model="reg.Filter" name="Filter" ng-change="getfiltdata(reg)" ng-required="true" class="form-control p-0"  >
+							<ui-select-match placeholder="Select Filter Type">
+							<span ng-bind="$select.selected.Name"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat="item.Id as item in (allfilts | filter: $select.search)">
+							<span ng-bind="item.Name"></span>
+							</ui-select-choices>
+							</ui-select>
+				  </div>
+                <div class="col-sm-6">
+				<div class="row" ng-if="reg.Filter==='CD'">
+				<div class="col-md-4  col-xs-12">
+						<label>From Date</label>
+						
+						
+						<div class="input-group ">
+	<input type="text" class="form-control input-sm" ng-click="open1()" uib-datepicker-popup ng-model="reg.From" is-open="popup1.opened" datepicker-options="dateOptions" 
+	close-text="Close"   ng-required="true" >
+	<span class="input-group-btn">
+	<button type="button" class="btn btn-default btn-sm" ng-click="open1()"><i class="fa fa-calendar"></i></button>
+	</span>
+	</div>
+						<small class="text-danger" ng-show="!reg.From">From Date required</small>
+					</div>
+					
+					<div class="col-md-4  col-xs-12">
+						<label>To Date</label>
+						<div class="input-group ">
+	<input type="text" class="form-control input-sm" ng-click="open2()" uib-datepicker-popup ng-model="reg.To" is-open="popup2.opened" datepicker-options="dateOptions" 
+	close-text="Close"   ng-required="true" >
+	<span class="input-group-btn">
+	<button type="button" class="btn btn-default btn-sm" ng-click="open2()"><i class="fa fa-calendar"></i></button>
+	</span>
+	</div>
+						<small class="text-danger" ng-show="!reg.To">To Date required</small>
+					</div>
+					
+					<div class="col-sm-3  col-xs-12 p-4">
+						
+						
+						<button class="btn btn-info" ng-click="getfiltdata(reg)" style="padding:3px 8px;">Apply</button>
+					
+						<button class="btn btn-danger" ng-click="refreshdata()" data-toggle="tooltip" data-placement="bottom" 
+							title="refresh filter" type="button" style="padding:3px 10px;"><i class="fa fa-refresh"></i></button>
+						
+					</div>
+				</div>
+				</div>
+             
+
+</div>		
+<div class="row">
+<div class="col-sm-12 table-responsive">
+			<table class="table table-striped table-bordered table-sm" id="sample_1">
+										<thead>
+											<tr class=" align-middle">
+												<th style="width:8px">#</th>
+												<th>Customer</th>
+												<th>SampleName</th>
+												<th>Industry</th>
+												<th>GeneratedDate</th>
+												<th>Ref Purchase Order</th>
+												<th>LabNo</th>
+												<th>Sample Value</th>
+											<th>Accountability </th>
+											
+												
+											</tr>
+										</thead>
+										<tbody>
+											<tr class="odd gradeX" pagination-id="rirpage" dir-paginate="item in results =( info.allsamples  ) |itemsPerPage: samplepageSize   "   current-page=" samplecurrentPage">
+												<td>{{($index+1)+((currentPage-1)*pageSize) }}</td>
+												<td  >{{item.Customer}}</td>
+												<td>{{item.SampleName}} </td>
+												<td >{{item.Industry}}</td>
+												<td >{{item.GeneratedDate  | date :"dd.MM.y"}}</td>
+												<td>{{item.RefPurchaseOrder}} </td>
+												<td> {{item.LabNo}} 	</td>
+												
+												
+												<td><i class="fa fa-inr"></i>{{item.SampleValue}}</td>
+												<td>{{item.Accountability}}</td>
+												
+												
+											</tr>
+											<tr class="animate-repeat text-center" ng-if="info.allsamples.length === 0">
+      <td colspan="7">No results found...</td>
+    </tr>	
+											
+											
+								</tbody>
+</table>	
+</div>
+</div>
+<dir-pagination-controls pagination-id="rirpage"  ></dir-pagination-controls>
+
+		</div>
+		<div class="card-footer bg-light py-2">
+		<!-- <dir-pagination-controls on-page-change="getallinvoices(newPageNumber)" ></dir-pagination-controls> -->
+
+            </div>
+		</div>
+	

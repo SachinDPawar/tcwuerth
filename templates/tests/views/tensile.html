@@ -1,0 +1,158 @@
+ <table class="table table-bordered" style="font-size:12px;margin-bottom:0px;">
+ 	<thead class="" >
+	<tr style="background:#fff;">
+	<th colspan="3" rowspan="4" style="vertical-align:middle;text-align:center;">							
+	<img  ng-src="{{appset.Applogo}}" style="height:70px;margin-top:16px;padding:2px;">
+	<img ng-if="nablview" src="img/nabllogo.jpg" alt="NABL Logo" style="width:70px;height:70px;margin-top:16px;">
+	</th>
+	<th style="background:#fff;text-align:center !important;" colspan="6" rowspan="4">
+	<div class="" style="min-width:120px;text-align:center;" >										 
+	<div  class="fw-bold" style="font-size:15px;padding:5px;" ng-bind-html="appset.Name"></div>
+	<div style="font-size:11px;" ng-bind-html="appset.Address"></div>									
+	</div>							 
+	</th>						
+	<th colspan="3" style="padding:2px;font-size:10px;text-align:left;">
+	Format No: {{info.FormatNo||'RFI/LAB/F/49'}}
+	</th>
+	</tr>						
+	<tr>
+	<th colspan="3" style="padding:2px;font-size:10px;text-align:left;">Rev No. : {{info.RevNo||'01'}}</th>
+	</tr>
+	<tr>
+	<th colspan="3" style="padding:2px;font-size:10px;text-align:left;">Rev Date: {{info.RevDate||'10.09.2017'}}</th>
+	</tr>
+	<tr>
+	<th colspan="3" style="padding:2px;font-size:10px;text-align:left;">PageNo:- 01 of 01</th>
+	</tr>
+	</thead>	
+				<tbody>
+			
+					<tr>
+						<td colspan="8" rowspan="2" style="padding:4px;" class="text-center"><h5 style="margin-top: 1px;margin-bottom: 1px;">
+						<b>TENSILE TEST REPORT</b></h5></td>
+						<td colspan="4" style="padding:2px;font-size:12px;text-align:left;"><b>ULR No.:</b> {{info.ULRNo}}</td>
+						</tr>
+						<tr>
+						<td colspan="4" style="padding:4px;"><span style="font-size:12px;">Issue Date: {{info.ApprovedDate| date :"dd.MM.y"}}</span></td>
+					</tr>
+					<tr>
+							<td colspan="6" style="padding:4px;"><b>Test Report No.: RFI/TTR/{{info.LabNo}}-{{info.TNo}} </b></td>
+							<td colspan="6" style="padding:4px;"><b>Test Date: {{info.TestDate| date :"dd.MM.y"}}</b></td>
+					</tr>
+					<tr>
+							<td colspan="6" style="padding:4px;"><b>Lab No: {{info.LabNo}}</b></td>
+							<td colspan="6" style="padding:4px;"><b>Batch code: {{info.BatchCode}}<span ng-if='info.BatchNo'>-{{info.BatchNo}}</span></b></td>
+					</tr>
+					
+					<tr>
+							<td colspan="6"style="padding:4px;"><b>Heat No: {{info.HeatNo}}</b></td>
+							<td colspan="6" style="padding:4px;"></td>
+					</tr>
+						
+						<tr>
+							<td colspan="6" style="padding:4px;"><b>Sample Receipt on: {{info.ReceiptOn| date :"dd.MM.y"}}</b></td>
+							<td colspan="6" style="padding:4px;"><b>Customer :{{info.Customer || 'Planning Departement' }}</b></td>
+						</tr>
+						<tr>
+							<td colspan="6" style="padding:4px;"><b>Ref. Std.: {{info.Standard}}</b></td>							
+							<td colspan="6" style="padding:4px;"><b>Test Method : {{info.TestMethod}}</b></td>
+						</tr>
+						
+						
+						<tr ng-repeat="bitem in info.tobbasic | limitTo:Math.ceil(info.tobbasic.length/2)">
+				<td  colspan="6"  style="padding:4px;" >
+				<b>{{info.tobbasic[$index*2].Parameter}}:</b> {{info.tobbasic[$index*2].BValue}}  {{info.tobbasic[$index*2].PUnit}}
+				</td> 
+				<td  colspan="6"  style="padding:4px;" ><span ng-if="$index*2+1 < info.tobbasic.length">
+				<b>{{info.tobbasic[$index*2+1].Parameter}}:</b> {{info.tobbasic[$index*2+1].BValue}} {{info.tobbasic[$index*2+1].PUnit}}
+				</span>
+				</td>
+			</tr>
+						
+			
+				<!---------Observations---------->
+			
+				<tr>
+					<td  colspan="12"  style="padding:0px;">
+					<b style="padding:4px;">Observations</b>
+					
+					
+					<table class="table table-bordered table-condensed table-sm mb-0" ng-repeat="tags in info.observations| groupBy:'CatName' | toArray:true | orderBy:'PCatId' ">
+					<tr ng-if="tags.$key">
+					<td colspan="5"><strong>{{ tags.$key }}</strong></td>
+					</tr>
+					<tr>
+					<td>S/n</td>
+					<td>Parameters</td>
+					<td>Specification Req.</td>					
+					
+					<td class="text-center" >Results</td>
+					</tr>
+					
+					<tr ng-repeat="chem in tags">
+					<td>{{$index+1}}</td>
+					<td>{{chem.Param}} {{chem.PUnit}}</td>
+					
+						<td> 
+						<span ng-if="chem.IsSpec">
+    {{chem.SpecMin}} <span ng-if="chem.SpecMin">Min</span>  
+    <span ng-if="chem.SpecMax && chem.SpecMax > chem.SpecMin"> - {{chem.SpecMax}} Max</span>
+</span>
+						
+						
+					
+						</td>
+				
+					
+						<td class="p-0">
+						
+						<table class="table table-sm mb-0 p-0 table-bordered" style="font-size:12px;font-weight:bold;">
+						
+						<tr >
+						
+						<td ng-repeat="v in chem.Values">{{v.Value}}</td>
+						</tr>
+						</table>
+						</td>
+				
+					</tr>
+					</table>
+					
+					
+					</td>
+									</tr>
+				
+				
+
+
+
+
+				
+<tr ng-if="info.TNote">
+<td colspan="12"><b>Remark :</b><span>{{info.TNote}}</span></td>
+</tr>				
+<tr>
+<td style="vertical-align:top;border-bottom:0px solid;"  colspan="12" >
+<p class="text-center" style="font-size:12px;font-weight:bold;">**** END OF REPORT****</p>
+<strong>NOTE:</strong>					
+<p style="font-size:10px !important;" class="m-0" ng-bind-html="info.Note">  </p>
+</td>
+</tr>
+<tr>
+<td colspan="6"  style="vertical-align:middle;min-height:65px;">
+<span class="pull-left">
+<b>Tested By</b></span>
+<figure class="figure" style="display:inherit;">
+<img ng-if="info.TestSign" ng-src="{{info.TestSign}}"  class="figure-img img-fluid rounded" style="height:60px;width:120px;padding-left:20px;" alt="{{info.TestedBy}}"/>
+<figcaption class="figure-caption text-center" >{{info.TestedBy}}</figcaption></figure>
+</td>
+<td colspan="6"  style="vertical-align:middle;" >
+<span class="pull-left">
+<b>Authorised Signature</b> </span>
+<figure class="figure" style="display:inherit;">
+<img ng-if="info.ApprovedSign" ng-src="{{info.ApprovedSign}}"  class="figure-img img-fluid rounded" style="height:60px;width:120px;padding-left:20px;" alt="{{info.ApprovedBy}}"/>
+<figcaption class="figure-caption text-center">{{info.ApprovedBy}}</figcaption></figure>
+</td>
+</tr>
+</tbody>
+</table> 

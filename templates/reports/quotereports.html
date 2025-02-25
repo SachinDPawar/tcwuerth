@@ -1,0 +1,156 @@
+
+		<div class="card card-default">
+		<div class="card-header border-bottom border-200 px-0">
+                  <div class="d-lg-flex justify-content-between">
+                    <div class="row flex-between-center gy-2 px-x1">
+                      <div class="col-auto ">
+                        <h6 class="mb-0">Quotations </h6>
+						
+                      </div>
+					 <div class="col-auto">
+					 <!-- <a class="btn btn-sm btn-falcon-default" ng-click="exportToExcel('#quotetable')" >Export</a> -->
+					 <a class="btn btn-sm btn-falcon-default" ng-click="exportSheetJS(info.allquotes,'Quotation')" >Export</a>
+					 
+					 </div>
+                        
+                      
+					</div>
+			</div>  
+		</div>
+		<div class="card-body" style="" id="quotetable">
+<div class="row p-4">
+
+
+                <div class="col-sm-3">
+				<ui-select id="Filter" ng-model="reg.Filter" name="Filter" ng-change="getfiltdata(reg)" ng-required="true" class="form-control p-0"  >
+							<ui-select-match placeholder="Select Filter Type">
+							<span ng-bind="$select.selected.Name"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat="item.Id as item in (allfilts | filter: $select.search)">
+							<span ng-bind="item.Name"></span>
+							</ui-select-choices>
+							</ui-select>
+				  </div>
+                <div class="col-sm-8">
+				<div class="row" ng-if="reg.Filter==='CD'">
+				<div class="col-md-4  col-xs-12">
+						<label>From Date</label>
+						
+						
+						<div class="input-group ">
+	<input type="text" class="form-control input-sm" ng-click="open1()" uib-datepicker-popup ng-model="reg.From" is-open="popup1.opened" datepicker-options="dateOptions" 
+	close-text="Close"   ng-required="true" >
+	<span class="input-group-btn">
+	<button type="button" class="btn btn-default btn-sm" ng-click="open1()"><i class="fa fa-calendar"></i></button>
+	</span>
+	</div>
+						<small class="text-danger" ng-show="!reg.From">From Date required</small>
+					</div>
+					
+					<div class="col-md-4  col-xs-12">
+						<label>To Date</label>
+						<div class="input-group ">
+	<input type="text" class="form-control input-sm" ng-click="open2()" uib-datepicker-popup ng-model="reg.To" is-open="popup2.opened" datepicker-options="dateOptions" 
+	close-text="Close"   ng-required="true" >
+	<span class="input-group-btn">
+	<button type="button" class="btn btn-default btn-sm" ng-click="open2()"><i class="fa fa-calendar"></i></button>
+	</span>
+	</div>
+						<small class="text-danger" ng-show="!reg.To">To Date required</small>
+					</div>
+					
+					<div class="col-sm-3  col-xs-12 p-4">
+						
+						
+						<button class="btn btn-info" ng-click="getfiltdata(reg)" style="padding:3px 8px;">Apply</button>
+					
+						<button class="btn btn-danger" ng-click="refreshdata()" data-toggle="tooltip" data-placement="bottom" 
+							title="refresh filter" type="button" style="padding:3px 10px;"><i class="fa fa-refresh"></i></button>
+						
+					</div>
+				</div>
+				</div>
+             
+
+</div>		
+<div class="row">
+<div class="col-sm-12 table-responsive">
+			<table class="table table-bordered table-sm example-animate-container">
+				<thead><tr class="table-light">
+					<th>#</th>
+					<th>Quotation No  </th>
+					<th>Date</th>
+						
+					<th>Customer  </th>
+					<th>Valid Till</th>
+					<th>Particulars  </th>
+					<th>SubTotal</th>	
+					<th>Tax</th>	
+					<th>Total</th>					
+					<th>Assign_To </th>
+					<th>Status</th>		
+                	
+					
+                  
+							
+				</tr>
+				</thead>
+				<tbody>
+				<tr   class="animate-repeat" pagination-id="quote" 
+				dir-paginate="i in  info.allquotes | itemsPerPage: qpageSize"  current-page="qcurrentPage">
+					<td>{{($index+1)+((qcurrentPage-1)*qpageSize) }}</td>
+					
+						<td><span style="color:#000;font-weight:500;">{{i.Quotation_No}}  </span></td>
+						<td>
+					<span style="color:#000;font-weight:500;"> {{i.Date | date:'dd.mm.yy'}}</span> 
+						</td>
+						<td>{{i.Customer}} 	</td>
+					<td>
+					<span style="color:#000;font-weight:500;"> {{i.Valid_Till | date:'dd.mm.yy'}}</span> 
+						</td>
+					<td>						
+						<label  >{{i.Details}} 							
+							
+							</label>
+											</td>
+											<td><i class="fa fa-inr"></i> {{i.SubTotal |number:2}}  </td>
+											<td><i class="fa fa-inr"></i> {{i.Tax |number:2}}  </td>
+											<td><i class="fa fa-inr"></i> {{i.Total |number:2}}  </td>
+											
+						<td>{{i.Assign_To}}</td>
+						
+						
+						
+                	
+				
+					
+					<td> <label class="badge " ng-click="showtest(i)" ng-class="{'text-bg-secondary':i.Status==='Disacarded','text-bg-info':i.Status==='Pending','text-bg-success':i.Status==='Approved',
+					'text-bg-warning':i.Status==='Verified','text-bg-primary':i.Status==='Inverification'}" >{{i.Status}}
+							
+							
+							</label>		</td>
+				
+					
+				</tr>
+				
+		
+				<tr ng-if="totalquotes.length <1">
+					<td class="animate-repeat col-md-12 text-center highlight" colspan="8" >
+					<h5>No results found...</h5>
+					</td >	
+				</tr>
+				
+</tbody>				
+			</table>
+			</div>
+			</div>
+	<dir-pagination-controls  pagination-id="quote"   ></dir-pagination-controls>
+
+		</div>
+		<div class="card-footer bg-light py-2">
+		
+            </div>
+		
+		</div>
+	
+	

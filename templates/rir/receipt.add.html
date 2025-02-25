@@ -1,0 +1,514 @@
+
+<div class="row" style="margin-top:20px;">
+
+<div class="col-md-12 " >
+
+
+<div  class="card card-default"  >
+		 <div class="card-header " style="background-color:#edf2f9;">
+		<h3 class="card-title text-left my-0"> Sample Registeration Form </h3>
+		  </div>
+
+		<div class="card-body pb-5" style="background:#fafafa;"  >
+			<div class="alert alert-info text-left" style="padding:10px;">					
+									<strong> All * mark fields are compulsory !</strong>						
+			</div>
+		
+			<form class="form-horizontal" style="font-size: 16px;" name="receiptform" novalidate>
+				
+		<div class="form-group mb-3 row" ng-if="editflag">
+		<label for="Lab No" class="col-md-2 col-sm-2 control-label ">LabNo.</label>
+		<div class="col-md-4 col-sm-4 ">
+		<label class=" control-label text-left"> {{rir.LabNo}}</label>
+
+		</div>
+
+
+		<label for="Rir No" class="col-md-2 col-sm-2 control-label ">BatchCode</label>
+		<div class="col-md-4 col-sm-4   ">
+		<label class=" control-label text-left" > {{rir.BatchCode}}</label>
+		</div>					
+
+		</div>
+		
+			<div class="form-group mb-3 row">	
+					<div class="col-md-4 col-sm-4">
+					<label for="Supplier" class=" control-label ">Industry<i ng-show="receiptform.PIndId.$error.required" class="fa  error">*</i></label>
+						
+							<ui-select id="PIndId" ng-disabled="editflag" ng-model="rir.PIndId" name="PIndId" ng-change="getsubind(rir.PIndId)" required    >
+							
+							<ui-select-match placeholder="Select Industry">
+							<span ng-bind="$select.selected.Name"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat="item.Id as item in (industries | filter: $select.search)">
+							<div style="color:#000;" ng-bind="item.Name | uppercase ">			
+								</div>
+						
+							</ui-select-choices>
+							</ui-select>
+					</div>
+					
+					<div class="col-md-4 col-sm-4" ng-if="subindflag">
+					<label for="Supplier" class=" control-label ">Sub-Industry <i ng-show="receiptform.SubIndId.$error.required" class="fa  error">*</i></label>
+						
+							<ui-select id="SubIndId" ng-disabled="editflag" ng-model="rir.SubIndId" name="SubIndId" ng-change="getcatdata(rir.SubIndId)" required    >
+							<ui-select-match placeholder="Select Industry">
+							<span ng-bind="$select.selected.Name"></span>
+							</ui-select-match>
+							<ui-select-choices repeat="item.Id as item in (subindustries | filter: $select.search)">
+							<div style="color:#000;font-weight:bold;" ng-bind="item.Name | uppercase ">			
+							</div>
+						
+							</ui-select-choices>
+							</ui-select>
+					</div>
+					
+					
+					<div class="col-md-4 col-sm-4" ng-if="proindflag">
+					<label for="Supplier" class=" control-label ">Product -Category <i ng-show="receiptform.IndId.$error.required" class="fa  error">*</i></label>
+						
+							<ui-select id="IndId" ng-disabled="editflag" ng-model="rir.IndId" name="IndId"  required  ng-change="getinddata(rir.IndId)"   >
+							<ui-select-match placeholder="Select Product Category">
+							<span ng-bind="$select.selected.Name"></span>
+							</ui-select-match>
+							<ui-select-choices repeat="item.Id as item in (procategories | filter: $select.search)">
+							<div style="color:#000;font-weight:bold;" ng-bind="item.Name | uppercase ">			
+				</div>
+						
+							</ui-select-choices>
+							</ui-select>
+					</div>
+					
+						
+					
+					
+				
+					
+					</div>
+			
+				<div class="form-group mb-3 row">
+					
+					
+					
+						
+					<div class="col-md-4 col-sm-4 samplecontainer" >
+						<label for="Part Name" class="control-label required">Part Name <i ng-show="receiptform.SampleName.$error.required" class="fa  error">*</i></label>
+				  <input type="text"  class="form-control" id="SampleName" name="SampleName" ng-model="rir.SampleName" autocomplete="off"
+				  uib-typeahead="state for state in samplenames | filter:$viewValue | limitTo:8" placeholder="Part Name" required />
+
+					
+	 				</div>
+					
+						
+				<div class="col-md-4 col-sm-4">
+						  <label for="Customer" class="control-label required">Supplier <i ng-show="receiptform.CustomerId.$error.required" class="fa  error">*</i></label>
+							<div class="input-group m-0 p-0">
+
+							<ui-select id="CustomerId" class="form-control p-0" style="height:33px;border:0;" ng-disabled="flags.editflag"
+							ng-model="rir.SupplierId" name="SupplierId"  ng-required="true"  >
+							<ui-select-match placeholder="Select Suppliers">
+							<span ng-bind="$select.selected.Name"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat="item.Id as item in (suppliers | filter: $select.search)">
+							<span ng-bind="item.Name"></span>
+							</ui-select-choices>
+							</ui-select>
+							<!-- <button class="btn btn-outline-secondary inputbtn btn-sm" type="button" ng-click="addnewsupplier()" id="button-addon2"><i class="fa fa-plus"></i></button> -->
+							</div>
+
+					</div>
+					
+					<div class="col-md-4 col-sm-4">
+						  <label for="Customer" class="control-label required">Customer <i ng-show="receiptform.CustomerId.$error.required" class="fa  error">*</i></label>
+							<div class="input-group m-0 p-0">
+
+							<ui-select id="CustomerId" class="form-control p-0" style="height:33px;border:0;" ng-disabled="flags.editflag" ng-model="rir.CustomerId" name="CustomerId"  >
+							<ui-select-match placeholder="Select Customer">
+							<span ng-bind="$select.selected.Name"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat="item.Id as item in (customers | filter: $select.search)">
+							<span ng-bind="item.Name"></span>
+							</ui-select-choices>
+							</ui-select>
+							<!-- <button class="btn btn-outline-secondary inputbtn btn-sm" type="button" ng-click="addnewcust()" id="button-addon2"><i class="fa fa-plus"></i></button> -->
+							</div>
+
+					</div>
+			
+					
+					
+					</div>
+					
+				<div class="form-group mb-3 row">
+					
+						<div class="col-md-4 col-sm-4">
+						<label for="Purchase Order" class="control-label">Ref Purchase Order/Quotation No</label>
+						<div class="input-group">
+						<input type="text" class="form-control" id="purchase" ng-disabled="flags.editflag" ng-model="rir.RefPurchaseOrder" placeholder="Ref Purchase Order">
+						
+						</div>
+					</div>
+					
+					<div class="col-md-4 col-sm-4">
+					<label for="Material Condition" class="control-label">Grin No./Dt</label>
+						<input type="text" class="form-control" id="GrinNoDate" ng-disabled="flags.editflag" ng-model="rir.extras.GrinNoDate" placeholder="GrinNo Date">
+					</div>
+					
+					
+					<div class="col-md-4 col-sm-4">
+					<label for="Material Condition" class="control-label">TC No</label>
+						<input type="text" class="form-control" id="TCNo" ng-disabled="flags.editflag" ng-model="rir.extras.TCNo" placeholder="TC No">
+					</div>
+					
+					
+				</div>	
+				
+				
+				<div class="form-group mb-3 row">
+					
+						<div class="col-md-4 col-sm-4">
+						<label for="Purchase Order" class="control-label">Invoice No</label>
+						<div class="input-group">
+						<input type="text" class="form-control" id="purchase" ng-disabled="flags.editflag" ng-model="rir.extras.InvoiceNo" placeholder="Invoice No">
+						
+						</div>
+					</div>
+					
+					<div class="col-md-4 col-sm-4">
+					<label for="Invoice Date" class="control-label">Invoice Date</label>
+						<input type="text" class="form-control" id="InvoiceDate" ng-disabled="flags.editflag" ng-model="rir.extras.InvoiceDate" placeholder="Invoice Date">
+					</div>
+					
+					
+					<div class="col-md-4 col-sm-4">
+					<label for="Material Condition" class="control-label">Route Card No</label>
+						<input type="text" class="form-control" id="RouteCardNo" ng-disabled="flags.editflag" ng-model="rir.extras.RouteCardNo" placeholder="RouteCardNo">
+					</div>
+					
+					
+				</div>	
+					
+				<div class="form-group mb-3 row">				
+					
+					
+					
+					
+						<div class="col-md-4 col-sm-4">
+					<label for="Material Condition" class="control-label">Material Condition</label>
+						<input type="text" class="form-control" id="Condition" ng-disabled="flags.editflag" ng-model="rir.extras.Condition" placeholder="Material Condition">
+					</div>
+					
+					
+				
+					
+					
+					
+					
+					
+					<div class="col-md-4 col-sm-4">
+					<label for="Material Grade" class=" control-label">Material Grade</label>
+						<input type="text" class="form-control" id="Grade" ng-disabled="flags.editflag" ng-model="rir.extras.Grade" placeholder="Material Grade/Class">
+					</div>
+					
+						<div class="col-md-4 col-sm-4">
+					<label for="NoOfSamples" class=" control-label">Quantity</label>
+						<input type="text" class="form-control" id="Quantity" ng-disabled="flags.editflag" ng-model="rir.extras.Quantity" placeholder="Quantity">
+					</div>
+					
+						
+					
+				</div>
+			
+			<div class="form-group mb-3 row">	
+				
+				<div class="col-md-4 col-sm-4 samplecontainer" >
+						<label for="Part Name" class="control-label required">Heat No <i ng-show="receiptform.SampleName.$error.required" class="fa  error">*</i></label>
+				  <input type="text"  class="form-control" id="SampleName" name="HeatNo" capitalize ng-model="rir.HeatNo"		  
+				 placeholder="HeatNo" heatno-unique required>
+<div class="error">
+					<span class="successMessage" style="position:inherit;"  ng-show="flags.uniqueheatno" >
+   <small> HeatNo already Exist for {{flags.uniquebc|uppercase}}</small>
+</span>
+	 				</div>
+	 				</div>
+					
+					
+						<div class="col-md-4 col-sm-4 samplecontainer" >
+						<label for="Heat Treatment " class="control-label required">Heat Treatment Batch No <i ng-show="receiptform.HTBatchNo.$error.required" class="fa  error">*</i></label>
+				  <input type="text"  class="form-control" id="HTBatchNo" name="HTBatchNo" capitalize ng-model="rir.HTBatchNo"		  
+				 placeholder="HTBatchNo" heatno-unique >
+<div class="error">
+					<span class="successMessage" style="position:inherit;"  ng-show="flags.uniqueheatno" >
+   <small> HTBatchNo already Exist for {{flags.uniquebc|uppercase}}</small>
+</span>
+	 				</div>
+	 				</div>
+					
+					
+					<!-- <div class="col-md-4 col-sm-4"  ng-if="!editflag && flags.uniqueheatno"> -->
+					
+					<!-- <label> -->
+						<!-- <input class="form-check-input" type="checkbox" ng-disabled="flags.editflag" id="BCGenerated" name="BCGenerated" -->
+						<!-- ng-model="rir.BCGenerated" ng-true-value="'true'"  ng-false-value="'false'" /> Generate new BatchCode  -->
+					<!-- </label> -->
+					<!-- </div> -->
+						
+					</div>
+					
+						
+				
+				<div class="form-group mb-3 row">		
+					<div class="col-md-6">
+					<label for="MDS/TDS No" class=" control-label required">Select {{'MDSTDS'| translate}} </label>
+					
+					<div class="input-group">
+  <div class="input-group-text ">
+  
+
+    <input class="form-check-input mt-0"  type="radio" name="IsMdsTds1" ng-change="getmdstds(rir.IsMdsTds)" ng-model="rir.IsMdsTds"  
+	ng-value="'mds'" id="IsMdsTds">
+	{{'MDS'|translate}} 
+  
+  </div>
+  
+  <div class="input-group-text">
+ 
+    <input class="form-check-input mt-0" type="radio" name="IsMdsTds1" ng-change="getmdstds(rir.IsMdsTds)" ng-model="rir.IsMdsTds"  
+	ng-value="'tds'" id="IsMdsTds">
+	 TDS 
+ 
+  </div>
+  <ui-select id="MdsTdsId" ng-model="rir.MdsTdsId" name="MdsTdsId" class="form-control" style="min-width:250px;padding:0px;"
+ on-select="loadmdsdata($item)"  ng-disabled="iftestsempty()" ng-required=" true">
+<ui-select-match placeholder="Select MdsNo/TdsNo">
+<span >{{$select.selected.No}}  </span>
+</ui-select-match>
+<ui-select-choices  repeat="item.Id as item in (allmdstds | filter: $select.search) track by item.Id">
+<span >{{item.No}} </span>
+</ui-select-choices>
+</ui-select>
+</div>
+					
+
+
+			</div>
+			
+				
+					
+				
+					<div class="col-md-3 col-sm-3" ng-if="rir.IsMdsTds==='tds'">
+					<label class="control-label" for="BatchCode " >Enter Batch Code</label>
+					<input type="text" class="form-control" id="BatchCode" name="BatchCode" ng-model="rir.BatchCode" 
+					 ng-required="rir.IsMdsTds==='tds'" capitalize
+					
+					placeholder="Batch Code"  />
+					<small class="text-info" ng-show="flags.uniqueheatno">Please Enter Batch Code <strong>{{flags.uniquebc}} </strong></small>
+				<span class="errorMessage" ng-show="receiptform.BatchCode.$error.bcValidate">
+    Invalid Batchcode
+</span>
+					</div>
+					
+					<div class="col-md-3 col-sm-3" ng-if="rir.IsMdsTds==='tds'" >
+					<label class="control-label"  for="BatchCode " >Batch No</label>
+					<input type="text" class="form-control" id="BatchNo" name="BatchNo" ng-model="rir.BatchNo" 
+					 ng-required="rir.IsMdsTds==='tds'" 					
+					placeholder="BatchNo"  />
+					<!-- <small class="text-info" >Last Batch No {{}} </strong></small> -->
+				
+					</div>
+				
+				
+				</div>
+
+					
+				
+
+<!-- <pre>Deltest: {{rir.deltests.length}} -- {{rir.deltests}}</pre> -->
+<!-- <pre>Apptest: {{rir.applicabletest}}</pre> -->
+<!-- <pre>Addtest: {{rir.addtest}}</pre> -->
+		
+				
+				
+				<div class="form-group row">
+				<div class="col-sm-6" style="margin-top:10px;padding-left:30px;">
+				<label for="addtest" class=" control-label">Select tests for implementation.</label>
+			
+					
+					<ui-select id="testselect" multiple class="form-control p-0"  ng-model="rir.addtest" 
+					name="addtest" on-remove="removeapptest($item, $model)" on-select="addtoapplicable($item, $model)"  
+					required  >
+<ui-select-match placeholder="Select Test">
+<span ng-bind="$item.TestName"></span>
+
+</ui-select-match>
+<ui-select-choices repeat="item.TSeq as item in (alltests | filter: $select.search) track by $index">
+<span ng-bind="item.TestName"></span>
+</ui-select-choices>
+</ui-select>
+					
+					
+			</div>
+				</div>
+			
+			<div class="form-group mb-3 row">
+				
+							<div class="row m-0 p-2 text-bg-info">
+								<div class="text-left col-sm-1 col-xs-12 fw-bold" >#</div>
+								<div class="text-left col-sm-2 col-xs-12 fw-bold">Test</div>
+								<div class="text-left col-sm-6 col-xs-12 fw-bold">Details</div>
+								<div class="text-left col-sm-2 col-xs-12 fw-bold">Due Date </div>
+<div class="text-left col-sm-1 col-xs-12 fw-bold">Action</div>												
+							</div>
+							
+							<!-- <tbody class="table-group-divider"> -->
+							<!-- <tr ng-if="rir.applicabletest.length<1"><td colspan="4"> No tests implemented yet</td></tr>	 -->
+							<!-- <tr ng-repeat="test in rir.applicabletest |orderBy:'TestName' " > -->
+							
+<div class="row" ng-repeat="test in rir.applicabletest  | toArray  |orderBy:'TSeq' ">
+								<div class="col-sm-1 col-xs-12">{{$index+1}}</div>
+								<div class="col-sm-2 col-xs-12 text-left">
+<div class="row">
+<div  class="col-sm-12" style="margin-top:10px;">
+					<input type="text" class="form-control input-sm" disabled ng-model="test.TestName" />
+					</div>
+					<!-- <div  class="col-sm-12" style="margin-top:10px;" > -->
+<!-- <ui-select id="LabId"  multiple disabled ng-model="test.Labs" name="Labs"  on-remove="removelabtest($item, $model)"  > -->
+							<!-- <ui-select-match placeholder="Select Lab Accreditation"> -->
+							<!-- <span ng-bind="$item.Name"></span> -->
+							<!-- </ui-select-match> -->
+							<!-- <ui-select-choices  repeat=" item.Id as item in alllabs | filter: $select.search"> -->
+							<!-- <div style="color:#000;font-weight:bold;" ng-bind="item.Name"></div> -->
+						
+							<!-- </ui-select-choices> -->
+							<!-- </ui-select> -->
+<!-- </div> -->
+
+<!-- <div class=" col-sm-12" style="margin-top:10px;"> -->
+						
+						<!-- <div class="form-check"> -->
+  <!-- <input class="form-check-input" type="checkbox" ng-model="test.IsWitness" value="" id="flexCheckDefault"> -->
+  <!-- <label class="form-check-label" for="flexCheckDefault"> -->
+    <!-- Is Witness Test -->
+  <!-- </label> -->
+<!-- </div> -->
+
+					<!-- </div> -->
+
+					</div>
+
+								</div>
+<div class="col-sm-6 col-xs-12 text-left" >
+
+<div class="row">
+
+
+<div class="col-sm-12" style="margin-top:10px;" >
+<div class="input-group m-0 p-0">
+
+<ui-select id="Std"  ng-model="test.SSID" name="SubStdId" class="form-control p-0"  ng-required="test.IsStd" ng-if="test.IsStd"    >
+							<ui-select-match placeholder="Select Standard & Sub Standard">
+							<span ng-bind="$select.selected.Name"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat="item.Id as item in test.allsubstds | filter: $select.search">
+							<div style="color:#000;font-weight:bold;" ng-bind="item.Name  ">			
+				</div>
+						
+							</ui-select-choices>
+							</ui-select>
+							<!-- <button class="btn btn-outline-secondary inputbtn btn-sm" type="button" ng-click="addsubstd(test)" id="button-addon2"><i class="fa fa-plus"></i></button> -->
+</div>
+</div>
+
+
+
+<div class="col-sm-6" style="margin-top:10px;">
+<ui-select id="TMID"  ng-model="test.TMID" name="TestMethodId"   ng-required="test.IsTestMethod" ng-if="test.IsTestMethod"    >
+							<ui-select-match placeholder="Select Test Method">
+							<span ng-bind="$select.selected.Method"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat=" item.Id as item in test.alltestmethods | filter: $select.search">
+							<div style="color:#000;font-weight:bold;" ng-bind="item.Method  ">			
+				</div>
+						
+							</ui-select-choices>
+							</ui-select>
+</div>
+<div class="col-sm-6" ng-repeat="b in test.tbaseparams"  style="margin-top:10px;">
+
+<div class="input-group mb-1">  
+  <div class="form-floating">
+    <input type="text" class="form-control" id="floatingInputGroup1[{{$index}}]"  ng-model="b.Value" placeholder="{{b.Parameter}}">
+    <label for="floatingInputGroup1">{{b.Parameter}}</label>
+  </div>
+  <span class="input-group-text">{{b.PUnit}}</span>
+</div>
+
+
+
+
+</div>
+
+<div class="col-sm-12"  style="margin-top:10px;">
+<input type="text" class="form-control input-sm" id="purchase" ng-model="test.ExtraInfo" placeholder="Extra Info"   >
+</div>
+
+</div>
+</div>
+<div class="col-sm-2 col-xs-12 text-left">					
+	<div class="input-group col-sm-12"  style="margin-top:10px;">
+	
+	<input type="text" class="form-control input-sm" uib-datepicker-popup ng-model="test.ReqDate" is-open="popup2.opened[$index]" datepicker-options="dateOptions" 
+	close-text="Close"   ng-required="true" >
+	<span class="input-group-btn">
+	<button type="button" class="btn btn-default btn-sm" style="height:36px;" ng-click="open2($index)"><i class="fa fa-calendar"></i></button>
+	</span>
+	</div>
+
+<div class="input-group input-group-sm col-sm-12"  style="margin-top:10px;">
+	
+	<ui-select id="AssignedId[{{$index}}]" class="form-control" ng-model="test.AssignedTo" name="AssignedId[{{$index}}]"  >
+<ui-select-match placeholder="Select User">
+<span ng-bind="$select.selected.Name"></span>
+</ui-select-match>
+<ui-select-choices  repeat="item.Id as item in labusers  track by item.Id">
+<span ng-bind="item.Name"></span>
+</ui-select-choices>
+</ui-select>
+</div>
+
+</div>
+
+<div class="col-sm-1 col-xs-12">
+	
+	<button type="button" style="width:90px;" class="btn btn-sm btn-outline-primary mb-1" ng-click="addduplicate(test)" data-toggle="tooltip" data-placement="bottom" title="Duplicate"><i class="fa fa-copy"></i> Test</button>
+	<button type="button" style="width:90px;"  class="btn btn-sm btn-outline-primary mb-1" ng-click="addwitness(test)" data-toggle="tooltip" data-placement="bottom" title="Duplicate"><i class="fa fa-plus"></i><span style="font-size:10px;"> Witness</span></button>
+	<button type="button" style="width:90px;"  class="btn btn-sm btn-outline-danger mb-1" ng-click="delrirtest(test,$index)" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fa fa-close"></i> Delete </button>
+</div>
+
+</div>
+							
+					
+		</div>
+	
+
+		
+	<div class="form-group row">
+				
+				<div class="col-md-12 text-center"  style="margin:auto;display:block;">
+				
+				<button type="button" class="btn btn-dark" ui-sref="app.receipt">Cancel</button>
+					<button type="button" class="btn btn-primary" ng-disabled=" receiptform.$invalid || flags.oneclick || rir.applicabletest.length<1" ng-click="rirsave(rir)" >Save</button>
+					
+				</div>
+				</div>
+			
+			
+			</form>
+		
+				
+				
+</div>				
+	</div>
+
+</div>
+</div>

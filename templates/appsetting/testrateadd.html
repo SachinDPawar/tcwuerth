@@ -1,0 +1,542 @@
+<div class="row " >
+	
+	
+	<div class="col-md-12" style="margin-top:20px;">
+		<div class="card card-default">
+			<div class="card-header" style="background:#edf2f9;">
+				<h3 class="card-title text-left"><b><i class="fa fa-flask"></i> Test Master Add/Edit</b></h3>
+			</div>
+			<div class="card-body">
+						<form class="form-horizontal" name="testmasterform" id="fileupload" method="POST" enctype="multipart/form-data" data-file-upload="options" 
+		data-ng-class="{'fileupload-processing': processing() || loadingFiles}" novalidate>
+		
+			<div class="form-group row">
+						<div class="col-sm-8 col-xs-12">
+						<label class="control-label">TestName </label>
+								<input type="text" class="form-control"  id="TestName" ng-model="info.TestName" name="TestName" placeholder="TestName"  ng-maxlength="30"  ng-pattern="/^[a-zA-Z0-9\s]/" required />
+	<div class="error-container" ng-show="testmasterform.TestName.$dirty || testmasterform.TestName.$invalid">
+				
+				<small class="error" ng-show="testmasterform.TestName.$error.maxlength">
+					 Name cannot be longer than 30 characters
+				</small>
+				<small class="error" ng-show="testmasterform.TestName.$error.pattern">
+					Name should not start with special characters.
+				</small>
+				</div>								
+						</div>
+						
+							<div class="col-sm-4 col-xs-12">
+						<label class="control-label">Test Type </label>
+									<ui-select id="TType"  ng-model="info.TType" name="TType"  ng-required="true"   >
+							<ui-select-match placeholder="Select TType">
+							<span ng-bind="$select.selected.Type"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat="item.Id as item in (alltesttypes | filter: $select.search)">
+							
+							<div style="color:#000;font-weight:bold;" ng-bind="item.Type">			
+				</div>
+				
+							</ui-select-choices>
+							</ui-select>	
+						</div>
+						
+					
+						</div>
+					
+					<div class="form-group row">
+					
+					
+						
+						<div class="col-sm-4 col-xs-12">
+						<label class="control-label">Industry </label>
+									<ui-select id="IndId"  ng-model="info.IndId" name="IndId"  ng-required="true"   >
+							<ui-select-match placeholder="Select Industry">
+							<span ng-bind="$select.selected.PTree"></span>
+							</ui-select-match>
+							<ui-select-choices group-by="'FParent'" repeat="item.Id as item in (allindustries | filter: $select.search)">
+							
+							<div style="color:#000;font-weight:bold;" ng-bind="item.PTree  ">			
+				</div>
+				
+							</ui-select-choices>
+							</ui-select>	
+						</div>
+						
+							<div class="col-md-4 col-sm-4 col-xs-12">
+						<label class="control-label">Cost </label>
+						<div class="input-group">
+						<input type="text" class="form-control" id="Cost" ng-model="info.Cost" name="Cost" placeholder="Cost" required />		
+						</div>
+						</div>
+						
+						<div class="col-sm-4 col-xs-12 ">					
+					<label  class="control-label text-left">Status</label>
+					<ui-select id="status" class="form-control" ng-model="info.Status" name="Status" style="padding:0px;border:0px;" required>
+						<ui-select-match placeholder="Select Status">
+							<span ng-bind="$select.selected.Text"></span>
+						</ui-select-match>
+						<ui-select-choices repeat="item.Id as item in (statuses | filter: $select.search) ">
+							<span ng-bind="item.Text" style="color:#000;font-weight:bold;"></span>
+						</ui-select-choices>
+					</ui-select>
+                    <small class="error" ng-show="testmasterform.Status.$error.required">
+                        Status is required.
+                    </small>
+				</div>	
+						</div>
+						
+				
+						
+					
+					<div class="form-group row">
+						
+					
+						
+						
+						
+						<div class="col-md-3 col-sm-3">
+						<label class=" control-label">FormatNo </label>
+								<input type="text" class="form-control" id="FormatNo" ng-model="info.FormatNo" name="FormatNo" placeholder="FormatNo" required />		
+						</div>
+						
+						<div class="col-md-3 col-sm-3">
+						<label class=" control-label">RevDate </label>
+						<!-- <input type="text" class="form-control" id="RevDate" ng-model="info.RevDate" name="RevDate" placeholder="RevDate" required />	 -->
+<div class="input-group">
+	<input type="text" class="form-control input-sm" uib-datepicker-popup ng-model="info.RevDate" is-open="popup2.opened[$index]" datepicker-options="dateOptions" 
+	close-text="Close"   ng-required="true" >
+	
+	<button type="button" class="btn btn-default inputbtn btn-sm" style="height:36px;" ng-click="open2($index)"><i class="fa fa-calendar"></i></button>			</div>			
+						</div>
+						
+						
+						<div class="col-md-3 col-sm-3">
+						<label class=" control-label">RevNo </label>
+						<input type="text" class="form-control" id="RevNo" ng-model="info.RevNo" name="RevNo" placeholder="RevNo" required />		
+						</div>
+						
+							<div class="col-md-3 col-sm-3">
+						<label class=" control-label">Qty </label>
+						<input type="text" class="form-control" id="Qty" ng-model="info.Qty" name="Qty" placeholder="Qty" required />		
+						</div>
+					</div>
+					
+					<!----Test Features --------->
+					
+					<div class="form-group row"  >
+					<div class="col-md-6 col-sm-6">
+					
+					<ul class="list-unstyled">
+					<li>
+					<div class="form-check">
+  <input class="form-check-input" type="checkbox" ng-model="info.IsStd" ng-true-value="1" ng-false-value="0" id="IsStd">
+  <label class="form-check-label" for="IsStd">
+   Standard Available
+  </label>
+</div>
+</li>
+
+<li>	<div class="form-check">
+  <input class="form-check-input" type="checkbox" ng-model="info.IsTestMethod" ng-true-value="1" ng-false-value="0" id="IsTestMethod">
+  <label class="form-check-label" for="IsTestMethod">
+   Common TestMethod Available
+  </label>
+</div></li>
+
+<li>	<div class="form-check">
+  <input class="form-check-input" type="checkbox" ng-model="info.IsParamTM" ng-true-value="1" ng-false-value="0" id="IsParamTM">
+  <label class="form-check-label" for="IsParamTM">
+   Parameter TestMethod Attached  to Parameters
+  </label>
+</div></li>
+<!-- <li><div class="form-check"> -->
+  <!-- <input class="form-check-input" type="checkbox" ng-model="info.IsPlan" ng-true-value="1" ng-false-value="0" id="IsPlan"> -->
+  <!-- <label class="form-check-label" for="IsPlan"> -->
+   <!-- Test Plan available -->
+  <!-- </label> -->
+<!-- </div></li> -->
+<li><div class="form-check">
+  <input class="form-check-input" type="checkbox" ng-model="info.IsImg" ng-true-value="1" ng-false-value="0" id="IsImg">
+  <label class="form-check-label" for="IsImg">
+   Image in test result
+  </label>
+</div></li>
+<li></li>
+					</div>
+					
+					
+					
+					</div>
+					
+					<!----Basic Parameters--->
+					
+						<div class="form-group row"  >
+						<div class=" card  col-md-8  m-0 p-2 shadow-none"  >
+							<div class="card-header bg-light py-2">
+								<div class="row flex-between-center">
+									<div class="col-auto ">
+									<h6 class="mb-0">Additional Feilds/Basic Parameters </h6>
+									</div>
+								</div>
+							</div>
+						<div class="card-body">
+						
+						<table class="table  table-sm table-hover align-middle">
+							<thead class="table-info">
+								<th class="text-center" style="width:10px">#</th>								
+								<th class="text-center">Parameter</th>
+								<th class="text-center">Symbol/UID</th>
+								<th class="text-center">Unit</th>								
+								<th class="text-center">Data Type</th>	
+<th class="text-center">Position</th>									
+								<th class="text-center " style="width:150px">Action</th>
+								</thead>
+							<tbody class="table-group-divider">
+							
+					<tr class="text-center" ng-repeat="item in info.testbasicparams track by $index" >
+					<td >{{$index+1 }}</td>					 
+					<td>{{item.Parameter}}	</td>
+						<td>{{item.PSymbol}}	</td>
+					<td>{{item.PUnit}}	</td>
+					<td>
+					<span ng-if="item.PDType==='N'">Numeric</span>
+					<span ng-if="item.PDType==='T'">Text</span>
+					<span ng-if="item.PDType==='TA'">Textarea</span>
+					<span ng-if="item.PDType==='L'">List <span > - {{item.LCategory}}</span></span>
+					<span ng-if="item.PDType==='D'">Date</span>
+					<span ng-if="item.PDType==='DT'">DateTime</span>
+						
+					</td>
+						
+						<td>{{item.Position}}	</td>		
+								
+					<td class="center">
+				
+						<button   class="btn btn-default  btn-sm" ng-click="edittestbasicparam(item,$index)"><i class="fa fa-pencil"></i></button>	
+						<button   class="btn btn-default  btn-sm" ng-click="deltestbasicparam(item,$index)"><i class="fa text-danger fa-close"></i></button>	
+						
+					</td>
+					</tr>	
+					<tr  class="text-center" ng-if="info.testbasicparams.length <1">
+				<td colspan="4"><strong>No results found...</strong></td>
+			</tr>
+									
+					</tbody>
+				</table>
+						
+						 <div class="col-sm-12text-center">
+					    <button class="btn  btn-sm btn-primary  "  ng-click="edittestbasicparam('new','')"> Add Basic Parameters </button>
+                    </div>
+						
+						</div>
+						</div>
+					</div>
+				
+					
+					
+						
+					
+					
+						<div class="form-group row" ng-if="info.TType !='C'"  >
+						<div class=" card col-md-8  m-0 p-2 shadow-none" >
+	 <div class="card-header bg-light py-2">
+                  <div class="row flex-between-center">
+                    <div class="col-auto">
+                      <h6 class="mb-0">Grouping/Category for Observatory Parameters </h6>
+                    </div>
+                   
+                  </div>
+                </div>
+						<div class="card-body">
+							
+						<table class="table  table-sm table-hover align-middle">
+				<thead class="table-info">
+					<th class="text-center" style="width:10px">#</th>
+					
+					<th class="text-center">Category</th>
+					
+					<th class="text-center " style="width:150px">Action</th>
+					</thead>
+					<tbody class="table-group-divider">
+							
+					<tr class="text-center" ng-repeat="item in info.testparamcats track by $index" >
+					<td >
+						{{$index+1 }}
+					</td>
+					 
+					<td>{{item.CatName}}	</td>
+					
+					
+								
+					<td class="center">
+				
+						<button   class="btn btn-default  btn-sm" ng-click="edittestparamcat(item,$index)"><i class="fa fa-pencil"></i></button>	
+						<button   class="btn btn-default  btn-sm" ng-click="deltestparamcat(item,$index)"><i class="fa fa-trash-o"></i></button>	
+						
+					</td>
+					</tr>	
+					<tr  class="text-center" ng-if="info.testparamcats.length <1">
+				<td colspan="4"><strong>No results found...</strong></td>
+			</tr>
+									
+					</tbody>
+				</table>
+				<div class=" row mb-2">
+					<div class="col-sm-4" >
+		<button class="btn  btn-sm btn-primary "  ng-click="addtestparamcat('new')"> Add Category </button>
+	</div>
+	
+	
+           
+					</div>
+					
+						</div>
+						</div>
+					</div>
+				
+					
+					
+					<div class="form-group row"  ng-if="info.TType !='C'">
+						<div class=" card col-md-8  m-0 p-2 shadow-none" >
+	 <div class="card-header bg-light py-2">
+                  <div class="row flex-between-center">
+                    <div class="col-auto">
+                      <h6 class="mb-0">Observatory Parameters </h6>
+                    </div>
+                   
+                  </div>
+                </div>
+						<div class="card-body">
+							
+						<table class="table  table-sm table-hover align-middle">
+				<thead class="table-info">
+					<th class="text-center" style="width:10px">#</th>
+					
+					<th class="text-center">Parameter</th>
+					<th class="text-center">Symbol</th>
+					<th class="text-center">Measuring Unit</th>					
+					<th class="text-center">Value DataType</th>
+					<th class="text-center">Specification</th>
+					<th class="text-center">Group</th>
+					<th class="text-center">NABL</th>
+					<th class="text-center">Cost</th>
+					<th class="text-center">Formula</th>
+				
+					
+					<th class="text-center " style="width:150px">Action</th>
+					</thead>
+					<tbody class="table-group-divider">
+							
+					<tr class="text-center" ng-repeat="item in info.testparams track by $index" >
+					<td >
+						{{$index+1 }}
+					</td>
+					 
+					<td>{{item.Parameter}}	</td>
+					<td>{{item.PSymbol}}	</td>
+					<td>{{item.PUnit}}	</td>
+					<td>{{item.PDType}}	</td>
+					<td>{{item.IsSpec}}	</td>	
+					<td>{{item.PCat.CatName}}	</td>
+					<td>{{item.ISNABL}}	</td>	
+					<td>{{item.Cost}}	</td>	
+					<td>{{item.FormVal}}	</td>			
+								
+					<td class="center">
+				
+						<button   class="btn btn-default  btn-sm" ng-click="edittestparam(item,$index)"><i class="fa fa-pencil"></i></button>	
+						<button   class="btn btn-default  btn-sm" ng-click="deltestparam(item,$index)"><i class="fa fa-trash-o"></i></button>	
+						
+					</td>
+					</tr>	
+					<tr  class="text-center" ng-if="info.testparams.length <1">
+				<td colspan="4"><strong>No results found...</strong></td>
+			</tr>
+									
+					</tbody>
+				</table>
+				
+				<div class=" row mb-2">
+				<div class="col-md-6" >
+		<button class="btn  btn-sm btn-primary "  ng-click="addtestparam('new')"> Add Observatory Parameters </button>
+	</div>
+	
+	<div class="col-sm-5   ">
+			<button class="btn btn-sm btn-primary"  ng-click="importparams()"><i class="fa fa-database"></i> Import  Parameters</button>
+		</div>
+           
+					</div>
+				</div>
+						</div>
+					</div>
+				
+					
+					
+					
+						<div class="form-group row"  ng-if="info.TType !='C'">
+						<div class=" card col-md-8  m-0 p-2 shadow-none" >
+	 <div class="card-header bg-light py-2">
+                  <div class="row flex-between-center">
+                    <div class="col-auto">
+                      <h6 class="mb-0">Formulation </h6>
+                    </div>
+                   
+                  </div>
+                </div>
+						<div class="card-body">
+							
+						<table class="table  table-sm table-hover align-middle">
+				<thead class="table-info">
+					<th class="text-center" style="width:10px">#</th>
+					
+					<th class="text-center">Formula</th>
+					<th class="text-center">Details</th>
+					<th class="text-center " style="width:150px">Action</th>
+					</thead>
+					<tbody class="table-group-divider">
+							
+					<tr class="text-center" ng-repeat="k in info.formulas track by $index" >
+					<td >
+						{{$index+1 }}
+					</td>
+					 
+					<td>{{k.Parameter}} = {{k.Formula}}	</td>
+						
+					<td><div ng-repeat="m in k.details">{{m.Variable}} - {{m.Parameter}} </div>	</td>			
+					<td class="center">
+				
+						<button   class="btn btn-default  btn-sm" ng-click="edittestformula(k,$index)"><i class="fa fa-pencil"></i></button>	
+						<button   class="btn btn-default  btn-sm" ng-click="deltestformula(k,$index)"><i class="fa fa-trash-o"></i></button>	
+						
+					</td>
+					</tr>	
+					<tr  class="text-center" ng-if="info.testparams.length <1">
+				<td colspan="4"><strong>No results found...</strong></td>
+			</tr>
+									
+					</tbody>
+				</table>
+				
+				<div class=" row mb-2">
+				<div class="col-md-6" >
+		<button class="btn  btn-sm btn-primary "  ng-click="addtestparamformula('new')"> Add Formula Parameters </button>
+	</div>
+	
+	
+           
+					</div>
+				</div>
+						</div>
+					</div>
+				
+					
+				
+					<div class="form-group row">
+						<div class="col-md-6 col-sm-6">
+						<label class=" control-label">Remark  type  	</label>
+								<ui-select id="PDType"  ng-model="info.RemarkType" name="RemarkType"  required   >
+							<ui-select-match placeholder="Select Remark Type" >
+							<span ng-bind="$select.selected.Text"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat="item.Id as item in (allremtypes| filter: $select.search)">
+							<span ng-bind="item.Text"></span>
+							</ui-select-choices>
+							</ui-select>
+						
+						</div>
+					</div>
+					
+					
+					
+					
+					
+					<div class="form-group row">
+		
+			
+			<div class="col-md-12 col-sm-12">
+			<label  class=" control-label">Default Note</label>
+			<div text-angular class="form-control"  ng-model="info.DefaultNote"></div>
+			<!-- <textarea rows="8" text-angular="text-angular"  class="form-control" id="DefaultNote" name="DefaultNote" ng-model="info.DefaultNote" placeholder="Default Note"></textarea> -->
+			</div>
+		
+		</div>
+		
+		<div class="form-group row">
+		
+			
+			<div class="col-md-12 col-sm-12">
+			<label  class=" control-label">Equipment Path</label>
+			 <div class="input-group">
+
+			<input type="text" class="form-control" id="MachinePath" ng-disabled="oneclick" name="MachinePath" ng-model="info.MachinePath" placeholder="Spectro Path">
+      <span class="input-group-btn">		
+		<button class="btn btn-info  " ng-click="checkpath(info.MachinePath)"><i class="fa fa-check"></i></button>
+			</span>
+			</div>
+	
+		
+		</div>
+		</div>
+		
+		<div class="form-group row" ng-if="false">
+		
+			<div class=" col-sm-5 text-left" style="margin-left:0px;">
+
+		<div data-ng-repeat="file in queue" ng-init="showqueue()" class="gallery-box" >
+		<span class="title"  >{{file.name1}}</span>
+		 <div class=" thumbnail" data-ng-switch data-on="!!file.url" >
+		  
+			<a data-ng-switch-when="true" data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}"  data-gallery>
+			<img class="awesome" data-ng-src="{{file.url }}" alt="" style="height:100px;width:auto;" ></a>
+		   
+		  <span class="preview" data-ng-switch-default data-file-upload-preview="file"></span>
+		
+		
+		  <span class="btn-group">
+			<a class="btn btn-xs btn-danger" data-ng-click="deletefile($index,file)">
+			  Remove
+			</a>
+		  </span> 
+		  <strong data-ng-if="file.error" ng-init="imageerror(file)" class="error text-danger">{{file.error}}</strong> 
+		  </div>
+		  
+		  <input type="hidden" name="testid" ng-model="file.testid"   placeholder="testid">
+		  
+		</div>
+
+			<span   ng-if="queue.length<1">
+				<div class="gallery-box " style="margin-top:20px;" >
+				<div class="thumbnail" >  
+					  <img src="app/images/noimage.jpg" style="height:100px;" alt="">
+					   </div>
+				 <span class="btn-group"></span>
+				</div>
+			</span>		   
+			<div class="row fileupload-buttonbar">	
+				<div class=" text-left" style="padding-top:0px;">
+					<!-- The fileinput-button span is used to style the file input field as button -->
+					<span class="btn btn-success fileinput-button" ng-hide="queue.length===1"  >
+						<i class="glyphicon glyphicon-plus"></i>
+						<span>Add Icon /Image</span>
+						<input type="file" name="files[]">
+					</span>
+									   
+				</div>
+						
+			</div>
+		</div>
+
+		</div>
+					
+			<div class="form-group text-center">						
+					<button type="button" class="btn btn-md btn-success fa fa-"  ng-disabled="testmasterform.$invalid" ng-click="testratesave(info)" id="cp_submit" >Submit</button>
+				<button type="button" class="btn btn-md btn-default fa fa-" ng-click="closetestModal()" >Cancel</button>
+			</div>	
+				
+				</form>
+			
+  
+			</div>
+		</div>
+	</div>
+</div>		

@@ -1,0 +1,198 @@
+
+	
+	
+	<div class="col-md-12 " >
+	
+		<div class="card card-default">
+		
+			<div class="card-body">
+			<div class="col-md-12 " style="padding:15px;">
+			<button class="btn btn-primary "  ng-click="certificateedit('new')"><i class="fa fa-plus"></i> Add Certificate</button>
+			
+	</div>
+			<div class="row">
+			<div class=" col-sm-5">
+			<dir-pagination-controls on-page-change="getdata(newPageNumber)"></dir-pagination-controls>
+			</div>
+				<div class=" col-sm-5">
+							<form class="form-horizontal ">
+								<div class="form-group">
+								<!-- <label for="inputEmail3" class="col-md-2 control-label"></label> -->
+								<div class="input-group">
+								  <input type="text" class="form-control" id="inputEmail3" ng-model="searchstring" placeholder="Search text here ...">
+									<span class="input-group-btn">
+					<button class="btn btn-default " ng-click="searchdata(searchstring)" type="button"><i class="fa fa-search"></i></button>
+					
+				  </span>
+								</div>
+								</div>
+							</form>
+				</div>
+			<div class="col-sm-2">
+			 <button class="btn btn-default " ng-click="refreshdata()" data-toggle="tooltip" data-placement="bottom" title="refresh table" type="button"><i class="fa fa-refresh"></i></button>
+			 </div>
+			 
+			 </div>
+			<div class="col-md-12 table-responsive">
+			<div ng-show="flags.loadingdata" class=" modal-backdrop fade in demo-1" style=" opacity:0.8;   background-color: rgb(234, 241, 239);"> 
+<div class="bar" style="opacity:1;" >
+<i class="sphere"></i>
+</div>
+</div>
+			
+				<table class="table table-striped table-sm table-hover table-bordered" id="sample_1">
+						<thead><tr class="table-info text-dark fw-bold">
+							<th style="width:8px">#</th>
+							<th class="hidden-phone">TC.No.</th>
+							<th>Customer</th>
+							<th class="hidden-phone">Part Description</th>
+							<th class="hidden-phone">PO No</th>
+							<th class="hidden-phone">Ref Std</th>
+							<th class="hidden-phone">Sample Codes</th>
+							<th class="hidden-phone">Status</th>
+							
+							<th style="width:150px;">Actions</th>
+						</tr>
+					</thead>
+					<tbody class="table-group-divider">
+						<tr class="odd gradeX" pagination-id="certificate" dir-paginate="item in results = ( certs  ) |itemsPerPage: pageSize   " total-items="totalitems"  current-page="currentPage">
+						<td>{{($index+1)+((currentPage-1)*pageSize)}}</td>
+							<td>{{item.basic.TCNo}}</td>
+							<td class="hidden-phone">{{item.basic.Customer}}</td>
+							<td class="hidden-phone">{{item.basic.SampleName}}</td>
+							<td class="hidden-phone">{{item.basic.basicextra.PoNo}}</td>
+							<td class="hidden-phone">{{item.basic.basicextra.RefStd}}</td>
+							<td class="hidden-phone"> <span ng-repeat="i in item.basic.certests">
+							<label  style="min-width:120px;" class=" mb-3 px-2 py-1 text-success-emphasis bg-default-subtle border border-success-subtle rounded-2 text-start position-relative"   >{{i.TestName}}
+							<span class="position-absolute translate-middle badge text-dark bg-info-subtle " style="margin-top:27px;">{{i.TestNo}}/{{i.BatchCode}}-{{i.LabNo}}</span>
+							</label>
+							</span></td>
+							
+							<td>
+							<label ng-if="  item.basic.CheckedBy !='' && item.basic.ApprovedBy ===''" ng-class="{'text-bg-success':item.basic.CheckedBy !=''}" class="badge  "> <i class="fa fa-check"></i> Checked</label>	
+							
+							<label ng-if="item.basic.CheckedBy !='' && item.basic.ApprovedBy !=''" ng-class="{'text-bg-success':item.basic.ApprovedBy !=''}" class="badge"><i class="fa fa-thumbs-up"></i> Approved</label>	
+							</td>
+							<td class="center">
+							<div class="btn-group ">
+								<button  data-toggle="tooltip" data-placement="top" title="view" class="btn btn-outline-info btn-sm" ng-click="showview(item)" ><i class="fa fa-eye"></i></button>	
+								<button   data-toggle="tooltip" data-placement="top" title="edit"  class="btn btn-outline-primary  btn-sm" ng-click="certificateedit('edit',item.basic.Id)"><i class="fa fa-pencil"></i></button>	
+								
+									<button  ng-if="permissions[31].D " data-toggle="tooltip" data-placement="top" title="delete"  class="btn btn-danger  btn-sm " ng-click="deletecert('confirm',item)"><i class="fa fa-trash"></i> </button>	
+							
+<button  ng-if="item.basic.CheckedBy ==='' " class="btn btn-outline-warning  btn-sm  " ng-click="checkcert('confirm',item)"> Check</button>
+
+									
+								<button   class="btn btn-default btn-sm "  ng-if="item.basic.ApprovedBy ===''" ng-click="approvecert('confirm',item)"> Approve</button>	
+				
+		
+		<!-- <button class="btn btn-primary list-group-item" ng-if="item.basic.ApprovedBy !=''" ng-click="createpdf(item)"><i class="fa fa-file-pdf-o "></i> Create Pdf</button>ng-if="item.basic.CheckedBy !='' && item.basic.ApprovedBy ===''" -->
+<!-- <a class="btn btn-primary list-group-item" ng-if="item.basic.ApprovedBy !=''" target="_blank" ng-href="exportpdfs/{{item.basic.TCNo}}.pdf"><i class="fa fa-file-pdf-o "></i> View Pdf</a> -->
+
+		</div>
+		<!-- <div class="btn-group "> -->
+			<!-- <button   class="btn btn-default btn-sm " ng-click="sendmail(item.basic,'confirm')"> Send Mail</button>	 -->
+		<!-- </div> -->
+	
+	</td>
+		
+							</td>
+						</tr>
+						<tr class="animate-repeat text-center" ng-if="results.length <1">
+							<td colspan="6">No results found...</td>
+						</tr>	
+						
+						
+					</tbody>
+				</table>
+<dir-pagination-controls  pagination-id="certificate" on-page-change="getdata(newPageNumber)"></dir-pagination-controls>				
+			</div>
+						
+			</div>
+		</div>
+	</div>
+	
+	
+	
+<script type="text/ng-template" id="delcertModal"  data-keyboard=false>
+<div class="modal-content">
+            
+                <div class="modal-header dialog-header-confirm">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="closedelconfirmModal()" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-check"></span> Confirm Delete</h4>
+                </div>
+            
+                <div class="modal-body">
+                    <p>You are about to delete Certificate TC NO<strong>{{cert.basic.TCNo}}</strong>, this procedure is irreversible.</p>
+                    <p>Do you want to proceed?</p>
+                 </div>
+                
+                <div class="modal-footer">
+                  <button class="btn btn-danger" ng-disabled="oneclick" data-ng-click="deletecert('delete',cert)">Delete</button>
+		<button type="button" class="btn btn-default" ng-click="closedelconfirmModal()">Cancel</button>
+                </div>
+            </div>
+</script>	
+	
+	
+	
+<script type="text/ng-template" id="approveModal"  data-keyboard=false>
+<div class="modal-content">
+            
+                <div class="modal-header dialog-header-confirm">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="closeconfirmModal3()" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-check"></span> Approve Test</h4>
+                </div>
+            
+                <div class="modal-body">
+                    <p>You are about to approve  Certificate TC No: -<strong>{{Test}}</strong>. </p>
+                    <p>Do you want to proceed?</p>
+                 </div>
+                
+                <div class="modal-footer">
+                  <button class="btn btn-danger" ng-disabled="oneclick" data-ng-click="approvecert('approve',did)">Approve</button>
+		<button type="button" class="btn btn-default" ng-click="closeconfirmModal3()">Cancel</button>
+                </div>
+            </div>
+</script>
+
+<script type="text/ng-template" id="checkModal"  data-keyboard=false>
+<div class="modal-content">
+            
+                <div class="modal-header dialog-header-confirm">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="closeconfirmModal4()" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-check"></span> Check Certificate</h4>
+                </div>
+            
+                <div class="modal-body">
+                    <p>All information is Correct in certificate TC No: <strong>{{Test}}</strong>  ?   </p>
+                   
+                 </div>
+                
+                <div class="modal-footer">
+                  <button class="btn btn-danger" ng-disabled="oneclick" data-ng-click="checkcert('approve',did)">OK</button>
+		<button type="button" class="btn btn-default" ng-click="closeconfirmModal4()">Cancel</button>
+                </div>
+            </div>
+</script>
+
+<script type="text/ng-template" id="pdfModal"  data-keyboard=false>
+<div class="modal-content">
+            
+                <div class="modal-header dialog-header-confirm">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="closepdfModal()" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-check"></span> Certificate PDF</h4>
+                </div>
+            
+                <div class="modal-body">
+                   <pdfjs-viewer src="{{ pdf.src }}"   >
+            </pdfjs-viewer>
+                 </div>
+                
+                <!-- <div class="modal-footer"> -->
+                  <!-- <button class="btn btn-danger" ng-disabled="oneclick" data-ng-click="checkcert('approve',did)">OK</button> -->
+		<!-- <button type="button" class="btn btn-default" ng-click="closeconfirmModal4()">Cancel</button> -->
+                <!-- </div> -->
+            </div>
+</script>
+		

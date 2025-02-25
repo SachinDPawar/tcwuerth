@@ -1,0 +1,736 @@
+
+<div class="row ">
+    <div class="col-sm-12 mt-2">
+	
+<nav class="navbar navbar-expand-lg  navbar-dark bg-dark" style="z-index:1;" aria-label="Main navigation">
+<ul class="nav nav-pills">
+  
+  <li class="nav-item">
+    <a class="nav-link" ui-sref-active="active" ui-sref="app.reports.samples">Samples</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link " ui-sref-active="active" ui-sref="app.reports.tests" aria-current="page">Tests</a>
+  </li>
+  
+</ul>
+</nav>
+</div>
+</div>
+
+<div class="row">
+<div class="col-sm-12 mt-4 p-4" ui-view>
+
+</div>
+</div>
+
+
+<div class="row flex-between-center  mt-2" ng-if="0">
+                <div class="col-sm-3">
+				<ui-select id="Filter" ng-model="reg.Filter" name="Filter" ng-change="getfiltdata(reg)" ng-required="true" class="form-control p-0"  >
+							<ui-select-match placeholder="Select Filter Type">
+							<span ng-bind="$select.selected.Name"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat="item.Id as item in (allfilts | filter: $select.search)">
+							<span ng-bind="item.Name"></span>
+							</ui-select-choices>
+							</ui-select>
+				  </div>
+                <div class="col-sm-8">
+				<div class="row" ng-if="reg.Filter==='CD'">
+				<div class="col-md-4  col-xs-12">
+						<label>From Date</label>
+						
+						
+						<div class="input-group ">
+	<input type="text" class="form-control input-sm" ng-click="open1()" uib-datepicker-popup ng-model="reg.From" is-open="popup1.opened" datepicker-options="dateOptions" 
+	close-text="Close"   ng-required="true" >
+	<span class="input-group-btn">
+	<button type="button" class="btn btn-default btn-sm" ng-click="open1()"><i class="fa fa-calendar"></i></button>
+	</span>
+	</div>
+						<small class="text-danger" ng-show="!reg.From">From Date required</small>
+					</div>
+					
+					<div class="col-md-4  col-xs-12">
+						<label>To Date</label>
+						<div class="input-group ">
+	<input type="text" class="form-control input-sm" ng-click="open2()" uib-datepicker-popup ng-model="reg.To" is-open="popup2.opened" datepicker-options="dateOptions" 
+	close-text="Close"   ng-required="true" >
+	<span class="input-group-btn">
+	<button type="button" class="btn btn-default btn-sm" ng-click="open2()"><i class="fa fa-calendar"></i></button>
+	</span>
+	</div>
+						<small class="text-danger" ng-show="!reg.To">To Date required</small>
+					</div>
+					
+					<div class="col-sm-3  col-xs-12 p-4">
+						
+						
+						<button class="btn btn-info" ng-click="getfiltdata(reg)" style="padding:3px 8px;">Apply</button>
+					
+						<button class="btn btn-danger" ng-click="refreshdata()" data-toggle="tooltip" data-placement="bottom" 
+							title="refresh filter" type="button" style="padding:3px 10px;"><i class="fa fa-refresh"></i></button>
+						
+					</div>
+				</div>
+				</div>
+              </div>
+	
+<div class="row" ng-if="false">
+<div class="col-md-12">
+
+	<div class="card card-default">
+		<div class="card-header d-flex justify-content-between align-items-center border-bottom py-2">
+              <h6 class="mb-0"> Reports</h6>
+             
+            </div>
+		
+    <div class="card-body" style="min-height:400px;margin-bottom:20px;">
+	
+	<div class="row flex-between-center g-1 mb-2">
+                <div class="col-sm-3">
+				<ui-select id="Filter" ng-model="reg.Filter" name="Filter" ng-change="getfiltdata(reg)" ng-required="true" class="form-control p-0"  >
+							<ui-select-match placeholder="Select Filter Type">
+							<span ng-bind="$select.selected.Name"></span>
+							</ui-select-match>
+							<ui-select-choices  repeat="item.Id as item in (allfilts | filter: $select.search)">
+							<span ng-bind="item.Name"></span>
+							</ui-select-choices>
+							</ui-select>
+				  </div>
+                <div class="col-sm-8">
+				<div class="row" ng-if="reg.Filter==='CD'">
+				<div class="col-md-4  col-xs-12">
+						<label>From Date</label>
+						
+						
+						<div class="input-group ">
+	<input type="text" class="form-control input-sm" ng-click="open1()" uib-datepicker-popup ng-model="reg.From" is-open="popup1.opened" datepicker-options="dateOptions" 
+	close-text="Close"   ng-required="true" >
+	<span class="input-group-btn">
+	<button type="button" class="btn btn-default btn-sm" ng-click="open1()"><i class="fa fa-calendar"></i></button>
+	</span>
+	</div>
+						<small class="text-danger" ng-show="!reg.From">From Date required</small>
+					</div>
+					
+					<div class="col-md-4  col-xs-12">
+						<label>To Date</label>
+						<div class="input-group ">
+	<input type="text" class="form-control input-sm" ng-click="open2()" uib-datepicker-popup ng-model="reg.To" is-open="popup2.opened" datepicker-options="dateOptions" 
+	close-text="Close"   ng-required="true" >
+	<span class="input-group-btn">
+	<button type="button" class="btn btn-default btn-sm" ng-click="open2()"><i class="fa fa-calendar"></i></button>
+	</span>
+	</div>
+						<small class="text-danger" ng-show="!reg.To">To Date required</small>
+					</div>
+					
+					<div class="col-sm-3  col-xs-12 p-4">
+						
+						
+						<button class="btn btn-info" ng-click="getfiltdata(reg)" style="padding:3px 8px;">Apply</button>
+					
+						<button class="btn btn-danger" ng-click="refreshdata()" data-toggle="tooltip" data-placement="bottom" 
+							title="refresh filter" type="button" style="padding:3px 10px;"><i class="fa fa-refresh"></i></button>
+						
+					</div>
+				</div>
+				</div>
+              </div>
+	<div class="row flex-between-center">
+	<h3>{{report.title}}</h3>
+	<div class="accordion" id="accordionExample" >
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="heading1"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">Quotation Generated - {{info.totalquotes}}</button>
+	
+	
+	</h2>
+    <div class="accordion-collapse collapse " id="collapse1" aria-labelledby="heading1" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+	  <div class="row">
+	
+		<div class="col-md-12 table-responsive" style="padding-top:10px;">
+		<div class="card card-default">
+		<div class="card-header border-bottom border-200 px-0">
+                  <div class="d-lg-flex justify-content-between">
+                    <div class="row flex-between-center gy-2 px-x1">
+                      <div class="col-auto ">
+                        <h6 class="mb-0">Quotations </h6>
+						
+                      </div>
+					 <div class="col-auto">
+					 <!-- <a class="btn btn-sm btn-falcon-default" ng-click="exportToExcel('#quotetable')" >Export</a> -->
+					 <a class="btn btn-sm btn-falcon-default" ng-click="exportSheetJS(info.allquotes,'Quotation')" >Export</a>
+					 
+					 </div>
+                        
+                      
+					</div>
+			</div>  
+		</div>
+		<div class="card-body" style="" id="quotetable">	
+			<table class="table table-bordered table-sm example-animate-container">
+				<thead><tr class="table-light">
+					<th>#</th>
+					<th>Quotation No  </th>
+					<th>Date</th>
+						
+					<th>Customer  </th>
+					<th>Valid Till</th>
+					<th>Particulars  </th>
+					<th>SubTotal</th>	
+					<th>Tax</th>	
+					<th>Total</th>					
+					<th>Assign_To </th>
+					<th>Status</th>		
+                	
+					
+                  
+							
+				</tr>
+				</thead>
+				<tbody>
+				<tr   class="animate-repeat" pagination-id="quote" 
+				dir-paginate="i in  info.allquotes | itemsPerPage: qpageSize"  current-page="qcurrentPage">
+					<td>{{($index+1)+((qcurrentPage-1)*qpageSize) }}</td>
+					
+						<td><span style="color:#000;font-weight:500;">{{i.Quotation_No}}  </span></td>
+						<td>
+					<span style="color:#000;font-weight:500;"> {{i.Date | date:'dd.mm.yy'}}</span> 
+						</td>
+						<td>{{i.Customer}} 	</td>
+					<td>
+					<span style="color:#000;font-weight:500;"> {{i.Valid_Till | date:'dd.mm.yy'}}</span> 
+						</td>
+					<td>						
+						<label  >{{i.Details}} 							
+							
+							</label>
+											</td>
+											<td><i class="fa fa-inr"></i> {{i.SubTotal |number:2}}  </td>
+											<td><i class="fa fa-inr"></i> {{i.Tax |number:2}}  </td>
+											<td><i class="fa fa-inr"></i> {{i.Total |number:2}}  </td>
+											
+						<td>{{i.Assign_To}}</td>
+						
+						
+						
+                	
+				
+					
+					<td> <label class="badge " ng-click="showtest(i)" ng-class="{'text-bg-secondary':i.Status==='Disacarded','text-bg-info':i.Status==='Pending','text-bg-success':i.Status==='Approved',
+					'text-bg-warning':i.Status==='Verified','text-bg-primary':i.Status==='Inverification'}" >{{i.Status}}
+							
+							
+							</label>		</td>
+				
+					
+				</tr>
+				
+		
+				<tr ng-if="totalquotes.length <1">
+					<td class="animate-repeat col-md-12 text-center highlight" colspan="8" >
+					<h5>No results found...</h5>
+					</td >	
+				</tr>
+				
+</tbody>				
+			</table>
+	<dir-pagination-controls  pagination-id="quote"   ></dir-pagination-controls>
+
+		</div>
+		<div class="card-footer bg-light py-2">
+		
+            </div>
+		
+		</div>
+	</div>	
+	
+</div>
+	  
+	  </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="heading2"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="true" aria-controls="collapse2">Invoices Generated - {{info.totalinvoice}}</button></h2>
+    <div class="accordion-collapse collapse" id="collapse2" aria-labelledby="heading2" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+			<div class="row">
+	
+		<div class="col-md-12 table-responsive" style="padding-top:10px;">
+		<div class="card card-default">
+		<div class="card-header border-bottom border-200 px-0">
+                  <div class="d-lg-flex justify-content-between">
+                    <div class="row flex-between-center gy-2 px-x1">
+                      <div class="col-auto ">
+                        <h6 class="mb-0">Invoices </h6>
+						
+                      </div>
+					 <div class="col-auto"><a class="btn btn-sm btn-falcon-default" ng-click="exportSheetJS(info.allinvoices,'Invoices')" >Export</a></div>
+                        
+                      
+					</div>
+			</div>  
+		</div>
+		<div class="card-body" style="" id="invoicetable">	
+				<table class="table table-bordered table-condensed example-animate-container" >
+				<thead><tr class="active table-light">
+					<th>#</th>
+					<th>InvoiceNo</th>
+					<th>Invoice Date</th>
+					<th>Due Date</th>
+                	<th>Customer  </th>
+					<th >Details</th>
+					<th>Total</th>                  
+					<th>Payment Status</th>				
+				</tr>
+				</thead>
+				<tbody>
+				<tr   class="animate-repeat" pagination-id="invoice" dir-paginate="i in results =( info.allinvoices | filter:searchstring1 )| itemsPerPage: ipageSize" total-items="totalitems" current-page="icurrentPage">
+					<td>{{($index+1)+((icurrentPage-1)*ipageSize) }}</td>
+					
+						<td><span style="color:#000;font-weight:500;">{{i.InvoiceNo}} </span>
+						</td>
+						<td><span style="color:#000;font-weight:500;"> {{i.Date | date:'dd.mm.yy'}}</span>	</td>
+						<td><span style="color:#000;font-weight:500;"> {{i.DueDate}}</span>	</td>
+						<td><span class="" >{{i.Customer}} </span> <br>
+						
+					</td>
+                	<td>						
+						<label  >{{i.Details}} 				</label>
+											</td>
+					<td><i class="fa fa-inr"></i> {{i.Total |number:2}}
+						     	
+					</td>
+					
+					
+				
+					<td>
+					<label class="badge " ng-click="showtest(i)" ng-class="{'text-bg-info':i.PayStatus==='Pending','text-bg-success':i.PayStatus==='Completed'	}" >{{i.PayStatus}}	</label>
+						
+					</td>
+					
+				</tr>
+				
+		
+				<tr ng-if="allinvoices.length <1">
+					<td class="animate-repeat col-md-12 text-center highlight" colspan="8" >
+					<h5>No results found...</h5>
+					</td >	
+				</tr>
+				
+</tbody>				
+			</table>
+	<dir-pagination-controls  pagination-id="invoice" ></dir-pagination-controls>
+
+		</div>
+		<div class="card-footer bg-light py-2">
+		<!-- <dir-pagination-controls on-page-change="getallinvoices(newPageNumber)" ></dir-pagination-controls> -->
+
+            </div>
+		</div>
+	</div>	
+	
+</div>
+
+
+	  </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="heading3"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="true" aria-controls="collapse3">Payment Received -{{info.payr}}</button></h2>
+    <div class="accordion-collapse collapse" id="collapse3" aria-labelledby="heading3" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+	  
+	  	<div class="row">
+	
+		<div class="col-md-12 table-responsive" style="padding-top:10px;">
+		<div class="card card-default">
+		<div class="card-header border-bottom border-200 px-0">
+                  <div class="d-lg-flex justify-content-between">
+                    <div class="row flex-between-center gy-2 px-x1">
+                      <div class="col-auto pe-0">
+                        <h6 class="mb-0">Payment Received</h6>
+                      </div>
+					   <div class="col-auto"><a class="btn btn-sm btn-falcon-default" ng-click="exportSheetJS(info.allpayr,
+					   'Paymentrecieved')" >Export</a></div>
+					</div>
+		</div>  
+		</div>
+		<div class="card-body" style="">	
+			<table class="table table-hover table-condensed table-bordered example-animate-container">
+                
+					<tr class="active">
+						<th class="text-center">#</th>
+					
+					    <th class="text-center"> Date</th>
+						  <th class="text-center">InvoiceNo</th>
+						   <th class="text-center">Invoice Amount</th>
+						   <th class="text-center">Customer</th>
+							    <th class="text-center">Paid Amount </th>
+								<th class="text-center">PayDetails</th>
+						  
+						
+							
+								
+					</tr>
+	
+					<tr  class="animate-repeat" pagination-id="paymentreceived"  dir-paginate="i in  info.allpayr | itemsPerPage: prpageSize" current-page="prcurrentPage">
+						<td >{{($index+1)+((prcurrentPage-1)*prpageSize) }}</td>
+						
+						<td>{{i.Date}}</td>	
+						<td>{{i.Invoice_No}}</td>	
+						<td>{{i.Invoice_Amount}}</td>	
+						<td>{{i.Customer}}</td>							
+						<td>{{i.Payment}}</td>	
+						<td>{{i.PayDetails}}</td>	
+						
+						
+						
+						
+					</tr>
+					<tr ng-if="info.allpayr.length == 0" class="text-center">
+						<td colspan="12">No Data Added Yet...</td>
+					</tr>
+				</table>
+                <dir-pagination-controls  pagination-id="paymentreceived" ></dir-pagination-controls>
+
+		</div>
+		<div class="card-footer bg-light py-2">
+		<!-- <dir-pagination-controls on-page-change="getallinvoices(newPageNumber)" ></dir-pagination-controls> -->
+
+            </div>
+		</div>
+	</div>	
+	
+</div>
+
+
+	  
+	  </div>
+    </div>
+  </div>
+  
+   <div class="accordion-item">
+    <h2 class="accordion-header" id="heading5"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="true" aria-controls="collapse5">Sample Registered - {{info.sample}}</button></h2>
+    <div class="accordion-collapse collapse" id="collapse5" aria-labelledby="heading5" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+	    	<div class="row">
+	
+		<div class="col-md-12 table-responsive" style="padding-top:10px;">
+		<div class="card card-default">
+		<div class="card-header border-bottom border-200 px-0">
+                  <div class="d-lg-flex justify-content-between">
+                    <div class="row flex-between-center gy-2 px-x1">
+                      <div class="col-auto pe-0">
+                        <h6 class="mb-0">Samples</h6>
+                      </div>
+					    <div class="col-auto"><a class="btn btn-sm btn-falcon-default" ng-click="exportSheetJS(info.allsamples,'sample')" >Export</a></div>
+					</div>
+		</div>  
+		</div>
+		<div class="card-body" style="">	
+			<table class="table table-striped table-bordered table-sm" id="sample_1">
+										<thead>
+											<tr class=" align-middle">
+												<th style="width:8px">#</th>
+												<th>Customer</th>
+												<th>SampleName</th>
+												<th>SampleCondition</th>
+												<th>NoOfSamples</th>
+												<th>Industry</th>
+												<th>BatchCode</th>
+												<th>GeneratedDate</th>
+											<th>LabNo </th>
+											<th>RefPO</th>
+											<th>PODate</th>
+											<th>Tests</th>											
+												<th>ReportDate</th>
+												<th>ReportNo </th>												
+												<th>ULRNo</th>
+												<th>InvoiceNo</th>
+												
+											</tr>
+										</thead>
+										<tbody>
+											<tr class="odd gradeX" pagination-id="rirpage" dir-paginate="item in results =( info.allsamples  ) |itemsPerPage: samplepageSize   "   current-page=" samplecurrentPage">
+												<td>{{($index+1)+((currentPage-1)*pageSize) }}</td>
+												<td  >{{item.Customer}}</td>
+												<td>{{item.SampleName}} </td>
+												<td >{{item.SampleCondition}}</td>
+												<td >{{item.NoOfSamples}}</td>
+												<td>{{item.Industry}} </td>
+												<td> {{item.BatchCode}} 	</td>
+												<td>{{item.GeneratedDate  | date :"dd.MM.y"}}</td>
+												<td>{{item.LabNo}} </td>
+												<td>{{item.RefPurchaseOrder}}</td>
+												<td>{{item.PODate | date :"dd.MM.y"}}</td>
+												<td>{{item.Tests}}</td>
+												<td>{{item.ReportDate | date :"dd.MM.y"}}</td>
+												<td>{{item.ReportNo}}</td>
+												<td>{{item.ULRNo}}</td>
+												<td>{{item.InvoiceNo}}</td>
+												
+												
+											</tr>
+											<tr class="animate-repeat text-center" ng-if="info.allsamples.length === 0">
+      <td colspan="7">No results found...</td>
+    </tr>	
+											
+											
+								</tbody>
+</table>	
+<dir-pagination-controls pagination-id="rirpage"  ></dir-pagination-controls>
+
+		</div>
+		<div class="card-footer bg-light py-2">
+		<!-- <dir-pagination-controls on-page-change="getallinvoices(newPageNumber)" ></dir-pagination-controls> -->
+
+            </div>
+		</div>
+	</div>	
+	
+</div>
+
+
+	  </div>
+    </div>
+  </div>
+  
+   <div class="accordion-item">
+    <h2 class="accordion-header" id="heading6"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6" aria-expanded="true" aria-controls="collapse6">Tests Registered - {{info.tests}}</button></h2>
+    <div class="accordion-collapse collapse" id="collapse6" aria-labelledby="heading6" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+	    	<div class="row">
+	
+		<div class="col-md-12 table-responsive" style="padding-top:10px;">
+		<div class="card card-default">
+		<div class="card-header border-bottom border-200 px-0">
+                  <div class="d-lg-flex justify-content-between">
+                    <div class="row flex-between-center gy-2 px-x1">
+                      <div class="col-auto pe-0">
+                        <h6 class="mb-0">Tests</h6>
+                      </div>
+					   <div class="col-auto"><a class="btn btn-sm btn-falcon-default" ng-click="exportSheetJS(info.alltests,'Tests')" >Export</a></div>
+					</div>
+		</div>  
+		</div>
+		<div class="card-body" style="">	
+				
+							<table class="table table-bordered" id="sample_1">
+									<thead>
+											<tr class="tablehead">
+												<th style="width:8px">#</th>
+												
+												<th  >LabNo.</th>
+												<th  >Sample Code</th>
+												<th  >Test Name</th>
+												<th  >Sample Name</th>									
+												<th  >Customer</th>
+												<th  >Req. Date</th>
+												<th   style="width:100px;">Status</th>
+												
+											</tr>
+										</thead>
+										<tbody>
+											<tr class="odd gradeX" pagination-id="tests" dir-paginate="item in info.alltests   |itemsPerPage:testpageSize "  current-page="testcurrentPage">
+												<td>{{($index+1)+((testcurrentPage-1)*testpageSize)}}</td>
+												<td>{{item.LabNo}}</td>
+												<td>{{item.BatchCode}}<span ng-if='item.BatchNo'> -{{item.BatchNo}}</span> 
+												</td>
+												<td  >{{item.TestName}}</td>
+												<td  >{{item.SampleName}} <br><small>({{item.Industry}})</small></td>
+												<td  >{{item.Customer}}</td>
+												<td  >{{item.ReqDate| date : "dd.MM.y"}}</td>
+												<td  >
+												<label ng-class="{'text-bg-warning':item.Status==='pending',
+												'text-bg-success':item.Status==='complete','text-bg-danger':item.Status==='failed'}" 
+												class="badge">
+												<span ng-if="item.Status==='failed'">Failed</span>
+													<span ng-if="item.Status==='complete'">Completed</span>
+													<span ng-if="item.Status==='pending'">Pending</span>
+												
+												
+												</label>
+											
+												</td>
+												
+											</tr>
+											<tr class="animate-repeat text-center" ng-if="info.alltests.length === 0">
+      <td colspan="9">No results found...</td>
+    </tr>
+										
+								</tbody>
+</table>
+<dir-pagination-controls  pagination-id="tests"  ></dir-pagination-controls>
+
+		</div>
+		<div class="card-footer bg-light py-2">
+		<!-- <dir-pagination-controls on-page-change="getallinvoices(newPageNumber)" ></dir-pagination-controls> -->
+
+            </div>
+		</div>
+	</div>	
+	
+</div>
+
+
+	  </div>
+    </div>
+  </div>
+  
+   
+   <div class="accordion-item">
+    <h2 class="accordion-header" id="heading8"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8" aria-expanded="true" aria-controls="collapse8">Customer Registered - {{info.customer}}</button></h2>
+    <div class="accordion-collapse collapse" id="collapse8" aria-labelledby="heading8" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+	    	<div class="row">
+	
+		<div class="col-md-12 table-responsive" style="padding-top:10px;">
+		<div class="card card-default">
+		<div class="card-header border-bottom border-200 px-0">
+                  <div class="d-lg-flex justify-content-between">
+                    <div class="row flex-between-center gy-2 px-x1">
+                      <div class="col-auto pe-0">
+                        <h6 class="mb-0">Customers</h6>
+                      </div>
+					   <div class="col-auto"><a class="btn btn-sm btn-falcon-default" ng-click="exportSheetJS(info.allcustomer,'Customer')" >Export</a></div>
+					</div>
+		</div>  
+		</div>
+		<div class="card-body" style="">	
+			<table class="table table-bordered table-condensed">
+					<thead class="table-dark">
+					<tr class="active text-left">
+						<td class="col-md-1"><b>#</b></td>
+						<td class="col-md-3"><b>Name</b></td>
+						<td class="col-md-3"><b>Email</b></td>					
+						<td class="col-md-2"><b>Contact No</b></td>
+							<td class="col-md-3"><b>Address</b></td>
+							
+						
+					</tr>
+					</thead>
+					<tbody>
+					<tr  class="animate-repeat" pagination-id="customer" dir-paginate="i in info.allcustomer | itemsPerPage: custpageSize" current-page="custcurrentPage">
+						<td>{{$index+1+((currentPage-1)*pageSize)}}</td>
+						<td>{{i.Name}}</td>
+						<td>{{i.Email}}</td>
+						<td>{{i.ContactNo}}</td>
+						<td>{{i.Address}}</td>
+						
+					</tr>
+					<tr class="text-center" ng-if="info.allcustomer.length < 1">
+						<td colspan="5">
+							<strong>No results found...</strong>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+				<dir-pagination-controls  pagination-id="customer" ></dir-pagination-controls> 
+				
+		</div>
+		<div class="card-footer bg-light py-2">
+		<!-- <dir-pagination-controls on-page-change="getallinvoices(newPageNumber)" ></dir-pagination-controls> -->
+
+            </div>
+		</div>
+	</div>	
+	
+</div>
+
+
+	  </div>
+    </div>
+  </div>
+  
+</div>
+
+</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-----------------Date Filter-------------->			
+		<div class="row col-sm-12" style="margin-top:10px;" ng-if="false">
+			<div class="form-group">
+				<div class="row" style="padding:5px;">
+					<div class="col-md-3  col-xs-12">
+						<label>FROM Date</label>
+						<!-- <p class="input-group" style="margin:3px;"> -->
+							<!-- <input type="text" class="form-control" style="padding-left:10px;padding-right:10px;" uib-datepicker-popup datetime-picker="MM/dd/yyyy" ng-model="reg.From" is-open="popup1.opened" enable-time="false" required/> -->
+							<!-- <span class="input-group-btn"> -->
+								<!-- <button type="button" class="btn btn-default" ng-click="open1()"><i class="fa fa-calendar"></i></button> -->
+							<!-- </span> -->
+						<!-- </p> -->
+						
+						<div class="input-group ">
+	<input type="text" class="form-control input-sm" ng-click="open1()" uib-datepicker-popup ng-model="reg.From" is-open="popup1.opened" datepicker-options="dateOptions" 
+	close-text="Close"   ng-required="true" >
+	<span class="input-group-btn">
+	<button type="button" class="btn btn-default btn-sm" ng-click="open1()"><i class="fa fa-calendar"></i></button>
+	</span>
+	</div>
+						<small class="text-danger" ng-show="!reg.From">From Date required</small>
+					</div>
+					
+					<div class="col-md-3  col-xs-12">
+						<label>TO Date</label>
+						<div class="input-group ">
+	<input type="text" class="form-control input-sm" ng-click="open2()" uib-datepicker-popup ng-model="reg.To" is-open="popup2.opened" datepicker-options="dateOptions" 
+	close-text="Close"   ng-required="true" >
+	<span class="input-group-btn">
+	<button type="button" class="btn btn-default btn-sm" ng-click="open2()"><i class="fa fa-calendar"></i></button>
+	</span>
+	</div>
+						<small class="text-danger" ng-show="!reg.To">To Date required</small>
+					</div>
+					
+					<div class="col-md-3  col-xs-12">
+						<label>Customer</label>
+						<ui-select id="length" class="form-control" style="padding:0px;border:0px solid #dbd9d9;" ng-model="reg.Customer" name="Status">
+							<ui-select-match placeholder="Customer">
+								<span ng-bind="$select.selected.Name" style="color:#000;"></span>
+							</ui-select-match>
+							<ui-select-choices repeat="item.Id as item in (allcust)">
+								<span ng-bind="item.Name"></span>
+							</ui-select-choices>
+						</ui-select>
+					</div>
+					
+					<div class="col-sm-3  col-xs-12">
+						
+						
+						<button class="btn btn-info" ng-click="datefilter(reg)" style="padding:3px 8px;">Apply</button>
+					
+						<button class="btn btn-danger" ng-click="refreshdata()" data-toggle="tooltip" data-placement="bottom" 
+							title="refresh filter" type="button" style="padding:3px 10px;"><i class="fa fa-refresh"></i></button>
+						
+					</div>
+				</div>
+				<!-- <div class="col-sm-12 col-xs-12" style="padding:5px;">					 -->
+					
+					<!-- <label style="min-height:10px;"></label> -->
+				<!-- <button class="fa fa-print btn btn-info" ng-click="printDiv('printTable')"> Print Records</button> -->
+					<!-- <button class="btn btn-success fa fa-file-excel-o btnshadow" ng-disabled="!(reg.From && reg.To)" ng-csv="exportArray(reg)"  -->
+						<!-- csv-header="head" lazy-load="true" filename="Orderreport.csv" field-separator=","> -->
+						<!-- Export -->
+					<!-- </button>		 -->
+                	
+					
+				<!-- </div> -->
+			</div>
+		</div>
+		
+		
+		
+	</div>
+	</div>
+</div>
+</div>
